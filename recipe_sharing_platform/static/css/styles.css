@@ -1,0 +1,29 @@
+#contact {
+    padding: 20px;
+    background-color: #fff;
+    margin: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+h2 {
+    color: #333;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+ul ul {
+    margin-top: 10px;
+}
+li {
+    margin-bottom: 10px;
+}
+.social-icons a {
+    text-decoration: none;
+    margin-right: 10px;
+    font-size: 20px;
+    color: #333;
+}
+.social-icons a:hover {
+    color: #007BFF;
+}

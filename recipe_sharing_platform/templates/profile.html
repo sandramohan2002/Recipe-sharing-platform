@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Profile</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <!-- Profile Picture -->
+            <div class="text-center">
+                {% if request.user.profile.profile_picture %}
+                    <img src="{{ request.user.profile.profile_picture.url }}" alt="Profile Picture" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
+                {% else %}
+                    <img src="{% static 'images/default_profile.png' %}" alt="Default Profile Picture" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-8">
+            <h2>{{ request.user.username }}</h2>
+            <p><strong>Email:</strong> {{ request.user.email }}</p>
+            <!-- Add other user details here -->
+        </div>
+    </div>
+    
+    <!-- User Actions -->
+    <div class="mt-4">
+        <h3>Actions</h3>
+        <a href="{% url 'update_profile' %}" class="btn btn-primary">Update Profile</a>
+        <a href="{% url 'change_password' %}" class="btn btn-secondary">Change Password</a>
+        <!-- Optionally, you can include a delete account link -->
+        <!-- <a href="{% url 'delete_account' %}" class="btn btn-danger">Delete Account</a> -->
+    </div>
+    
+    <!-- Activity Overview (Optional) -->
+    <div class="mt-4">
+        <h3>Recent Activity</h3>
+        <!-- Example activity list -->
+        <ul class="list-group">
+            <!-- You can loop through user activities here -->
+            <li class="list-group-item">Added a new recipe: <a href="#">Recipe Title</a></li>
+            <li class="list-group-item">Commented on recipe: <a href="#">Recipe Title</a></li>
+            <!-- Add more activity items here -->
+        </ul>
+    </div>
+</div>
+{% endblock %}
