@@ -138,14 +138,7 @@ SITE_ID = 1
 #         'SCOPE': ['profile', 'email'],
 #         'AUTH_PARAMS': {'access_type': 'online'},
 #         'APP': {
-#             'client_id': '722955832169-v6rinh8f4j1go405u3hk1h5m3kmhje13.apps.googleusercontent.com',
-#             'secret': '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',
-#             'key': ''
-#         }
-#     }
-# }
-# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '722955832169-l4nrk23o2p69jc6qmvm923sh46ndap6f.apps.googleusercontent.com'
-# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+#             
 
 LOGIN_URL = 'homepage'
 LOGOUT_URL = 'logout'
