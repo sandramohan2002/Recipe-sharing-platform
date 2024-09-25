@@ -12,7 +12,8 @@ from .models import Recipe, NutritionalInformation
 from .forms import RecipeForm, NutritionalInformationForm
 import random
 from django.shortcuts import render, get_object_or_404
-from django.core.mail import send_mail
+from django.core.mail import send_mail 
+
 
 def signup(request):
     if request.method == 'POST':
@@ -43,22 +44,26 @@ def login(request):
 
         try:
             user = CustomUser.objects.get(email=email)
-            
+            if(user.email=="admin@gmail.com" and user.password=="Admin@123"):
+                return redirect('admin_dashboard')
             # Directly compare plain text passwords
-            if user.password == password:
-                # request.session['user_id'] = user.id
-                return redirect('homepage')
             else:
-                return render(request, 'login.html', {'error': 'Incorrect password'})
+                if user.password == password:
+                    # request.session['user_id'] = user.id
+                    return redirect('homepage')
+                else:
+                    return render(request, 'login.html', {'error': 'Incorrect password'})
                 
         except CustomUser.DoesNotExist:
             return render(request, 'login.html', {'error': 'Email does not exist'})
         
 
+
     return render(request, 'login.html')
 
 
 user_pins = {}
+
 
 # Forgot password view
 def forgot_password(request):
@@ -84,6 +89,7 @@ def forgot_password(request):
             messages.error(request, 'Invalid email address.')
     return render(request, 'forgot_password.html')
 
+
 # Verify code view
 def verify_code(request, email):
     if request.method == 'POST':
@@ -97,6 +103,7 @@ def verify_code(request, email):
             messages.error(request, 'Invalid code. Please try again.')
 
     return render(request, 'verifycode.html',{'email': email})
+
 
 # Reset password view
 def reset_password(request, email):
@@ -132,13 +139,11 @@ def logout(request):
 def homepage(request):
     return render(request, 'homepage.html')
 
+
 @login_required(login_url='login')
 def recipe(request):
     recipes = Recipe.objects.all()  # Fetch all recipes
     return render(request, 'recipe.html', {'recipes': recipes})
-
-
-
 
 def about(request):
     return render(request, 'about.html')
@@ -203,6 +208,7 @@ def usereditrecipe(request, recipe_id):
         'nutritional_info_form': nutritional_info_form,
         'recipe': recipe
     })
+
 
 
 

@@ -105,8 +105,10 @@
             const password = document.getElementById('password1').value;
             const confirmPassword = document.getElementById('password2').value;
 
-            if (username === "") {
-                alert("Name must be filled out");
+            // Name validation: must contain only letters and spaces
+            const namePattern = /^[A-Za-z\s]+$/;
+            if (!namePattern.test(username.trim())) {
+                alert("Name can only contain letters and spaces");
                 return false;
             }
 
@@ -163,7 +165,7 @@
 
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" id="name" name="name" required>
+                <input type="text" id="name" name="name" required pattern="[A-Za-z\s]+" title="Name can only contain letters and spaces">
             </div>
 
             <div class="form-group">
