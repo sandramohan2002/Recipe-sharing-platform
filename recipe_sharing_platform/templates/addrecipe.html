@@ -1,11 +1,12 @@
 {% load static %}
+{% include 'navbar.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Recipe</title>
-    <link rel="stylesheet" href="{% static 'styles.css' %}"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,36 +14,52 @@
             margin: 0;
             padding: 20px;
         }
+
+        /* Form styling */
         h1 {
             text-align: center;
             color: #343a40;
         }
+
         form {
-            background: white;
+            background-color: white;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             max-width: 600px;
-            margin: auto;
+            margin: 20px auto;
         }
+
         .mb-3 {
             margin-bottom: 15px;
         }
+
         .form-label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
+            color: #495057;
         }
+
         input[type="text"],
         input[type="file"],
         select,
         textarea {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             border: 1px solid #ced4da;
             border-radius: 4px;
             box-sizing: border-box;
+            font-size: 14px;
         }
+
+        input[type="text"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #80bdff;
+            outline: none;
+        }
+
         .alert {
             padding: 10px;
             background-color: #f8d7da;
@@ -51,107 +68,153 @@
             border-radius: 4px;
             margin-bottom: 15px;
         }
+
         .btn {
             background-color: #28a745;
             color: white;
             border: none;
-            padding: 10px 15px;
+            padding: 12px;
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            width: 100%;
         }
+
         .btn:hover {
             background-color: #218838;
+        }
+
+        small {
+            display: block;
+            margin-top: 5px;
+            color: #6c757d;
+            font-size: 12px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            form {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .navbar {
+                flex-direction: column;
+            }
+
+            .navbar-menu {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
+
     <h1>Add a New Recipe</h1>
     
     <form method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
         {% csrf_token %}
         
-        <!-- Display form errors if there are any -->
-        {% if recipe_form.errors or nutritional_info_form.errors %}
-            <div class="alert alert-danger">
-                <ul>
-                    {% for field in recipe_form %}
-                        {% if field.errors %}
-                            <li><strong>{{ field.label }}:</strong> {{ field.errors|join:", " }}</li>
-                        {% endif %}
-                    {% endfor %}
-                    {% for field in nutritional_info_form %}
-                        {% if field.errors %}
-                            <li><strong>{{ field.label }}:</strong> {{ field.errors|join:", " }}</li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </div>
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
         {% endif %}
         
-        <!-- Recipe Form Fields -->
         <div class="mb-3">
-            <label for="id_recipename" class="form-label">Recipe Name</label>
-            {{ recipe_form.recipename }}
+            <label for="recipename" class="form-label">Recipe Name</label>
+            <input type="text" id="recipename" name="recipename" value="{{ recipename }}" required>
         </div>
 
         <div class="mb-3">
-            <label for="id_ingredients" class="form-label">Ingredients</label>
-            {{ recipe_form.ingredients }}
+            <label for="ingredients" class="form-label">Ingredients</label>
+            <select id="ingredients" name="ingredients" multiple required>
+                {% for ingredient in ingredient_list %}
+                    <option value="{{ ingredient.ingredient_id }}">{{ ingredient.name }}</option>
+                {% endfor %}
+            </select>
         </div>
 
         <div class="mb-3">
-            <label for="id_instructions" class="form-label">Instructions</label>
-            {{ recipe_form.instructions }}
+            <label for="instructions" class="form-label">Instructions</label>
+            <textarea id="instructions" name="instructions" rows="5" required>{{ instructions }}</textarea>
         </div>
 
         <div class="mb-3">
-            <label for="id_image" class="form-label">Recipe Image</label>
-            {{ recipe_form.image }}
+            <label for="image" class="form-label">Recipe Image</label>
+            <input type="file" id="image" name="image" required>
         </div>
 
         <div class="mb-3">
-            <label for="id_tags" class="form-label">Tags</label>
-            {{ recipe_form.tags }}
+            <label for="tags" class="form-label">Tags</label>
+            <input type="text" id="tags" name="tags" value="{{ tags }}" required>
         </div>
 
         <div class="mb-3">
-            <label for="id_category" class="form-label">Category</label>
-            {{ recipe_form.category }}
+            <label for="category" class="form-label">Category</label>
+            <select id="category" name="category" required>
+                <option value="">Select a category</option>
+                <option value="desserts">Desserts</option>
+                <option value="cuisine">Cuisine</option>
+            </select>
         </div>
 
         <div class="mb-3">
-            <label for="id_ratings" class="form-label">Ratings</label>
-            {{ recipe_form.ratings }}
+            <label for="ratings" class="form-label">Ratings</label>
+            <select id="ratings" name="ratings" required>
+                <option value="">Select a rating</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
         </div>
 
-        <!-- Nutritional Information Form Fields -->
+        <h2>Nutritional Information</h2>
+
         <div class="mb-3">
-            <h2>Nutritional Information</h2>
-            <div>
-                <label for="id_calories" class="form-label">Calories</label>
-                {{ nutritional_info_form.calories }}
-            </div>
-            <div>
-                <label for="id_protein" class="form-label">Protein</label>
-                {{ nutritional_info_form.protein }}
-            </div>
-            <div>
-                <label for="id_fat" class="form-label">Fat</label>
-                {{ nutritional_info_form.fat }}
-            </div>
-            <div>
-                <label for="id_carbohydrates" class="form-label">Carbohydrates</label>
-                {{ nutritional_info_form.carbohydrates }}
-            </div>
-            <div>
-                <label for="id_sugar" class="form-label">Sugar</label>
-                {{ nutritional_info_form.sugar }}
-            </div>
-            <div>
-                <label for="id_fiber" class="form-label">Fiber</label>
-                {{ nutritional_info_form.fiber }}
-            </div>
+            <label for="calories" class="form-label">Calories</label>
+            <input type="text" id="calories" name="calories" value="{{ calories }}" required>
+            <small>Calories provide a measure of how much energy you get from a serving of this recipe.</small>
+        </div>
+
+        <div class="mb-3">
+            <label for="protein" class="form-label">Protein</label>
+            <input type="text" id="protein" name="protein" value="{{ protein }}" required>
+            <small>Protein helps build and repair tissues and is an essential part of any diet.</small>
+        </div>
+
+        <div class="mb-3">
+            <label for="fat" class="form-label">Fat</label>
+            <input type="text" id="fat" name="fat" value="{{ fat }}" required>
+            <small>Fat provides energy and supports cell growth. Enter the total fat content in grams.</small>
+        </div>
+
+        <div class="mb-3">
+            <label for="carbohydrates" class="form-label">Carbohydrates</label>
+            <input type="text" id="carbohydrates" name="carbohydrates" value="{{ carbohydrates }}" required>
+            <small>Carbohydrates are the body's main source of energy. Enter the amount in grams.</small>
+        </div>
+
+        <div class="mb-3">
+            <label for="sugar" class="form-label">Sugar</label>
+            <input type="text" id="sugar" name="sugar" value="{{ sugar }}" required>
+            <small>Enter the total sugar content. High sugar intake may lead to health issues.</small>
+        </div>
+
+        <div class="mb-3">
+            <label for="fiber" class="form-label">Fiber</label>
+            <input type="text" id="fiber" name="fiber" value="{{ fiber }}" required>
+            <small>Fiber aids in digestion and is important for maintaining a healthy digestive system.</small>
         </div>
 
         <div class="d-grid gap-2">
@@ -161,21 +224,20 @@
 
     <script>
         function validateForm() {
-            const recipename = document.getElementById('id_recipename').value.trim();
-            const ingredients = document.getElementById('id_ingredients').value.trim();
-            const instructions = document.getElementById('id_instructions').value.trim();
-            const image = document.getElementById('id_image').value;
-            const tags = document.getElementById('id_tags').value.trim();
-            const category = document.getElementById('id_category').value;
-            const ratings = document.getElementById('id_ratings').value;
+            const recipename = document.getElementById('recipename').value.trim();
+            const ingredients = document.getElementById('ingredients').value.trim();
+            const instructions = document.getElementById('instructions').value.trim();
+            const image = document.getElementById('image').value;
+            const tags = document.getElementById('tags').value.trim();
+            const category = document.getElementById('category').value;
+            const ratings = document.getElementById('ratings').value;
 
-            // Validation logic
             if (recipename === "") {
                 alert("Please enter a recipe name.");
                 return false;
             }
             if (ingredients === "") {
-                alert("Please enter the ingredients.");
+                alert("Please select at least one ingredient.");
                 return false;
             }
             if (instructions === "") {
@@ -193,11 +255,7 @@
                 return false;
             }
             if (tags === "") {
-                alert("Please enter tags.");
-                return false;
-            }
-            if (!/^[a-zA-Z0-9, ]*$/.test(tags)) {
-                alert("Tags should be comma-separated.");
+                alert("Please enter at least one tag.");
                 return false;
             }
             if (category === "") {
@@ -208,8 +266,7 @@
                 alert("Please select a rating.");
                 return false;
             }
-
-            return true;
+            return true; // Form is valid
         }
     </script>
 </body>

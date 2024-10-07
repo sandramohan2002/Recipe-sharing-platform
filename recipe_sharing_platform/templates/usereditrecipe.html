@@ -40,6 +40,18 @@
         button:hover {
             background-color: #0056b3;
         }
+        .remove-ingredient, .remove-instruction {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            margin-left: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .remove-ingredient:hover, .remove-instruction:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 <body>
@@ -55,14 +67,34 @@
             <label for="id_recipename">Recipe Name</label>
             {{ recipe_form.recipename }}
         </div>
+        
         <div class="form-group">
             <label for="id_ingredients">Ingredients</label>
-            {{ recipe_form.ingredients }}
+            <div id="ingredient-list">
+                <!-- Loop through existing ingredients and create input fields -->
+                {% for ingredient in recipe_form.ingredients.value.splitlines %}
+                    <div class="ingredient-item">
+                        <input type="text" name="ingredients[]" value="{{ ingredient }}" class="form-control mb-2" />
+                        <button type="button" class="remove-ingredient">Remove</button>
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="button" id="add-ingredient" class="btn btn-secondary mt-2">Add Ingredient</button>
         </div>
+        
         <div class="form-group">
-            <label for="id_instructions">Instructions</label>
-            {{ recipe_form.instructions }}
+            <label>Instructions</label>
+            <div id="instructions-list">
+                {% for instruction in recipe_form.instructions.value.splitlines %}
+                    <div class="instruction-item">
+                        <input type="text" name="instructions[]" value="{{ instruction }}" class="form-control mb-2" placeholder="Step..." />
+                        <button type="button" class="remove-instruction">Remove</button>
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="button" id="add-instruction" class="btn btn-secondary mt-2">Add Instruction</button>
         </div>
+        
         <div class="form-group">
             <label for="id_image">Recipe Image</label>
             {{ recipe_form.image }}
@@ -103,5 +135,52 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.getElementById('add-ingredient').addEventListener('click', function () {
+        const ingredientList = document.getElementById('ingredient-list');
+        const newIngredient = document.createElement('div');
+        newIngredient.classList.add('ingredient-item');
+        newIngredient.innerHTML = `
+            <input type="text" name="ingredients[]" class="form-control mb-2" />
+            <button type="button" class="remove-ingredient">Remove</button>
+        `;
+        ingredientList.appendChild(newIngredient);
+
+        // Add event listener to the new remove button
+        newIngredient.querySelector('.remove-ingredient').addEventListener('click', function () {
+            newIngredient.remove();
+        });
+    });
+
+    document.getElementById('add-instruction').addEventListener('click', function () {
+        const instructionsList = document.getElementById('instructions-list');
+        const newInstruction = document.createElement('div');
+        newInstruction.classList.add('instruction-item');
+        newInstruction.innerHTML = `
+            <input type="text" name="instructions[]" class="form-control mb-2" placeholder="Step..." />
+            <button type="button" class="remove-instruction">Remove</button>
+        `;
+        instructionsList.appendChild(newInstruction);
+
+        // Add event listener to the new remove button
+        newInstruction.querySelector('.remove-instruction').addEventListener('click', function () {
+            newInstruction.remove();
+        });
+    });
+
+    // Add event listeners to the existing remove buttons
+    document.querySelectorAll('.remove-ingredient').forEach(function (button) {
+        button.addEventListener('click', function () {
+            button.parentElement.remove();
+        });
+    });
+
+    document.querySelectorAll('.remove-instruction').forEach(function (button) {
+        button.addEventListener('click', function () {
+            button.parentElement.remove();
+        });
+    });
+</script>
 </body>
 </html>

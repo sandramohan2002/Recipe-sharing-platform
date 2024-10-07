@@ -8,13 +8,14 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
 from .forms import CreateUserForm
-from .models import Recipe, NutritionalInformation
-from .forms import RecipeForm, NutritionalInformationForm
+from .models import Recipe, NutritionalInformation,Ingredient,Category,Rating,Review,Comment
+from .forms import RecipeForm, NutritionalInformationForm,ProfileForm,IngredientForm,CategoryForm,CreateUserForm
 import random
+from django.db.models import Avg
 from django.shortcuts import render, get_object_or_404
 from django.core.mail import send_mail 
 
-
+#USER DASHBOARD
 def signup(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -34,6 +35,7 @@ def signup(request):
             return redirect('login')  # Redirect to homepage after signup
     return render(request, 'signup.html')
 
+
 def login(request):
     if request.method == 'POST':
         email = request.POST.get('Email')
@@ -49,21 +51,17 @@ def login(request):
             # Directly compare plain text passwords
             else:
                 if user.password == password:
-                    # request.session['user_id'] = user.id
-                    return redirect('homepage')
+                    request.session['username'] = user.name 
+                    request.session['email']=user.email
+                    request.session['id']=user.id
+                    return render(request,'homepage.html')
                 else:
                     return render(request, 'login.html', {'error': 'Incorrect password'})
                 
         except CustomUser.DoesNotExist:
             return render(request, 'login.html', {'error': 'Email does not exist'})
-        
-
-
     return render(request, 'login.html')
-
-
 user_pins = {}
-
 
 # Forgot password view
 def forgot_password(request):
@@ -122,70 +120,110 @@ def reset_password(request, email):
                 messages.error(request, 'Invalid user.')
         else:
             messages.error(request, 'Passwords do not match.')
-
     return render(request, 'resetpassword.html',{'email': email})
 
 
 
-
 def logout(request):
-    #logout(request)
+    #auth_logout(request) 
+    request.session.flush()
     return redirect('login')
-   
 
 
-
-@login_required(login_url='login')
+#HOMEPAGE VIEW
 def homepage(request):
     return render(request, 'homepage.html')
 
 
-@login_required(login_url='login')
 def recipe(request):
     recipes = Recipe.objects.all()  # Fetch all recipes
+    #recipes = Recipe.objects.filter(status='approved') # only showing the recipes that are approved
     return render(request, 'recipe.html', {'recipes': recipes})
 
 def about(request):
-    return render(request, 'about.html')
-
-@login_required(login_url='login')
+    return render(request, 'about.html' )
+#ABOUT VIEW
 def contact(request):
     return render(request, 'contact.html')
 
-@login_required(login_url='login')
 def addrecipe(request):
     if request.method == 'POST':
-        recipe_form = RecipeForm(request.POST, request.FILES)
-        nutritional_info_form = NutritionalInformationForm(request.POST)
+        recipename = request.POST.get('recipename')
+        ingredients = request.POST.get('ingredients')
+        instructions = request.POST.get('instructions')
+        image = request.FILES.get('image')
+        tags = request.POST.get('tags')
+        category = request.POST.get('category')
+        ratings = request.POST.get('ratings')
 
-        if recipe_form.is_valid() and nutritional_info_form.is_valid():
-            recipe = recipe_form.save()  # Save the recipe first
-            nutritional_info = nutritional_info_form.save(commit=False)  # Do not save yet
-            nutritional_info.recipe = recipe  # Link it to the recipe
-            nutritional_info.save()  # Now save the nutritional info
+        # Handle nutritional information
+        calories = request.POST.get('calories')
+        protein = request.POST.get('protein')
+        fat = request.POST.get('fat')
+        carbohydrates = request.POST.get('carbohydrates')
+        sugar = request.POST.get('sugar')
+        fiber = request.POST.get('fiber')
 
-            messages.success(request, 'Recipe added successfully!')
-            return redirect('recipe_detail', recipe_id=recipe.id)
-    else:
-        recipe_form = RecipeForm()
-        nutritional_info_form = NutritionalInformationForm()
+        # Validate fields
+        if not all([recipename, ingredients, instructions, image, tags, category, ratings, calories, protein, fat, carbohydrates, sugar, fiber]):
+            return render(request, 'add_recipe.html', {
+                'error': 'All fields are required!',
+                'recipename': recipename,
+                'ingredients': ingredients,
+                'instructions': instructions,
+                'tags': tags,
+                'category': category,
+                'ratings': ratings,
+                'calories': calories,
+                'protein': protein,
+                'fat': fat,
+                'carbohydrates': carbohydrates,
+                'sugar': sugar,
+                'fiber': fiber,
+            })
 
-    return render(request, 'addrecipe.html', {
-        'recipe_form': recipe_form,
-        'nutritional_info_form': nutritional_info_form,
-    })
+        # Save Recipe
+        recipe = Recipe.objects.create(
+            recipename=recipename,
+            ingredients=ingredients,
+            instructions=instructions,
+            image=image,
+            tags=tags,
+            category=category,
+            ratings=ratings,
+        )
 
+        # Save Nutritional Information
+        NutritionalInformation.objects.create(
+            recipe=recipe,
+            calories=calories,
+            protein=protein,
+            fat=fat,
+            carbohydrates=carbohydrates,
+            sugar=sugar,
+            fiber=fiber,
+        )
+
+        return redirect('success_page')  # Redirect to a success page or recipe list
+
+    return render(request, 'addrecipe.html')
 
 
 def recipe_detail(request, id):
-    recipe = get_object_or_404(Recipe, id=id)
-    nutritional_info = recipe.nutritional_info  # Accessing related nutritional info
+    recipe = Recipe.objects.get(id=id)
+    average_rating = recipe.ratings.aggregate(Avg('rating'))['rating__avg']
+    total_ratings = recipe.ratings.count()
+
+    # Assuming nutritional info is related as well
+    nutritional_info = recipe.nutritional_info
+
     context = {
         'recipe': recipe,
+        'average_rating': average_rating,
+        'total_ratings': total_ratings,
         'nutritional_info': nutritional_info,
     }
-    #return render(request, 'recipe.html', context)
-    return render(request, 'recipe_detail.html', {'recipe': recipe})
+    return render(request, 'recipe_detail.html', context)
 
 #for edting recipes on recipe page for user
 def usereditrecipe(request, recipe_id):
@@ -209,57 +247,34 @@ def usereditrecipe(request, recipe_id):
         'recipe': recipe
     })
 
+def profile_view(request,user_id):
+    user=CustomUser.objects.get(id=user_id)
+    return render(request, 'profile.html', {'user': user})
+    
 
+def profile_edit(request,user_id):
+    custom=CustomUser.objects.get(id=user_id)
+    return render(request, 'edit_profile.html',{'user':custom})
+    #return render(request, 'profile.html')
 
-
-def profile_view(request):
-    # Your view logic here
-    return render(request, 'profile.html')
-
-# Admin dashboard view
+def profile_change(request):
+    if request.method == 'POST':
+        username=request.POST.get('name')
+        email=request.POST.get('email')
+        userid=request.POST.get('id')
+        user=CustomUser.objects.get(id=userid)
+        if user:
+            user.name=username
+            user.email=email
+            user.save()
+            request.session['username'] = username
+            customer=CustomUser.objects.get(id=userid)
+            return render(request,'profile.html',{'user':customer})
+        
+# ADMIN DASHBOARD VIEW
 #@login_required(login_url='login')
-@login_required(login_url='login')
 def admin_dashboard(request):
-    recipes = Recipe.objects.all() # List all recipes
-    users = CustomUser.objects.all() # List all users
-    context = {'recipes': recipes, 'users': users}
-    return render(request, 'admin_dashboard.html', context)
-#recipe_manager_dashboard
-def recipe_manager_dashboard(request):
-    return render(request, 'recipe_manager_dashboard.html')
-
-
-@login_required(login_url='login')
-def add_recipe(request):
-    if request.method == 'POST':
-        form = RecipeForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('admin_dashboard')
-    else:
-        form = RecipeForm()
-    return render(request, 'add_recipe.html', {'form': form})
-
-#code for edit_recipe in admin dashboard
-@login_required(login_url='login')
-def edit_recipe(request, recipe_id):
-    recipe = get_object_or_404(Recipe, pk=recipe_id)
-    if request.method == 'POST':
-        form = RecipeForm(request.POST, request.FILES, instance=recipe)
-        if form.is_valid():
-            form.save()
-            return redirect('admin_dashboard')
-    else:
-        form = RecipeForm(instance=recipe)
-    return render(request, 'edit_recipe.html', {'form': form, 'recipe': recipe})
-
-#code for delete_recipe in admin dashboard
-@login_required(login_url='login')
-def delete_recipe(request, recipe_id):
-    recipe = get_object_or_404(Recipe, pk=recipe_id)
-    recipe.delete()
-    return redirect('admin_dashboard')
-    #return render(request, 'admin_dashboard.html')
+    return render(request, 'admin_dashboard.html')
 
 def block_user(request, user_id):
     user = get_object_or_404(CustomUser, id=user_id)
@@ -273,3 +288,152 @@ def unblock_user(request, user_id):
     user.save()
     return redirect('admin_dashboard')  # Adjust the redirect as necessary
 
+
+#RECIPE MANAGER DASHBOARD VIEW
+def recipe_manager_dashboard(request):
+    recipes = Recipe.objects.all() # List all recipes
+    users = CustomUser.objects.all() # List all users
+    #pending_recipes = Recipe.objects.filter(status='pending')  # List pending recipes
+    context = {'recipes': recipes, 'users': users}##########
+    return render(request, 'recipe_manager_dashboard.html',context)
+#code for view_user in recipe manager dashboard
+
+#code for add_recipe in recipe manager dashboard
+def add_recipe(request):
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('recipe_manager_dashboard')
+    else:
+        form = RecipeForm()
+    return render(request, 'add_recipe.html', {'form': form})
+
+#code for edit_recipe in recipe manager dashboard
+def edit_recipe(request, recipe_id):
+    recipe = get_object_or_404(Recipe, pk=recipe_id)
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, request.FILES, instance=recipe)
+        if form.is_valid():
+            form.save()
+            return redirect('recipe_manager_dashboard')
+    else:
+        form = RecipeForm(instance=recipe)
+    return render(request, 'edit_recipe.html', {'form': form, 'recipe': recipe})
+
+#code for delete_recipe in recipe manager dashboard
+def delete_recipe(request, recipe_id):
+    recipe = get_object_or_404(Recipe, pk=recipe_id)
+    recipe.delete()
+    return redirect('recipe_manager_dashboard')
+
+#def pending_recipes(request):
+   # recipes = Recipe.objects.filter(status='pending')
+  #  return render(request, 'pending_recipes.html', {'recipes': recipes})
+
+#def approve_recipe(request, recipe_id):
+ #   recipe = get_object_or_404(Recipe, id=recipe_id)
+    #recipe.status = 'approved'
+    #recipe.save()
+    #messages.success(request, "Recipe approved successfully!")
+    #return redirect('pending_recipes')
+
+#def reject_recipe(request, recipe_id):
+    #recipe = get_object_or_404(Recipe, id=recipe_id)
+    #recipe.status = 'rejected'
+   # recipe.save()
+   # messages.success(request, "Recipe rejected successfully!")
+   # return redirect('pending_recipes')  # Redirect to pending recipes view
+
+# View to list all ingredients
+def ingredient_list(request):
+    ingredients = Ingredient.objects.all()
+    return render(request, 'ingredient_list.html', {'ingredients': ingredients})
+
+# # View to add a new ingredient
+# def add_ingredient(request):
+#     if request.method == 'POST':
+#         form = IngredientForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('ingredient_list')  # Redirect to the list view after adding
+#     else:
+#         form = IngredientForm()
+#     return render(request, 'add_ingredient.html', {'form': form})
+
+# View to edit an existing ingredient
+# def edit_ingredient(request, pk):
+#     ingredient = get_object_or_404(Ingredient, pk=pk)
+#     if request.method == 'POST':
+#         form = IngredientForm(request.POST, instance=ingredient)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('ingredient_list')
+#     else:
+#         form = IngredientForm(instance=ingredient)
+#     return render(request, 'edit_ingredient.html', {'form': form, 'ingredient': ingredient})
+
+# def category_list(request):
+#     categories = Category.objects.all()
+#     return render(request, 'category_list.html', {'categories': categories})
+
+# def add_category(request):
+#     if request.method == "POST":
+#         form = CategoryForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('category-list')  # Replace with your category list URL name
+#     else:
+#         form = CategoryForm()
+#     return render(request, 'add_category.html', {'form': form})
+
+# def edit_category(request, pk):
+#     category = get_object_or_404(Category, pk=pk)
+#     if request.method == "POST":
+#         form = CategoryForm(request.POST, instance=category)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('category-list')  # Replace with your category list URL name
+#     else:
+#         form = CategoryForm(instance=category)
+#     return render(request, 'edit_category.html', {'form': form})
+
+# def delete_category(request, pk):
+#     category = get_object_or_404(Category, pk=pk)
+#     category.delete()
+#     return redirect('category-list')  # Replace with your category list URL name
+
+#########################################################
+@login_required
+def rate_recipe(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+    user_rating = request.POST.get('rating')
+
+    # Check if the user has already rated this recipe
+    rating, created = Rating.objects.get_or_create(user=request.user, recipe=recipe)
+    rating.rating = user_rating
+    rating.save()
+
+    return redirect('recipe_detail', recipe_id=recipe.id)
+
+@login_required
+def review_recipe(request, recipe_id):
+    recipe = get_object_or_404(Recipe, id=recipe_id)
+    review_text = request.POST.get('review')
+
+    # Create a new review
+    review = Review.objects.create(user=request.user, recipe=recipe, review_text=review_text)
+    review.save()
+
+    return redirect('recipe_detail', recipe_id=recipe.id)
+
+@login_required
+def comment_on_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id)
+    comment_text = request.POST.get('comment')
+
+    # Create a new comment
+    comment = Comment.objects.create(user=request.user, review=review, comment_text=comment_text)
+    comment.save()
+
+    return redirect('recipe_detail', recipe_id=review.recipe.id)

@@ -1,4 +1,5 @@
 {% load static %}
+{% include 'navbar.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,27 +46,6 @@
     </style>
 </head>
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-light">
-    <a class="navbar-brand" href="#">
-        <img src="{% static 'images/logoo.png' %}" alt="Logo" width=150px></a>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{%url 'homepage' %}">HOME</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{%url 'recipe' %}">RECIPES</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">EVENTS</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">PROFILE</a>
-            </li>
-        </ul>
-    </div>
-</nav>
 
 <div class="about-section">
     <div class="about-text">
