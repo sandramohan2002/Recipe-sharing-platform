@@ -97,79 +97,94 @@
             }
         }
     </style>
+    <script>
+        function updateIngredients() {
+            const categoryId = document.getElementById('category').value;
+            const ingredientsDropdown = document.getElementById('ingredients');
+
+            // Clear the ingredients dropdown
+            ingredientsDropdown.innerHTML = '<option value="">Select an ingredient</option>';
+
+            if (categoryId) {
+                fetch(`/get-ingredients/${categoryId}/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Populate the ingredients dropdown with the returned ingredients
+                        data.ingredients.forEach(ingredient => {
+                            const option = document.createElement('option');
+                            option.value = ingredient.id;
+                            option.textContent = ingredient.name;
+                            ingredientsDropdown.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching ingredients:', error));
+            }
+        }
+    </script>
 </head>
 <body>
 
     <div class="form-container">
         <h1>Add New Recipe</h1>
 
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" action="{% url 'add_recipe' %}" enctype="multipart/form-data">
             {% csrf_token %}
 
             <!-- Recipe Name -->
             <div class="form-group">
-                <label for="{{ form.recipename.id_for_label }}">Recipe Name:</label>
-                {{ form.recipename }}
-                {% for error in form.recipename.errors %}
-                    <p class="error">{{ error }}</p>
-                {% endfor %}
-            </div>
-
-            <!-- Ingredients -->
-            <div class="form-group">
-                <label for="{{ form.ingredients.id_for_label }}">Ingredients:</label>
-                {{ form.ingredients }}
-                {% for error in form.ingredients.errors %}
-                    <p class="error">{{ error }}</p>
-                {% endfor %}
-            </div>
-
-            <!-- Instructions -->
-            <div class="form-group">
-                <label for="{{ form.instructions.id_for_label }}">Instructions:</label>
-                {{ form.instructions }}
-                {% for error in form.instructions.errors %}
-                    <p class="error">{{ error }}</p>
-                {% endfor %}
-            </div>
-
-            <!-- Tags -->
-            <div class="form-group">
-                <label for="{{ form.tags.id_for_label }}">Tags:</label>
-                {{ form.tags }}
-                {% for error in form.tags.errors %}
-                    <p class="error">{{ error }}</p>
-                {% endfor %}
-            </div>
-
-            <!-- Nutritional Info -->
-            <div class="form-group">
-                <label for="{{ form.nutritionalInfo.id_for_label }}">Nutritional Info:</label>
-                {{ form.nutritionalInfo }}
-                {% for error in form.nutritionalInfo.errors %}
-                    <p class="error">{{ error }}</p>
-                {% endfor %}
+                <label for="recipename">Recipe Name:</label>
+                <input type="text" name="recipename" id="recipename" required>
+                <p class="error">{{ form.recipename.errors }}</p>
             </div>
 
             <!-- Category -->
             <div class="form-group">
-                <label for="{{ form.category.id_for_label }}">Category:</label>
-                {{ form.category }}
-                {% for error in form.category.errors %}
-                    <p class="error">{{ error }}</p>
-                {% endfor %}
+                <label for="category">Category:</label>
+                <select name="category" id="category" required onchange="updateIngredients()">
+                    <option value="">Select a category</option>
+                    {% for category in categories %}
+                        <option value="{{ category.category_id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+                <p class="error">{{ form.category.errors }}</p>
+            </div>
+
+            <!-- Ingredients -->
+            <div class="form-group">
+                <label for="ingredients">Ingredients:</label>
+                <select name="ingredients" id="ingredients" required>
+                    <option value="">Select an ingredient</option>
+                </select>
+                <p class="error">{{ form.ingredients.errors }}</p>
+            </div>
+
+            <!-- Instructions -->
+            <div class="form-group">
+                <label for="instructions">Instructions:</label>
+                <textarea name="instructions" id="instructions" required></textarea>
+                <p class="error">{{ form.instructions.errors }}</p>
+            </div>
+
+            <!-- Tags -->
+            <div class="form-group">
+                <label for="tags">Tags:</label>
+                <input type="text" name="tags" id="tags" required>
+                <p class="error">{{ form.tags.errors }}</p>
+            </div>
+
+            <!-- Nutritional Info -->
+            <div class="form-group">
+                <label for="nutritionalInfo">Nutritional Info:</label>
+                <textarea name="nutritionalInfo" id="nutritionalInfo" required></textarea>
+                <p class="error">{{ form.nutritionalInfo.errors }}</p>
             </div>
 
             <!-- Ratings -->
             <div class="form-group">
-                <label for="{{ form.ratings.id_for_label }}">Ratings:</label>
-                {{ form.ratings }}
-                {% for error in form.ratings.errors %}
-                    <p class="error">{{ error }}</p>
-                {% endfor %}
+                <label for="ratings">Ratings:</label>
+                <input type="number" name="ratings" id="ratings" min="1" max="5" required>
+                <p class="error">{{ form.ratings.errors }}</p>
             </div>
-
-            
 
             <button type="submit">Add Recipe</button>
         </form>
@@ -178,3 +193,4 @@
     </div>
 
 </body>
+</html>

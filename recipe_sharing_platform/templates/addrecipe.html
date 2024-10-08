@@ -15,7 +15,6 @@
             padding: 20px;
         }
 
-        /* Form styling */
         h1 {
             text-align: center;
             color: #343a40;
@@ -84,6 +83,18 @@
             background-color: #218838;
         }
 
+        .add-btn {
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            padding: 6px 10px; 
+            font-size: 12px; 
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-block;
+            width: auto; 
+        }
+
         small {
             display: block;
             margin-top: 5px;
@@ -91,7 +102,33 @@
             font-size: 12px;
         }
 
-        /* Responsive Design */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+
+        .measurement-input,
+        .weight-input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .blurred {
+            filter: blur(4px);
+        }
+
         @media (max-width: 768px) {
             form {
                 padding: 15px;
@@ -135,22 +172,43 @@
         </div>
 
         <div class="mb-3">
-            <label for="ingredients" class="form-label">Ingredients</label>
-            <select id="ingredients" name="ingredients" multiple required>
-                {% for ingredient in ingredient_list %}
+            <label for="category" class="form-label">Category</label>
+            <select id="category" name="category" required>
+                <option value="">Select a category</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="nonvegetarian">Non-Vegetarian</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="ingredients" class="form-label">Select Ingredients</label>
+            <select id="ingredients" name="ingredients" multiple required onchange="addIngredientRow()">
+                {% for ingredient in ingredients %}
                     <option value="{{ ingredient.ingredient_id }}">{{ ingredient.name }}</option>
                 {% endfor %}
             </select>
         </div>
 
-        <div class="mb-3">
-            <label for="instructions" class="form-label">Instructions</label>
-            <textarea id="instructions" name="instructions" rows="5" required>{{ instructions }}</textarea>
-        </div>
+        <!-- New Table for Measurement and Weight -->
+        <table id="ingredientTable">
+            <thead>
+                <tr>
+                    <th>Ingredient</th>
+                    <th>Measurement</th>
+                    <th>Weight</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be dynamically added here -->
+            </tbody>
+        </table>
 
         <div class="mb-3">
-            <label for="image" class="form-label">Recipe Image</label>
-            <input type="file" id="image" name="image" required>
+            <label for="instructions" class="form-label">Instructions</label>
+            <div id="instructionsContainer">
+                <textarea id="instructions" name="instructions" rows="3" placeholder="Step 1" required></textarea>
+            </div>
+            <button type="button" class="btn add-btn" onclick="addStep()">Add Step</button>
         </div>
 
         <div class="mb-3">
@@ -159,62 +217,8 @@
         </div>
 
         <div class="mb-3">
-            <label for="category" class="form-label">Category</label>
-            <select id="category" name="category" required>
-                <option value="">Select a category</option>
-                <option value="desserts">Desserts</option>
-                <option value="cuisine">Cuisine</option>
-            </select>
-        </div>
-
-        <div class="mb-3">
-            <label for="ratings" class="form-label">Ratings</label>
-            <select id="ratings" name="ratings" required>
-                <option value="">Select a rating</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-        </div>
-
-        <h2>Nutritional Information</h2>
-
-        <div class="mb-3">
-            <label for="calories" class="form-label">Calories</label>
-            <input type="text" id="calories" name="calories" value="{{ calories }}" required>
-            <small>Calories provide a measure of how much energy you get from a serving of this recipe.</small>
-        </div>
-
-        <div class="mb-3">
-            <label for="protein" class="form-label">Protein</label>
-            <input type="text" id="protein" name="protein" value="{{ protein }}" required>
-            <small>Protein helps build and repair tissues and is an essential part of any diet.</small>
-        </div>
-
-        <div class="mb-3">
-            <label for="fat" class="form-label">Fat</label>
-            <input type="text" id="fat" name="fat" value="{{ fat }}" required>
-            <small>Fat provides energy and supports cell growth. Enter the total fat content in grams.</small>
-        </div>
-
-        <div class="mb-3">
-            <label for="carbohydrates" class="form-label">Carbohydrates</label>
-            <input type="text" id="carbohydrates" name="carbohydrates" value="{{ carbohydrates }}" required>
-            <small>Carbohydrates are the body's main source of energy. Enter the amount in grams.</small>
-        </div>
-
-        <div class="mb-3">
-            <label for="sugar" class="form-label">Sugar</label>
-            <input type="text" id="sugar" name="sugar" value="{{ sugar }}" required>
-            <small>Enter the total sugar content. High sugar intake may lead to health issues.</small>
-        </div>
-
-        <div class="mb-3">
-            <label for="fiber" class="form-label">Fiber</label>
-            <input type="text" id="fiber" name="fiber" value="{{ fiber }}" required>
-            <small>Fiber aids in digestion and is important for maintaining a healthy digestive system.</small>
+            <label for="image" class="form-label">Recipe Image</label>
+            <input type="file" id="image" name="image" required>
         </div>
 
         <div class="d-grid gap-2">
@@ -223,50 +227,82 @@
     </form>
 
     <script>
+        let stepCount = 1;
+        let selectedIngredientIDs = new Set();  // To store added ingredient IDs
+
+        function addStep() {
+            stepCount++;
+            const container = document.getElementById('instructionsContainer');
+            const textarea = document.createElement('textarea');
+            textarea.name = 'instructions';
+            textarea.rows = 3;
+            textarea.placeholder = 'Step ' + stepCount;
+            textarea.required = true;
+            container.appendChild(textarea);
+        }
+
+        function addIngredientRow() {
+            const ingredientsSelect = document.getElementById('ingredients');
+            const selectedIngredients = Array.from(ingredientsSelect.selectedOptions);
+            const tableBody = document.getElementById('ingredientTable').getElementsByTagName('tbody')[0];
+            const table = document.getElementById('ingredientTable');
+            
+            // Apply blur effect while adding ingredients
+            table.classList.add('blurred');
+            
+            selectedIngredients.forEach(ingredient => {
+                if (!selectedIngredientIDs.has(ingredient.value)) {
+                    // Add ingredient to the Set to prevent duplicates
+                    selectedIngredientIDs.add(ingredient.value);
+                    
+                    const row = document.createElement('tr');
+            
+                    // Ingredient Name
+                    const ingredientCell = document.createElement('td');
+                    ingredientCell.textContent = ingredient.text;
+                    row.appendChild(ingredientCell);
+            
+                    // Measurement Input
+                    const measurementCell = document.createElement('td');
+                    const measurementInput = document.createElement('input');
+                    measurementInput.type = 'text';
+                    measurementInput.name = 'measurement_' + ingredient.value;
+                    measurementInput.placeholder = 'e.g. 2 cups';
+                    measurementInput.classList.add('measurement-input');
+                    measurementCell.appendChild(measurementInput);
+                    row.appendChild(measurementCell);
+            
+                    // Weight Input
+                    const weightCell = document.createElement('td');
+                    const weightInput = document.createElement('input');
+                    weightInput.type = 'text';
+                    weightInput.name = 'weight_' + ingredient.value;
+                    weightInput.placeholder = 'e.g. 200g';
+                    weightInput.classList.add('weight-input');
+                    weightCell.appendChild(weightInput);
+                    row.appendChild(weightCell);
+            
+                    tableBody.appendChild(row);
+                }
+            });
+
+            // Remove blur after 1 second to simulate adding the ingredient
+            setTimeout(() => {
+                table.classList.remove('blurred');
+            }, 1000);
+        }
+
         function validateForm() {
             const recipename = document.getElementById('recipename').value.trim();
             const ingredients = document.getElementById('ingredients').value.trim();
             const instructions = document.getElementById('instructions').value.trim();
-            const image = document.getElementById('image').value;
-            const tags = document.getElementById('tags').value.trim();
-            const category = document.getElementById('category').value;
-            const ratings = document.getElementById('ratings').value;
 
-            if (recipename === "") {
-                alert("Please enter a recipe name.");
+            if (!recipename || !ingredients || !instructions) {
+                alert("Please fill in all required fields.");
                 return false;
             }
-            if (ingredients === "") {
-                alert("Please select at least one ingredient.");
-                return false;
-            }
-            if (instructions === "") {
-                alert("Please enter the instructions.");
-                return false;
-            }
-            if (image === "") {
-                alert("Please upload a recipe image.");
-                return false;
-            }
-            const validExtensions = ["jpg", "jpeg", "png"];
-            const imageExtension = image.split('.').pop().toLowerCase();
-            if (!validExtensions.includes(imageExtension)) {
-                alert("Please upload a valid image file (jpg, jpeg, png).");
-                return false;
-            }
-            if (tags === "") {
-                alert("Please enter at least one tag.");
-                return false;
-            }
-            if (category === "") {
-                alert("Please select a category.");
-                return false;
-            }
-            if (ratings === "") {
-                alert("Please select a rating.");
-                return false;
-            }
-            return true; // Form is valid
+
+            return true;
         }
     </script>
 </body>

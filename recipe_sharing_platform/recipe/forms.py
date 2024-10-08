@@ -49,11 +49,7 @@ class IngredientForm(forms.ModelForm):
     class Meta:
         model = Ingredient
         fields = ['name', 'substitutions', 'category_id']  # Using category_id as per your model
-        widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'substitutions': forms.Textarea(attrs={'class': 'form-control'}),
-            'category_id': forms.NumberInput(attrs={'class': 'form-control'}),  # Using IntegerField
-        }
+        
 
 class CategoryForm(forms.ModelForm):
     class Meta:

@@ -45,7 +45,7 @@ urlpatterns = [
    # Ingredients and Nutritional Info
     path('ingredients/', views.ingredient_list, name='ingredient_list'),
 
-    # path('ingredients/add/', views.add_ingredient, name='add_ingredient'),
+    path('ingredients/add/', views.add_ingredient, name='add_ingredient'),
     # path('ingredients/edit/<int:pk>/', views.edit_ingredient, name='edit_ingredient'),
     
     #path('pending/', views.pending_recipes, name='pending_recipes'),
@@ -60,6 +60,7 @@ urlpatterns = [
     path('recipe/<int:recipe_id>/rate/', views.rate_recipe, name='rate_recipe'),
     path('recipe/<int:recipe_id>/review/', views.review_recipe, name='review_recipe'),
     path('review/<int:review_id>/comment/', views.comment_on_review, name='comment_on_review'),
+    path('get-ingredients/<int:category_id>/',views.get_ingredients, name='get_ingredients'),
 ]
 
 # Handle static and media files in development

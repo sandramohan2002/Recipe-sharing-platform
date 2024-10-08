@@ -307,7 +307,8 @@ def add_recipe(request):
             return redirect('recipe_manager_dashboard')
     else:
         form = RecipeForm()
-    return render(request, 'add_recipe.html', {'form': form})
+    category=Category.objects.all()
+    return render(request, 'add_recipe.html', {'categories':category})
 
 #code for edit_recipe in recipe manager dashboard
 def edit_recipe(request, recipe_id):
@@ -350,16 +351,21 @@ def ingredient_list(request):
     ingredients = Ingredient.objects.all()
     return render(request, 'ingredient_list.html', {'ingredients': ingredients})
 
+
 # # View to add a new ingredient
-# def add_ingredient(request):
-#     if request.method == 'POST':
-#         form = IngredientForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('ingredient_list')  # Redirect to the list view after adding
-#     else:
-#         form = IngredientForm()
-#     return render(request, 'add_ingredient.html', {'form': form})
+def add_ingredient(request):
+    if request.method == 'POST':
+        form = IngredientForm(request.POST)
+        if form.is_valid():
+            form.save()  # Save the new ingredient to the database
+            return redirect('add_ingredient')  # Redirect to the same page or another page after saving
+    else:
+        form = IngredientForm()
+    
+    return render(request, 'add_ingredient.html', {'form': form})
+
+
+
 
 # View to edit an existing ingredient
 # def edit_ingredient(request, pk):
@@ -437,3 +443,16 @@ def comment_on_review(request, review_id):
     comment.save()
 
     return redirect('recipe_detail', recipe_id=review.recipe.id)
+
+from django.http import JsonResponse
+
+####################################################
+def get_ingredients(request, category_id):
+    if request.method == 'GET':
+        # Filter ingredients based on the category_id passed in the URL
+        if category_id == 1:
+            ingredients = Ingredient.objects.filter(category_id=category_id)
+        else:
+            ingredients = Ingredient.objects.all()
+        ingredient_list = [{'id': ingredient.ingredient_id, 'name': ingredient.name} for ingredient in ingredients]
+        return JsonResponse({'ingredients': ingredient_list})

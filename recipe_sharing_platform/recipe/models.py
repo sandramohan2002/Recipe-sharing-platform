@@ -36,13 +36,14 @@ class CustomUser(models.Model):
 # CATEGORY OF RECIPES:
 class Category(models.Model):
     category_id = models.AutoField(primary_key=True)  # Unique ID for the category
-    name = models.CharField(max_length=100)  # Name of the category
+    name = models.CharField(max_length=100,unique=True)  # Name of the category
 
     def __str__(self):
         return self.name  # Returns the name of the category
 
 # INGREDIENTS OF RECIPES:
 class Ingredient(models.Model):
+
     ingredient_id = models.AutoField(primary_key=True)  # Unique ID for the ingredient
     name = models.CharField(max_length=255, unique=True)  # Name of the ingredient
     substitutions = models.TextField(blank=True)  # Possible substitutions for the ingredient
