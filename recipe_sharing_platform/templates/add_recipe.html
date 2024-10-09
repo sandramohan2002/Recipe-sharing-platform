@@ -91,19 +91,57 @@
             text-decoration: underline;
         }
 
-        .nutritional-info-box {
-            margin: 10px 0;
+        /* Nutritional Information Styling */
+        .nutritional-info-container {
+            margin-top: 20px;
         }
 
-        .nutritional-info-input {
-            width: 100px; /* Width of input box */
-            text-align: right; /* Align text to the right */
-            margin-left: 10px; /* Space between label and input */
+        .nutritional-info-title {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .nutritional-info-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .nutritional-info-group label {
+            flex: 1;
+            font-size: 0.95em;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .nutritional-info-group input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: right;
+            max-width: 120px;
+            font-size: 0.95em;
+        }
+
+        .nutritional-info-description {
+            font-size: 0.85em;
+            color: #555;
+            margin-top: 5px;
         }
 
         @media (max-width: 768px) {
-            .form-container {
-                padding: 15px;
+            .nutritional-info-group {
+                flex-direction: column;
+            }
+
+            .nutritional-info-group label,
+            .nutritional-info-group input {
+                width: 100%;
+                text-align: left;
+                margin-bottom: 10px;
             }
         }
     </style>
@@ -192,34 +230,55 @@
                 <p class="error">{{ form.ingredients.errors }}</p>
             </div>
 
-            <!-- Nutritional Info -->
-            <div class="form-group">
-                <label>Nutritional Information:</label>
-                <div id="nutritional-info-container">
-                    <div class="nutritional-info-box">
-                        <label for="protein-info">Protein (g):</label>
-                        <input type="text" id="protein-info" class="nutritional-info-input" readonly>
-                    </div>
-                    <div class="nutritional-info-box">
-                        <label for="fiber-info">Fiber (g):</label>
-                        <input type="text" id="fiber-info" class="nutritional-info-input" readonly>
-                    </div>
-                    <div class="nutritional-info-box">
-                        <label for="fat-info">Fat (g):</label>
-                        <input type="text" id="fat-info" class="nutritional-info-input" readonly>
-                    </div>
-                    <div class="nutritional-info-box">
-                        <label for="carbohydrates-info">Carbohydrates (g):</label>
-                        <input type="text" id="carbohydrates-info" class="nutritional-info-input" readonly>
-                    </div>
-                    <div class="nutritional-info-box">
-                        <label for="calories-info">Calories:</label>
-                        <input type="text" id="calories-info" class="nutritional-info-input" readonly>
-                    </div>
-                    <div class="nutritional-info-box">
-                        <label for="sugars-info">Sugars (g):</label>
-                        <input type="text" id="sugars-info" class="nutritional-info-input" readonly>
-                    </div>
+            <!-- Nutritional Information -->
+            <div class="nutritional-info-container">
+                <div class="nutritional-info-title">Nutritional Information</div>
+                <div class="nutritional-info-group">
+                    <label for="id_calories">Calories:</label>
+                    {{ nutritional_info_form.calories }}
+                    <p class="nutritional-info-description">
+                        Total amount of energy provided by the food, measured in kilocalories (kcal).
+                    </p>
+                </div>
+
+                <div class="nutritional-info-group">
+                    <label for="id_protein">Protein (g):</label>
+                    {{ nutritional_info_form.protein }}
+                    <p class="nutritional-info-description">
+                        Vital for building and repairing tissues in the body, measured in grams.
+                    </p>
+                </div>
+
+                <div class="nutritional-info-group">
+                    <label for="id_fat">Fat (g):</label>
+                    {{ nutritional_info_form.fat }}
+                    <p class="nutritional-info-description">
+                        A concentrated source of energy, measured in grams, including both saturated and unsaturated fats.
+                    </p>
+                </div>
+
+                <div class="nutritional-info-group">
+                    <label for="id_carbohydrates">Carbohydrates (g):</label>
+                    {{ nutritional_info_form.carbohydrates }}
+                    <p class="nutritional-info-description">
+                        The body's primary source of energy, essential for proper brain function and energy levels.
+                    </p>
+                </div>
+
+                <div class="nutritional-info-group">
+                    <label for="id_sugar">Sugar (g):</label>
+                    {{ nutritional_info_form.sugar }}
+                    <p class="nutritional-info-description">
+                        A type of simple carbohydrate providing quick energy; important to monitor for overall health.
+                    </p>
+                </div>
+
+                <div class="nutritional-info-group">
+                    <label for="id_fiber">Fiber (g):</label>
+                    {{ nutritional_info_form.fiber }}
+                    <p class="nutritional-info-description">
+                        Non-digestible carbohydrate aiding digestion and maintaining a healthy gut, measured in grams.
+                    </p>
                 </div>
             </div>
 
@@ -230,20 +289,7 @@
                 <p class="error">{{ form.instructions.errors }}</p>
             </div>
 
-            <!-- Tags -->
-            <div class="form-group">
-                <label for="tags">Tags:</label>
-                <input type="text" name="tags" id="tags" required>
-                <p class="error">{{ form.tags.errors }}</p>
-            </div>
-
-            <!-- Ratings -->
-            <div class="form-group">
-                <label for="ratings">Ratings:</label>
-                <input type="number" name="ratings" id="ratings" min="1" max="5" required>
-                <p class="error">{{ form.ratings.errors }}</p>
-            </div>
-
+            <!-- Submit Button -->
             <button type="submit">Add Recipe</button>
         </form>
 

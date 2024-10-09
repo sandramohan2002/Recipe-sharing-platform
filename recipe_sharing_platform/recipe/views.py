@@ -206,7 +206,10 @@ def addrecipe(request):
 
         return redirect('success_page')  # Redirect to a success page or recipe list
 
-    return render(request, 'addrecipe.html')
+    category = Category.objects.all()
+    return render(request, 'addrecipe.html', {
+            'categories': category,
+        })
 
 
 def recipe_detail(request, id):
@@ -301,15 +304,26 @@ def recipe_manager_dashboard(request):
 #code for add_recipe in recipe manager dashboard
 def add_recipe(request):
     if request.method == 'POST':
-        form = RecipeForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
+        recipe_form = RecipeForm(request.POST, request.FILES)
+        nutritional_info_form = NutritionalInformationForm(request.POST)
+
+        if recipe_form.is_valid() and nutritional_info_form.is_valid():
+            recipe = recipe_form.save()  # Save the recipe first
+            nutritional_info = nutritional_info_form.save(commit=False)  # Do not save yet
+            nutritional_info.recipe = recipe  # Link it to the recipe
+            nutritional_info.save()  # Now save the nutritional info
+            
             return redirect('recipe_manager_dashboard')
     else:
-        form = RecipeForm()
-    category=Category.objects.all()
-    return render(request, 'add_recipe.html', {'categories':category})
+        recipe_form = RecipeForm()
+        nutritional_info_form = NutritionalInformationForm()
 
+    category = Category.objects.all()
+    return render(request, 'add_recipe.html', {
+        'recipe_form': recipe_form,
+        'nutritional_info_form': nutritional_info_form,
+        'categories': category,
+    })
 #code for edit_recipe in recipe manager dashboard
 def edit_recipe(request, recipe_id):
     recipe = get_object_or_404(Recipe, pk=recipe_id)
@@ -457,17 +471,17 @@ def get_ingredients(request, category_id):
         ingredient_list = [{'id': ingredient.ingredient_id, 'name': ingredient.name} for ingredient in ingredients]
         return JsonResponse({'ingredients': ingredient_list})
     
-def get_nutritional_info(request, ingredient_id):
-    try:
-        nutrient_info = NutritionalInformation.objects.get(id=ingredient_id)
-        data = {
-            'protein': nutrient_info.protein,
-            'fiber': nutrient_info.fiber,
-            'fat': nutrient_info.fat,
-            'carbohydrates': nutrient_info.carbohydrates,
-            'calories': nutrient_info.calories,
-            'sugars': nutrient_info.sugars,
-        }
-        return JsonResponse(data)
-    except NutritionalInformation.DoesNotExist:
-        return JsonResponse({}, status=404)
+# def get_nutritional_info(request, ingredient_id):
+#     try:
+#         nutrient_info = NutritionalInformation.objects.get(id=ingredient_id)
+#         data = {
+#             'protein': nutrient_info.protein,
+#             'fiber': nutrient_info.fiber,
+#             'fat': nutrient_info.fat,
+#             'carbohydrates': nutrient_info.carbohydrates,
+#             'calories': nutrient_info.calories,
+#             'sugars': nutrient_info.sugars,
+#         }
+#         return JsonResponse(data)
+#     except NutritionalInformation.DoesNotExist:
+#         return JsonResponse({}, status=404)

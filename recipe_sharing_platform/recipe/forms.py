@@ -28,12 +28,12 @@ class NutritionalInformationForm(forms.ModelForm):
         model = NutritionalInformation
         fields = ['calories', 'protein', 'fat', 'carbohydrates', 'sugar', 'fiber']
         widgets = {
-            'calories': forms.NumberInput(attrs={'class': 'form-control'}),
-            'protein': forms.NumberInput(attrs={'class': 'form-control'}),
-            'fat': forms.NumberInput(attrs={'class': 'form-control'}),
-            'carbohydrates': forms.NumberInput(attrs={'class': 'form-control'}),
-            'sugar': forms.NumberInput(attrs={'class': 'form-control'}),
-            'fiber': forms.NumberInput(attrs={'class': 'form-control'}),
+            'calories': forms.NumberInput(attrs={'class': 'form-control', 'min': '0'}),
+            'protein': forms.NumberInput(attrs={'class': 'form-control', 'min': '0'}),
+            'fat': forms.NumberInput(attrs={'class': 'form-control', 'min': '0'}),
+            'carbohydrates': forms.NumberInput(attrs={'class': 'form-control', 'min': '0'}),
+            'sugar': forms.NumberInput(attrs={'class': 'form-control', 'min': '0'}),
+            'fiber': forms.NumberInput(attrs={'class': 'form-control', 'min': '0'}),
         }
 
 class ProfileForm(forms.ModelForm):
