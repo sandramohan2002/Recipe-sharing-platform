@@ -61,6 +61,7 @@ urlpatterns = [
     path('recipe/<int:recipe_id>/review/', views.review_recipe, name='review_recipe'),
     path('review/<int:review_id>/comment/', views.comment_on_review, name='comment_on_review'),
     path('get-ingredients/<int:category_id>/',views.get_ingredients, name='get_ingredients'),
+    
 ]
 
 # Handle static and media files in development

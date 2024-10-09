@@ -91,6 +91,16 @@
             text-decoration: underline;
         }
 
+        .nutritional-info-box {
+            margin: 10px 0;
+        }
+
+        .nutritional-info-input {
+            width: 100px; /* Width of input box */
+            text-align: right; /* Align text to the right */
+            margin-left: 10px; /* Space between label and input */
+        }
+
         @media (max-width: 768px) {
             .form-container {
                 padding: 15px;
@@ -102,14 +112,14 @@
             const categoryId = document.getElementById('category').value;
             const ingredientsDropdown = document.getElementById('ingredients');
 
-            // Clear the ingredients dropdown
+            // Clear the ingredients dropdown and nutritional info
             ingredientsDropdown.innerHTML = '<option value="">Select an ingredient</option>';
+            updateNutritionalInfo(null); // Clear nutritional info
 
             if (categoryId) {
                 fetch(`/get-ingredients/${categoryId}/`)
                     .then(response => response.json())
                     .then(data => {
-                        // Populate the ingredients dropdown with the returned ingredients
                         data.ingredients.forEach(ingredient => {
                             const option = document.createElement('option');
                             option.value = ingredient.id;
@@ -120,6 +130,30 @@
                     .catch(error => console.error('Error fetching ingredients:', error));
             }
         }
+
+        function updateNutritionalInfo(ingredientId) {
+            if (ingredientId) {
+                fetch(`/get-nutritional-info/${ingredientId}/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('protein-info').value = data.protein || '';
+                        document.getElementById('fiber-info').value = data.fiber || '';
+                        document.getElementById('fat-info').value = data.fat || '';
+                        document.getElementById('carbohydrates-info').value = data.carbohydrates || '';
+                        document.getElementById('calories-info').value = data.calories || '';
+                        document.getElementById('sugars-info').value = data.sugars || '';
+                    })
+                    .catch(error => console.error('Error fetching nutritional information:', error));
+            }
+        }
+
+        // Add event listener for when an ingredient is selected
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('ingredients').addEventListener('change', function () {
+                const ingredientId = this.value;
+                updateNutritionalInfo(ingredientId);
+            });
+        });
     </script>
 </head>
 <body>
@@ -158,6 +192,37 @@
                 <p class="error">{{ form.ingredients.errors }}</p>
             </div>
 
+            <!-- Nutritional Info -->
+            <div class="form-group">
+                <label>Nutritional Information:</label>
+                <div id="nutritional-info-container">
+                    <div class="nutritional-info-box">
+                        <label for="protein-info">Protein (g):</label>
+                        <input type="text" id="protein-info" class="nutritional-info-input" readonly>
+                    </div>
+                    <div class="nutritional-info-box">
+                        <label for="fiber-info">Fiber (g):</label>
+                        <input type="text" id="fiber-info" class="nutritional-info-input" readonly>
+                    </div>
+                    <div class="nutritional-info-box">
+                        <label for="fat-info">Fat (g):</label>
+                        <input type="text" id="fat-info" class="nutritional-info-input" readonly>
+                    </div>
+                    <div class="nutritional-info-box">
+                        <label for="carbohydrates-info">Carbohydrates (g):</label>
+                        <input type="text" id="carbohydrates-info" class="nutritional-info-input" readonly>
+                    </div>
+                    <div class="nutritional-info-box">
+                        <label for="calories-info">Calories:</label>
+                        <input type="text" id="calories-info" class="nutritional-info-input" readonly>
+                    </div>
+                    <div class="nutritional-info-box">
+                        <label for="sugars-info">Sugars (g):</label>
+                        <input type="text" id="sugars-info" class="nutritional-info-input" readonly>
+                    </div>
+                </div>
+            </div>
+
             <!-- Instructions -->
             <div class="form-group">
                 <label for="instructions">Instructions:</label>
@@ -170,13 +235,6 @@
                 <label for="tags">Tags:</label>
                 <input type="text" name="tags" id="tags" required>
                 <p class="error">{{ form.tags.errors }}</p>
-            </div>
-
-            <!-- Nutritional Info -->
-            <div class="form-group">
-                <label for="nutritionalInfo">Nutritional Info:</label>
-                <textarea name="nutritionalInfo" id="nutritionalInfo" required></textarea>
-                <p class="error">{{ form.nutritionalInfo.errors }}</p>
             </div>
 
             <!-- Ratings -->

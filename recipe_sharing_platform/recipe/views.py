@@ -456,3 +456,18 @@ def get_ingredients(request, category_id):
             ingredients = Ingredient.objects.all()
         ingredient_list = [{'id': ingredient.ingredient_id, 'name': ingredient.name} for ingredient in ingredients]
         return JsonResponse({'ingredients': ingredient_list})
+    
+def get_nutritional_info(request, ingredient_id):
+    try:
+        nutrient_info = NutritionalInformation.objects.get(id=ingredient_id)
+        data = {
+            'protein': nutrient_info.protein,
+            'fiber': nutrient_info.fiber,
+            'fat': nutrient_info.fat,
+            'carbohydrates': nutrient_info.carbohydrates,
+            'calories': nutrient_info.calories,
+            'sugars': nutrient_info.sugars,
+        }
+        return JsonResponse(data)
+    except NutritionalInformation.DoesNotExist:
+        return JsonResponse({}, status=404)
