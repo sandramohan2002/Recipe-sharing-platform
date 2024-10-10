@@ -203,3 +203,22 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'sandramohan2025@mca.ajce.in'  # Replace with your email
 EMAIL_HOST_PASSWORD = 'Zoom#2023'  # Replace with your email password
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}

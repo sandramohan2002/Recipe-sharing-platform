@@ -54,13 +54,13 @@ class Ingredient(models.Model):
 
 # RECIPE MODEL:
 class Recipe(models.Model):
-    recipe_id = models.AutoField(primary_key=True)  # Unique ID for the recipe
-    recipename = models.CharField(max_length=200, null=True)  # Name of the recipe
+    recipe_id = models.AutoField(primary_key=True)  # This is likely your current primary key
+    recipename = models.CharField(max_length=200)  # Name of the recipe
     ingredients = models.ManyToManyField(Ingredient)  # Many-to-many relation with ingredients
-    instructions = models.TextField(null=True)  # Instructions for the recipe
-    image = models.ImageField(upload_to='recipes/', blank=True, null=True)  # Image of the recipe
-    tags = models.TextField(max_length=200, null=True)  # Tags related to the recipe
-    category_id = models.IntegerField(null=True, blank=True)  # Category ID for this recipe
+    instructions = models.TextField()  # Instructions for the recipe
+    image = models.ImageField(upload_to='recipes/')  # Image of the recipe
+    tags = models.TextField(max_length=200)  # Tags related to the recipe
+    category_id = models.IntegerField()  # Category ID for this recipe
     nutritional_info_id = models.IntegerField(null=True, blank=True)  # Nutritional info ID
     def __str__(self):
         return self.recipename  # Returns the name of the recipe
@@ -111,3 +111,16 @@ class Comment(models.Model):
     def __str__(self):
         return f'User {self.user_id} commented: {self.comment_text[:20]}...'  # Description for comment
     
+
+class RecipeIngredient(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='recipe_ingredients')
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    quantity = models.DecimalField(max_digits=10, decimal_places=2)
+    measurement = models.CharField(max_length=20)
+
+    class Meta:
+        unique_together = ('recipe', 'ingredient')
+
+    def __str__(self):
+        return f"{self.quantity} {self.measurement} of {self.ingredient.name} for {self.recipe.recipename}"
+

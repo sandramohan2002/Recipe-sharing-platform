@@ -4,142 +4,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ recipe.recipename }}</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>{{ recipe.recipename }} - Recipe Details</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            background-color: #f8f8f8;
         }
         .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
             background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
         }
         h1 {
-            color: #333;
-            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
         }
-        img {
-            display: block;
-            margin: 0 auto;
+        .recipe-image {
             width: 100%;
-            max-width: 400px;
+            height: auto;
             border-radius: 8px;
+            margin-bottom: 20px;
         }
-        h2 {
-            color: #555;
-            margin-top: 20px;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 5px;
-        }
-        p, ul {
-            line-height: 1.6;
-            color: #666;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        ul li {
-            padding: 5px 0;
-        }
-        .ingredients, .instructions, .nutritional-info, .ratings {
-            margin: 20px 0;
-        }
-        .ingredients p, .instructions p {
-            font-weight: bold;
-        }
-        .ratings {
-            margin: 20px 0;
-            font-size: 1.2em;
-            color: #333;
-            text-align: center;
-        }
-        .nutritional-info ul li {
-            font-size: 0.9em;
-        }
-        .rating-form, .review-form, .comment-form {
-            margin-top: 30px;
+        .recipe-meta, .ratings, .review-form {
+            background-color: #ecf0f1;
             padding: 15px;
-            background-color: #f1f1f1;
-            border-radius: 5px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .ingredients-list, .instructions-list {
+            padding-left: 0;
+        }
+        .ingredients-list li, .instructions-list li {
+            margin-bottom: 10px;
+            list-style-type: none;
+        }
+        .ingredients-list li:before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        .instructions-list li {
+            counter-increment: step-counter;
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 20px;
+        }
+        .instructions-list li:before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 50%;
         }
         textarea {
             width: 100%;
-            height: 100px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
             padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
         }
         button {
-            padding: 10px 15px;
-            background-color: #28a745;
+            background-color: #3498db;
             color: white;
+            padding: 10px 15px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
         button:hover {
-            background-color: #218838;
+            background-color: #2980b9;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>{{ recipe.recipename }}</h1>
-        <img src="{{ recipe.image.url }}" alt="{{ recipe.recipename }}">
-
-        <div class="instructions">
-            <h2>Instructions</h2>
-            <p>{{ recipe.instructions }}</p>
-        </div>
-
-        <div class="ingredients">
-            <h2>Ingredients</h2>
-            <p>{{ recipe.ingredients}}</p>  <!-- Use join to display ingredients -->
-        </div>
-
-        <div class="nutritional-info">
-            <h3>Nutritional Information</h3>
-            {% if nutritional_info %}
-                <ul>
-                    <li>Calories: {{ nutritional_info.calories }}</li>
-                    <li>Protein: {{ nutritional_info.protein }}</li>
-                    <li>Fat: {{ nutritional_info.fat }}</li>
-                    <li>Carbohydrates: {{ nutritional_info.carbohydrates }}</li>
-                    <li>Sugar: {{ nutritional_info.sugar }}</li>
-                    <li>Fiber: {{ nutritional_info.fiber }}</li>
-                </ul>
-            {% else %}
-                <p>No nutritional information available.</p>
-            {% endif %}
+        
+        {% if recipe.image %}
+            <img src="{{ recipe.image.url }}" alt="{{ recipe.recipename }}" class="recipe-image">
+        {% endif %}
+        
+        <div class="recipe-meta">
+            <p><strong>Category:</strong> {{ category_name }}</p>
+            <p><strong>Tags:</strong> {{ recipe.tags }}</p>
         </div>
         
-        <div class="tags">
-            <h2>Tags</h2>
-            <p>{{ recipe.tags }} Tags</p>
-        </div>
+        <h2>Ingredients</h2>
+        <ul class="ingredients-list">
+            {% for ingredient in recipe.recipe_ingredients.all %}
+                <li>{{ ingredient.quantity }} {{ ingredient.measurement }} {{ ingredient.ingredient.name }}</li>
+            {% endfor %}
+        </ul>
         
-        <div class="category">
-            <h2>Category</h2>
-            <p>{{ recipe.category }} Category</p>
-        </div>
+        <h2>Instructions</h2>
+        <ol class="instructions-list">
+            {% for instruction in instructions %}
+                <li>{{ instruction|safe }}</li>
+            {% endfor %}
+        </ol>
 
         <div class="ratings">
             <h2>Ratings</h2>
-            <p>Average Rating: {{ average_rating|default:"Not rated yet" }}</p> 
-            <p>Total Ratings: {{ total_ratings }}</p> 
+            <p>Average Rating: {{ average_rating|default:"Not rated yet" }}</p>
+            <p>Total Ratings: {{ total_ratings }}</p>
         </div>
 
         <div class="review-form">
             <h2>Write a Review</h2>
-            <form method="POST" action="{% url 'review_recipe' recipe.id %}">
+            <form method="POST" action="{% url 'review_recipe' recipe.recipe_id %}">
                 {% csrf_token %}
                 <textarea name="review" placeholder="Write your review here..." required></textarea>
                 <button type="submit">Submit Review</button>
@@ -148,38 +137,13 @@
 
         <h3>Reviews</h3>
         {% for review in recipe.reviews.all %}
-            <p><strong>{{ review.user.name }}</strong>: {{ review.review_text }}</p>
-            <small>Posted on: {{ review.created_at }}</small>
-
-            <!-- Comment form -->
-            <form method="POST" action="{% url 'comment_on_review' review.id %}">
-                {% csrf_token %}
-                <textarea name="comment" placeholder="Add a comment..."></textarea>
-                <button type="submit">Submit Comment</button>
-            </form>
-
-            <!-- Display comments -->
-            {% for comment in review.comments.all %}
-                <p><em>{{ comment.user.name }}:</em> {{ comment.comment_text }}</p>
-            {% endfor %}
+            <div class="review">
+                <p><strong>{{ review.user.name }}</strong>: {{ review.review_text }}</p>
+                <small>Posted on: {{ review.created_at }}</small>
+            </div>
+        {% empty %}
+            <p>No reviews yet. Be the first to review this recipe!</p>
         {% endfor %}
-
-        <div class="rating-form">
-            <h2>Rate this Recipe</h2>
-            <form method="POST" action="{% url 'rate_recipe' recipe.id %}">
-                {% csrf_token %}
-                <label for="rating">Select your rating:</label>
-                <select name="rating">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-                <button type="submit">Submit Rating</button>
-            </form>
-        </div>
-
     </div>
 </body>
 </html>

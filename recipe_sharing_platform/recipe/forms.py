@@ -22,6 +22,12 @@ class RecipeForm(forms.ModelForm):
             'category_id': forms.NumberInput(attrs={'class': 'form-control'}),  # Adjusted to match the model
             'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+        if image:
+            if not image.name.endswith(('png', 'jpg', 'jpeg')):
+                raise forms.ValidationError("Image file must be in PNG, JPG, or JPEG format.")
+        return image
     
 class NutritionalInformationForm(forms.ModelForm):
     class Meta:

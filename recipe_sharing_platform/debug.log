@@ -1,0 +1,59 @@
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+POST data: <QueryDict: {'csrfmiddlewaretoken': ['chxYfqEPZMij6ZRpUKEC2rO3tP9hDXn8OAXTLFn3F7mdn2yG9DOJbvHZzPS69iYG'], 'recipename': ['rasagulla'], 'category': ['1'], 'ingredient_1': ['2'], 'ingredient_name_1': ['Milk'], 'quantity_1': ['1'], 'measurement_1': ['g'], 'instructions_1': ['sqaasd'], 'instructions_2': ['asdsa'], 'tags': ['Small, deep-fried rice and jaggery snacks']}>
+FILES data: <MultiValueDict: {'image': [<InMemoryUploadedFile: butterchicken.jpg (image/jpeg)>]}>
+Error adding recipe: 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 173, in addrecipe
+    logger.info(f"Parsed data: recipename={recipename}, category_id={category_id}, tags={tags}, image={image}, instructions={instructions[:50]}...")
+TypeError: 'NoneType' object is not subscriptable
+POST data: <QueryDict: {'csrfmiddlewaretoken': ['gTk45MrOdZuFNi63KftYz3kZTyABrDeRScKZB1a2Tkyz4lNkZ8D5I7dVZyjqXYPp'], 'recipename': ['Cutlet..chumma enthellum kodukku ad'], 'category': ['1'], 'ingredient_1': ['2'], 'ingredient_name_1': ['Milk'], 'quantity_1': ['0.05'], 'measurement_1': ['g'], 'ingredient_2': ['4'], 'ingredient_name_2': ['Broccoli'], 'quantity_2': ['0.06'], 'measurement_2': ['g'], 'instructions_1': ['In a mixing bowl, combine the mashed potatoes, mixed vegetables, chopped onion, green chilies, ginger-garlic paste, garam masala, salt, and black pepper. Mix well until all ingredients are incorporated.'], 'instructions_2': ['Take small portions of the mixture and shape them into round or oval patties (cutlets). Press them gently to ensure they hold together.'], 'instructions_3': ['In a shallow dish, spread the bread crumbs. In another bowl, place the all-purpose flour (optional). Dip each cutlet first in the flour (to help the bread crumbs stick), then roll it in the bread crumbs until fully coated.\r\n'], 'instructions_4': ['Heat oil in a frying pan over medium heat. Once the oil is hot, carefully place the cutlets in the pan (do not overcrowd). Fry until golden brown on both sides, about 3-4 minutes per side'], 'instructions_5': ['Once cooked, remove the cutlets from the pan and place them on a paper towel-lined plate to drain excess oil.'], 'instructions_6': ['Serve hot with ketchup, green chutney, or yogurt dip. Enjoy your delicious homemade cutlets!'], 'tags': ['Dessert, Indian sweets, Festival recipes']}>
+FILES data: <MultiValueDict: {'image': [<InMemoryUploadedFile: cutlet.jpg (image/jpeg)>]}>
+Error adding recipe: 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 173, in addrecipe
+    logger.info(f"Parsed data: recipename={recipename}, category_id={category_id}, tags={tags}, image={image}, instructions={instructions[:50]}...")
+TypeError: 'NoneType' object is not subscriptable
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+POST data: <QueryDict: {'csrfmiddlewaretoken': ['gTk45MrOdZuFNi63KftYz3kZTyABrDeRScKZB1a2Tkyz4lNkZ8D5I7dVZyjqXYPp'], 'recipename': ['Cutlet..chumma enthellum kodukku ad'], 'category': ['1'], 'ingredient_1': ['2'], 'ingredient_name_1': ['Milk'], 'quantity_1': ['0.05'], 'measurement_1': ['g'], 'ingredient_2': ['4'], 'ingredient_name_2': ['Broccoli'], 'quantity_2': ['0.06'], 'measurement_2': ['g'], 'instructions_1': ['In a mixing bowl, combine the mashed potatoes, mixed vegetables, chopped onion, green chilies, ginger-garlic paste, garam masala, salt, and black pepper. Mix well until all ingredients are incorporated.'], 'instructions_2': ['Take small portions of the mixture and shape them into round or oval patties (cutlets). Press them gently to ensure they hold together.'], 'instructions_3': ['In a shallow dish, spread the bread crumbs. In another bowl, place the all-purpose flour (optional). Dip each cutlet first in the flour (to help the bread crumbs stick), then roll it in the bread crumbs until fully coated.\r\n'], 'instructions_4': ['Heat oil in a frying pan over medium heat. Once the oil is hot, carefully place the cutlets in the pan (do not overcrowd). Fry until golden brown on both sides, about 3-4 minutes per side'], 'instructions_5': ['Once cooked, remove the cutlets from the pan and place them on a paper towel-lined plate to drain excess oil.'], 'instructions_6': ['Serve hot with ketchup, green chutney, or yogurt dip. Enjoy your delicious homemade cutlets!'], 'tags': ['Dessert, Indian sweets, Festival recipes']}>
+FILES data: <MultiValueDict: {'image': [<InMemoryUploadedFile: cutlet.jpg (image/jpeg)>]}>
+Parsed data: recipename=Cutlet..chumma enthellum kodukku ad, category_id=1, tags=Dessert, Indian sweets, Festival recipes, image=cutlet.jpg, instructions=In a mixing bowl, combine the mashed potatoes, mix...
+Created recipe with ID: 8
+Added ingredient: 2, quantity: 0.05, measurement: g
+Added ingredient: 4, quantity: 0.06, measurement: g
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: rasagulla
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: rasagulla
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Rasagulla
+Recipe ID: 4, Recipe ID type: <class 'int'>, Name: fgfdgfd
+Recipe ID: 5, Recipe ID type: <class 'int'>, Name: Milk Dosa
+Recipe ID: 8, Recipe ID type: <class 'int'>, Name: Cutlet..chumma enthellum kodukku ad
+POST data: <QueryDict: {'csrfmiddlewaretoken': ['FOHsOhjjoJ2CgrnIf8MI2Wbfg6O3XtJ6h77nkw2x446wxu4Zu1WPb04bm6xStOkE'], 'recipename': ['Barfi'], 'category': ['1'], 'ingredient_1': ['2'], 'ingredient_name_1': ['Milk'], 'quantity_1': ['0.03'], 'measurement_1': ['g'], 'instructions_1': ['aaaaaaaaaaaa'], 'instructions_2': ['fgdfvvdc'], 'instructions_3': ['djfkjdfkdjfjfj'], 'tags': ['FestiveFood, GheeLover, HomemadeSweets']}>
+FILES data: <MultiValueDict: {'image': [<InMemoryUploadedFile: barfi.jpg (image/jpeg)>]}>
+Parsed data: recipename=Barfi, category_id=1, tags=FestiveFood, GheeLover, HomemadeSweets, image=barfi.jpg, instructions=aaaaaaaaaaaa
+fgdfvvdc
+djfkjdfkdjfjfj...
+Created recipe with ID: 9
+Added ingredient: 2, quantity: 0.03, measurement: g
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+POST data: <QueryDict: {'csrfmiddlewaretoken': ['vq2Pqwruw1UJwv1XS670LHgvF4x8AFFD7JsKWLaIcmYDNyIe7Zh7UL9rL4gX60gb'], 'recipename': ['Barfi'], 'category': ['1'], 'instructions_1': ['aaaaaaaaaaaa'], 'tags': ['FestiveFood, GheeLover, HomemadeSweets']}>
+FILES data: <MultiValueDict: {'image': [<InMemoryUploadedFile: barfi.jpg (image/jpeg)>]}>
+Parsed data: recipename=Barfi, category_id=1, tags=FestiveFood, GheeLover, HomemadeSweets, image=barfi.jpg, instructions=aaaaaaaaaaaa...
+Created recipe with ID: 10
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: rasagulla
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: rasagulla
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Rasagulla
+Recipe ID: 4, Recipe ID type: <class 'int'>, Name: fgfdgfd
+Recipe ID: 5, Recipe ID type: <class 'int'>, Name: Milk Dosa
+Recipe ID: 8, Recipe ID type: <class 'int'>, Name: Cutlet..chumma enthellum kodukku ad
+Recipe ID: 9, Recipe ID type: <class 'int'>, Name: Barfi
+Recipe ID: 10, Recipe ID type: <class 'int'>, Name: Barfi

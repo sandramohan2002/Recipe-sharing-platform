@@ -16,6 +16,8 @@ from django.shortcuts import render, get_object_or_404
 from django.core.mail import send_mail 
 import logging
 from django.urls import reverse
+from django.db import transaction
+from .models import Recipe, Category, Ingredient, RecipeIngredient
 
 logger = logging.getLogger(__name__)
 
@@ -154,84 +156,95 @@ def about(request):
 def contact(request):
     return render(request, 'contact.html')
 
-##################################################33
+
 def addrecipe(request):
     if request.method == 'POST':
         try:
-            recipename = request.POST.get('recipename')
-            category_id = request.POST.get('category')
-            tags = request.POST.get('tags')
-            image = request.FILES.get('image')
-            ingredient_ids = request.POST.getlist('ingredients')
+            with transaction.atomic():
+                logger.info(f"POST data: {request.POST}")
+                logger.info(f"FILES data: {request.FILES}")
 
-            logger.info(f"Received data: recipename={recipename}, category_id={category_id}, tags={tags}, image={image}, ingredient_ids={ingredient_ids}")
+                recipename = request.POST.get('recipename')
+                category_id = request.POST.get('category')
+                tags = request.POST.get('tags')
+                image = request.FILES.get('image')
+                
+                # Collect all instructions
+                instructions = []
+                for key, value in request.POST.items():
+                    if key.startswith('instructions_') and value.strip():
+                        instructions.append(value.strip())
+                instructions = '\n'.join(instructions)
 
-            # Collect all instructions
-            instructions = []
-            step_count = 1
-            while True:
-                step = request.POST.get(f'instructions_{step_count}')
-                if step:
-                    instructions.append(step)
-                    step_count += 1
-                else:
-                    break
-            
-            logger.info(f"Collected instructions: {instructions}")
+                logger.info(f"Parsed data: recipename={recipename}, category_id={category_id}, tags={tags}, image={image}, instructions={instructions[:50]}...")
 
-            # Validate fields
-            if not all([recipename, category_id, ingredient_ids, instructions, image, tags]):
-                raise ValueError('All fields are required!')
+                # Validate fields
+                if not all([recipename, category_id, tags, instructions]):
+                    raise ValueError('All fields except image are required!')
 
-            # Save Recipe
-            category = Category.objects.get(pk=category_id)
-            recipe = Recipe.objects.create(
-                recipename=recipename,
-                tags=tags,
-                category_id=category.category_id,
-                image=image,
-                instructions='\n'.join(instructions),
-            )
-            logger.info(f"Created recipe: {recipe}")
+                # Create Recipe
+                recipe = Recipe.objects.create(
+                    recipename=recipename,
+                    category_id=category_id,
+                    tags=tags,
+                    instructions=instructions,
+                    image=image
+                )
 
-            # Add ingredients to the recipe
-            ingredients = Ingredient.objects.filter(ingredient_id__in=ingredient_ids)
-            recipe.ingredients.add(*ingredients)
-            logger.info(f"Added ingredients: {ingredients}")
+                logger.info(f"Created recipe with ID: {recipe.recipe_id}")
 
-            messages.success(request, 'Recipe added successfully!')
-            return redirect('recipe')
+                # Process ingredients
+                ingredient_count = 1
+                while True:
+                    ingredient_id = request.POST.get(f'ingredient_{ingredient_count}')
+                    quantity = request.POST.get(f'quantity_{ingredient_count}')
+                    measurement = request.POST.get(f'measurement_{ingredient_count}')
+
+                    if not all([ingredient_id, quantity, measurement]):
+                        break
+
+                    RecipeIngredient.objects.create(
+                        recipe=recipe,
+                        ingredient_id=ingredient_id,
+                        quantity=quantity,
+                        measurement=measurement
+                    )
+                    logger.info(f"Added ingredient: {ingredient_id}, quantity: {quantity}, measurement: {measurement}")
+
+                    ingredient_count += 1
+
+                messages.success(request, 'Recipe added successfully!')
+                return redirect('recipe')
 
         except Exception as e:
-            logger.error(f"Error in addrecipe: {str(e)}", exc_info=True)
-            messages.error(request, f'Error saving recipe: {str(e)}')
-            return render(request, 'addrecipe.html', {
-                'categories': Category.objects.all(),
-                'error': f'Error saving recipe: {str(e)}',
-            })
+            logger.error(f"Error adding recipe: {str(e)}", exc_info=True)
+            messages.error(request, f'Error adding recipe: {str(e)}')
 
-    # If GET request, render the form with categories
     categories = Category.objects.all()
-    return render(request, 'addrecipe.html', {'categories': categories})
+    ingredients = Ingredient.objects.all()
+    return render(request, 'addrecipe.html', {'categories': categories, 'ingredients': ingredients})
 
 
-################################################
-
-
-def recipe_detail(request, id):
-    recipe = Recipe.objects.get(recipe_id=id)
-    # average_rating = recipe.ratings.aggregate(Avg('rating'))['rating__avg']
-    # total_ratings = recipe.ratings.count()
-
+def recipe_detail(request, recipe_id):
+    recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
+    
+    # Fetch the category name
+    category = Category.objects.filter(category_id=recipe.category_id).first()
+    category_name = category.name if category else "Unknown Category"
+    
+    # Split instructions into a list
+    instructions = [inst.strip() for inst in recipe.instructions.split('\n') if inst.strip()]
+    
     context = {
         'recipe': recipe,
-        # 'average_rating': average_rating,
-        # 'total_ratings': total_ratings,
+        'category_name': category_name,
+        'instructions': instructions,
+        # Add other context variables here (average_rating, total_ratings, etc.)
     }
+    
     return render(request, 'recipe_detail.html', context)
 ###########################################################3
 
-#################################################################
 
 
 #for edting recipes on recipe page for user
@@ -466,6 +479,12 @@ def comment_on_review(request, review_id):
 from django.http import JsonResponse
 
 ####################################################
+from django.http import JsonResponse
+
+from django.http import JsonResponse
+from django.core.serializers import serialize
+import json
+
 def get_ingredients(request, category_id):
     if request.method == 'GET':
         # Filter ingredients based on the category_id passed in the URL
@@ -475,7 +494,6 @@ def get_ingredients(request, category_id):
             ingredients = Ingredient.objects.all()
         ingredient_list = [{'id': ingredient.ingredient_id, 'name': ingredient.name} for ingredient in ingredients]
         return JsonResponse({'ingredients': ingredient_list})
-    
 # def get_nutritional_info(request, ingredient_id):
 #     try:
 #         nutrient_info = NutritionalInformation.objects.get(id=ingredient_id)

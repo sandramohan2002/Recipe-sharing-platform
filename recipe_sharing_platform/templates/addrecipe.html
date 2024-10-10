@@ -1,5 +1,4 @@
 {% load static %}
-{% include 'navbar.html' %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -120,31 +119,72 @@
             font-weight: bold;
             margin-bottom: 0.3em;
         }
-    </style>
-    <script>
-        function updateIngredients() {
-            const categoryId = document.getElementById('category').value;
-            const ingredientsDropdown = document.getElementById('ingredients');
 
-            // Clear the ingredients dropdown
-            ingredientsDropdown.innerHTML = '<option value="">Select an ingredient</option>';
-
-            if (categoryId) {
-                fetch(`/get-ingredients/${categoryId}/`)
-                    .then(response => response.json())
-                    .then(data => {
-                        // Populate the ingredients dropdown with the returned ingredients
-                        data.ingredients.forEach(ingredient => {
-                            const option = document.createElement('option');
-                            option.value = ingredient.id;
-                            option.textContent = ingredient.name;
-                            ingredientsDropdown.appendChild(option);
-                        });
-                    })
-                    .catch(error => console.error('Error fetching ingredients:', error));
-            }
+        /* Ingredients table styles */
+        #ingredientDetailsContainer {
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
-    </script>
+
+        #ingredientsTable {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        #ingredientsTable th,
+        #ingredientsTable td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        #ingredientsTable th {
+            background-color: #f8f8f8;
+            font-weight: bold;
+            color: #333;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        #ingredientsTable tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        #ingredientsTable input[type="number"],
+        #ingredientsTable select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        #ingredientsTable button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #ingredientsTable button:hover {
+            background-color: #ff3333;
+        }
+
+        /* Style for the ingredient dropdown */
+        #ingredients {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    </style>
     <script>
         let stepCount = 1;
 
@@ -169,6 +209,129 @@
             container.appendChild(newStep);
         }
     </script>
+    <script>
+        let ingredientRowCount = 0;
+        let isUpdatingIngredients = false;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM fully loaded');
+            const categorySelect = document.getElementById('category');
+            const ingredientsSelect = document.getElementById('ingredients');
+
+            if (categorySelect) {
+                console.log('Category select found');
+                categorySelect.addEventListener('change', function() {
+                    if (!isUpdatingIngredients) {
+                        updateIngredients();
+                    }
+                });
+            } else {
+                console.error('Category select not found');
+            }
+
+            if (ingredientsSelect) {
+                console.log('Ingredients select found');
+                ingredientsSelect.addEventListener('change', addIngredientRow);
+            } else {
+                console.error('Ingredients select not found');
+            }
+
+            // Initial call to populate ingredients if a category is already selected
+            if (categorySelect && categorySelect.value) {
+                console.log('Initial category selected:', categorySelect.value);
+                updateIngredients();
+            }
+        });
+
+        function addIngredientRow() {
+            console.log('addIngredientRow called');
+            const selectedIngredient = document.getElementById('ingredients');
+            if (selectedIngredient.value) {
+                console.log('Selected ingredient:', selectedIngredient.value);
+                const ingredientId = selectedIngredient.value;
+                const ingredientName = selectedIngredient.options[selectedIngredient.selectedIndex].text;
+                
+                // Check if the ingredient already exists in the table
+                const existingIngredient = document.querySelector(`input[name^="ingredient_"][value="${ingredientId}"]`);
+                if (existingIngredient) {
+                    console.log('Ingredient already exists:', ingredientId);
+                    alert('This ingredient is already in the recipe.');
+                    selectedIngredient.value = ''; // Reset the dropdown
+                    return;
+                }
+
+                ingredientRowCount++;
+                console.log('Adding new ingredient row:', ingredientRowCount);
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>
+                        <input type="hidden" name="ingredient_${ingredientRowCount}" value="${ingredientId}">
+                        <input type="hidden" name="ingredient_name_${ingredientRowCount}" value="${ingredientName}">
+                        ${ingredientName}
+                    </td>
+                    <td><input type="number" name="quantity_${ingredientRowCount}" step="0.01" required></td>
+                    <td>
+                        <select name="measurement_${ingredientRowCount}" required>
+                            <option value="g">Grams (g)</option>
+                            <option value="kg">Kilograms (kg)</option>
+                            <option value="ml">Milliliters (ml)</option>
+                            <option value="l">Liters (l)</option>
+                            <option value="tsp">Teaspoon (tsp)</option>
+                            <option value="tbsp">Tablespoon (tbsp)</option>
+                            <option value="cup">Cup</option>
+                            <option value="piece">Piece</option>
+                        </select>
+                    </td>
+                    <td><button type="button" onclick="removeIngredientRow(this)">Remove</button></td>
+                `;
+                document.getElementById('ingredientRows').appendChild(newRow);
+                selectedIngredient.value = ''; // Reset the dropdown
+            } else {
+                console.log('No ingredient selected');
+            }
+        }
+
+        function removeIngredientRow(button) {
+            console.log('Removing ingredient row');
+            button.closest('tr').remove();
+        }
+
+        function updateIngredients() {
+            if (isUpdatingIngredients) {
+                console.log('Already updating ingredients, skipping');
+                return;
+            }
+            
+            isUpdatingIngredients = true;
+            console.log('updateIngredients called');
+            const categoryId = document.getElementById('category').value;
+            const ingredientsDropdown = document.getElementById('ingredients');
+
+            ingredientsDropdown.innerHTML = '<option value="">Select an ingredient</option>';
+
+            if (categoryId) {
+                console.log('Fetching ingredients for category:', categoryId);
+                fetch(`/get-ingredients/${categoryId}/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Ingredients received:', data.ingredients);
+                        data.ingredients.forEach(ingredient => {
+                            const option = document.createElement('option');
+                            option.value = ingredient.id;
+                            option.textContent = ingredient.name;
+                            ingredientsDropdown.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching ingredients:', error))
+                    .finally(() => {
+                        isUpdatingIngredients = false;
+                    });
+            } else {
+                console.log('No category selected');
+                isUpdatingIngredients = false;
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -182,14 +345,14 @@
             <!-- Recipe Name -->
             <div class="form-group">
                 <label for="recipename">Recipe Name:</label>
-                <input type="text" name="recipename" id="recipename" required>
+                <input type="text" id="recipename" name="recipename" required>
                 <p class="error">{{ form.recipename.errors }}</p>
             </div>
 
             <!-- Category -->
             <div class="form-group">
                 <label for="category">Category:</label>
-                <select name="category" id="category" required onchange="updateIngredients()">
+                <select id="category" name="category" required>
                     <option value="">Select a category</option>
                     {% for category in categories %}
                         <option value="{{ category.category_id }}">{{ category.name }}</option>
@@ -198,13 +361,30 @@
                 <p class="error">{{ form.category.errors }}</p>
             </div>
 
-            <!-- Ingredients -->
+            <!-- Ingredients Selection -->
             <div class="form-group">
-                <label for="ingredients">Ingredients:</label>
-                <select name="ingredients" id="ingredients" required>
+                <label for="ingredients">Select Ingredient:</label>
+                <select id="ingredients">
                     <option value="">Select an ingredient</option>
+                    <!-- Options will be populated dynamically -->
                 </select>
-                <p class="error">{{ form.ingredients.errors }}</p>
+            </div>
+
+            <!-- Ingredients Table (always visible) -->
+            <div id="ingredientDetailsContainer">
+                <table id="ingredientsTable">
+                    <thead>
+                        <tr>
+                            <th>Ingredient</th>
+                            <th>Quantity</th>
+                            <th>Measurement</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ingredientRows">
+                        <!-- Rows will be added dynamically -->
+                    </tbody>
+                </table>
             </div>
 
             <!-- Instructions -->
@@ -220,14 +400,14 @@
             <!-- Tags -->
             <div class="form-group">
                 <label for="tags">Tags:</label>
-                <input type="text" name="tags" id="tags" required>
+                <input type="text" id="tags" name="tags" required>
                 <p class="error">{{ form.tags.errors }}</p>
             </div>
 
             <!-- Image Upload -->
             <div class="form-group">
                 <label for="image">Recipe Image:</label>
-                <input type="file" name="image" id="image" accept="image/*" required>
+                <input type="file" id="image" name="image" accept="image/*">
                 <p class="error">{{ form.image.errors }}</p>
             </div>
 
