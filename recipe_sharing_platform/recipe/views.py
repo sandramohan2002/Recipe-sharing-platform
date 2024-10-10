@@ -14,6 +14,10 @@ import random
 from django.db.models import Avg
 from django.shortcuts import render, get_object_or_404
 from django.core.mail import send_mail 
+import logging
+from django.urls import reverse
+
+logger = logging.getLogger(__name__)
 
 #USER DASHBOARD
 def signup(request):
@@ -136,9 +140,13 @@ def homepage(request):
 
 
 def recipe(request):
-    recipes = Recipe.objects.all()  # Fetch all recipes
-    #recipes = Recipe.objects.filter(status='approved') # only showing the recipes that are approved
+    recipes = Recipe.objects.all()
+    for recipe in recipes:
+        logger.info(f"Recipe ID: {recipe.recipe_id}, Recipe ID type: {type(recipe.recipe_id)}, Name: {recipe.recipename}")
     return render(request, 'recipe.html', {'recipes': recipes})
+
+
+
 
 def about(request):
     return render(request, 'about.html' )
@@ -146,107 +154,104 @@ def about(request):
 def contact(request):
     return render(request, 'contact.html')
 
+##################################################33
 def addrecipe(request):
     if request.method == 'POST':
-        recipename = request.POST.get('recipename')
-        ingredients = request.POST.get('ingredients')
-        instructions = request.POST.get('instructions')
-        image = request.FILES.get('image')
-        tags = request.POST.get('tags')
-        category = request.POST.get('category')
-        ratings = request.POST.get('ratings')
+        try:
+            recipename = request.POST.get('recipename')
+            category_id = request.POST.get('category')
+            tags = request.POST.get('tags')
+            image = request.FILES.get('image')
+            ingredient_ids = request.POST.getlist('ingredients')
 
-        # Handle nutritional information
-        calories = request.POST.get('calories')
-        protein = request.POST.get('protein')
-        fat = request.POST.get('fat')
-        carbohydrates = request.POST.get('carbohydrates')
-        sugar = request.POST.get('sugar')
-        fiber = request.POST.get('fiber')
+            logger.info(f"Received data: recipename={recipename}, category_id={category_id}, tags={tags}, image={image}, ingredient_ids={ingredient_ids}")
 
-        # Validate fields
-        if not all([recipename, ingredients, instructions, image, tags, category, ratings, calories, protein, fat, carbohydrates, sugar, fiber]):
-            return render(request, 'add_recipe.html', {
-                'error': 'All fields are required!',
-                'recipename': recipename,
-                'ingredients': ingredients,
-                'instructions': instructions,
-                'tags': tags,
-                'category': category,
-                'ratings': ratings,
-                'calories': calories,
-                'protein': protein,
-                'fat': fat,
-                'carbohydrates': carbohydrates,
-                'sugar': sugar,
-                'fiber': fiber,
+            # Collect all instructions
+            instructions = []
+            step_count = 1
+            while True:
+                step = request.POST.get(f'instructions_{step_count}')
+                if step:
+                    instructions.append(step)
+                    step_count += 1
+                else:
+                    break
+            
+            logger.info(f"Collected instructions: {instructions}")
+
+            # Validate fields
+            if not all([recipename, category_id, ingredient_ids, instructions, image, tags]):
+                raise ValueError('All fields are required!')
+
+            # Save Recipe
+            category = Category.objects.get(pk=category_id)
+            recipe = Recipe.objects.create(
+                recipename=recipename,
+                tags=tags,
+                category_id=category.category_id,
+                image=image,
+                instructions='\n'.join(instructions),
+            )
+            logger.info(f"Created recipe: {recipe}")
+
+            # Add ingredients to the recipe
+            ingredients = Ingredient.objects.filter(ingredient_id__in=ingredient_ids)
+            recipe.ingredients.add(*ingredients)
+            logger.info(f"Added ingredients: {ingredients}")
+
+            messages.success(request, 'Recipe added successfully!')
+            return redirect('recipe')
+
+        except Exception as e:
+            logger.error(f"Error in addrecipe: {str(e)}", exc_info=True)
+            messages.error(request, f'Error saving recipe: {str(e)}')
+            return render(request, 'addrecipe.html', {
+                'categories': Category.objects.all(),
+                'error': f'Error saving recipe: {str(e)}',
             })
 
-        # Save Recipe
-        recipe = Recipe.objects.create(
-            recipename=recipename,
-            ingredients=ingredients,
-            instructions=instructions,
-            image=image,
-            tags=tags,
-            category=category,
-            ratings=ratings,
-        )
+    # If GET request, render the form with categories
+    categories = Category.objects.all()
+    return render(request, 'addrecipe.html', {'categories': categories})
 
-        # Save Nutritional Information
-        NutritionalInformation.objects.create(
-            recipe=recipe,
-            calories=calories,
-            protein=protein,
-            fat=fat,
-            carbohydrates=carbohydrates,
-            sugar=sugar,
-            fiber=fiber,
-        )
 
-        return redirect('success_page')  # Redirect to a success page or recipe list
-
-    category = Category.objects.all()
-    return render(request, 'addrecipe.html', {
-            'categories': category,
-        })
+################################################
 
 
 def recipe_detail(request, id):
-    recipe = Recipe.objects.get(id=id)
-    average_rating = recipe.ratings.aggregate(Avg('rating'))['rating__avg']
-    total_ratings = recipe.ratings.count()
-
-    # Assuming nutritional info is related as well
-    nutritional_info = recipe.nutritional_info
+    recipe = Recipe.objects.get(recipe_id=id)
+    # average_rating = recipe.ratings.aggregate(Avg('rating'))['rating__avg']
+    # total_ratings = recipe.ratings.count()
 
     context = {
         'recipe': recipe,
-        'average_rating': average_rating,
-        'total_ratings': total_ratings,
-        'nutritional_info': nutritional_info,
+        # 'average_rating': average_rating,
+        # 'total_ratings': total_ratings,
     }
     return render(request, 'recipe_detail.html', context)
+###########################################################3
+
+#################################################################
+
 
 #for edting recipes on recipe page for user
 def usereditrecipe(request, recipe_id):
-    recipe = get_object_or_404(Recipe, id=recipe_id)
+    recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
     
     if request.method == 'POST':
         recipe_form = RecipeForm(request.POST, request.FILES, instance=recipe)
-        nutritional_info_form = NutritionalInformationForm(request.POST, instance=recipe.nutritional_info)
+        # nutritional_info_form = NutritionalInformationForm(request.POST, instance=recipe.nutritional_info)
 
-        if recipe_form.is_valid() and nutritional_info_form.is_valid():
+        if recipe_form.is_valid():
             recipe_form.save()
-            nutritional_info_form.save()
             return redirect('recipe_detail', recipe.id)
     else:  # This 'else' needs to be aligned with the 'if' statement
         recipe_form = RecipeForm(instance=recipe)
-        nutritional_info_form = NutritionalInformationForm(instance=recipe.nutritional_info)
+        # nutritional_info_form = NutritionalInformationForm(instance=recipe.nutritional_info)
 
     return render(request, 'usereditrecipe.html', {
         'recipe_form': recipe_form,
-        'nutritional_info_form': nutritional_info_form,
+        # 'nutritional_info_form': nutritional_info_form,
         'recipe': recipe
     })
 

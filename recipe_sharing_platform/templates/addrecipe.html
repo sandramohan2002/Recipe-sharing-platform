@@ -176,7 +176,7 @@
     <div class="form-container">
         <h1>Add New Recipe</h1>
 
-        <form method="post" action="{% url 'recipe' %}" enctype="multipart/form-data">
+        <form method="post" action="{% url 'addrecipe' %}" enctype="multipart/form-data">
             {% csrf_token %}
 
             <!-- Recipe Name -->
@@ -222,6 +222,13 @@
                 <label for="tags">Tags:</label>
                 <input type="text" name="tags" id="tags" required>
                 <p class="error">{{ form.tags.errors }}</p>
+            </div>
+
+            <!-- Image Upload -->
+            <div class="form-group">
+                <label for="image">Recipe Image:</label>
+                <input type="file" name="image" id="image" accept="image/*" required>
+                <p class="error">{{ form.image.errors }}</p>
             </div>
 
             <!-- Submit Button -->
