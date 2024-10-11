@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutritional Information List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .action-links a {
+            margin: 0 5px;
+            padding: 6px 12px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+        }
+        .action-links a:hover {
+            background-color: #0056b3;
+        }
+        .add-button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .add-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Nutritional Information List</h1>
+    <a href="{% url 'add_nutritional_info' %}" class="add-button">Add Nutritional Info</a>
+    
+    <table>
+        <tr>
+            <th>Calories</th>
+            <th>Protein</th>
+            <th>Fat</th>
+            <th>Carbohydrates</th>
+            <th>Sugar</th>
+            <th>Fiber</th>
+            <th>Actions</th>
+        </tr>
+        {% for info in nutritional_infos %}
+        <tr>
+            <td>{{ info.calories }}</td>
+            <td>{{ info.protein }}</td>
+            <td>{{ info.fat }}</td>
+            <td>{{ info.carbohydrates }}</td>
+            <td>{{ info.sugar }}</td>
+            <td>{{ info.fiber }}</td>
+            <td class="action-links">
+                <a href="{% url 'edit_nutritional_info' info.nutritional_info_id %}">Edit</a>
+                <a href="{% url 'delete_nutritional_info' info.nutritional_info_id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>

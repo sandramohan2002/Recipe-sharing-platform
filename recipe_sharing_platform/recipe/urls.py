@@ -42,13 +42,18 @@ urlpatterns = [
     path('add_recipe/', views.add_recipe, name='add_recipe'),
     path('edit_recipe/<int:recipe_id>/', views.edit_recipe, name='edit_recipe'),
     path('delete_recipe/<int:recipe_id>/', views.delete_recipe, name='delete_recipe'),
-
-
-   # Ingredients and Nutritional Info
+   # Ingredients 
     path('ingredients/', views.ingredient_list, name='ingredient_list'),
     path('ingredients/add/', views.add_ingredient, name='add_ingredient'),
     path('ingredients/edit/<int:ingredient_id>/', views.edit_ingredient, name='edit_ingredient'),
     path('ingredients/delete/<int:ingredient_id>/',views.delete_ingredient, name='delete_ingredient'),
+    #nutritional_info
+    path('nutritional-info/', views.nutritional_info_list, name='nutritional_info_list'),
+    path('nutritional-info/add/', views.add_nutritional_info, name='add_nutritional_info'),
+    path('nutritional-info/edit/<int:pk>/', views.edit_nutritional_info, name='edit_nutritional_info'),
+    path('nutritional-info/delete/<int:pk>/', views.delete_nutritional_info, name='delete_nutritional_info'),
+
+    
 
     
    

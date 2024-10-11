@@ -14,6 +14,13 @@
         <a href="{% url 'recipe_manager_dashboard' %}" class="btn btn-secondary mb-3">Back to Dashboard</a>
 
         <a href="{% url 'add_ingredient' %}" class="btn btn-success mb-3">Add Ingredient</a>
+
+        <!-- Search Form -->
+        <form method="GET" class="mb-3">
+            <input type="text" name="q" placeholder="Search ingredients" value="{{ query }}" class="form-control" />
+            <button type="submit" class="btn btn-primary mt-2">Search</button>
+        </form>
+
         <table class="table table-striped">
             <thead>
                 <tr>

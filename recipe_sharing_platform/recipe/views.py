@@ -317,8 +317,8 @@ def recipe_manager_dashboard(request):
     #pending_recipes = Recipe.objects.filter(status='pending')  # List pending recipes
     context = {'recipes': recipes, 'users': users}##########
     return render(request, 'recipe_manager_dashboard.html',context)
-#code for view_user in recipe manager dashboard
 
+##recipe manager add_recipe
 #code for add_recipe in recipe manager dashboard
 def add_recipe(request):
     if request.method == 'POST':
@@ -360,29 +360,17 @@ def delete_recipe(request, recipe_id):
     recipe.delete()
     return redirect('recipe_manager_dashboard')
 
-#def pending_recipes(request):
-   # recipes = Recipe.objects.filter(status='pending')
-  #  return render(request, 'pending_recipes.html', {'recipes': recipes})
 
-#def approve_recipe(request, recipe_id):
- #   recipe = get_object_or_404(Recipe, id=recipe_id)
-    #recipe.status = 'approved'
-    #recipe.save()
-    #messages.success(request, "Recipe approved successfully!")
-    #return redirect('pending_recipes')
-
-#def reject_recipe(request, recipe_id):
-    #recipe = get_object_or_404(Recipe, id=recipe_id)
-    #recipe.status = 'rejected'
-   # recipe.save()
-   # messages.success(request, "Recipe rejected successfully!")
-   # return redirect('pending_recipes')  # Redirect to pending recipes view
-
-# View to list all ingredients
+##recipe manager manage_ingredients
+#View to list all ingredients
 def ingredient_list(request):
-    ingredients = Ingredient.objects.all()
-    return render(request, 'ingredient_list.html', {'ingredients': ingredients})
+    query = request.GET.get('q')  # Get the query parameter from the URL
+    if query:  # If a query is provided
+        ingredients = Ingredient.objects.filter(name__icontains=query)  # Filter ingredients
+    else:  # If no query is provided
+        ingredients = Ingredient.objects.all()  # Get all ingredients
 
+    return render(request, 'ingredient_list.html', {'ingredients': ingredients, 'query': query})
 
 # # View to add a new ingredient
 def add_ingredient(request):
@@ -395,9 +383,6 @@ def add_ingredient(request):
         form = IngredientForm()
     
     return render(request, 'add_ingredient.html', {'form': form})
-
-
-
 
 # View to edit an existing ingredient
 def edit_ingredient(request, ingredient_id):
@@ -419,37 +404,46 @@ def delete_ingredient(request, ingredient_id):
         return redirect('ingredient_list')  # Redirect after deletion
     return render(request, 'delete_ingredient.html', {'ingredient': ingredient})
 
-# def category_list(request):
-#     categories = Category.objects.all()
-#     return render(request, 'category_list.html', {'categories': categories})
+#recipe manager manage_nutritional info 
+def nutritional_info_list(request):
+    nutritional_infos = NutritionalInformation.objects.all()
+    return render(request, 'nutritional_info_list.html', {'nutritional_infos': nutritional_infos})
 
-# def add_category(request):
-#     if request.method == "POST":
-#         form = CategoryForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('category-list')  # Replace with your category list URL name
-#     else:
-#         form = CategoryForm()
-#     return render(request, 'add_category.html', {'form': form})
+# View to add new nutritional information
+def add_nutritional_info(request):
+    if request.method == 'POST':
+        form = NutritionalInformationForm(request.POST)
+        if form.is_valid():
+            nutritional_info = form.save(commit=False)
+            # You might want to set the recipe_id if needed
+            # nutritional_info.recipe_id = some_recipe_id
+            nutritional_info.save()
+            return redirect('nutritional_info_list')
+    else:
+        form = NutritionalInformationForm()
+    return render(request, 'add_nutritional_info.html', {'form': form})
 
-# def edit_category(request, pk):
-#     category = get_object_or_404(Category, pk=pk)
-#     if request.method == "POST":
-#         form = CategoryForm(request.POST, instance=category)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('category-list')  # Replace with your category list URL name
-#     else:
-#         form = CategoryForm(instance=category)
-#     return render(request, 'edit_category.html', {'form': form})
+# View to edit existing nutritional information
+def edit_nutritional_info(request, pk):
+    nutritional_info = get_object_or_404(NutritionalInformation, pk=pk)
+    if request.method == 'POST':
+        form = NutritionalInformationForm(request.POST, instance=nutritional_info)
+        if form.is_valid():
+            form.save()
+            return redirect('nutritional_info_list')
+    else:
+        form = NutritionalInformationForm(instance=nutritional_info)
+    return render(request, 'edit_nutritional_info.html', {'form': form})
 
-# def delete_category(request, pk):
-#     category = get_object_or_404(Category, pk=pk)
-#     category.delete()
-#     return redirect('category-list')  # Replace with your category list URL name
+# View to delete nutritional information
+def delete_nutritional_info(request, pk):
+    nutritional_info = get_object_or_404(NutritionalInformation, pk=pk)
+    if request.method == 'POST':
+        nutritional_info.delete()
+        return redirect('nutritional_info_list')
+    return render(request, 'delete_nutritional_info.html', {'nutritional_info': nutritional_info})
 
-#########################################################
+
 @login_required
 def rate_recipe(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
