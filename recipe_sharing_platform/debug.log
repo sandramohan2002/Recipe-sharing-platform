@@ -57,3 +57,101 @@ Recipe ID: 5, Recipe ID type: <class 'int'>, Name: Milk Dosa
 Recipe ID: 8, Recipe ID type: <class 'int'>, Name: Cutlet..chumma enthellum kodukku ad
 Recipe ID: 9, Recipe ID type: <class 'int'>, Name: Barfi
 Recipe ID: 10, Recipe ID type: <class 'int'>, Name: Barfi
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: rasagulla
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: rasagulla
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Rasagulla
+Recipe ID: 4, Recipe ID type: <class 'int'>, Name: fgfdgfd
+Recipe ID: 5, Recipe ID type: <class 'int'>, Name: Milk Dosa
+Recipe ID: 8, Recipe ID type: <class 'int'>, Name: Cutlet..chumma enthellum kodukku ad
+Recipe ID: 9, Recipe ID type: <class 'int'>, Name: Barfi
+Recipe ID: 10, Recipe ID type: <class 'int'>, Name: Barfi
+POST data: <QueryDict: {'csrfmiddlewaretoken': ['lDzzyhAHO3CCTaaebcuh5ulz7b0e8UH3XWZu4wjVuoGwadRvq5EoeyevdbJ3EfiB'], 'recipename': ['Motta Adai'], 'category': ['2'], 'ingredient_1': ['6'], 'ingredient_name_1': ['Chana Dal'], 'quantity_1': ['0.02'], 'measurement_1': ['cup'], 'ingredient_2': ['5'], 'ingredient_name_2': ['Rice'], 'quantity_2': ['2'], 'measurement_2': ['cup'], 'ingredient_3': ['7'], 'ingredient_name_3': ['Toor Dal'], 'quantity_3': ['0.03'], 'measurement_3': ['cup'], 'ingredient_4': ['15'], 'ingredient_name_4': ['Salt'], 'quantity_4': ['0.01'], 'measurement_4': ['tsp'], 'ingredient_5': ['8'], 'ingredient_name_5': ['Urad Dal'], 'quantity_5': ['0.02'], 'measurement_5': ['cup'], 'ingredient_6': ['9'], 'ingredient_name_6': ['Eggs'], 'quantity_6': ['2'], 'measurement_6': ['piece'], 'ingredient_7': ['11'], 'ingredient_name_7': ['Green chillies'], 'quantity_7': ['0.01'], 'measurement_7': ['g'], 'ingredient_8': ['13'], 'ingredient_name_8': ['Ginger'], 'quantity_8': ['-0.01'], 'measurement_8': ['g'], 'ingredient_9': ['14'], 'ingredient_name_9': ['Oil'], 'quantity_9': ['0.01'], 'measurement_9': ['g'], 'ingredient_10': ['12'], 'ingredient_name_10': ['Cumin Seeds'], 'quantity_10': ['0.01'], 'measurement_10': ['g'], 'ingredient_11': ['16'], 'ingredient_name_11': ['Water'], 'quantity_11': ['1'], 'measurement_11': ['tsp'], 'ingredient_12': ['17'], 'ingredient_name_12': ['Coriander Leaves'], 'quantity_12': ['0.02'], 'measurement_12': ['tsp'], 'instructions_1': ['Rinse and soak the rice, chana dal, toor dal, and urad dal in water for about 2-3 hours.'], 'instructions_2': ['Drain the water and grind the soaked rice and dals together into a coarse batter using a little water. The consistency should be similar to dosa batter (thick but pourable).Add salt to the batter and mix well.'], 'instructions_3': ['To the batter, add the chopped onions, green chilies, curry leaves, cumin seeds, and chopped ginger. Stir well.'], 'instructions_4': ['Break the eggs into the batter and mix thoroughly. If you prefer, you can beat the eggs separately before adding them to the batter.'], 'instructions_5': ['Heat a tawa (griddle) or a non-stick pan over medium heat and drizzle a little oil on it.'], 'instructions_6': ['Pour a ladleful of batter onto the pan and spread it into a circular shape (like a thick dosa or pancake).Drizzle a little oil around the edges of the adai.'], 'instructions_7': ['Cook on medium heat for about 2-3 minutes until the bottom turns golden brown. Flip the adai and cook the other side for another 1-2 minutes until cooked through.'], 'instructions_8': ['Serve the Muttai Adai hot with chutney, sambar, or yogurt.'], 'tags': ['savory South Indian dish, Healthy, High-Protein, Breakfast']}>
+FILES data: <MultiValueDict: {'image': [<InMemoryUploadedFile: mutta_adai.jpg (image/jpeg)>]}>
+Parsed data: recipename=Motta Adai, category_id=2, tags=savory South Indian dish, Healthy, High-Protein, Breakfast, image=mutta_adai.jpg, instructions=Rinse and soak the rice, chana dal, toor dal, and ...
+Created recipe with ID: 11
+Added ingredient: 6, quantity: 0.02, measurement: cup
+Added ingredient: 5, quantity: 2, measurement: cup
+Added ingredient: 7, quantity: 0.03, measurement: cup
+Added ingredient: 15, quantity: 0.01, measurement: tsp
+Added ingredient: 8, quantity: 0.02, measurement: cup
+Added ingredient: 9, quantity: 2, measurement: piece
+Added ingredient: 11, quantity: 0.01, measurement: g
+Added ingredient: 13, quantity: -0.01, measurement: g
+Added ingredient: 14, quantity: 0.01, measurement: g
+Added ingredient: 12, quantity: 0.01, measurement: g
+Added ingredient: 16, quantity: 1, measurement: tsp
+Added ingredient: 17, quantity: 0.02, measurement: tsp
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: rasagulla
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: rasagulla
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Rasagulla
+Recipe ID: 4, Recipe ID type: <class 'int'>, Name: fgfdgfd
+Recipe ID: 5, Recipe ID type: <class 'int'>, Name: Milk Dosa
+Recipe ID: 8, Recipe ID type: <class 'int'>, Name: Cutlet..chumma enthellum kodukku ad
+Recipe ID: 9, Recipe ID type: <class 'int'>, Name: Barfi
+Recipe ID: 10, Recipe ID type: <class 'int'>, Name: Barfi
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adai
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: rasagulla
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: rasagulla
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Rasagulla
+Recipe ID: 4, Recipe ID type: <class 'int'>, Name: fgfdgfd
+Recipe ID: 5, Recipe ID type: <class 'int'>, Name: Milk Dosa
+Recipe ID: 8, Recipe ID type: <class 'int'>, Name: Cutlet..chumma enthellum kodukku ad
+Recipe ID: 9, Recipe ID type: <class 'int'>, Name: Barfi
+Recipe ID: 10, Recipe ID type: <class 'int'>, Name: Barfi
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adai
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: rasagulla
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: rasagulla
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Rasagulla
+Recipe ID: 4, Recipe ID type: <class 'int'>, Name: fgfdgfd
+Recipe ID: 5, Recipe ID type: <class 'int'>, Name: Milk Dosa
+Recipe ID: 8, Recipe ID type: <class 'int'>, Name: Cutlet..chumma enthellum kodukku ad
+Recipe ID: 9, Recipe ID type: <class 'int'>, Name: Barfi
+Recipe ID: 10, Recipe ID type: <class 'int'>, Name: Barfi
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adai
+Internal Server Error: /recipe_manager_dashboard/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 319, in recipe_manager_dashboard
+    return render(request, 'recipe_manager_dashboard.html',context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 214, in render
+    nodelist.append(node.render_annotated(context))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'edit_recipe' with arguments '('',)' not found. 1 pattern(s) tried: ['edit_recipe\\/(?P<recipe_id>[0-9]+)\\/\\Z']
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
