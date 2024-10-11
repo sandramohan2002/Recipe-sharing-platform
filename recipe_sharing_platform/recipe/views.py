@@ -148,7 +148,15 @@ def recipe(request):
         logger.info(f"Recipe ID: {recipe.recipe_id}, Recipe ID type: {type(recipe.recipe_id)}, Name: {recipe.recipename}")
     return render(request, 'recipe.html', {'recipes': recipes})
 
+#FOR SEARCH PURPOSE ADDED THIS CODE SAME PAGE TOP AND
+def recipe(request):
+    search_query = request.GET.get('search', '')  # Get the search query from the request
+    if search_query:
+        recipes = Recipe.objects.filter(recipename__icontains=search_query)
+    else:
+        recipes = Recipe.objects.all()
 
+    return render(request, 'recipe.html', {'recipes': recipes})
 
 
 def about(request):

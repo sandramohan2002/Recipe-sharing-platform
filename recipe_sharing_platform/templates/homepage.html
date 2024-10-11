@@ -44,11 +44,19 @@
             border-bottom: 1px solid #ddd;
         }
         .search-bar input[type="text"] {
-            width: 100%;
-            max-width: 500px;
+            width: 150%;
+            max-width: 800px; /* Increased width */
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            margin-right: 10px; /* Add space between input and button */
+        }
+        .search-bar button {
+            padding: 10px 20px;
+            background-color: #ff6f00; /* Changed to orange */
+            border: none;
+            border-radius: 4px;
+            color: white;
         }
         .main-banner {
             position: relative;
@@ -136,13 +144,16 @@
             font-size: 12px;
             color: #555;
         }
-        
     </style>
 </head>
 <body>
-   <!-- Search Bar -->
+
+    <!-- Search Bar -->
     <div class="search-bar">
-        <input type="text" placeholder="Find a recipe or ingredient">
+        <form method="GET" action="{% url 'recipe' %}" class="form-inline d-flex justify-content-center">
+            <input type="text" name="search" placeholder="Find a recipe or ingredient" value="{{ request.GET.search }}" class="form-control me-2" style="width: 80%;">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
     </div>
 
     <!-- Content Wrapper -->
