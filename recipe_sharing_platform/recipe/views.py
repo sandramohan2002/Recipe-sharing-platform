@@ -443,6 +443,41 @@ def delete_nutritional_info(request, pk):
         return redirect('nutritional_info_list')
     return render(request, 'delete_nutritional_info.html', {'nutritional_info': nutritional_info})
 
+#recipe manager can manage categories
+def category_list(request):
+    categories = Category.objects.all()
+    return render(request, 'category_list.html', {'categories': categories})
+
+# View to add a new category
+def add_category(request):
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('category_list')  # Redirect to the category list
+    else:
+        form = CategoryForm()
+    return render(request, 'add_category.html', {'form': form})
+
+# View to edit an existing category
+def edit_category(request, category_id):
+    category = get_object_or_404(Category, category_id=category_id)
+    if request.method == 'POST':
+        form = CategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            form.save()
+            return redirect('category_list')  # Redirect to the category list after editing
+    else:
+        form = CategoryForm(instance=category)
+    return render(request, 'edit_category.html', {'form': form})
+
+# View to delete a category
+def delete_category(request, category_id):
+    category = get_object_or_404(Category, category_id=category_id)
+    if request.method == 'POST':
+        category.delete()
+        return redirect('category_list')  # Redirect to the category list after deletion
+    return render(request, 'delete_category.html', {'category': category})
 
 @login_required
 def rate_recipe(request, recipe_id):

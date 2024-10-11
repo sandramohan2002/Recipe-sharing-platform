@@ -52,6 +52,11 @@ urlpatterns = [
     path('nutritional-info/add/', views.add_nutritional_info, name='add_nutritional_info'),
     path('nutritional-info/edit/<int:pk>/', views.edit_nutritional_info, name='edit_nutritional_info'),
     path('nutritional-info/delete/<int:pk>/', views.delete_nutritional_info, name='delete_nutritional_info'),
+    #categories
+    path('categories/', views.category_list, name='category_list'),
+    path('categories/add/', views.add_category, name='add_category'),
+    path('categories/edit/<int:category_id>/', views.edit_category, name='edit_category'),
+    path('categories/delete/<int:category_id>/', views.delete_category, name='delete_category'),
 
     
 
