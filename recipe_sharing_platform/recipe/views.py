@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
 from .forms import CreateUserForm
 from .models import Recipe, NutritionalInformation,Ingredient,Category,Rating,Review,Comment
-from .forms import RecipeForm, NutritionalInformationForm,ProfileForm,IngredientForm,CategoryForm,CreateUserForm
+from .forms import RecipeForm, NutritionalInformationForm,ProfileForm,IngredientForm,CategoryForm,CreateUserForm,ContactForm
 import random
 from django.db.models import Avg
 from django.shortcuts import render, get_object_or_404
@@ -18,6 +18,7 @@ import logging
 from django.urls import reverse
 from django.db import transaction
 from .models import Recipe, Category, Ingredient, RecipeIngredient
+from django.conf import settings
 
 logger = logging.getLogger(__name__)
 
@@ -291,7 +292,7 @@ def profile_change(request):
             request.session['username'] = username
             customer=CustomUser.objects.get(id=userid)
             return render(request,'profile.html',{'user':customer})
-        
+#########################################################   
 # ADMIN DASHBOARD VIEW
 #@login_required(login_url='login')
 def admin_dashboard(request):
@@ -309,7 +310,7 @@ def unblock_user(request, user_id):
     user.save()
     return redirect('admin_dashboard')  # Adjust the redirect as necessary
 
-
+#############################################################
 #RECIPE MANAGER DASHBOARD VIEW
 def recipe_manager_dashboard(request):
     recipes = Recipe.objects.all() # List all recipes
@@ -478,7 +479,38 @@ def delete_category(request, category_id):
         category.delete()
         return redirect('category_list')  # Redirect to the category list after deletion
     return render(request, 'delete_category.html', {'category': category})
+##############
+def user_contact_recipemanager(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # Process the form data
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
 
+            # Send the email
+            send_mail(
+                f'Contact Form Submission from {name}',
+                message,
+                email,
+                ['support@example.com'],  # Replace with your support email
+            )
+
+            return redirect('user_contact_recipemanager_success')
+    else:
+        form = ContactForm()
+
+    return render(request, 'user_contact_recipemanager.html', {'form': form})
+
+def user_contact_recipemanager_success(request):
+    return render(request, 'user_contact_recipemanager_success.html')
+
+from .models import FAQ
+def faq(request):
+    faqs = FAQ.objects.all()
+    return render(request, 'faq.html', {'faqs': faqs})
+#############################
 @login_required
 def rate_recipe(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)
@@ -514,8 +546,6 @@ def comment_on_review(request, review_id):
     return redirect('recipe_detail', recipe_id=review.recipe.id)
 
 from django.http import JsonResponse
-
-####################################################
 from django.http import JsonResponse
 
 from django.http import JsonResponse

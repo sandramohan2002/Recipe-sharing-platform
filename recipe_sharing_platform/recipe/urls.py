@@ -57,8 +57,10 @@ urlpatterns = [
     path('categories/add/', views.add_category, name='add_category'),
     path('categories/edit/<int:category_id>/', views.edit_category, name='edit_category'),
     path('categories/delete/<int:category_id>/', views.delete_category, name='delete_category'),
-
-    
+    #support 
+    path('user/contact/', views.user_contact_recipemanager, name='user_contact_recipemanager'),
+    path('user/contact/success/', views.user_contact_recipemanager_success, name='user_contact_recipemanager_success'),
+    path('faq/', views.faq, name='faq'),
 
     
    
