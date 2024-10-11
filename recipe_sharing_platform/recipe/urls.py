@@ -42,19 +42,24 @@ urlpatterns = [
     path('add_recipe/', views.add_recipe, name='add_recipe'),
     path('edit_recipe/<int:recipe_id>/', views.edit_recipe, name='edit_recipe'),
     path('delete_recipe/<int:recipe_id>/', views.delete_recipe, name='delete_recipe'),
+
+
    # Ingredients and Nutritional Info
     path('ingredients/', views.ingredient_list, name='ingredient_list'),
-
     path('ingredients/add/', views.add_ingredient, name='add_ingredient'),
-    # path('ingredients/edit/<int:pk>/', views.edit_ingredient, name='edit_ingredient'),
+    path('ingredients/edit/<int:ingredient_id>/', views.edit_ingredient, name='edit_ingredient'),
+    path('ingredients/delete/<int:ingredient_id>/',views.delete_ingredient, name='delete_ingredient'),
+
     
-    #path('pending/', views.pending_recipes, name='pending_recipes'),
-    #path('approve/<int:recipe_id>/', views.approve_recipe, name='approve_recipe'),
-    #path('reject/<int:recipe_id>/', views.reject_recipe, name='reject_recipe'),
+   
 
     
     # Uncomment these if you plan to implement them:
     # path('nutritional-info/', views.nutritional_info_list, name='nutritional_info_list'),
+
+
+
+
 
      # Recipe interactions
     path('recipe/<int:recipe_id>/rate/', views.rate_recipe, name='rate_recipe'),
@@ -63,6 +68,63 @@ urlpatterns = [
     path('get-ingredients/<int:category_id>/',views.get_ingredients, name='get_ingredients'),
     path('recipe_details/<int:recipe_id>/', views.recipe_detail, name='recipe_detail'),
 ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Handle static and media files in development
 if settings.DEBUG:

@@ -1,4 +1,4 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,12 +9,17 @@
 <body>
     <div class="container">
         <h1>Ingredient Knowledge Base</h1>
+
+        <!-- Back Button to Recipe Manager Dashboard -->
+        <a href="{% url 'recipe_manager_dashboard' %}" class="btn btn-secondary mb-3">Back to Dashboard</a>
+
         <a href="{% url 'add_ingredient' %}" class="btn btn-success mb-3">Add Ingredient</a>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Ingredient Name</th>
                     <th>Substitutions</th>
+                    <th>Category</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -23,17 +28,23 @@
                 <tr>
                     <td>{{ ingredient.name }}</td>
                     <td>{{ ingredient.substitutions }}</td>
+                    <td>{{ ingredient.category_id }}</td>  <!-- This should ideally reference a category name -->
                     <td>
-                        <a href="{% url 'edit_ingredient' ingredient.id %}" class="btn btn-primary">Edit</a>
+                        {% if ingredient.ingredient_id %}  <!-- Check if ID exists -->
+                            <a href="{% url 'edit_ingredient' ingredient.ingredient_id %}" class="btn btn-primary">Edit</a>
+                            <a href="{% url 'delete_ingredient' ingredient.ingredient_id %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this ingredient?');">Delete</a>
+                        {% else %}
+                            <span class="text-muted">No actions available</span>
+                        {% endif %}
                     </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="3">No ingredients available.</td>
+                    <td colspan="4">No ingredients available.</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 </body>
-</html> {% endcomment %}
+</html>

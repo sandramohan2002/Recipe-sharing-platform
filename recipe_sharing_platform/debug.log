@@ -155,3 +155,519 @@ Watching for file changes with StatReloader
 D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
 Using selector: SelectSelector
 Watching for file changes with StatReloader
+Recipe ID: 10, Recipe ID type: <class 'int'>, Name: Barfi
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adai
+Internal Server Error: /recipe_manager_dashboard/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 319, in recipe_manager_dashboard
+    return render(request, 'recipe_manager_dashboard.html',context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'substitution_list' not found. 'substitution_list' is not a valid view function or pattern name.
+Internal Server Error: /recipe_manager_dashboard/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 319, in recipe_manager_dashboard
+    return render(request, 'recipe_manager_dashboard.html',context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'nutrition_list' not found. 'nutrition_list' is not a valid view function or pattern name.
+Internal Server Error: /recipe_manager_dashboard/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 319, in recipe_manager_dashboard
+    return render(request, 'recipe_manager_dashboard.html',context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for '' not found. '' is not a valid view function or pattern name.
+Internal Server Error: /ingredients/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 470, in parse
+    compile_func = self.tags[command]
+KeyError: 'endcomment'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 384, in ingredient_list
+    return render(request, 'ingredient_list.html', {'ingredients': ingredients})
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 34, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\engine.py", line 143, in get_template
+    template, origin = self.find_template(template_name)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\engine.py", line 125, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loaders\base.py", line 30, in get_template
+    contents, origin, origin.template_name, self.engine,
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 155, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 193, in compile_nodelist
+    return parser.parse()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 472, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 534, in invalid_block_tag
+    "or load this tag?" % (token.lineno, command)
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 39: 'endcomment'. Did you forget to register or load this tag?
+Internal Server Error: /ingredients/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 470, in parse
+    compile_func = self.tags[command]
+KeyError: 'endcomment'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 384, in ingredient_list
+    return render(request, 'ingredient_list.html', {'ingredients': ingredients})
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 34, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\engine.py", line 143, in get_template
+    template, origin = self.find_template(template_name)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\engine.py", line 125, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loaders\base.py", line 30, in get_template
+    contents, origin, origin.template_name, self.engine,
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 155, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 193, in compile_nodelist
+    return parser.parse()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 472, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 534, in invalid_block_tag
+    "or load this tag?" % (token.lineno, command)
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 39: 'endcomment'. Did you forget to register or load this tag?
+Internal Server Error: /ingredients/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 470, in parse
+    compile_func = self.tags[command]
+KeyError: 'endcomment'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 384, in ingredient_list
+    return render(request, 'ingredient_list.html', {'ingredients': ingredients})
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 34, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\engine.py", line 143, in get_template
+    template, origin = self.find_template(template_name)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\engine.py", line 125, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loaders\base.py", line 30, in get_template
+    contents, origin, origin.template_name, self.engine,
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 155, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 193, in compile_nodelist
+    return parser.parse()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 472, in parse
+    self.invalid_block_tag(token, command, parse_until)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 534, in invalid_block_tag
+    "or load this tag?" % (token.lineno, command)
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 39: 'endcomment'. Did you forget to register or load this tag?
+Internal Server Error: /ingredients/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 384, in ingredient_list
+    return render(request, 'ingredient_list.html', {'ingredients': ingredients})
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 214, in render
+    nodelist.append(node.render_annotated(context))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'edit_ingredient' not found. 'edit_ingredient' is not a valid view function or pattern name.
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Recipe ID: 10, Recipe ID type: <class 'int'>, Name: Barfi
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adai
+Internal Server Error: /ingredients/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 384, in ingredient_list
+    return render(request, 'ingredient_list.html', {'ingredients': ingredients})
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 214, in render
+    nodelist.append(node.render_annotated(context))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'edit_ingredient' not found. 'edit_ingredient' is not a valid view function or pattern name.
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Recipe ID: 10, Recipe ID type: <class 'int'>, Name: Barfi
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adai
+Internal Server Error: /ingredients/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 384, in ingredient_list
+    return render(request, 'ingredient_list.html', {'ingredients': ingredients})
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 214, in render
+    nodelist.append(node.render_annotated(context))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'edit_ingredient' with arguments '('',)' not found. 1 pattern(s) tried: ['ingredients\\/edit\\/(?P<ingredient_id>[0-9]+)\\/\\Z']
+Internal Server Error: /ingredients/edit/1/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 404, in edit_ingredient
+    ingredient = Ingredient.objects.get(id=ingredient_id)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 424, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 941, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 961, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 968, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1416, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1438, in _add_q
+    split_subq=split_subq, check_filterable=check_filterable,
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1309, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1135, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1563, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'id' into field. Choices are: category_id, ingredient_id, name, recipe, recipeingredient, substitutions
+Internal Server Error: /ingredients/delete/1/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 415, in delete_ingredient
+    ingredient = get_object_or_404(Ingredient, id=ingredient_id)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 76, in get_object_or_404
+    return queryset.get(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 424, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 941, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 961, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 968, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1416, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1438, in _add_q
+    split_subq=split_subq, check_filterable=check_filterable,
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1309, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1135, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1563, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'id' into field. Choices are: category_id, ingredient_id, name, recipe, recipeingredient, substitutions
+Internal Server Error: /ingredients/delete/1/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 415, in delete_ingredient
+    ingredient = get_object_or_404(Ingredient, id=ingredient_id)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 76, in get_object_or_404
+    return queryset.get(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 424, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 941, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 961, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 968, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1416, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1438, in _add_q
+    split_subq=split_subq, check_filterable=check_filterable,
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1309, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1135, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1563, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'id' into field. Choices are: category_id, ingredient_id, name, recipe, recipeingredient, substitutions
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Recipe ID: 10, Recipe ID type: <class 'int'>, Name: Barfi
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adai
+Internal Server Error: /ingredients/delete/1/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 419, in delete_ingredient
+    return render(request, 'confirm_delete.html', {'ingredient': ingredient})
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: confirm_delete.html
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Internal Server Error: /ingredients/edit/14/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 404, in edit_ingredient
+    ingredient = Ingredient.objects.get(id=ingredient_id)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 424, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 941, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 961, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 968, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1416, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1438, in _add_q
+    split_subq=split_subq, check_filterable=check_filterable,
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1309, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1135, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1563, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'id' into field. Choices are: category_id, ingredient_id, name, recipe, recipeingredient, substitutions
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /ingredients/delete/1/
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader

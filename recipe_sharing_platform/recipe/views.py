@@ -400,16 +400,24 @@ def add_ingredient(request):
 
 
 # View to edit an existing ingredient
-# def edit_ingredient(request, pk):
-#     ingredient = get_object_or_404(Ingredient, pk=pk)
-#     if request.method == 'POST':
-#         form = IngredientForm(request.POST, instance=ingredient)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('ingredient_list')
-#     else:
-#         form = IngredientForm(instance=ingredient)
-#     return render(request, 'edit_ingredient.html', {'form': form, 'ingredient': ingredient})
+def edit_ingredient(request, ingredient_id):
+    ingredient = get_object_or_404(Ingredient, ingredient_id=ingredient_id)  # Use ingredient_id here
+    
+    if request.method == 'POST':
+        ingredient.name = request.POST.get('name')
+        ingredient.substitutions = request.POST.get('substitutions')
+        ingredient.category_id = request.POST.get('category_id')  # Make sure to handle category correctly
+        ingredient.save()
+        return redirect('ingredient_list')  # Redirect after saving
+
+    return render(request, 'edit_ingredient.html', {'ingredient': ingredient})
+
+def delete_ingredient(request, ingredient_id):
+    ingredient = get_object_or_404(Ingredient, ingredient_id=ingredient_id)  # Use ingredient_id instead of id
+    if request.method == 'POST':
+        ingredient.delete()
+        return redirect('ingredient_list')  # Redirect after deletion
+    return render(request, 'delete_ingredient.html', {'ingredient': ingredient})
 
 # def category_list(request):
 #     categories = Category.objects.all()
