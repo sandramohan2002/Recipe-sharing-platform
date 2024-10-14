@@ -150,13 +150,20 @@ def recipe(request):
 
 #FOR SEARCH PURPOSE ADDED THIS CODE SAME PAGE TOP AND
 def recipe(request):
-    search_query = request.GET.get('search', '')  # Get the search query from the request
+    search_query = request.GET.get('search', '')
     if search_query:
         recipes = Recipe.objects.filter(recipename__icontains=search_query)
     else:
         recipes = Recipe.objects.all()
 
-    return render(request, 'recipe.html', {'recipes': recipes})
+    # Get the current user's ID
+    current_user_id = request.session.get('id')
+
+    # Add a flag to each recipe indicating if the current user can edit it
+    for recipe in recipes:
+        recipe.can_edit = (recipe.user_id == current_user_id)
+
+    return render(request, 'recipe.html', {'recipes': recipes, 'current_user_id': current_user_id})
 
 
 def about(request):
@@ -166,67 +173,63 @@ def contact(request):
     return render(request, 'contact.html')
 
 
+from django.db import transaction
+from django.contrib import messages
+
+@transaction.atomic
 def addrecipe(request):
     if request.method == 'POST':
         try:
-            with transaction.atomic():
-                logger.info(f"POST data: {request.POST}")
-                logger.info(f"FILES data: {request.FILES}")
+            # Extract basic recipe information
+            recipename = request.POST.get('recipename')
+            category_id = request.POST.get('category')
+            tags = request.POST.get('tags')
+            image = request.FILES.get('image')
+            
+            # Collect all instructions
+            instructions = []
+            for key, value in request.POST.items():
+                if key.startswith('instructions_') and value.strip():
+                    instructions.append(value.strip())
+            instructions = '\n'.join(instructions)
 
-                recipename = request.POST.get('recipename')
-                category_id = request.POST.get('category')
-                tags = request.POST.get('tags')
-                image = request.FILES.get('image')
-                
-                # Collect all instructions
-                instructions = []
-                for key, value in request.POST.items():
-                    if key.startswith('instructions_') and value.strip():
-                        instructions.append(value.strip())
-                instructions = '\n'.join(instructions)
+            # Validate fields
+            if not all([recipename, category_id, tags, instructions]):
+                raise ValueError('All fields except image are required!')
 
-                logger.info(f"Parsed data: recipename={recipename}, category_id={category_id}, tags={tags}, image={image}, instructions={instructions[:50]}...")
+            # Create Recipe
+            recipe = Recipe.objects.create(
+                recipename=recipename,
+                category_id=category_id,
+                tags=tags,
+                instructions=instructions,
+                image=image,
+                user_id=request.session.get('id')  # Assuming user ID is stored in session
+            )
 
-                # Validate fields
-                if not all([recipename, category_id, tags, instructions]):
-                    raise ValueError('All fields except image are required!')
+            # Process ingredients
+            ingredient_count = 1
+            while True:
+                ingredient_id = request.POST.get(f'ingredient_{ingredient_count}')
+                quantity = request.POST.get(f'quantity_{ingredient_count}')
+                measurement = request.POST.get(f'measurement_{ingredient_count}')
 
-                # Create Recipe
-                recipe = Recipe.objects.create(
-                    recipename=recipename,
-                    category_id=category_id,
-                    tags=tags,
-                    instructions=instructions,
-                    image=image
+                if not all([ingredient_id, quantity, measurement]):
+                    break
+
+                RecipeIngredient.objects.create(
+                    recipe=recipe,
+                    ingredient_id=ingredient_id,
+                    quantity=quantity,
+                    measurement=measurement
                 )
 
-                logger.info(f"Created recipe with ID: {recipe.recipe_id}")
+                ingredient_count += 1
 
-                # Process ingredients
-                ingredient_count = 1
-                while True:
-                    ingredient_id = request.POST.get(f'ingredient_{ingredient_count}')
-                    quantity = request.POST.get(f'quantity_{ingredient_count}')
-                    measurement = request.POST.get(f'measurement_{ingredient_count}')
-
-                    if not all([ingredient_id, quantity, measurement]):
-                        break
-
-                    RecipeIngredient.objects.create(
-                        recipe=recipe,
-                        ingredient_id=ingredient_id,
-                        quantity=quantity,
-                        measurement=measurement
-                    )
-                    logger.info(f"Added ingredient: {ingredient_id}, quantity: {quantity}, measurement: {measurement}")
-
-                    ingredient_count += 1
-
-                messages.success(request, 'Recipe added successfully!')
-                return redirect('recipe')
+            messages.success(request, 'Recipe added successfully!')
+            return redirect('recipe')
 
         except Exception as e:
-            logger.error(f"Error adding recipe: {str(e)}", exc_info=True)
             messages.error(request, f'Error adding recipe: {str(e)}')
 
     categories = Category.objects.all()

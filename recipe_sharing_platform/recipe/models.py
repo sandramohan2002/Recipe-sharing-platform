@@ -54,6 +54,7 @@ class Ingredient(models.Model):
 
 # RECIPE MODEL:
 class Recipe(models.Model):
+    user_id=models.IntegerField()
     recipe_id = models.AutoField(primary_key=True)  # This is likely your current primary key
     recipename = models.CharField(max_length=200)  # Name of the recipe
     ingredients = models.ManyToManyField(Ingredient)  # Many-to-many relation with ingredients
