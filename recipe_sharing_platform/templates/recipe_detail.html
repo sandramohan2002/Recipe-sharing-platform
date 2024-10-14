@@ -95,6 +95,16 @@
 </head>
 <body>
     <div class="container">
+        <!-- Add message display block here -->
+        {% if messages %}
+            <div class="alert alert-success">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    <div class="container">
         <h1>{{ recipe.recipename }}</h1>
         
         {% if recipe.image %}
@@ -135,15 +145,17 @@
             </form>
         </div>
 
-        <h3>Reviews</h3>
-        {% for review in recipe.reviews.all %}
-            <div class="review">
-                <p><strong>{{ review.user.name }}</strong>: {{ review.review_text }}</p>
-                <small>Posted on: {{ review.created_at }}</small>
-            </div>
-        {% empty %}
-            <p>No reviews yet. Be the first to review this recipe!</p>
-        {% endfor %}
+        {% if reviews_display %}
+    <h3>Reviews</h3>
+    {% for review in reviews %}
+        <div class="review">
+            <p><strong>User {{ review.user_id }}</strong>: {{ review.review_text }}</p>
+            <small>Posted on: {{ review.created_at }}</small>
+        </div>
+    {% empty %}
+        <p>No reviews yet. Be the first to review this recipe!</p>
+    {% endfor %}
+{% endif %}
     </div>
 </body>
 </html>

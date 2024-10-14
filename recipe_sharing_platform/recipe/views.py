@@ -53,8 +53,8 @@ def login(request):
 
         try:
             user = CustomUser.objects.get(email=email)
-            if(user.email=="admin@gmail.com" and user.password=="Admin@123"):
-                return redirect('admin_dashboard')
+            if(user.email=="recipemanager@gmail.com" and user.password=="RecipeManager@123"):
+                return redirect('recipe_manager_dashboard')
             # Directly compare plain text passwords
             else:
                 if user.password == password:
@@ -234,8 +234,9 @@ def addrecipe(request):
     return render(request, 'addrecipe.html', {'categories': categories, 'ingredients': ingredients})
 
 
-def recipe_detail(request, recipe_id):
+def recipe_detail(request, recipe_id,reviews=False):
     recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
+    reviews = Review.objects.filter(recipe_id=recipe_id)  # Fetch reviews for the recipe
     
     # Fetch the category name
     category = Category.objects.filter(category_id=recipe.category_id).first()
@@ -248,34 +249,113 @@ def recipe_detail(request, recipe_id):
         'recipe': recipe,
         'category_name': category_name,
         'instructions': instructions,
-        # Add other context variables here (average_rating, total_ratings, etc.)
+        'messages': messages.get_messages(request),
+        'reviews': reviews, # Pass reviews to the template
+        'reviews_display': reviews if reviews else False 
     }
     
     return render(request, 'recipe_detail.html', context)
-###########################################################3
+    
 
 
 
 #for edting recipes on recipe page for user
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from .models import Recipe
+from .forms import RecipeForm
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from .models import Recipe
+from .forms import RecipeForm
+import logging
+
+logger = logging.getLogger(__name__)
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from .models import Recipe, RecipeIngredient, Ingredient, Category
+from .forms import RecipeForm
+import logging
+
+logger = logging.getLogger(__name__)
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from .models import Recipe, RecipeIngredient, Ingredient, Category
+from .forms import RecipeForm
+from django.db import transaction
+import logging
+
+logger = logging.getLogger(__name__)
+
 def usereditrecipe(request, recipe_id):
     recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
     
     if request.method == 'POST':
-        recipe_form = RecipeForm(request.POST, request.FILES, instance=recipe)
-        # nutritional_info_form = NutritionalInformationForm(request.POST, instance=recipe.nutritional_info)
+        try:
+            with transaction.atomic():
+                # Update basic recipe information
+                recipe.recipename = request.POST.get('recipename')
+                recipe.category_id = request.POST.get('category')
+                recipe.tags = request.POST.get('tags')
+                
+                if 'image' in request.FILES:
+                    recipe.image = request.FILES['image']
+                elif 'clear_image' in request.POST:
+                    recipe.image = None
 
-        if recipe_form.is_valid():
-            recipe_form.save()
-            return redirect('recipe_detail', recipe.id)
-    else:  # This 'else' needs to be aligned with the 'if' statement
-        recipe_form = RecipeForm(instance=recipe)
-        # nutritional_info_form = NutritionalInformationForm(instance=recipe.nutritional_info)
+                # Handle ingredients
+                RecipeIngredient.objects.filter(recipe=recipe).delete()
+                ingredient_ids = request.POST.getlist('ingredient[]')
+                quantities = request.POST.getlist('quantity[]')
+                measurements = request.POST.getlist('measurement[]')
 
-    return render(request, 'usereditrecipe.html', {
-        'recipe_form': recipe_form,
-        # 'nutritional_info_form': nutritional_info_form,
-        'recipe': recipe
-    })
+                for i in range(len(ingredient_ids)):
+                    ingredient = get_object_or_404(Ingredient, ingredient_id=ingredient_ids[i])
+                    RecipeIngredient.objects.create(
+                        recipe=recipe,
+                        ingredient=ingredient,
+                        quantity=quantities[i],
+                        measurement=measurements[i]
+                    )
+
+                # Handle instructions
+                instructions = request.POST.getlist('instructions[]')
+                recipe.instructions = '\n'.join(filter(None, instructions))  # Join non-empty instructions
+
+                recipe.save()
+
+                messages.success(request, "Recipe updated successfully!")
+                return redirect('recipe_detail', recipe_id=recipe.recipe_id)
+        except Exception as e:
+            logger.error(f"Error updating recipe {recipe_id}: {str(e)}")
+            messages.error(request, f"An error occurred while updating the recipe: {str(e)}")
+    else:
+        form = RecipeForm(instance=recipe)
+
+    context = {
+        'recipe': recipe,
+        'form': form,
+        'recipe_ingredients': recipe.recipe_ingredients.all(),
+        'all_ingredients': Ingredient.objects.all(),
+        'categories': Category.objects.all(),
+        'instructions': recipe.instructions.split('\n') if recipe.instructions else [],
+    }
+    return render(request, 'usereditrecipe.html', context)
+
+@login_required
+def review_recipe(request, recipe_id):
+    if request.method == 'POST':
+        review_text = request.POST.get('review')
+        user_id = request.user.id
+
+        review = Review(recipe_id=recipe_id, user_id=user_id, review_text=review_text)
+        review.save()
+
+        messages.success(request, "Your review has been submitted.")
+        return redirect('recipe_detail', recipe_id=recipe_id,reviews=True)
 
 def profile_view(request,user_id):
     user=CustomUser.objects.get(id=user_id)
@@ -531,16 +611,6 @@ def rate_recipe(request, recipe_id):
 
     return redirect('recipe_detail', recipe_id=recipe.id)
 
-@login_required
-def review_recipe(request, recipe_id):
-    recipe = get_object_or_404(Recipe, id=recipe_id)
-    review_text = request.POST.get('review')
-
-    # Create a new review
-    review = Review.objects.create(user=request.user, recipe=recipe, review_text=review_text)
-    review.save()
-
-    return redirect('recipe_detail', recipe_id=recipe.id)
 
 @login_required
 def comment_on_review(request, review_id):

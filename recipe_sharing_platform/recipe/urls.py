@@ -26,11 +26,12 @@ urlpatterns = [
     # Main pages
     path('homepage/', views.homepage, name='homepage'),
     path('recipe/', views.recipe, name='recipe'),
-    path('recipe/<int:id>/', views.recipe_detail, name='recipe_detail'),
+    path('recipe/<int:recipe_id>/edit/', views.usereditrecipe, name='usereditrecipe'),
+    path('recipe/<int:recipe_id>/', views.recipe_detail, name='recipe_detail'),
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
     path('addrecipe/', views.addrecipe, name='addrecipe'),
-    path('usereditrecipe/<int:recipe_id>/', views.usereditrecipe, name='usereditrecipe'),
+    
 
     # Admin 
     path('admin_dashboard/', views.admin_dashboard, name='admin_dashboard'),
@@ -71,14 +72,12 @@ urlpatterns = [
 
 
 
-
-
      # Recipe interactions
     path('recipe/<int:recipe_id>/rate/', views.rate_recipe, name='rate_recipe'),
     path('recipe/<int:recipe_id>/review/', views.review_recipe, name='review_recipe'),
     path('review/<int:review_id>/comment/', views.comment_on_review, name='comment_on_review'),
     path('get-ingredients/<int:category_id>/',views.get_ingredients, name='get_ingredients'),
-    path('recipe_details/<int:recipe_id>/', views.recipe_detail, name='recipe_detail'),
+    #path('recipe_details/<int:recipe_id>/', views.recipe_detail, name='recipe_detail'),
 ]
 
 

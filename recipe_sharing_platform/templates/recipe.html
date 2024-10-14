@@ -76,7 +76,6 @@
                     <div class="card-body">
                         <h3 class="card-title">{{ recipe.recipename }}</h3>
                         <p class="card-text">{{ recipe.tags }}</p>
-                        <p>Debug - Recipe ID: {{ recipe.recipe_id }}</p>
                         {% if recipe.recipe_id %}
                             <a href="{% url 'recipe_detail' recipe.recipe_id %}" class="btn btn-primary">View Recipe</a>
                             <a href="{% url 'usereditrecipe' recipe.recipe_id %}" class="btn btn-secondary">Edit Recipe</a>
