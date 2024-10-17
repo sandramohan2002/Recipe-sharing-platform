@@ -11,6 +11,23 @@
 <body>
     <div class="container">
         <h1>Edit Category</h1>
+
+        <!-- Display form errors (if any) -->
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}

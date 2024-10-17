@@ -13,9 +13,10 @@ class CreateUserForm(UserCreationForm):
 class RecipeForm(forms.ModelForm):    
     class Meta:
         model = Recipe
-        fields = ['recipename', 'ingredients', 'instructions', 'image', 'tags', 'category_id']  # Include category_id instead of category
+        fields = ['recipename','description', 'ingredients', 'instructions', 'image', 'tags', 'category_id']  # Include category_id instead of category
         widgets = {
             'recipename': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.TextInput(attrs={'class': 'form-control'}),
             'ingredients': forms.SelectMultiple(attrs={'class': 'form-control'}),  # Assuming you want a dropdown for multiple ingredients
             'instructions': forms.Textarea(attrs={'class': 'form-control'}),
             'tags': forms.TextInput(attrs={'class': 'form-control'}),
@@ -54,7 +55,14 @@ class ProfileForm(forms.ModelForm):
 class IngredientForm(forms.ModelForm):
     class Meta:
         model = Ingredient
-        fields = ['name', 'substitutions', 'category_id']  # Using category_id as per your model
+        fields = ['name', 'substitutions', 'category_id']
+
+    def clean_substitutions(self):
+        data = self.cleaned_data.get('substitutions')
+        # Add custom validation logic for substitutions if needed
+        if not data or len(data) < 3:
+            raise forms.ValidationError("Substitution should be at least 3 characters long.")
+        return data
         
 
 class CategoryForm(forms.ModelForm):
@@ -64,6 +72,25 @@ class CategoryForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
         }
+
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
+
+        # Validate that the category name is not blank
+        if not name:
+            raise forms.ValidationError("Category name cannot be blank.")
+        
+        # Check for a minimum length (for example, 3 characters)
+        if len(name) < 3:
+            raise forms.ValidationError("Category name must be at least 3 characters long.")
+        
+        # Ensure the category name does not contain any special characters
+        if not name.isalnum():
+            raise forms.ValidationError("Category name should only contain letters and numbers.")
+
+        return name
+
+
 
 class ContactForm(forms.Form):
     name = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Name'}))

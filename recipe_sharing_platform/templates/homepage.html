@@ -149,12 +149,12 @@
 <body>
 
     <!-- Search Bar -->
-    <div class="search-bar">
+    {% comment %} <div class="search-bar">
         <form method="GET" action="{% url 'recipe' %}" class="form-inline d-flex justify-content-center">
             <input type="text" name="search" placeholder="Find a recipe or ingredient" value="{{ request.GET.search }}" class="form-control me-2" style="width: 80%;">
             <button type="submit" class="btn btn-primary">Search</button>
         </form>
-    </div>
+    </div> {% endcomment %}
 
     <!-- Content Wrapper -->
     <div class="container content-wrapper">

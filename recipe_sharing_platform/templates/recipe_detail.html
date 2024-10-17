@@ -29,23 +29,32 @@
             border-bottom: 2px solid #3498db;
             padding-bottom: 10px;
         }
-        .recipe-image {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
+        .recipe-header {
+            display: flex;
+            align-items: center;
             margin-bottom: 20px;
         }
-        .recipe-meta, .ratings, .review-form {
+        .recipe-image {
+            width: 300px;
+            height: auto;
+            border-radius: 8px;
+            margin-right: 20px;
+        }
+        .recipe-details {
+            flex: 1;
+        }
+        .recipe-meta {
             background-color: #ecf0f1;
-            padding: 15px;
+            padding: 10px;
             border-radius: 8px;
             margin-bottom: 20px;
         }
         .ingredients-list, .instructions-list {
             padding-left: 0;
+            margin-bottom: 20px;
         }
         .ingredients-list li, .instructions-list li {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             list-style-type: none;
         }
         .ingredients-list li:before {
@@ -59,8 +68,8 @@
         .instructions-list li {
             counter-increment: step-counter;
             position: relative;
-            padding-left: 40px;
-            margin-bottom: 20px;
+            padding-left: 30px;
+            margin-bottom: 15px;
         }
         .instructions-list li:before {
             content: counter(step-counter);
@@ -70,17 +79,23 @@
             background-color: #3498db;
             color: white;
             font-weight: bold;
-            padding: 3px 8px;
+            padding: 5px 10px;
             border-radius: 50%;
         }
-        textarea {
+        .ratings {
+            background-color: #ecf0f1;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .review-form textarea {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
-        button {
+        .review-form button {
             background-color: #3498db;
             color: white;
             padding: 10px 15px;
@@ -88,14 +103,30 @@
             border-radius: 4px;
             cursor: pointer;
         }
-        button:hover {
+        .review-form button:hover {
             background-color: #2980b9;
+        }
+        .review {
+            background-color: #ecf0f1;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        .alert-success {
+            background-color: #dff0d8;
+            color: #3c763d;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
+    <!-- Include Navbar -->
+    {% include 'navbar.html' %}
+
     <div class="container">
-        <!-- Add message display block here -->
+        <!-- Message Display Block -->
         {% if messages %}
             <div class="alert alert-success">
                 {% for message in messages %}
@@ -104,18 +135,24 @@
             </div>
         {% endif %}
 
-    <div class="container">
         <h1>{{ recipe.recipename }}</h1>
         
-        {% if recipe.image %}
-            <img src="{{ recipe.image.url }}" alt="{{ recipe.recipename }}" class="recipe-image">
-        {% endif %}
-        
-        <div class="recipe-meta">
-            <p><strong>Category:</strong> {{ category_name }}</p>
-            <p><strong>Tags:</strong> {{ recipe.tags }}</p>
+        <div class="recipe-header">
+            {% if recipe.image %}
+                <img src="{{ recipe.image.url }}" alt="{{ recipe.recipename }}" class="recipe-image">
+            {% endif %}
+            <div class="recipe-details">
+                <p><strong>Description:</strong> {{ recipe.description }}</p>
+                <div class="recipe-meta">
+                    <p><strong>Servings:</strong> {{ recipe.servings }}</p>
+                    <p><strong>Timing:</strong> {{ recipe.timing }}</p>
+                    <p><strong>Category:</strong> {{ category_name }}</p>
+                    <p><strong>Tags:</strong> {{ recipe.tags }}</p>
+                </div>
+                <button class="save-recipe">Save Recipe</button>
+            </div>
         </div>
-        
+
         <h2>Ingredients</h2>
         <ul class="ingredients-list">
             {% for ingredient in recipe.recipe_ingredients.all %}
@@ -146,16 +183,16 @@
         </div>
 
         {% if reviews_display %}
-    <h3>Reviews</h3>
-    {% for review in reviews %}
-        <div class="review">
-            <p><strong>User {{ review.user_id }}</strong>: {{ review.review_text }}</p>
-            <small>Posted on: {{ review.created_at }}</small>
-        </div>
-    {% empty %}
-        <p>No reviews yet. Be the first to review this recipe!</p>
-    {% endfor %}
-{% endif %}
+            <h3>Reviews</h3>
+            {% for review in reviews %}
+                <div class="review">
+                    <p><strong>User {{ review.user_id }}</strong>: {{ review.review_text }}</p>
+                    <small>Posted on: {{ review.created_at }}</small>
+                </div>
+            {% empty %}
+                <p>No reviews yet. Be the first to review this recipe!</p>
+            {% endfor %}
+        {% endif %}
     </div>
 </body>
 </html>

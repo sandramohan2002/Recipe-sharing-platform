@@ -12,7 +12,7 @@
     <!-- Load static files -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/stylecontact.css' %}">
-    
+
     <style>
         .search-bar {
             margin: 20px 0;
@@ -58,6 +58,29 @@
     <!-- Add Recipe Button -->
     <div class="d-flex justify-content-end my-4">
         <a href="{% url 'addrecipe' %}" class="btn btn-primary">Add Recipe</a>
+    </div>
+
+    <!-- Filter by Categories -->
+    <div class="container">
+        <!-- Filter Form -->
+        <form method="GET" action="{% url 'recipe' %}" class="mb-4"> <!-- Use GET method -->
+            <div class="row">
+                <div class="col-md-4">
+                    <!-- Dropdown for Categories -->
+                    <select name="category_id" class="form-select" aria-label="Select Category">
+                        <option value="">All Categories</option>
+                        {% for category in categories %}
+                        <option value="{{ category.category_id }}" {% if category.category_id|stringformat:"s" == selected_category %}selected{% endif %}>
+                            {{ category.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </div>
+            </div>
+        </form>
     </div>
 
     <!-- Recipe Cards -->

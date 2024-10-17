@@ -57,6 +57,7 @@ class Recipe(models.Model):
     user_id=models.IntegerField()
     recipe_id = models.AutoField(primary_key=True)  # This is likely your current primary key
     recipename = models.CharField(max_length=200)  # Name of the recipe
+    description=models.TextField(max_length=200,null=True, blank=True)
     ingredients = models.ManyToManyField(Ingredient)  # Many-to-many relation with ingredients
     instructions = models.TextField()  # Instructions for the recipe
     image = models.ImageField(upload_to='recipes/')  # Image of the recipe

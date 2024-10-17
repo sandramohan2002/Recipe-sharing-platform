@@ -130,7 +130,6 @@ def reset_password(request, email):
     return render(request, 'resetpassword.html',{'email': email})
 
 
-
 def logout(request):
     #auth_logout(request) 
     request.session.flush()
@@ -142,19 +141,57 @@ def homepage(request):
     return render(request, 'homepage.html')
 
 
-def recipe(request):
-    recipes = Recipe.objects.all()
-    for recipe in recipes:
-        logger.info(f"Recipe ID: {recipe.recipe_id}, Recipe ID type: {type(recipe.recipe_id)}, Name: {recipe.recipename}")
-    return render(request, 'recipe.html', {'recipes': recipes})
+# def recipe(request):
+#     recipes = Recipe.objects.all()
+#     for recipe in recipes:
+#         logger.info(f"Recipe ID: {recipe.recipe_id}, Recipe ID type: {type(recipe.recipe_id)}, Name: {recipe.recipename}")
+#     return render(request, 'recipe.html', {'recipes': recipes})
+
+
+def search_recipe(request):
+    query = request.GET.get('query', '')
+    if query:
+        try:
+            # Perform a case-insensitive search for the recipe
+            recipe = Recipe.objects.get(recipename__iexact=query)
+            return redirect('recipe_detail', recipe_id=recipe.recipe_id)
+        except Recipe.DoesNotExist:
+            # Redirect to homepage or show a "not found" message if the recipe doesn't exist
+            return redirect('homepage')
+    return redirect('homepage')
+
+
+#FOR SEARCH PURPOSE ADDED THIS CODE SAME PAGE TOP AND
+# def recipe(request):
+#     recipes = Recipe.objects.all()
+#     for recipe in recipes:
+#         logger.info(f"Recipe ID: {recipe.recipe_id}, Recipe ID type: {type(recipe.recipe_id)}, Name: {recipe.recipename}")
+#     return render(request, 'recipe.html', {'recipes': recipes})
 
 #FOR SEARCH PURPOSE ADDED THIS CODE SAME PAGE TOP AND
 def recipe(request):
+    # Fetch all categories
+    categories = Category.objects.all()
+
+    # Get the selected category from the GET request
+    selected_category = request.GET.get('category_id', '')
     search_query = request.GET.get('search', '')
+
+    # Initialize the queryset for recipes
+    recipes = Recipe.objects.all()
+
+    # Apply category filtering if a category is selected
+    if selected_category:
+        try:
+            selected_category = int(selected_category)
+            recipes = recipes.filter(category_id=selected_category)
+        except (ValueError, TypeError):
+            # If the category is not a valid integer, continue with all recipes
+            pass
+
+    # Apply search filtering if a search query is provided
     if search_query:
-        recipes = Recipe.objects.filter(recipename__icontains=search_query)
-    else:
-        recipes = Recipe.objects.all()
+        recipes = recipes.filter(recipename__icontains=search_query)
 
     # Get the current user's ID
     current_user_id = request.session.get('id')
@@ -163,12 +200,28 @@ def recipe(request):
     for recipe in recipes:
         recipe.can_edit = (recipe.user_id == current_user_id)
 
-    return render(request, 'recipe.html', {'recipes': recipes, 'current_user_id': current_user_id})
+    # Logging information about the recipes being fetched
+    for recipe in recipes:
+        logger.info(f"Recipe ID: {recipe.recipe_id}, Recipe ID type: {type(recipe.recipe_id)}, Name: {recipe.recipename}")
+
+    # Pass categories, recipes, selected category, and current user ID to the template
+    context = {
+        'categories': categories,
+        'recipes': recipes,
+        'selected_category': selected_category,
+        'current_user_id': current_user_id,
+    }
+
+    return render(request, 'recipe.html', context)
 
 
+
+#ABOUT VIEW
 def about(request):
     return render(request, 'about.html' )
-#ABOUT VIEW
+
+
+
 def contact(request):
     return render(request, 'contact.html')
 
@@ -478,16 +531,26 @@ def add_ingredient(request):
 
 # View to edit an existing ingredient
 def edit_ingredient(request, ingredient_id):
-    ingredient = get_object_or_404(Ingredient, ingredient_id=ingredient_id)  # Use ingredient_id here
-    
-    if request.method == 'POST':
-        ingredient.name = request.POST.get('name')
-        ingredient.substitutions = request.POST.get('substitutions')
-        ingredient.category_id = request.POST.get('category_id')  # Make sure to handle category correctly
-        ingredient.save()
-        return redirect('ingredient_list')  # Redirect after saving
+    ingredient = get_object_or_404(Ingredient, ingredient_id=ingredient_id)  # Ensure using correct field name
+    ingredients = Ingredient.objects.all()  # Fetch all existing ingredients
+    categories = Category.objects.all()  # Fetch all categories
 
-    return render(request, 'edit_ingredient.html', {'ingredient': ingredient})
+    if request.method == 'POST':
+        form = IngredientForm(request.POST, instance=ingredient)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/ingredients/')
+    else:
+        form = IngredientForm(instance=ingredient)
+
+    context = {
+        'form': form,
+        'ingredient': ingredient,
+        'ingredients': ingredients,
+        'categories': categories,
+    }
+
+    return render(request, 'edit_ingredient.html', context)
 
 def delete_ingredient(request, ingredient_id):
     ingredient = get_object_or_404(Ingredient, ingredient_id=ingredient_id)  # Use ingredient_id instead of id
@@ -626,7 +689,7 @@ def comment_on_review(request, review_id):
 
     return redirect('recipe_detail', recipe_id=review.recipe.id)
 
-from django.http import JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 from django.http import JsonResponse
 
 from django.http import JsonResponse

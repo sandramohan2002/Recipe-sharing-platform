@@ -1,14 +1,16 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Recipe</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
+            background-color: #f9f9f9;
             padding: 20px;
         }
 
@@ -24,7 +26,7 @@
         h1 {
             text-align: center;
             color: #333;
-            font-size: 2em;
+            margin-bottom: 20px;
         }
 
         .form-group {
@@ -45,18 +47,11 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 1em;
-            margin-top: 0.2em;
             box-sizing: border-box;
         }
 
         .form-group textarea {
             height: 100px;
-        }
-
-        .error {
-            color: red;
-            font-size: 0.9em;
-            margin-top: 0.5em;
         }
 
         .form-group input:focus,
@@ -66,20 +61,25 @@
             outline: none;
         }
 
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 0.5em;
+        }
+
         button {
             padding: 10px 20px;
-            background-color: #28a745;
+            background-color: #007bff;
             color: #fff;
             border: none;
             border-radius: 5px;
             font-size: 1.2em;
             cursor: pointer;
             width: 100%;
-            margin-top: 1em;
         }
 
         button:hover {
-            background-color: #218838;
+            background-color: #0056b3;
         }
 
         .back-link {
@@ -94,15 +94,187 @@
             text-decoration: underline;
         }
 
+        /* Style for the ingredient dropdown */
+        #ingredients {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        #ingredientDetailsContainer {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        #ingredientsTable {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #ingredientsTable th,
+        #ingredientsTable td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        #ingredientsTable th {
+            background-color: #f8f8f8;
+            font-weight: bold;
+            color: #333;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        #ingredientsTable tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        #ingredientsTable input[type="number"],
+        #ingredientsTable select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        #ingredientsTable button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #ingredientsTable button:hover {
+            background-color: #ff3333;
+        }
+
+        .add-step-btn {
+            display: block;
+            margin: 20px auto 0;
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .add-step-btn:hover {
+            background-color: #218838;
+        }
+
         @media (max-width: 768px) {
             .form-container {
                 padding: 15px;
             }
         }
     </style>
-</head>
-<body>
+    <script>
+        let stepCount = 1;
 
+        function addStep() {
+            stepCount++;
+
+            const newStep = document.createElement('textarea');
+            newStep.name = 'instructions_' + stepCount;
+            newStep.rows = 3;
+            newStep.placeholder = 'Step ' + stepCount;
+            newStep.required = true;
+
+            const newLabel = document.createElement('label');
+            newLabel.className = 'step-label';
+            newLabel.textContent = 'Step ' + stepCount + ':';
+
+            const container = document.getElementById('instructionsContainer');
+            container.appendChild(newLabel);
+            container.appendChild(newStep);
+        }
+
+        let ingredientRowCount = 0;
+        let isUpdatingIngredients = false;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const categorySelect = document.getElementById('category');
+            const ingredientsSelect = document.getElementById('ingredients');
+
+            if (categorySelect) {
+                categorySelect.addEventListener('change', function () {
+                    if (!isUpdatingIngredients) {
+                        updateIngredients();
+                    }
+                });
+            }
+
+            if (ingredientsSelect) {
+                ingredientsSelect.addEventListener('change', addIngredientRow);
+            }
+
+            if (categorySelect && categorySelect.value) {
+                updateIngredients();
+            }
+        });
+
+        function addIngredientRow() {
+            const selectedIngredient = document.getElementById('ingredients');
+            if (selectedIngredient.value) {
+                const ingredientId = selectedIngredient.value;
+                const ingredientName = selectedIngredient.options[selectedIngredient.selectedIndex].text;
+
+                const existingIngredient = document.querySelector(`input[name^="ingredient_"][value="${ingredientId}"]`);
+                if (existingIngredient) {
+                    alert('This ingredient is already in the recipe.');
+                    selectedIngredient.value = '';
+                    return;
+                }
+
+                ingredientRowCount++;
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>
+                        <input type="hidden" name="ingredient_${ingredientRowCount}" value="${ingredientId}">
+                        <input type="hidden" name="ingredient_name_${ingredientRowCount}" value="${ingredientName}">
+                        ${ingredientName}
+                    </td>
+                    <td><input type="number" name="quantity_${ingredientRowCount}" step="0.01" required></td>
+                    <td>
+                        <select name="measurement_${ingredientRowCount}" required>
+                            <option value="g">Grams (g)</option>
+                            <option value="kg">Kilograms (kg)</option>
+                            <option value="ml">Milliliters (ml)</option>
+                        </select>
+                    </td>
+                    <td><button type="button" onclick="removeIngredientRow(this)">Remove</button></td>
+                `;
+                document.getElementById('ingredientsTableBody').appendChild(newRow);
+                selectedIngredient.value = '';
+            }
+        }
+
+        function removeIngredientRow(button) {
+            button.closest('tr').remove();
+        }
+
+        function updateIngredients() {
+            isUpdatingIngredients = true;
+            // Logic to update the ingredients based on the selected category
+            isUpdatingIngredients = false;
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Include Navbar -->
+    {% include 'navbar.html' %}
     <div class="form-container">
         <h1>Edit Recipe</h1>
 
@@ -118,7 +290,7 @@
                 {% endfor %}
             </div>
 
-            <!-- Ingredients -->
+            <!-- Ingredients Section -->
             <div class="form-group">
                 <label for="{{ form.ingredients.id_for_label }}">Ingredients:</label>
                 {{ form.ingredients }}
@@ -127,34 +299,31 @@
                 {% endfor %}
             </div>
 
-            <!-- Instructions -->
-            <div class="form-group">
-                <label for="{{ form.instructions.id_for_label }}">Instructions:</label>
-                {{ form.instructions }}
-                {% for error in form.instructions.errors %}
-                    <p class="error">{{ error }}</p>
-                {% endfor %}
+            <!-- Ingredients Table -->
+            <div id="ingredientDetailsContainer">
+                <table id="ingredientsTable">
+                    <thead>
+                        <tr>
+                            <th>Ingredient</th>
+                            <th>Quantity</th>
+                            <th>Measurement</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ingredientsTableBody">
+                        <!-- Dynamic Rows will be added here -->
+                    </tbody>
+                </table>
             </div>
 
-            <!-- Tags -->
-            <div class="form-group">
-                <label for="{{ form.tags.id_for_label }}">Tags:</label>
-                {{ form.tags }}
-                {% for error in form.tags.errors %}
-                    <p class="error">{{ error }}</p>
-                {% endfor %}
+            <!-- Add Recipe Steps -->
+            <div id="instructionsContainer" class="form-group">
+                <label>Instructions:</label>
+                <textarea name="instructions_1" rows="3" placeholder="Step 1" required></textarea>
             </div>
+            <button type="button" class="add-step-btn" onclick="addStep()">Add Step</button>
 
-            <!-- Nutritional Info -->
-            <div class="form-group">
-                <label for="{{ form.nutritionalInfo.id_for_label }}">Nutritional Info:</label>
-                {{ form.nutritionalInfo }}
-                {% for error in form.nutritionalInfo.errors %}
-                    <p class="error">{{ error }}</p>
-                {% endfor %}
-            </div>
-
-            <!-- Category -->
+            <!-- Recipe Category -->
             <div class="form-group">
                 <label for="{{ form.category.id_for_label }}">Category:</label>
                 {{ form.category }}
@@ -163,20 +332,21 @@
                 {% endfor %}
             </div>
 
-            <!-- Ratings -->
+            <!-- Recipe Image -->
             <div class="form-group">
-                <label for="{{ form.ratings.id_for_label }}">Ratings:</label>
-                {{ form.ratings }}
-                {% for error in form.ratings.errors %}
+                <label for="{{ form.image.id_for_label }}">Recipe Image:</label>
+                {{ form.image }}
+                {% for error in form.image.errors %}
                     <p class="error">{{ error }}</p>
                 {% endfor %}
             </div>
 
-            <button type="submit">Save changes</button>
+            <button type="submit">Submit</button>
+
         </form>
 
-        <a href="{% url 'recipe_manager_dashboard' %}" class="back-link">Back to Dashboard</a>
+        <a href="{% url 'recipe' %}" class="back-link">Back to Recipe List</a>
     </div>
-
 </body>
+
 </html>
