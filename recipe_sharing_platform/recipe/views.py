@@ -12,6 +12,7 @@ from .forms import CreateUserForm
 from .models import Recipe, NutritionalInformation,Ingredient,Category,Rating,Review,Comment
 from .forms import RecipeForm, NutritionalInformationForm,ProfileForm,IngredientForm,CategoryForm,CreateUserForm,ContactForm
 import random
+from django.db.models import Q
 from django.db.models import Avg
 from django.shortcuts import render, get_object_or_404
 from django.core.mail import send_mail 
@@ -54,19 +55,28 @@ def login(request):
 
         try:
             user = CustomUser.objects.get(email=email)
-            if(user.email=="admin@gmail.com" and user.password=="Admin@123"):
+            
+            # Check if it's the admin user
+            if user.email == "admin@gmail.com" and user.password == "Admin@123":
+                request.session['user_id'] = user.id
+                request.session['is_admin'] = True
+                request.session['username'] = user.name
+                request.session['email'] = user.email
                 return redirect('admin_dashboard')
-            else:# Directly compare plain text passwords
+            else:
+                # For regular users, directly compare plain text passwords
                 if user.password == password:
-                    request.session['username'] = user.name 
-                    request.session['email']=user.email
-                    request.session['id']=user.id
-                    return render(request,'homepage.html')
+                    request.session['user_id'] = user.id
+                    request.session['is_admin'] = False  # Assuming regular users are not admins
+                    request.session['username'] = user.name
+                    request.session['email'] = user.email
+                    return redirect('homepage')
                 else:
                     return render(request, 'login.html', {'error': 'Incorrect password'})
                 
         except CustomUser.DoesNotExist:
             return render(request, 'login.html', {'error': 'Email does not exist'})
+    
     return render(request, 'login.html')
 user_pins = {}
 
@@ -135,7 +145,15 @@ def logout(request):
 
 #HOMEPAGE VIEW
 def homepage(request):
-    return render(request, 'homepage.html')
+       context = {}
+       if request.user:
+           if request.user.is_admin:
+               context['admin_message'] = "Welcome, Admin!"
+           else:
+               context['user_message'] = f"Welcome, {request.user.name}!"
+       else:
+           context['guest_message'] = "Welcome, Guest! Please log in or sign up."
+       return render(request, 'homepage.html', context)
 
 def search_recipe(request):
     query = request.GET.get('query', '')
@@ -146,6 +164,7 @@ def search_recipe(request):
         except Recipe.DoesNotExist:
             return redirect('homepage')# Redirect to homepage or show a "not found" message if the recipe doesn't exist
     return redirect('homepage')
+
 
 def recipe(request):
     categories = Category.objects.all()
@@ -267,9 +286,9 @@ def addrecipe(request):
     ingredients = Ingredient.objects.all()
     return render(request, 'addrecipe.html', {'categories': categories, 'ingredients': ingredients})
 
-def recipe_detail(request, recipe_id,reviews=False):
+def recipe_detail(request, recipe_id, reviews=False):
     recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
-    reviews = Review.objects.filter(recipe_id=recipe_id)  # Fetch reviews for the recipe
+    reviews = Review.objects.filter(recipe_id=recipe_id)
     
     # Fetch the category name
     category = Category.objects.filter(category_id=recipe.category_id).first()
@@ -278,15 +297,25 @@ def recipe_detail(request, recipe_id,reviews=False):
     # Split instructions into a list
     instructions = [inst.strip() for inst in recipe.instructions.split('\n') if inst.strip()]
     
+    # Fetch nutritional information
+    try:
+        nutritional_info = NutritionalInformation.objects.get(recipe_id=recipe_id)
+    except NutritionalInformation.DoesNotExist:
+        nutritional_info = None
+    
+    # Check if the user is an admin
+    is_admin = request.user.is_admin if hasattr(request.user, 'is_admin') else False
+    
     context = {
         'recipe': recipe,
         'category_name': category_name,
         'instructions': instructions,
         'messages': messages.get_messages(request),
-        'reviews': reviews, # Pass reviews to the template
-        'reviews_display': reviews if reviews else False 
+        'reviews': reviews,
+        'reviews_display': reviews if reviews else False,
+        'nutritional_info': nutritional_info,
+        'is_admin': is_admin,
     }
-    
     return render(request, 'recipe_detail.html', context)
     
 
@@ -295,31 +324,12 @@ def recipe_detail(request, recipe_id,reviews=False):
 #for edting recipes on recipe page for user
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Recipe
-from .forms import RecipeForm
-
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
-from .models import Recipe
 from .forms import RecipeForm
 import logging
-
-logger = logging.getLogger(__name__)
-
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
 from .models import Recipe, RecipeIngredient, Ingredient, Category
-from .forms import RecipeForm
 import logging
-
-logger = logging.getLogger(__name__)
-
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
-from .models import Recipe, RecipeIngredient, Ingredient, Category
-from .forms import RecipeForm
 from django.db import transaction
-import logging
+
 
 logger = logging.getLogger(__name__)
 
@@ -417,10 +427,20 @@ def profile_change(request):
 # ADMIN DASHBOARD VIEW
 #@login_required(login_url='login')
 def admin_dashboard(request):
-    recipes = Recipe.objects.all()
-    users = User.objects.all()
-    return render(request, 'admin_dashboard.html', {'recipes': recipes, 'users': users})
-
+    if request.user and request.user.is_admin:
+        # User is an admin, fetch data and show admin dashboard
+        recipes = Recipe.objects.all()
+        users = CustomUser.objects.all()
+        context = {
+            'recipes': recipes,
+            'users': users,
+        }
+        return render(request, 'admin_dashboard.html', context)
+    else:
+        # User is not an admin, show error and redirect
+        messages.error(request, 'You do not have permission to access this page.')
+        return redirect('homepage')
+    
 def block_user(request, user_id):
     user = get_object_or_404(CustomUser, id=user_id)
     user.is_blocked = True
@@ -508,14 +528,55 @@ def add_recipe(request):
 #code for edit_recipe in recipe manager dashboard
 def edit_recipe(request, recipe_id):
     recipe = get_object_or_404(Recipe, pk=recipe_id)
+    
     if request.method == 'POST':
-        form = RecipeForm(request.POST, request.FILES, instance=recipe)
-        if form.is_valid():
-            form.save()
-            return redirect('admin_dashboard')
-    else:
-        form = RecipeForm(instance=recipe)
-    return render(request, 'edit_recipe.html', {'form': form, 'recipe': recipe})
+        try:
+            with transaction.atomic():
+                # Update basic recipe information
+                recipe.recipename = request.POST.get('recipename')
+                recipe.category_id = request.POST.get('category')
+                recipe.tags = request.POST.get('tags')
+                
+                if 'image' in request.FILES:
+                    recipe.image = request.FILES['image']
+                elif 'clear_image' in request.POST:
+                    recipe.image = None
+
+                # Handle ingredients
+                RecipeIngredient.objects.filter(recipe=recipe).delete()
+                ingredient_ids = request.POST.getlist('ingredient[]')
+                quantities = request.POST.getlist('quantity[]')
+                measurements = request.POST.getlist('measurement[]')
+
+                for i in range(len(ingredient_ids)):
+                    ingredient = get_object_or_404(Ingredient, ingredient_id=ingredient_ids[i])
+                    RecipeIngredient.objects.create(
+                        recipe=recipe,
+                        ingredient=ingredient,
+                        quantity=quantities[i],
+                        measurement=measurements[i]
+                    )
+
+                # Handle instructions
+                instructions = request.POST.getlist('instructions[]')
+                recipe.instructions = '\n'.join(filter(None, instructions))  # Join non-empty instructions
+
+                recipe.save()
+
+                messages.success(request, "Recipe updated successfully!")
+                return redirect('admin_dashboard')
+        except Exception as e:
+            logger.error(f"Error updating recipe {recipe_id}: {str(e)}")
+            messages.error(request, f"An error occurred while updating the recipe: {str(e)}")
+    
+    context = {
+        'recipe': recipe,
+        'recipe_ingredients': recipe.recipe_ingredients.all(),
+        'all_ingredients': Ingredient.objects.all(),
+        'categories': Category.objects.all(),
+        'instructions': recipe.instructions.split('\n') if recipe.instructions else [],
+    }
+    return render(request, 'edit_recipe.html', context)
 
 #code for delete_recipe in recipe manager dashboard
 def delete_recipe(request, recipe_id):
@@ -524,14 +585,14 @@ def delete_recipe(request, recipe_id):
     return redirect('admin_dashboard')
 
 
-##recipe manager manage_ingredients
+from django.db.models import F
 #View to list all ingredients
 def ingredient_list(request):
     query = request.GET.get('q')  # Get the query parameter from the URL
     if query:  # If a query is provided
         ingredients = Ingredient.objects.filter(name__icontains=query)  # Filter ingredients
     else:  # If no query is provided
-        ingredients = Ingredient.objects.all()  # Get all ingredients
+        ingredients = Ingredient.objects.all().order_by(F('name').asc(nulls_last=True))  # Get all ingredients
 
     return render(request, 'ingredient_list.html', {'ingredients': ingredients, 'query': query})
 
@@ -598,44 +659,83 @@ def delete_ingredient(request, ingredient_id):
         return redirect('ingredient_list')  # Redirect after deletion
     return render(request, 'delete_ingredient.html', {'ingredient': ingredient})
 
-#recipe manager manage_nutritional info 
+from .decorators import admin_required
+# admin nutritional info 
 def nutritional_info_list(request):
     nutritional_infos = NutritionalInformation.objects.all()
-    return render(request, 'nutritional_info_list.html', {'nutritional_infos': nutritional_infos})
+    recipes = Recipe.objects.all()
+    return render(request, 'nutritional_info_list.html', {
+        'nutritional_infos': nutritional_infos,
+        'recipes': recipes
+    })
 
+@admin_required
 # View to add new nutritional information
-def add_nutritional_info(request):
+def add_edit_nutritional_info(request, recipe_id):
+    if recipe_id == 0:
+        # This is a new nutritional info, so we need to get the recipe_name from GET parameters
+        recipe_name = request.GET.get('recipe_name')
+        if not recipe_name:
+            return redirect('nutritional_info_list')
+        recipe = get_object_or_404(Recipe, recipename=recipe_name)
+    else:
+        nutritional_info = get_object_or_404(NutritionalInformation, nutritional_info_id=recipe_id)
+        recipe = get_object_or_404(Recipe, recipe_id=nutritional_info.recipe_id)
+
     if request.method == 'POST':
-        form = NutritionalInformationForm(request.POST)
+        form = NutritionalInformationForm(request.POST, instance=nutritional_info if recipe_id != 0 else None)
         if form.is_valid():
             nutritional_info = form.save(commit=False)
-            # You might want to set the recipe_id if needed
-            # nutritional_info.recipe_id = some_recipe_id
+            nutritional_info.recipe_id = recipe.recipe_id
             nutritional_info.save()
             return redirect('nutritional_info_list')
     else:
-        form = NutritionalInformationForm()
-    return render(request, 'add_nutritional_info.html', {'form': form})
+        form = NutritionalInformationForm(instance=nutritional_info if recipe_id != 0 else None)
 
-# View to edit existing nutritional information
-def edit_nutritional_info(request, pk):
-    nutritional_info = get_object_or_404(NutritionalInformation, pk=pk)
-    if request.method == 'POST':
-        form = NutritionalInformationForm(request.POST, instance=nutritional_info)
-        if form.is_valid():
-            form.save()
-            return redirect('nutritional_info_list')
-    else:
-        form = NutritionalInformationForm(instance=nutritional_info)
-    return render(request, 'edit_nutritional_info.html', {'form': form})
+    return render(request, 'add_edit_nutritional_info.html', {'form': form, 'recipe': recipe})
 
+
+   
+@admin_required
 # View to delete nutritional information
-def delete_nutritional_info(request, pk):
-    nutritional_info = get_object_or_404(NutritionalInformation, pk=pk)
-    if request.method == 'POST':
-        nutritional_info.delete()
-        return redirect('nutritional_info_list')
-    return render(request, 'delete_nutritional_info.html', {'nutritional_info': nutritional_info})
+def delete_nutritional_info(request, recipe_id):
+    recipe = get_object_or_404(Recipe, pk=recipe_id)
+    if recipe.nutritional_info_id:
+        NutritionalInformation.objects.filter(pk=recipe.nutritional_info_id).delete()
+        recipe.nutritional_info_id = None
+        recipe.save()
+        messages.success(request, 'Nutritional information deleted successfully.')
+    return redirect('recipe_detail', recipe_id=recipe_id)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #recipe manager can manage categories
 def category_list(request):

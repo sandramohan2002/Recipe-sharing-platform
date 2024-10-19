@@ -53,9 +53,8 @@ urlpatterns = [
 
     # Nutritional Info URLs
     path('nutritional-info/', views.nutritional_info_list, name='nutritional_info_list'),
-    path('nutritional-info/add/', views.add_nutritional_info, name='add_nutritional_info'),
-    path('nutritional-info/edit/<int:pk>/', views.edit_nutritional_info, name='edit_nutritional_info'),
-    path('nutritional-info/delete/<int:pk>/', views.delete_nutritional_info, name='delete_nutritional_info'),
+    path('recipe/<int:recipe_id>/nutritional-info/', views.add_edit_nutritional_info, name='add_edit_nutritional_info'),
+    path('recipe/<int:recipe_id>/delete-nutritional-info/', views.delete_nutritional_info, name='delete_nutritional_info'),
 
     # Categories URLs
     path('categories/', views.category_list, name='category_list'),

@@ -10,6 +10,12 @@
             color: red;
             font-size: 0.9rem;
         }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
     </style>
     <script>
         function validateForm(event) {
@@ -43,8 +49,12 @@
     </script>
 </head>
 <body>
-    <div class="container">
-        <h1>Edit Ingredient</h1>
+    <div class="container mt-4">
+        <div class="header-container">
+            <button onclick="history.back()" class="btn btn-secondary">Back</button>
+            <h1>Edit Ingredient</h1>
+            <div style="width: 70px;"></div> <!-- This empty div balances the layout -->
+        </div>
 
         <!-- Display form validation errors -->
         {% if form.errors %}

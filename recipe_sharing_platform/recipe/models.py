@@ -29,7 +29,7 @@ class CustomUser(models.Model):
     email = models.EmailField(unique=True)  # User's unique email
     password = models.CharField(max_length=128)  # User's password (hashed)
     is_blocked = models.BooleanField(default=False)  # Block status of user
-
+    is_admin = models.BooleanField(default=False)
     def __str__(self):
         return self.name  # Returns the name when object is printed
     
@@ -43,13 +43,26 @@ class Category(models.Model):
     
 
 
-# class SubCategory(models.Model):
-#     subcategory_id = models.AutoField(primary_key=True)  # Unique ID for the subcategory
-#     category_id = models.IntegerField()  # Store the category ID
-#     name = models.CharField(max_length=100)  # Name of the subcategory
+class SubCategory(models.Model):
+    subcategory_id = models.AutoField(primary_key=True)  # Unique ID for the subcategory
+    category_id = models.IntegerField()  # Store the category ID as an integer
+    name = models.CharField(max_length=100)  # Name of the subcategory
+    class Meta:
+        verbose_name_plural = "Subcategories"
+        unique_together = ['category_id', 'name']  # Ensure subcategory names are unique within a category
 
     def __str__(self):
-        return self.name  # Returns the name of the subcategory
+        return f"{self.name} (Category ID: {self.category_id})"
+
+    def get_category_name(self):
+        # You might want to implement a method to fetch the category name
+        # This would require querying the Category model
+        from .models import Category  # Import here to avoid circular import
+        try:
+            category = Category.objects.get(category_id=self.category_id)
+            return category.name
+        except Category.DoesNotExist:
+            return "Unknown Category"
 
 # INGREDIENTS OF RECIPES:
 class Ingredient(models.Model):
@@ -79,7 +92,8 @@ class Recipe(models.Model):
         
 # NUTRITIONAL INFORMATION OF RECIPE
 class NutritionalInformation(models.Model):
-    nutritional_info_id = models.AutoField(primary_key=True)  # Unique ID for nutritional info
+    nutritional_info_id = models.AutoField(primary_key=True) 
+    
     recipe_id = models.IntegerField()  # Recipe ID associated with this nutritional info
     calories = models.FloatField(null=True, blank=True)  # Calories in the recipe
     protein = models.FloatField(null=True, blank=True)  # Protein content
@@ -88,7 +102,12 @@ class NutritionalInformation(models.Model):
     sugar = models.FloatField(null=True, blank=True)  # Sugar content
     fiber = models.FloatField(null=True, blank=True)  # Fiber content
     def __str__(self):
-        return f"Nutritional Info (Calories: {self.calories})"  # Description for nutritional info
+        recipe = Recipe.objects.get(recipe_id=self.recipe_id)
+        return f"Nutritional Info for {recipe.recipename} (Calories: {self.calories})"
+
+    def get_recipe_name(self):
+        recipe = Recipe.objects.get(recipe_id=self.recipe_id)
+        return recipe.recipename  # Description for nutritional info
 
 # RATINGS MODEL
 class Rating(models.Model):
@@ -142,3 +161,5 @@ class FAQ(models.Model):
 
     def __str__(self):
         return self.question
+    
+

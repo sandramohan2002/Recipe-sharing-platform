@@ -119,6 +119,31 @@
             border-radius: 4px;
             margin-bottom: 20px;
         }
+        .nutritional-info {
+            background-color: #e8f5e9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .admin-controls {
+            margin-top: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-right: 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #3498db;
+        }
+        
+        .btn-danger {
+            background-color: #e74c3c;
+        }
     </style>
 </head>
 <body>
@@ -152,6 +177,33 @@
                 <button class="save-recipe">Save Recipe</button>
             </div>
         </div>
+
+        <!-- Nutritional Information Section -->
+        {% if nutritional_info %}
+            <div class="nutritional-info">
+                <h3>Nutritional Information</h3>
+                <ul>
+                    <li>Calories: {{ nutritional_info.calories }}</li>
+                    <li>Protein: {{ nutritional_info.protein }}g</li>
+                    <li>Fat: {{ nutritional_info.fat }}g</li>
+                    <li>Carbohydrates: {{ nutritional_info.carbohydrates }}g</li>
+                    <li>Sugar: {{ nutritional_info.sugar }}g</li>
+                    <li>Fiber: {{ nutritional_info.fiber }}g</li>
+                </ul>
+            </div>
+        {% endif %}
+
+        <!-- Admin Controls for Nutritional Information -->
+        {% if is_admin %}
+            <div class="admin-controls">
+                {% if nutritional_info %}
+                    <a href="{% url 'add_edit_nutritional_info' recipe.recipe_id %}" class="btn btn-primary">Edit Nutritional Information</a>
+                    <a href="{% url 'delete_nutritional_info' recipe.recipe_id %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this nutritional information?');">Delete Nutritional Information</a>
+                {% else %}
+                    <a href="{% url 'add_edit_nutritional_info' recipe.recipe_id %}" class="btn btn-primary">Add Nutritional Information</a>
+                {% endif %}
+            </div>
+        {% endif %}
 
         <h2>Ingredients</h2>
         <ul class="ingredients-list">

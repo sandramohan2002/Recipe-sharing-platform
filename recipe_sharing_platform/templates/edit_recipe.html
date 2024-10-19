@@ -1,261 +1,292 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Recipe</title>
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            padding: 20px;
-        }
-
-        .form-container {
-            max-width: 700px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
             color: #333;
+            line-height: 1.6;
+        }
+        .form-container {
+            max-width: 800px;
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
             margin-bottom: 20px;
         }
-
-        .form-group {
-            margin-bottom: 1.5em;
-        }
-
-        .form-group label {
-            display: block;
+        label {
             font-weight: bold;
-            margin-bottom: 0.5em;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 0.8em;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1em;
-            box-sizing: border-box;
-        }
-
-        .form-group textarea {
-            height: 100px;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            border-color: #007bff;
-            outline: none;
-        }
-
-        .error {
-            color: red;
-            font-size: 0.9em;
-            margin-top: 0.5em;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.2em;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .back-link {
+            margin-bottom: 5px;
             display: block;
-            text-align: center;
-            margin-top: 20px;
-            text-decoration: none;
-            color: #007bff;
         }
-
-        .back-link:hover {
-            text-decoration: underline;
-        }
-
-        /* Style for the ingredient dropdown */
-        #ingredients {
+        input[type="text"], input[type="number"], select, textarea {
             width: 100%;
             padding: 10px;
-            margin-bottom: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
             box-sizing: border-box;
         }
-
-        #ingredientDetailsContainer {
-            margin-top: 20px;
-            margin-bottom: 20px;
+        select {
+            height: 40px;
         }
-
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .ingredient-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .ingredient-row button {
+            background-color: #e74c3c;
+        }
+        .ingredient-row button:hover {
+            background-color: #c0392b;
+        }
+        .add-step-btn {
+            background-color: #2ecc71;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .add-step-btn:hover {
+            background-color: #27ae60;
+        }
+        .instruction-item {
+            margin-bottom: 15px;
+        }
         #ingredientsTable {
             width: 100%;
             border-collapse: collapse;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
         }
-
-        #ingredientsTable th,
-        #ingredientsTable td {
+        #ingredientsTable th, #ingredientsTable td {
+            border: 1px solid #ddd;
             padding: 12px;
             text-align: left;
-            border-bottom: 1px solid #e0e0e0;
         }
-
         #ingredientsTable th {
-            background-color: #f8f8f8;
+            background-color: #f2f2f2;
             font-weight: bold;
-            color: #333;
-            text-transform: uppercase;
-            font-size: 0.9em;
         }
-
+        #ingredientsTable tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
         #ingredientsTable tr:hover {
             background-color: #f5f5f5;
         }
-
-        #ingredientsTable input[type="number"],
-        #ingredientsTable select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
+        .d-flex {
+            display: flex;
         }
-
-        #ingredientsTable button {
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+        .justify-content-between {
+            justify-content: space-between;
         }
-
-        #ingredientsTable button:hover {
-            background-color: #ff3333;
+        .align-items-center {
+            align-items: center;
         }
-
-        .add-step-btn {
-            display: block;
-            margin: 20px auto 0;
-            background-color: #28a745;
-            color: white;
-            padding: 10px 20px;
-            font-size: 1.1em;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .add-step-btn:hover {
-            background-color: #218838;
-        }
-
-        @media (max-width: 768px) {
-            .form-container {
-                padding: 15px;
-            }
+        .mb-4 {
+            margin-bottom: 1.5rem;
         }
     </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="container">
+        <div class="form-container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <button onclick="history.back()" class="btn btn-secondary">Back</button>
+                <h1>Edit Recipe</h1>
+                <div style="width: 70px;"></div>
+            </div>
+
+            <form method="post" action="{% url 'edit_recipe' recipe.recipe_id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="recipename">Recipe Name:</label>
+                    <input type="text" id="recipename" name="recipename" value="{{ recipe.recipename }}" required class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category:</label>
+                    <select id="category" name="category" required onchange="updateIngredients()" class="form-control">
+                        {% for category in categories %}
+                            <option value="{{ category.category_id }}" {% if category.category_id == recipe.category_id %}selected{% endif %}>
+                                {{ category.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="ingredients">Select Ingredient:</label>
+                    <select id="ingredients" onchange="addIngredientRow()" class="form-control">
+                        <option value="">Select an ingredient</option>
+                    </select>
+                </div>
+
+                <div id="ingredientDetailsContainer">
+                    <table id="ingredientsTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Ingredient</th>
+                                <th>Quantity</th>
+                                <th>Measurement</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ingredientRows">
+                            {% for recipe_ingredient in recipe_ingredients %}
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="ingredient[]" value="{{ recipe_ingredient.ingredient.ingredient_id }}">
+                                        {{ recipe_ingredient.ingredient.name }}
+                                    </td>
+                                    <td><input type="number" name="quantity[]" value="{{ recipe_ingredient.quantity }}" step="0.01" required class="form-control"></td>
+                                    <td>
+                                        <select name="measurement[]" required class="form-control">
+                                            <option value="g" {% if recipe_ingredient.measurement == 'g' %}selected{% endif %}>Grams (g)</option>
+                                            <option value="kg" {% if recipe_ingredient.measurement == 'kg' %}selected{% endif %}>Kilograms (kg)</option>
+                                            <option value="ml" {% if recipe_ingredient.measurement == 'ml' %}selected{% endif %}>Milliliters (ml)</option>
+                                            <option value="l" {% if recipe_ingredient.measurement == 'l' %}selected{% endif %}>Liters (l)</option>
+                                            <option value="tsp" {% if recipe_ingredient.measurement == 'tsp' %}selected{% endif %}>Teaspoon (tsp)</option>
+                                            <option value="tbsp" {% if recipe_ingredient.measurement == 'tbsp' %}selected{% endif %}>Tablespoon (tbsp)</option>
+                                            <option value="cup" {% if recipe_ingredient.measurement == 'cup' %}selected{% endif %}>Cup</option>
+                                            <option value="piece" {% if recipe_ingredient.measurement == 'piece' %}selected{% endif %}>Piece</option>
+                                            <option value="" {% if recipe_ingredient.measurement == '' %}selected{% endif %}>As required</option>
+                                        </select>
+                                    </td>
+                                    <td><button type="button" onclick="removeIngredientRow(this)" class="btn btn-danger btn-sm">Remove</button></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="form-group">
+                    <label>Instructions:</label>
+                    <div id="instructionsContainer" data-step-count="{{ instructions|length }}">
+                        {% for instruction in instructions %}
+                            <div class="instruction-item">
+                                <label class="step-label">Step {{ forloop.counter }}:</label>
+                                <textarea name="instructions[]" rows="3" required class="form-control">{{ instruction }}</textarea>
+                                <button type="button" onclick="removeInstructionField(this)" class="btn btn-danger btn-sm mt-2">Remove</button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="add-step-btn" onclick="addInstructionField()">Add Step</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="tags">Tags:</label>
+                    <input type="text" id="tags" name="tags" value="{{ recipe.tags }}" required class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Recipe Image:</label>
+                    {% if recipe.image %}
+                        <img src="{{ recipe.image.url }}" alt="{{ recipe.recipename }}" style="max-width: 200px;" class="img-thumbnail mb-2">
+                        <br>
+                        <div class="form-check">
+                            <input type="checkbox" id="clear_image" name="clear_image" class="form-check-input">
+                            <label for="clear_image" class="form-check-label">Clear current image</label>
+                        </div>
+                    {% endif %}
+                    <input type="file" id="image" name="image" accept="image/*" class="form-control-file mt-2">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Update Recipe</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        let stepCount = 1;
-
-        function addStep() {
-            stepCount++;
-
-            const newStep = document.createElement('textarea');
-            newStep.name = 'instructions_' + stepCount;
-            newStep.rows = 3;
-            newStep.placeholder = 'Step ' + stepCount;
-            newStep.required = true;
-
-            const newLabel = document.createElement('label');
-            newLabel.className = 'step-label';
-            newLabel.textContent = 'Step ' + stepCount + ':';
-
-            const container = document.getElementById('instructionsContainer');
-            container.appendChild(newLabel);
-            container.appendChild(newStep);
-        }
-
-        let ingredientRowCount = 0;
-        let isUpdatingIngredients = false;
-
-        document.addEventListener('DOMContentLoaded', function () {
+        function updateIngredients() {
             const categorySelect = document.getElementById('category');
-            const ingredientsSelect = document.getElementById('ingredients');
+            const ingredientSelect = document.getElementById('ingredients');
+            const selectedCategoryId = categorySelect.value;
 
-            if (categorySelect) {
-                categorySelect.addEventListener('change', function () {
-                    if (!isUpdatingIngredients) {
-                        updateIngredients();
-                    }
-                });
-            }
+            // Clear existing options
+            ingredientSelect.innerHTML = '<option value="">Select an ingredient</option>';
 
-            if (ingredientsSelect) {
-                ingredientsSelect.addEventListener('change', addIngredientRow);
-            }
-
-            if (categorySelect && categorySelect.value) {
-                updateIngredients();
-            }
-        });
+            // Fetch ingredients based on selected category
+            fetch(`/get-ingredients/${selectedCategoryId}/`)
+                .then(response => response.json())
+                .then(data => {
+                    data.ingredients.forEach(function(ingredient) {
+                        const option = document.createElement('option');
+                        option.value = ingredient.id;
+                        option.textContent = ingredient.name;
+                        ingredientSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
 
         function addIngredientRow() {
             const selectedIngredient = document.getElementById('ingredients');
             if (selectedIngredient.value) {
                 const ingredientId = selectedIngredient.value;
                 const ingredientName = selectedIngredient.options[selectedIngredient.selectedIndex].text;
-
-                const existingIngredient = document.querySelector(`input[name^="ingredient_"][value="${ingredientId}"]`);
+                
+                const existingIngredient = document.querySelector(`input[name^="ingredient[]"][value="${ingredientId}"]`);
                 if (existingIngredient) {
                     alert('This ingredient is already in the recipe.');
                     selectedIngredient.value = '';
                     return;
                 }
 
-                ingredientRowCount++;
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `
                     <td>
-                        <input type="hidden" name="ingredient_${ingredientRowCount}" value="${ingredientId}">
-                        <input type="hidden" name="ingredient_name_${ingredientRowCount}" value="${ingredientName}">
+                        <input type="hidden" name="ingredient[]" value="${ingredientId}">
                         ${ingredientName}
                     </td>
-                    <td><input type="number" name="quantity_${ingredientRowCount}" step="0.01" required></td>
+                    <td><input type="number" name="quantity[]" step="0.01" required class="form-control"></td>
                     <td>
-                        <select name="measurement_${ingredientRowCount}" required>
+                        <select name="measurement[]" required class="form-control">
                             <option value="g">Grams (g)</option>
                             <option value="kg">Kilograms (kg)</option>
                             <option value="ml">Milliliters (ml)</option>
+                            <option value="l">Liters (l)</option>
+                            <option value="tsp">Teaspoon (tsp)</option>
+                            <option value="tbsp">Tablespoon (tbsp)</option>
+                            <option value="cup">Cup</option>
+                            <option value="piece">Piece</option>
+                            <option value="">As required</option>
                         </select>
                     </td>
-                    <td><button type="button" onclick="removeIngredientRow(this)">Remove</button></td>
+                    <td><button type="button" onclick="removeIngredientRow(this)" class="btn btn-danger btn-sm">Remove</button></td>
                 `;
-                document.getElementById('ingredientsTableBody').appendChild(newRow);
+                document.getElementById('ingredientRows').appendChild(newRow);
                 selectedIngredient.value = '';
             }
         }
@@ -264,89 +295,29 @@
             button.closest('tr').remove();
         }
 
-        function updateIngredients() {
-            isUpdatingIngredients = true;
-            // Logic to update the ingredients based on the selected category
-            isUpdatingIngredients = false;
+        function addInstructionField() {
+            const container = document.getElementById('instructionsContainer');
+            const newInstruction = document.createElement('div');
+            newInstruction.classList.add('instruction-item');
+            newInstruction.innerHTML = `
+                <label class="step-label">Step ${container.children.length + 1}:</label>
+                <textarea name="instructions[]" rows="3" required class="form-control"></textarea>
+                <button type="button" onclick="removeInstructionField(this)" class="btn btn-danger btn-sm mt-2">Remove</button>
+            `;
+            container.appendChild(newInstruction);
         }
+
+        function removeInstructionField(button) {
+            button.closest('.instruction-item').remove();
+            // Update step numbers
+            const container = document.getElementById('instructionsContainer');
+            container.querySelectorAll('.instruction-item').forEach((item, index) => {
+                item.querySelector('.step-label').textContent = `Step ${index + 1}:`;
+            });
+        }
+
+        // Initial call to populate ingredients based on the default selected category
+        updateIngredients();
     </script>
-</head>
-
-<body>
-    <!-- Include Navbar -->
-    {% include 'navbar.html' %}
-    <div class="form-container">
-        <h1>Edit Recipe</h1>
-
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-
-            <!-- Recipe Name -->
-            <div class="form-group">
-                <label for="{{ form.recipename.id_for_label }}">Recipe Name:</label>
-                {{ form.recipename }}
-                {% for error in form.recipename.errors %}
-                    <p class="error">{{ error }}</p>
-                {% endfor %}
-            </div>
-
-            <!-- Ingredients Section -->
-            <div class="form-group">
-                <label for="{{ form.ingredients.id_for_label }}">Ingredients:</label>
-                {{ form.ingredients }}
-                {% for error in form.ingredients.errors %}
-                    <p class="error">{{ error }}</p>
-                {% endfor %}
-            </div>
-
-            <!-- Ingredients Table -->
-            <div id="ingredientDetailsContainer">
-                <table id="ingredientsTable">
-                    <thead>
-                        <tr>
-                            <th>Ingredient</th>
-                            <th>Quantity</th>
-                            <th>Measurement</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ingredientsTableBody">
-                        <!-- Dynamic Rows will be added here -->
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Add Recipe Steps -->
-            <div id="instructionsContainer" class="form-group">
-                <label>Instructions:</label>
-                <textarea name="instructions_1" rows="3" placeholder="Step 1" required></textarea>
-            </div>
-            <button type="button" class="add-step-btn" onclick="addStep()">Add Step</button>
-
-            <!-- Recipe Category -->
-            <div class="form-group">
-                <label for="{{ form.category.id_for_label }}">Category:</label>
-                {{ form.category }}
-                {% for error in form.category.errors %}
-                    <p class="error">{{ error }}</p>
-                {% endfor %}
-            </div>
-
-            <!-- Recipe Image -->
-            <div class="form-group">
-                <label for="{{ form.image.id_for_label }}">Recipe Image:</label>
-                {{ form.image }}
-                {% for error in form.image.errors %}
-                    <p class="error">{{ error }}</p>
-                {% endfor %}
-            </div>
-
-            <button type="submit">Submit</button>
-
-        </form>
-
-        <a href="{% url 'recipe' %}" class="back-link">Back to Recipe List</a>
-    </div>
 </body>
-
 </html>
