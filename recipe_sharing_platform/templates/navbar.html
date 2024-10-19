@@ -67,15 +67,26 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'homepage' %}">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'recipe' %}">Recipes</a>
+
+                    <!-- Recipes Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="recipesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Recipes
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="recipesDropdown">
+                            <li><a class="dropdown-item" href="{% url 'recipe' %}">View Recipes</a></li>
+                            <li><a class="dropdown-item" href="{% url 'recipe' %}">My Recipes</a></li>
+                        </ul>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'about' %}">About</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'faq' %}">FAQ</a>
                     </li>
+
+                    <!-- Profile Dropdown -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Profile
@@ -102,7 +113,9 @@
                 <div class="navbar-right">
                     <div class="navbar-user">
                         Hello, 
-                        {% if request.session.username %}
+                        {% if request.session.is_admin %}
+                            Admin
+                        {% elif request.session.username %}
                             {{ request.session.username }}
                         {% endif %}
                     </div>

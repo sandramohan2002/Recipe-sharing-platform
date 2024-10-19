@@ -61,6 +61,18 @@
         .add-button:hover {
             background-color: #218838;
         }
+        .back-button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #6c757d;
+            color: #fff;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            margin-right: 10px;
+        }
+        .back-button:hover {
+            background-color: #5a6268;
+        }
     </style>
 </head>
 <body>
@@ -68,6 +80,10 @@
     {% include 'navbar.html' %}
 
     <h1>Nutritional Information List</h1>
+    
+    <!-- Back to Dashboard button -->
+    <a href="{% url 'admin_dashboard' %}" class="back-button">Back to Dashboard</a>
+    
     <a href="{% url 'add_nutritional_info' %}" class="add-button">Add Nutritional Info</a>
     
     <table>

@@ -36,35 +36,42 @@ urlpatterns = [
 
     # Admin 
     path('admin_dashboard/', views.admin_dashboard, name='admin_dashboard'),
-    path('block_user/<int:user_id>/', views.block_user, name='block_user'),
-    path('unblock_user/<int:user_id>/', views.unblock_user, name='unblock_user'),
-
-    # Recipe Manager Dashboards
-    path('recipe_manager_dashboard/', views.recipe_manager_dashboard, name='recipe_manager_dashboard'),
+    path('add-user/', views.add_user, name='add_user'),
+    path('edit-user/<int:user_id>/', views.edit_user, name='edit_user'),
+    path('block-user/<int:user_id>/', views.block_user, name='block_user'),
+    path('unblock-user/<int:user_id>/', views.unblock_user, name='unblock_user'),
+    # Admin Dashboard Recipe Management URLs
     path('add_recipe/', views.add_recipe, name='add_recipe'),
     path('edit_recipe/<int:recipe_id>/', views.edit_recipe, name='edit_recipe'),
     path('delete_recipe/<int:recipe_id>/', views.delete_recipe, name='delete_recipe'),
-   # Ingredients 
+
+    # Ingredients URLs
     path('ingredients/', views.ingredient_list, name='ingredient_list'),
     path('ingredients/add/', views.add_ingredient, name='add_ingredient'),
     path('ingredients/edit/<int:ingredient_id>/', views.edit_ingredient, name='edit_ingredient'),
-    path('ingredients/delete/<int:ingredient_id>/',views.delete_ingredient, name='delete_ingredient'),
-    #nutritional_info
+    path('ingredients/delete/<int:ingredient_id>/', views.delete_ingredient, name='delete_ingredient'),
+
+    # Nutritional Info URLs
     path('nutritional-info/', views.nutritional_info_list, name='nutritional_info_list'),
     path('nutritional-info/add/', views.add_nutritional_info, name='add_nutritional_info'),
     path('nutritional-info/edit/<int:pk>/', views.edit_nutritional_info, name='edit_nutritional_info'),
     path('nutritional-info/delete/<int:pk>/', views.delete_nutritional_info, name='delete_nutritional_info'),
-    #categories
+
+    # Categories URLs
     path('categories/', views.category_list, name='category_list'),
     path('categories/add/', views.add_category, name='add_category'),
     path('categories/edit/<int:category_id>/', views.edit_category, name='edit_category'),
     path('categories/delete/<int:category_id>/', views.delete_category, name='delete_category'),
+
     #support 
     path('user/contact/', views.user_contact_recipemanager, name='user_contact_recipemanager'),
     path('user/contact/success/', views.user_contact_recipemanager_success, name='user_contact_recipemanager_success'),
     path('faq/', views.faq, name='faq'),
 
-    
+    # Manage Users
+    path('manage_users/', views.manage_users, name='manage_users'),
+    path('manage_subcategories/', views.manage_subcategories, name='manage_subcategories'),
+    path('manage_events/', views.manage_events, name='manage_events'),
    
 
     

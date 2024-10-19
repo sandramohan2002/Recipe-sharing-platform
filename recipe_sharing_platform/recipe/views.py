@@ -1,3 +1,4 @@
+import traceback
 from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
@@ -53,10 +54,9 @@ def login(request):
 
         try:
             user = CustomUser.objects.get(email=email)
-            if(user.email=="recipemanager@gmail.com" and user.password=="RecipeManager@123"):
-                return redirect('recipe_manager_dashboard')
-            # Directly compare plain text passwords
-            else:
+            if(user.email=="admin@gmail.com" and user.password=="Admin@123"):
+                return redirect('admin_dashboard')
+            else:# Directly compare plain text passwords
                 if user.password == password:
                     request.session['username'] = user.name 
                     request.session['email']=user.email
@@ -76,11 +76,8 @@ def forgot_password(request):
         email = request.POST.get('email')
         try:
             user = CustomUser.objects.get(email=email)
-            # Generate a random 4-digit code
-            code = random.randint(1000, 9999)
-            user_pins[email] = code
-
-            # Send email with the code
+            code = random.randint(1000, 9999)# Generate a random 4-digit code
+            user_pins[email] = code # Send email with the code  
             send_mail(
                 'Password Reset Code',
                 f'Your password reset code is {code}.',
@@ -140,80 +137,55 @@ def logout(request):
 def homepage(request):
     return render(request, 'homepage.html')
 
-
-# def recipe(request):
-#     recipes = Recipe.objects.all()
-#     for recipe in recipes:
-#         logger.info(f"Recipe ID: {recipe.recipe_id}, Recipe ID type: {type(recipe.recipe_id)}, Name: {recipe.recipename}")
-#     return render(request, 'recipe.html', {'recipes': recipes})
-
-
 def search_recipe(request):
     query = request.GET.get('query', '')
     if query:
         try:
-            # Perform a case-insensitive search for the recipe
-            recipe = Recipe.objects.get(recipename__iexact=query)
+            recipe = Recipe.objects.get(recipename__iexact=query) # Perform a case-insensitive search for the recipe
             return redirect('recipe_detail', recipe_id=recipe.recipe_id)
         except Recipe.DoesNotExist:
-            # Redirect to homepage or show a "not found" message if the recipe doesn't exist
-            return redirect('homepage')
+            return redirect('homepage')# Redirect to homepage or show a "not found" message if the recipe doesn't exist
     return redirect('homepage')
 
-
-#FOR SEARCH PURPOSE ADDED THIS CODE SAME PAGE TOP AND
-# def recipe(request):
-#     recipes = Recipe.objects.all()
-#     for recipe in recipes:
-#         logger.info(f"Recipe ID: {recipe.recipe_id}, Recipe ID type: {type(recipe.recipe_id)}, Name: {recipe.recipename}")
-#     return render(request, 'recipe.html', {'recipes': recipes})
-
-#FOR SEARCH PURPOSE ADDED THIS CODE SAME PAGE TOP AND
 def recipe(request):
-    # Fetch all categories
     categories = Category.objects.all()
-
-    # Get the selected category from the GET request
     selected_category = request.GET.get('category_id', '')
     search_query = request.GET.get('search', '')
-
-    # Initialize the queryset for recipes
+    show_my_recipes = request.GET.get('my_recipes', '') == 'true'
+    
     recipes = Recipe.objects.all()
-
-    # Apply category filtering if a category is selected
+    
+    if show_my_recipes:
+        current_user_id = request.session.get('id')
+        recipes = recipes.filter(user_id=current_user_id)
+    
     if selected_category:
         try:
             selected_category = int(selected_category)
             recipes = recipes.filter(category_id=selected_category)
         except (ValueError, TypeError):
-            # If the category is not a valid integer, continue with all recipes
             pass
-
-    # Apply search filtering if a search query is provided
+    
     if search_query:
-        recipes = recipes.filter(recipename__icontains=search_query)
-
-    # Get the current user's ID
+        recipes = recipes.filter(Q(recipename__icontains=search_query) | Q(tags__icontains=search_query))
+    
     current_user_id = request.session.get('id')
-
-    # Add a flag to each recipe indicating if the current user can edit it
     for recipe in recipes:
         recipe.can_edit = (recipe.user_id == current_user_id)
-
-    # Logging information about the recipes being fetched
+    
     for recipe in recipes:
         logger.info(f"Recipe ID: {recipe.recipe_id}, Recipe ID type: {type(recipe.recipe_id)}, Name: {recipe.recipename}")
 
-    # Pass categories, recipes, selected category, and current user ID to the template
     context = {
         'categories': categories,
         'recipes': recipes,
         'selected_category': selected_category,
         'current_user_id': current_user_id,
+        'show_my_recipes': show_my_recipes,
+        'search_query': search_query,
     }
-
+    
     return render(request, 'recipe.html', context)
-
 
 
 #ABOUT VIEW
@@ -257,7 +229,7 @@ def addrecipe(request):
                 tags=tags,
                 instructions=instructions,
                 image=image,
-                user_id=request.session.get('id')  # Assuming user ID is stored in session
+                user_id=request.session.get('id')  # Assuming you're using authentication
             )
 
             # Process ingredients
@@ -269,6 +241,12 @@ def addrecipe(request):
 
                 if not all([ingredient_id, quantity, measurement]):
                     break
+
+                # Check if it's a new ingredient
+                if ingredient_id.startswith('new_'):
+                    ingredient_name = request.POST.get(f'ingredient_name_{ingredient_count}')
+                    ingredient = Ingredient.objects.create(name=ingredient_name, category_id=category_id)
+                    ingredient_id = ingredient.id
 
                 RecipeIngredient.objects.create(
                     recipe=recipe,
@@ -288,7 +266,6 @@ def addrecipe(request):
     categories = Category.objects.all()
     ingredients = Ingredient.objects.all()
     return render(request, 'addrecipe.html', {'categories': categories, 'ingredients': ingredients})
-
 
 def recipe_detail(request, recipe_id,reviews=False):
     recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
@@ -440,28 +417,69 @@ def profile_change(request):
 # ADMIN DASHBOARD VIEW
 #@login_required(login_url='login')
 def admin_dashboard(request):
-    return render(request, 'admin_dashboard.html')
+    recipes = Recipe.objects.all()
+    users = User.objects.all()
+    return render(request, 'admin_dashboard.html', {'recipes': recipes, 'users': users})
 
 def block_user(request, user_id):
     user = get_object_or_404(CustomUser, id=user_id)
     user.is_blocked = True
     user.save()
-    return redirect('admin_dashboard')  # Adjust the redirect as necessary
+    return redirect('admin_dashboard')
+
+def add_user(request):
+    # Implement user creation logic
+    pass
+
+def edit_user(request, user_id):
+    # Implement user editing logic
+    pass
+  # Adjust the redirect as necessary
 
 def unblock_user(request, user_id):
     user = get_object_or_404(CustomUser, id=user_id)
     user.is_blocked = False
     user.save()
-    return redirect('admin_dashboard')  # Adjust the redirect as necessary
+    return redirect('admin_dashboard') # Adjust the redirect as necessary
+
+def manage_users(request):
+    return render(request, 'manage_users.html')
+
+def manage_subcategories(request):
+    return render(request, 'manage_subcategories.html')
+
+def manage_events(request):
+    return render(request, 'manage_events.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #############################################################
 #RECIPE MANAGER DASHBOARD VIEW
-def recipe_manager_dashboard(request):
+def admin_dashboard(request):
     recipes = Recipe.objects.all() # List all recipes
     users = CustomUser.objects.all() # List all users
     #pending_recipes = Recipe.objects.filter(status='pending')  # List pending recipes
     context = {'recipes': recipes, 'users': users}##########
-    return render(request, 'recipe_manager_dashboard.html',context)
+    return render(request, 'admin_dashboard.html',context)
 
 ##recipe manager add_recipe
 #code for add_recipe in recipe manager dashboard
@@ -476,7 +494,7 @@ def add_recipe(request):
             nutritional_info.recipe = recipe  # Link it to the recipe
             nutritional_info.save()  # Now save the nutritional info
             
-            return redirect('recipe_manager_dashboard')
+            return redirect('admin_dashboard')
     else:
         recipe_form = RecipeForm()
         nutritional_info_form = NutritionalInformationForm()
@@ -494,7 +512,7 @@ def edit_recipe(request, recipe_id):
         form = RecipeForm(request.POST, request.FILES, instance=recipe)
         if form.is_valid():
             form.save()
-            return redirect('recipe_manager_dashboard')
+            return redirect('admin_dashboard')
     else:
         form = RecipeForm(instance=recipe)
     return render(request, 'edit_recipe.html', {'form': form, 'recipe': recipe})
@@ -503,7 +521,7 @@ def edit_recipe(request, recipe_id):
 def delete_recipe(request, recipe_id):
     recipe = get_object_or_404(Recipe, pk=recipe_id)
     recipe.delete()
-    return redirect('recipe_manager_dashboard')
+    return redirect('admin_dashboard')
 
 
 ##recipe manager manage_ingredients
@@ -518,14 +536,35 @@ def ingredient_list(request):
     return render(request, 'ingredient_list.html', {'ingredients': ingredients, 'query': query})
 
 # # View to add a new ingredient
+from django.views.decorators.http import require_http_methods
+@require_http_methods(["GET", "POST"])
 def add_ingredient(request):
     if request.method == 'POST':
         form = IngredientForm(request.POST)
         if form.is_valid():
-            form.save()  # Save the new ingredient to the database
-            return redirect('add_ingredient')  # Redirect to the same page or another page after saving
+            ingredient = form.save()
+            
+            # Check if it's an AJAX request
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({
+                    'success': True,
+                    'id': ingredient.ingredient_id,
+                    'name': ingredient.name
+                })
+            else:
+                messages.success(request, 'Ingredient added successfully!')
+                return redirect('ingredient_list')
+        else:
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({
+                    'success': False,
+                    'errors': form.errors
+                }, status=400)
     else:
         form = IngredientForm()
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return JsonResponse({'success': False, 'errors': 'Invalid request'}, status=400)
     
     return render(request, 'add_ingredient.html', {'form': form})
 
@@ -665,6 +704,34 @@ def faq(request):
     faqs = FAQ.objects.all()
     return render(request, 'faq.html', {'faqs': faqs})
 #############################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @login_required
 def rate_recipe(request, recipe_id):
     recipe = get_object_or_404(Recipe, id=recipe_id)

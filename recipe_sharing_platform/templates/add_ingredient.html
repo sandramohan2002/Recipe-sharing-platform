@@ -3,66 +3,114 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- Responsive design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Ingredient</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;  /* Light background color */
-            color: #333;  /* Text color */
-            margin: 0;
-            padding: 20px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
-            color: #007BFF;  /* Heading color */
+            text-align: center;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.5em;
         }
 
-        form {
-            background: #fff;  /* White background for the form */
-            padding: 20px;
-            border-radius: 5px;  /* Rounded corners */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Subtle shadow effect */
-            margin-bottom: 20px;  /* Space below the form */
+        .form-group {
+            margin-bottom: 1em;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.3em;
+            font-size: 0.9em;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.5em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.9em;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.8em;
+            margin-top: 0.3em;
         }
 
         button {
-            background-color: #007BFF;  /* Button color */
-            color: white;  /* Button text color */
-            padding: 10px 15px;  /* Padding for the button */
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: #fff;
             border: none;
-            border-radius: 5px;  /* Rounded corners */
-            cursor: pointer;  /* Pointer cursor on hover */
-            transition: background-color 0.3s;  /* Smooth background transition */
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+            width: 100%;
         }
 
         button:hover {
-            background-color: #0056b3;  /* Darker blue on hover */
+            background-color: #0056b3;
         }
 
-        a {
-            text-decoration: none;  /* Remove underline */
-            color: #007BFF;  /* Link color */
-            display: inline-block;  /* Make it block level for better spacing */
-            margin-top: 10px;  /* Space above the link */
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #007bff;
+            font-size: 0.9em;
         }
 
-        a:hover {
-            text-decoration: underline;  /* Underline link on hover */
+        .back-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
+    {% include 'navbar.html' %}
 
-<!-- Include Navbar -->
-{% include 'navbar.html' %}
-
-    <h1>Add Ingredient</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Add Ingredient</button>
-    </form>
-    <a href="{% url 'ingredient_list' %}">Go to Ingredient List</a>  <!-- Link to Add Recipe page -->
+    <div class="form-container">
+        <h1>Add Ingredient</h1>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <p class="error">{{ field.errors.0 }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit">Add Ingredient</button>
+        </form>
+        <a href="{% url 'ingredient_list' %}" class="back-link">Go to Ingredient List</a>
+    </div>
 </body>
 </html>

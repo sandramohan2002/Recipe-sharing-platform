@@ -56,11 +56,15 @@ class IngredientForm(forms.ModelForm):
     class Meta:
         model = Ingredient
         fields = ['name', 'substitutions', 'category_id']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'substitutions': forms.TextInput(attrs={'class': 'form-control'}),
+            'category_id': forms.Select(attrs={'class': 'form-control'}),
+        }
 
     def clean_substitutions(self):
         data = self.cleaned_data.get('substitutions')
-        # Add custom validation logic for substitutions if needed
-        if not data or len(data) < 3:
+        if data and len(data) < 3:
             raise forms.ValidationError("Substitution should be at least 3 characters long.")
         return data
         
