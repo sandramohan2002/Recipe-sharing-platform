@@ -95,10 +95,11 @@
                     <div class="card-body">
                         <h3 class="card-title">{{ recipe.recipename }}</h3>
                         <p class="card-text">{{ recipe.tags }}</p>
-                        {% if recipe.can_edit %}
+                        {% if show_my_recipes %}
                             <a href="{% url 'usereditrecipe' recipe.recipe_id %}" class="btn btn-primary">Edit Recipe</a>
+                        {% else %}
+                            <a href="{% url 'recipe_detail' recipe.recipe_id %}" class="btn btn-secondary">View Recipe</a>
                         {% endif %}
-                        <a href="{% url 'recipe_detail' recipe.recipe_id %}" class="btn btn-secondary">View Recipe</a>
                     </div>
                 </div>
             </div>

@@ -71,8 +71,12 @@ urlpatterns = [
     path('manage_users/', views.manage_users, name='manage_users'),
     path('manage_subcategories/', views.manage_subcategories, name='manage_subcategories'),
     path('manage_events/', views.manage_events, name='manage_events'),
-   
 
+   #manage subcategories
+    path('subcategories/', views.subcategory_list, name='subcategory_list'),
+    path('subcategories/add/', views.add_subcategory, name='add_subcategory'),
+    path('subcategories/edit/<int:subcategory_id>/', views.edit_subcategory, name='edit_subcategory'),
+    path('subcategories/delete/<int:subcategory_id>/', views.delete_subcategory, name='delete_subcategory'),
     
     # Uncomment these if you plan to implement them:
     # path('nutritional-info/', views.nutritional_info_list, name='nutritional_info_list'),

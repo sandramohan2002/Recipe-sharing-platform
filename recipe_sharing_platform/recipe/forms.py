@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
-from .models import Recipe
+from .models import Recipe, SubCategory
 from .models import NutritionalInformation,Ingredient,Category
 from .models import CustomUser
 
@@ -100,3 +100,13 @@ class ContactForm(forms.Form):
     name = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Name'}))
     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Your Email'}))
     message = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Your Message', 'rows': 5}), required=True)
+
+class SubCategoryForm(forms.ModelForm):
+       class Meta:
+           model = SubCategory
+           fields = ['category_id', 'name']
+           widgets = {
+            'category_id': forms.Select(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+           }
+

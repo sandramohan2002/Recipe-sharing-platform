@@ -13,5 +13,13 @@ admin.site.register(Comment)
 
 
 
+@admin.register(SubCategory)
+class SubCategoryAdmin(admin.ModelAdmin):
+       list_display = ('name', 'category_id', 'get_category_name')
+       list_filter = ('category_id',)
+       search_fields = ('name', 'category_id')
+
+
+
 
 

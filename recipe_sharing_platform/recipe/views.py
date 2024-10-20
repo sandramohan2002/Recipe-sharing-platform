@@ -3,12 +3,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import CustomUser
+from .models import CustomUser, SubCategory
 from django.db import IntegrityError
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
-from .forms import CreateUserForm
+from .forms import CreateUserForm, SubCategoryForm
 from .models import Recipe, NutritionalInformation,Ingredient,Category,Rating,Review,Comment
 from .forms import RecipeForm, NutritionalInformationForm,ProfileForm,IngredientForm,CategoryForm,CreateUserForm,ContactForm
 import random
@@ -165,6 +165,7 @@ def search_recipe(request):
             return redirect('homepage')# Redirect to homepage or show a "not found" message if the recipe doesn't exist
     return redirect('homepage')
 
+logger = logging.getLogger(__name__)
 
 def recipe(request):
     categories = Category.objects.all()
@@ -172,25 +173,32 @@ def recipe(request):
     search_query = request.GET.get('search', '')
     show_my_recipes = request.GET.get('my_recipes', '') == 'true'
     
+    current_user_id = request.session.get('id')
+    
     recipes = Recipe.objects.all()
     
     if show_my_recipes:
-        current_user_id = request.session.get('id')
-        recipes = recipes.filter(user_id=current_user_id)
+        if current_user_id:
+            recipes = recipes.filter(user_id=current_user_id)
+        else:
+            recipes = Recipe.objects.none()  # Return an empty queryset if user is not logged in
     
     if selected_category:
         try:
             selected_category = int(selected_category)
             recipes = recipes.filter(category_id=selected_category)
         except (ValueError, TypeError):
-            pass
+            logger.warning(f"Invalid category_id: {selected_category}")
     
     if search_query:
         recipes = recipes.filter(Q(recipename__icontains=search_query) | Q(tags__icontains=search_query))
     
-    current_user_id = request.session.get('id')
     for recipe in recipes:
         recipe.can_edit = (recipe.user_id == current_user_id)
+    
+    logger.debug(f"Total recipes: {recipes.count()}")
+    logger.debug(f"Show my recipes: {show_my_recipes}")
+    logger.debug(f"Current user ID: {current_user_id}")
     
     for recipe in recipes:
         logger.info(f"Recipe ID: {recipe.recipe_id}, Recipe ID type: {type(recipe.recipe_id)}, Name: {recipe.recipename}")
@@ -694,8 +702,6 @@ def add_edit_nutritional_info(request, recipe_id):
 
     return render(request, 'add_edit_nutritional_info.html', {'form': form, 'recipe': recipe})
 
-
-   
 @admin_required
 # View to delete nutritional information
 def delete_nutritional_info(request, recipe_id):
@@ -707,37 +713,7 @@ def delete_nutritional_info(request, recipe_id):
         messages.success(request, 'Nutritional information deleted successfully.')
     return redirect('recipe_detail', recipe_id=recipe_id)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#recipe manager can manage categories
+#admincan manage categories
 def category_list(request):
     categories = Category.objects.all()
     return render(request, 'category_list.html', {'categories': categories})
@@ -772,7 +748,7 @@ def delete_category(request, category_id):
         category.delete()
         return redirect('category_list')  # Redirect to the category list after deletion
     return render(request, 'delete_category.html', {'category': category})
-##############
+
 def user_contact_recipemanager(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -803,33 +779,38 @@ from .models import FAQ
 def faq(request):
     faqs = FAQ.objects.all()
     return render(request, 'faq.html', {'faqs': faqs})
-#############################
 
+def subcategory_list(request):
+       subcategories = SubCategory.objects.all()
+       return render(request, 'subcategory_list.html', {'subcategories': subcategories})
 
+def add_subcategory(request):
+       if request.method == 'POST':
+           form = SubCategoryForm(request.POST)
+           if form.is_valid():
+               form.save()
+               return redirect('subcategory_list')
+       else:
+           form = SubCategoryForm()
+       return render(request, 'add_subcategory.html', {'form': form})
 
+def edit_subcategory(request, subcategory_id):
+       subcategory = get_object_or_404(SubCategory, subcategory_id=subcategory_id)
+       if request.method == 'POST':
+           form = SubCategoryForm(request.POST, instance=subcategory)
+           if form.is_valid():
+               form.save()
+               return redirect('subcategory_list')
+       else:
+           form = SubCategoryForm(instance=subcategory)
+       return render(request, 'edit_subcategory.html', {'form': form})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def delete_subcategory(request, subcategory_id):
+       subcategory = get_object_or_404(SubCategory, subcategory_id=subcategory_id)
+       if request.method == 'POST':
+           subcategory.delete()
+           return redirect('subcategory_list')
+       return render(request, 'delete_subcategory.html', {'subcategory': subcategory})
 
 
 @login_required
