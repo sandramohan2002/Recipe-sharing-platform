@@ -101,12 +101,17 @@ class ContactForm(forms.Form):
     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Your Email'}))
     message = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Your Message', 'rows': 5}), required=True)
 
-class SubCategoryForm(forms.ModelForm):
-       class Meta:
-           model = SubCategory
-           fields = ['category_id', 'name']
-           widgets = {
-            'category_id': forms.Select(attrs={'class': 'form-control'}),
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-           }
 
+class SubCategoryForm(forms.ModelForm):
+    category_id = forms.ChoiceField(choices=[], widget=forms.Select(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = SubCategory
+        fields = ['category_id', 'name']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['category_id'].choices = [(c.category_id, c.name) for c in Category.objects.all()]

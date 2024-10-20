@@ -164,12 +164,13 @@ def search_recipe(request):
         except Recipe.DoesNotExist:
             return redirect('homepage')# Redirect to homepage or show a "not found" message if the recipe doesn't exist
     return redirect('homepage')
-
 logger = logging.getLogger(__name__)
 
 def recipe(request):
     categories = Category.objects.all()
+    subcategories = SubCategory.objects.all()
     selected_category = request.GET.get('category_id', '')
+    selected_subcategory = request.GET.get('subcategory_id', '')
     search_query = request.GET.get('search', '')
     show_my_recipes = request.GET.get('my_recipes', '') == 'true'
     
@@ -190,6 +191,13 @@ def recipe(request):
         except (ValueError, TypeError):
             logger.warning(f"Invalid category_id: {selected_category}")
     
+    if selected_subcategory:
+        try:
+            selected_subcategory = int(selected_subcategory)
+            recipes = recipes.filter(subcategory_id=selected_subcategory)
+        except (ValueError, TypeError):
+            logger.warning(f"Invalid subcategory_id: {selected_subcategory}")
+    
     if search_query:
         recipes = recipes.filter(Q(recipename__icontains=search_query) | Q(tags__icontains=search_query))
     
@@ -205,8 +213,10 @@ def recipe(request):
 
     context = {
         'categories': categories,
+        'subcategories': subcategories,
         'recipes': recipes,
         'selected_category': selected_category,
+        'selected_subcategory': selected_subcategory,
         'current_user_id': current_user_id,
         'show_my_recipes': show_my_recipes,
         'search_query': search_query,
@@ -781,37 +791,45 @@ def faq(request):
     return render(request, 'faq.html', {'faqs': faqs})
 
 def subcategory_list(request):
-       subcategories = SubCategory.objects.all()
-       return render(request, 'subcategory_list.html', {'subcategories': subcategories})
+    subcategories = SubCategory.objects.all()
+    categories = {category.category_id: category.name for category in Category.objects.all()}
+    
+    for subcategory in subcategories:
+        subcategory.category_name = categories.get(subcategory.category_id, "Unknown Category")
+    
+    return render(request, 'subcategory_list.html', {'subcategories': subcategories})
 
 def add_subcategory(request):
-       if request.method == 'POST':
-           form = SubCategoryForm(request.POST)
-           if form.is_valid():
-               form.save()
-               return redirect('subcategory_list')
-       else:
-           form = SubCategoryForm()
-       return render(request, 'add_subcategory.html', {'form': form})
+    if request.method == 'POST':
+        form = SubCategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Subcategory added successfully.')
+            return redirect('subcategory_list')
+    else:
+        form = SubCategoryForm()
+    return render(request, 'subcategory_form.html', {'form': form, 'action': 'Add'})
 
 def edit_subcategory(request, subcategory_id):
-       subcategory = get_object_or_404(SubCategory, subcategory_id=subcategory_id)
-       if request.method == 'POST':
-           form = SubCategoryForm(request.POST, instance=subcategory)
-           if form.is_valid():
-               form.save()
-               return redirect('subcategory_list')
-       else:
-           form = SubCategoryForm(instance=subcategory)
-       return render(request, 'edit_subcategory.html', {'form': form})
+    subcategory = get_object_or_404(SubCategory, subcategory_id=subcategory_id)
+    if request.method == 'POST':
+        form = SubCategoryForm(request.POST, instance=subcategory)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Subcategory updated successfully.')
+            return redirect('subcategory_list')
+    else:
+        form = SubCategoryForm(instance=subcategory)
+    return render(request, 'subcategory_form.html', {'form': form, 'action': 'Edit'})
+
 
 def delete_subcategory(request, subcategory_id):
-       subcategory = get_object_or_404(SubCategory, subcategory_id=subcategory_id)
-       if request.method == 'POST':
-           subcategory.delete()
-           return redirect('subcategory_list')
-       return render(request, 'delete_subcategory.html', {'subcategory': subcategory})
-
+    subcategory = get_object_or_404(SubCategory, subcategory_id=subcategory_id)
+    if request.method == 'POST':
+        subcategory.delete()
+        messages.success(request, 'Subcategory deleted successfully.')
+        return redirect('subcategory_list')
+    return render(request, 'subcategory_confirm_delete.html', {'subcategory': subcategory})
 
 @login_required
 def rate_recipe(request, recipe_id):

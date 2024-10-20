@@ -1,0 +1,9 @@
+{% block content %}
+   <h1>Delete Subcategory</h1>
+   <p>Are you sure you want to delete the subcategory "{{ subcategory.name }}"?</p>
+   <form method="post">
+       {% csrf_token %}
+       <input type="submit" value="Confirm Delete">
+   </form>
+   <a href="{% url 'subcategory_list' %}">Cancel</a>
+   {% endblock %}

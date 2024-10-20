@@ -86,6 +86,7 @@ class Recipe(models.Model):
     image = models.ImageField(upload_to='recipes/')  # Image of the recipe
     tags = models.TextField(max_length=200)  # Tags related to the recipe
     category_id = models.IntegerField()  # Category ID for this recipe
+    subcategory_id = models.IntegerField(null=True)
     nutritional_info_id = models.IntegerField(null=True, blank=True)  # Nutritional info ID
     def __str__(self):
         return self.recipename  # Returns the name of the recipe
