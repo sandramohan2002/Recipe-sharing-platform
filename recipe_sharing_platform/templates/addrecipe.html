@@ -174,6 +174,21 @@
         #ingredientsTable button:hover {
             background-color: #ff3333;
         }
+
+        /* Subcategory checkbox styles */
+        .subcategory-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .subcategory-item {
+            display: flex;
+            align-items: center;
+        }
+        .subcategory-item input[type="checkbox"] {
+            margin-right: 5px;
+        }
     </style>
 </head>
 
@@ -203,6 +218,15 @@
                     {% endfor %}
                 </select>
                 <p class="error">{{ form.category.errors }}</p>
+            </div>
+
+            <!-- Subcategories (as checkboxes) -->
+            <div class="form-group">
+                <label>Subcategories:</label>
+                <div id="subcategoryList" class="subcategory-list">
+                    <!-- Subcategory checkboxes will be dynamically added here -->
+                </div>
+                <p class="error">{{ form.subcategory.errors }}</p>
             </div>
 
             <!-- Ingredients Selection -->
@@ -306,7 +330,35 @@
         let stepCount = 1;
         let ingredientRowCount = 0;
         let isUpdatingIngredients = false;
-
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            const categorySelect = document.getElementById('category');
+            const ingredientsSelect = document.getElementById('ingredients');
+    
+            if (categorySelect) {
+                categorySelect.addEventListener('change', function() {
+                    console.log('Category changed to:', this.value);
+                    updateSubcategories();
+                    if (!isUpdatingIngredients) {
+                        updateIngredients();
+                    }
+                });
+            } else {
+                console.error('Category select element not found');
+            }
+    
+            if (ingredientsSelect) {
+                ingredientsSelect.addEventListener('change', function() {
+                    document.getElementById('newIngredient').value = '';
+                });
+            }
+    
+            if (categorySelect && categorySelect.value) {
+                updateIngredients();
+                updateSubcategories();
+            }
+        });
+    
         function addStep() {
             stepCount++;
             const newStep = document.createElement('textarea');
@@ -321,35 +373,12 @@
             container.appendChild(newLabel);
             container.appendChild(newStep);
         }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const categorySelect = document.getElementById('category');
-            const ingredientsSelect = document.getElementById('ingredients');
-
-            if (categorySelect) {
-                categorySelect.addEventListener('change', function() {
-                    if (!isUpdatingIngredients) {
-                        updateIngredients();
-                    }
-                });
-            }
-
-            if (ingredientsSelect) {
-                ingredientsSelect.addEventListener('change', function() {
-                    document.getElementById('newIngredient').value = '';
-                });
-            }
-
-            if (categorySelect && categorySelect.value) {
-                updateIngredients();
-            }
-        });
-
+    
         function addIngredientRow() {
             const selectedIngredient = document.getElementById('ingredients');
             const newIngredientInput = document.getElementById('newIngredient');
             let ingredientId, ingredientName;
-
+    
             if (selectedIngredient.value) {
                 ingredientId = selectedIngredient.value;
                 ingredientName = selectedIngredient.options[selectedIngredient.selectedIndex].text;
@@ -360,7 +389,7 @@
                 console.log('No ingredient selected or entered');
                 return;
             }
-
+    
             const existingIngredient = document.querySelector(`input[name^="ingredient_"][value="${ingredientId}"]`);
             if (existingIngredient) {
                 alert('This ingredient is already in the recipe.');
@@ -368,7 +397,7 @@
                 newIngredientInput.value = '';
                 return;
             }
-
+    
             ingredientRowCount++;
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
@@ -397,11 +426,11 @@
             selectedIngredient.value = '';
             newIngredientInput.value = '';
         }
-
+    
         function removeIngredientRow(button) {
             button.closest('tr').remove();
         }
-
+    
         function updateIngredients() {
             if (isUpdatingIngredients) {
                 console.log('Already updating ingredients, skipping');
@@ -412,9 +441,9 @@
             console.log('Updating ingredients');
             const categoryId = document.getElementById('category').value;
             const ingredientsDropdown = document.getElementById('ingredients');
-
+    
             ingredientsDropdown.innerHTML = '<option value="">Select an ingredient</option>';
-
+    
             if (categoryId) {
                 console.log('Fetching ingredients for category:', categoryId);
                 fetch(`/get-ingredients/${categoryId}/`)
@@ -444,7 +473,55 @@
                 isUpdatingIngredients = false;
             }
         }
-
+    
+        function updateSubcategories() {
+            const categoryId = document.getElementById('category').value;
+            const subcategoryList = document.getElementById('subcategoryList');
+    
+            if (!subcategoryList) {
+                console.error('Subcategory list element not found');
+                return;
+            }
+    
+            subcategoryList.innerHTML = ''; // Clear existing subcategories
+    
+            if (categoryId) {
+                console.log('Fetching subcategories for category:', categoryId);
+                fetch(`/get-subcategories/${categoryId}/`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Subcategories received:', data);
+                        if (data.subcategories && data.subcategories.length > 0) {
+                            data.subcategories.forEach(subcategory => {
+                                const checkboxItem = document.createElement('div');
+                                checkboxItem.className = 'subcategory-item';
+                                checkboxItem.innerHTML = `
+                                    <input type="checkbox" id="subcategory_${subcategory.id}" name="subcategories[]" value="${subcategory.id}">
+                                    <label for="subcategory_${subcategory.id}">${subcategory.name}</label>
+                                `;
+                                subcategoryList.appendChild(checkboxItem);
+                            });
+                            console.log('Subcategory checkboxes added');
+                        } else {
+                            console.log('No subcategories found for this category');
+                            subcategoryList.innerHTML = '<p>No subcategories available for this category.</p>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching subcategories:', error);
+                        subcategoryList.innerHTML = `<p>Error loading subcategories: ${error.message}. Please try again.</p>`;
+                    });
+            } else {
+                console.log('No category selected');
+                subcategoryList.innerHTML = '<p>Please select a category to see subcategories.</p>';
+            }
+        }
+    
         document.getElementById('addIngredientForm').addEventListener('submit', function(e) {
             e.preventDefault();
             console.log('Submitting add ingredient form');
@@ -483,7 +560,7 @@
                 alert('An error occurred: ' + error.message);
             });
         });
-
+    
         function logFormData(formData) {
             for (let [key, value] of formData.entries()) {
                 console.log(key, value);

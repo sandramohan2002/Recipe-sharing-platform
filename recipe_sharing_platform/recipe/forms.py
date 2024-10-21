@@ -10,26 +10,54 @@ class CreateUserForm(UserCreationForm):
         model = User
         fields = ('username', 'email','password1', 'password2')
 
-class RecipeForm(forms.ModelForm):    
+#Recipe Form
+class RecipeForm(forms.ModelForm):
+    category_id = forms.ModelChoiceField(
+        queryset=Category.objects.all(),
+        empty_label="Select a category",
+        to_field_name="category_id",
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+    subcategory_id = forms.ModelChoiceField(
+        queryset=SubCategory.objects.none(),
+        empty_label="Select a subcategory",
+        required=False,
+        to_field_name="subcategory_id",
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+    
     class Meta:
         model = Recipe
-        fields = ['recipename','description', 'ingredients', 'instructions', 'image', 'tags', 'category_id']  # Include category_id instead of category
+        fields = ['recipename', 'description', 'ingredients', 'instructions', 'image', 'tags', 'category_id', 'subcategory_id']
         widgets = {
             'recipename': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.TextInput(attrs={'class': 'form-control'}),
-            'ingredients': forms.SelectMultiple(attrs={'class': 'form-control'}),  # Assuming you want a dropdown for multiple ingredients
+            'ingredients': forms.SelectMultiple(attrs={'class': 'form-control'}),
             'instructions': forms.Textarea(attrs={'class': 'form-control'}),
             'tags': forms.TextInput(attrs={'class': 'form-control'}),
-            'category_id': forms.NumberInput(attrs={'class': 'form-control'}),  # Adjusted to match the model
             'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if 'category_id' in self.data:
+            try:
+                category_id = int(self.data.get('category_id'))
+                self.fields['subcategory_id'].queryset = SubCategory.objects.filter(category_id=category_id)
+            except (ValueError, TypeError):
+                pass
+        elif self.instance.pk and self.instance.category_id:
+            self.fields['subcategory_id'].queryset = SubCategory.objects.filter(category_id=self.instance.category_id)
+
     def clean_image(self):
         image = self.cleaned_data.get('image')
         if image:
-            if not image.name.endswith(('png', 'jpg', 'jpeg')):
+            if not image.name.lower().endswith(('png', 'jpg', 'jpeg')):
                 raise forms.ValidationError("Image file must be in PNG, JPG, or JPEG format.")
         return image
     
+
+#Nutritional Information Form
 class NutritionalInformationForm(forms.ModelForm):
     class Meta:
         model = NutritionalInformation
@@ -43,6 +71,9 @@ class NutritionalInformationForm(forms.ModelForm):
             'fiber': forms.NumberInput(attrs={'class': 'form-control', 'min': '0'}),
         }
 
+
+
+#Profile Form
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = CustomUser
@@ -52,6 +83,7 @@ class ProfileForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
         }
 
+#Ingredient Form
 class IngredientForm(forms.ModelForm):
     class Meta:
         model = Ingredient
@@ -69,6 +101,7 @@ class IngredientForm(forms.ModelForm):
         return data
         
 
+#Category Form
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
@@ -94,14 +127,13 @@ class CategoryForm(forms.ModelForm):
 
         return name
 
-
-
+#Contact Form
 class ContactForm(forms.Form):
     name = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Name'}))
     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Your Email'}))
     message = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Your Message', 'rows': 5}), required=True)
 
-
+#SubCategory Form
 class SubCategoryForm(forms.ModelForm):
     category_id = forms.ChoiceField(choices=[], widget=forms.Select(attrs={'class': 'form-control'}))
 

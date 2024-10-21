@@ -83,9 +83,16 @@
         .instruction-item {
             margin-bottom: 15px;
         }
-        .error {
+        .error-message {
             color: #e74c3c;
             font-size: 14px;
+            margin-top: 5px;
+        }
+        small {
+            color: #7f8c8d;
+            font-size: 12px;
+            margin-top: 5px;
+            display: block;
         }
     </style>
 </head>
@@ -94,23 +101,26 @@
     <div class="form-container">
         <h1>Edit Recipe</h1>
 
-        <form method="post" action="{% url 'usereditrecipe' recipe.recipe_id %}" enctype="multipart/form-data">
+        <form method="post" action="{% url 'usereditrecipe' recipe.recipe_id %}" enctype="multipart/form-data" id="recipeForm">
             {% csrf_token %}
 
             <div class="form-group">
                 <label for="recipename">Recipe Name:</label>
-                <input type="text" id="recipename" name="recipename" value="{{ recipe.recipename }}" required>
+                <input type="text" id="recipename" name="recipename" value="{{ recipe.recipename }}" required minlength="3" maxlength="200">
+                <div class="error-message" id="recipename-error"></div>
             </div>
 
             <div class="form-group">
                 <label for="category">Category:</label>
                 <select id="category" name="category" required onchange="updateIngredients()">
+                    <option value="">Select a category</option>
                     {% for category in categories %}
                         <option value="{{ category.category_id }}" {% if category.category_id == recipe.category_id %}selected{% endif %}>
                             {{ category.name }}
                         </option>
                     {% endfor %}
                 </select>
+                <div class="error-message" id="category-error"></div>
             </div>
 
             <div class="form-group">
@@ -137,7 +147,7 @@
                                     <input type="hidden" name="ingredient[]" value="{{ recipe_ingredient.ingredient.ingredient_id }}">
                                     {{ recipe_ingredient.ingredient.name }}
                                 </td>
-                                <td><input type="number" name="quantity[]" value="{{ recipe_ingredient.quantity }}" step="0.01" required></td>
+                                <td><input type="number" name="quantity[]" value="{{ recipe_ingredient.quantity }}" step="0.01" required min="0.01"></td>
                                 <td>
                                     <select name="measurement[]" required>
                                         <option value="g" {% if recipe_ingredient.measurement == 'g' %}selected{% endif %}>Grams (g)</option>
@@ -157,6 +167,7 @@
                     </tbody>
                 </table>
             </div>
+            <div class="error-message" id="ingredients-error"></div>
 
             <div class="form-group">
                 <label>Instructions:</label>
@@ -164,17 +175,20 @@
                     {% for instruction in instructions %}
                         <div class="instruction-item">
                             <label class="step-label">Step {{ forloop.counter }}:</label>
-                            <textarea name="instructions[]" rows="3" required>{{ instruction }}</textarea>
+                            <textarea name="instructions[]" rows="3" required minlength="10">{{ instruction }}</textarea>
                             <button type="button" onclick="removeInstructionField(this)">Remove</button>
                         </div>
                     {% endfor %}
                 </div>
                 <div class="add-step-btn" onclick="addInstructionField()">Add Step</div>
+                <div class="error-message" id="instructions-error"></div>
             </div>
 
             <div class="form-group">
                 <label for="tags">Tags:</label>
                 <input type="text" id="tags" name="tags" value="{{ recipe.tags }}" required>
+                <small>Enter tags separated by commas. Each tag should start with # (e.g., #vegan, #quickmeal)</small>
+                <div class="error-message" id="tags-error"></div>
             </div>
 
             <div class="form-group">
@@ -186,6 +200,7 @@
                     <label for="clear_image">Clear current image</label>
                 {% endif %}
                 <input type="file" id="image" name="image" accept="image/*">
+                <div class="error-message" id="image-error"></div>
             </div>
 
             <button type="submit">Update Recipe</button>
@@ -234,7 +249,7 @@
                         <input type="hidden" name="ingredient[]" value="${ingredientId}">
                         ${ingredientName}
                     </td>
-                    <td><input type="number" name="quantity[]" step="0.01" required></td>
+                    <td><input type="number" name="quantity[]" step="0.01" required min="0.01"></td>
                     <td>
                         <select name="measurement[]" required>
                             <option value="g">Grams (g)</option>
@@ -265,7 +280,7 @@
             newInstruction.classList.add('instruction-item');
             newInstruction.innerHTML = `
                 <label class="step-label">Step ${container.children.length + 1}:</label>
-                <textarea name="instructions[]" rows="3" required></textarea>
+                <textarea name="instructions[]" rows="3" required minlength="10"></textarea>
                 <button type="button" onclick="removeInstructionField(this)">Remove</button>
             `;
             container.appendChild(newInstruction);
@@ -279,6 +294,93 @@
                 item.querySelector('.step-label').textContent = `Step ${index + 1}:`;
             });
         }
+
+        document.getElementById('recipeForm').addEventListener('submit', function(event) {
+            let isValid = true;
+
+            // Validate recipe name
+            const recipeName = document.getElementById('recipename');
+            if (!recipeName.value.trim()) {
+                document.getElementById('recipename-error').textContent = 'Recipe name cannot be empty.';
+                isValid = false;
+            } else if (recipeName.value.length < 3 || recipeName.value.length > 200) {
+                document.getElementById('recipename-error').textContent = 'Recipe name must be between 3 and 200 characters.';
+                isValid = false;
+            } else {
+                document.getElementById('recipename-error').textContent = '';
+            }
+
+            // Validate category
+            const category = document.getElementById('category');
+            if (!category.value) {
+                document.getElementById('category-error').textContent = 'Please select a category.';
+                isValid = false;
+            } else {
+                document.getElementById('category-error').textContent = '';
+            }
+
+            // Validate ingredients
+            const ingredientRows = document.querySelectorAll('#ingredientRows tr');
+            if (ingredientRows.length === 0) {
+                document.getElementById('ingredients-error').textContent = 'Please add at least one ingredient.';
+                isValid = false;
+            } else {
+                document.getElementById('ingredients-error').textContent = '';
+            }
+
+            // Validate instructions
+            const instructions = document.querySelectorAll('textarea[name="instructions[]"]');
+            if (instructions.length === 0) {
+                document.getElementById('instructions-error').textContent = 'Please add at least one instruction.';
+                isValid = false;
+            } else {
+                let instructionsValid = true;
+                instructions.forEach(instruction => {
+                    if (instruction.value.length < 10) {
+                        instructionsValid = false;
+                    }
+                });
+                if (!instructionsValid) {
+                    document.getElementById('instructions-error').textContent = 'Each instruction must be at least 10 characters long.';
+                    isValid = false;
+                } else {
+                    document.getElementById('instructions-error').textContent = '';
+                }
+            }
+
+            // Validate tags
+            const tags = document.getElementById('tags');
+            const tagPattern = /^[a-zA-Z\s#,]+$/;
+            if (!tagPattern.test(tags.value.trim())) {
+                document.getElementById('tags-error').textContent = 'Tags can only contain letters, hashtags (#), commas, and spaces.';
+                isValid = false;
+            } else {
+                const individualTags = tags.value.split(',').map(tag => tag.trim());
+                const invalidTags = individualTags.filter(tag => !tag.startsWith('#') || tag.length <= 1);
+                if (invalidTags.length > 0) {
+                    document.getElementById('tags-error').textContent = 'Each tag must start with # and contain at least one character after the #.';
+                    isValid = false;
+                } else {
+                    document.getElementById('tags-error').textContent = '';
+                }
+            }
+
+            // Validate image
+            const image = document.getElementById('image');
+            if (image.files.length > 0) {
+                const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                if (!allowedTypes.includes(image.files[0].type)) {
+                    document.getElementById('image-error').textContent = 'Please upload a valid image file (JPEG, PNG, or GIF).';
+                    isValid = false;
+                } else {
+                    document.getElementById('image-error').textContent = '';
+                }
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
 
         // Initial call to populate ingredients based on the default selected category
         updateIngredients();

@@ -58,7 +58,7 @@ def login(request):
             
             # Check if it's the admin user
             if user.email == "admin@gmail.com" and user.password == "Admin@123":
-                request.session['user_id'] = user.id
+                request.session['id'] = user.id
                 request.session['is_admin'] = True
                 request.session['username'] = user.name
                 request.session['email'] = user.email
@@ -66,7 +66,7 @@ def login(request):
             else:
                 # For regular users, directly compare plain text passwords
                 if user.password == password:
-                    request.session['user_id'] = user.id
+                    request.session['id'] = user.id
                     request.session['is_admin'] = False  # Assuming regular users are not admins
                     request.session['username'] = user.name
                     request.session['email'] = user.email
@@ -294,6 +294,11 @@ def addrecipe(request):
 
                 ingredient_count += 1
 
+            # Process subcategories (new code)
+            subcategories = request.POST.getlist('subcategories[]')
+            for subcategory_id in subcategories:
+                recipe.subcategories.add(subcategory_id)
+
             messages.success(request, 'Recipe added successfully!')
             return redirect('recipe')
 
@@ -303,7 +308,6 @@ def addrecipe(request):
     categories = Category.objects.all()
     ingredients = Ingredient.objects.all()
     return render(request, 'addrecipe.html', {'categories': categories, 'ingredients': ingredients})
-
 def recipe_detail(request, recipe_id, reviews=False):
     recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
     reviews = Review.objects.filter(recipe_id=recipe_id)
@@ -441,7 +445,12 @@ def profile_change(request):
             request.session['username'] = username
             customer=CustomUser.objects.get(id=userid)
             return render(request,'profile.html',{'user':customer})
-#########################################################   
+
+# 
+# 
+#
+
+  
 # ADMIN DASHBOARD VIEW
 #@login_required(login_url='login')
 def admin_dashboard(request):
@@ -871,17 +880,12 @@ def get_ingredients(request, category_id):
             ingredients = Ingredient.objects.all()
         ingredient_list = [{'id': ingredient.ingredient_id, 'name': ingredient.name} for ingredient in ingredients]
         return JsonResponse({'ingredients': ingredient_list})
-# def get_nutritional_info(request, ingredient_id):
-#     try:
-#         nutrient_info = NutritionalInformation.objects.get(id=ingredient_id)
-#         data = {
-#             'protein': nutrient_info.protein,
-#             'fiber': nutrient_info.fiber,
-#             'fat': nutrient_info.fat,
-#             'carbohydrates': nutrient_info.carbohydrates,
-#             'calories': nutrient_info.calories,
-#             'sugars': nutrient_info.sugars,
-#         }
-#         return JsonResponse(data)
-#     except NutritionalInformation.DoesNotExist:
-#         return JsonResponse({}, status=404)
+
+
+logger = logging.getLogger(__name__)
+
+def get_subcategories(request, category_id):
+    logger.info(f"Fetching subcategories for category_id: {category_id}")
+    subcategories = SubCategory.objects.filter(category_id=category_id).values('id', 'name')
+    logger.info(f"Found {subcategories.count()} subcategories")
+    return JsonResponse({'subcategories': list(subcategories)})

@@ -81,8 +81,7 @@ urlpatterns = [
     # Uncomment these if you plan to implement them:
     # path('nutritional-info/', views.nutritional_info_list, name='nutritional_info_list'),
 
-
-
+    path('get-subcategories/<int:category_id>/', views.get_subcategories, name='get_subcategories'),
      # Recipe interactions
     path('recipe/<int:recipe_id>/rate/', views.rate_recipe, name='rate_recipe'),
     path('recipe/<int:recipe_id>/review/', views.review_recipe, name='review_recipe'),
