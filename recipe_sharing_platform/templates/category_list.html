@@ -28,7 +28,11 @@
                     <td>{{ category.name }}</td>
                     <td>
                         <a href="{% url 'edit_category' category.category_id %}" class="btn btn-primary btn-sm">Edit</a>
-                        <a href="{% url 'delete_category' category.category_id %}" class="btn btn-danger btn-sm">Delete</a>
+                        {% if category.status == True%}
+                        <a href="{% url 'delete_category' category.category_id %}" class="btn btn-danger btn-sm">Disable</a>
+                        {% else %}
+                        <a href="{% url 'enable_category' category.category_id %}" class="btn btn-success btn-sm">Enable</a>
+                        {% endif %}
                     </td>
                 </tr>
                 {% empty %}

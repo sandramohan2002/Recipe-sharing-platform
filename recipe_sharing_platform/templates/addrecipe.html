@@ -211,7 +211,7 @@
             <!-- Category -->
             <div class="form-group">
                 <label for="category">Category:</label>
-                <select id="category" name="category" required>
+                <select id="category" name="category" required onchange="updateSubcategories(); updateIngredients();">
                     <option value="">Select a category</option>
                     {% for category in categories %}
                         <option value="{{ category.category_id }}">{{ category.name }}</option>
@@ -477,20 +477,22 @@
         function updateSubcategories() {
             const categoryId = document.getElementById('category').value;
             const subcategoryList = document.getElementById('subcategoryList');
-    
+
             if (!subcategoryList) {
                 console.error('Subcategory list element not found');
                 return;
             }
-    
+
             subcategoryList.innerHTML = ''; // Clear existing subcategories
-    
+
             if (categoryId) {
                 console.log('Fetching subcategories for category:', categoryId);
                 fetch(`/get-subcategories/${categoryId}/`)
                     .then(response => {
                         if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
+                            return response.text().then(text => {
+                                throw new Error(`HTTP error! status: ${response.status}, message: ${text}`);
+                            });
                         }
                         return response.json();
                     })
@@ -501,8 +503,8 @@
                                 const checkboxItem = document.createElement('div');
                                 checkboxItem.className = 'subcategory-item';
                                 checkboxItem.innerHTML = `
-                                    <input type="checkbox" id="subcategory_${subcategory.id}" name="subcategories[]" value="${subcategory.id}">
-                                    <label for="subcategory_${subcategory.id}">${subcategory.name}</label>
+                                    <input type="checkbox" id="subcategory_${subcategory.subcategory_id}" name="subcategories[]" value="${subcategory.subcategory_id}">
+                                    <label for="subcategory_${subcategory.subcategory_id}">${subcategory.name}</label>
                                 `;
                                 subcategoryList.appendChild(checkboxItem);
                             });

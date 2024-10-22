@@ -763,10 +763,17 @@ def edit_category(request, category_id):
 # View to delete a category
 def delete_category(request, category_id):
     category = get_object_or_404(Category, category_id=category_id)
-    if request.method == 'POST':
-        category.delete()
-        return redirect('category_list')  # Redirect to the category list after deletion
-    return render(request, 'delete_category.html', {'category': category})
+    print(category.status)
+    category.status=False
+    category.save()
+    return redirect('category_list')  # Redirect to the category list after deletion
+
+def enable_category(request, category_id):
+    category = get_object_or_404(Category, category_id=category_id)
+    print(category.status)
+    category.status=True
+    category.save()
+    return redirect('category_list')
 
 def user_contact_recipemanager(request):
     if request.method == 'POST':
@@ -882,10 +889,11 @@ def get_ingredients(request, category_id):
         return JsonResponse({'ingredients': ingredient_list})
 
 
-logger = logging.getLogger(__name__)
+def get_subcategories(request, category_id):
+    subcategories = SubCategory.objects.filter(category_id=category_id).values('id', 'name')
+    return JsonResponse({'subcategories': list(subcategories)})
 
 def get_subcategories(request, category_id):
-    logger.info(f"Fetching subcategories for category_id: {category_id}")
-    subcategories = SubCategory.objects.filter(category_id=category_id).values('id', 'name')
-    logger.info(f"Found {subcategories.count()} subcategories")
+    subcategories = SubCategory.objects.filter(category_id=category_id).values('subcategory_id', 'name')
     return JsonResponse({'subcategories': list(subcategories)})
+

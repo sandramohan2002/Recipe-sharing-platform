@@ -60,7 +60,8 @@ urlpatterns = [
     path('categories/', views.category_list, name='category_list'),
     path('categories/add/', views.add_category, name='add_category'),
     path('categories/edit/<int:category_id>/', views.edit_category, name='edit_category'),
-    path('categories/delete/<int:category_id>/', views.delete_category, name='delete_category'),
+    path('categories/disable/<int:category_id>/', views.delete_category, name='delete_category'),
+    path('categories/enable/<int:category_id>/', views.enable_category, name='enable_category'),
 
     #support 
     path('user/contact/', views.user_contact_recipemanager, name='user_contact_recipemanager'),
@@ -81,7 +82,7 @@ urlpatterns = [
     # Uncomment these if you plan to implement them:
     # path('nutritional-info/', views.nutritional_info_list, name='nutritional_info_list'),
 
-    path('get-subcategories/<int:category_id>/', views.get_subcategories, name='get_subcategories'),
+   path('get-subcategories/<int:category_id>/', views.get_subcategories, name='get_subcategories'),
      # Recipe interactions
     path('recipe/<int:recipe_id>/rate/', views.rate_recipe, name='rate_recipe'),
     path('recipe/<int:recipe_id>/review/', views.review_recipe, name='review_recipe'),
