@@ -245,9 +245,13 @@ def addrecipe(request):
             # Extract basic recipe information
             recipename = request.POST.get('recipename')
             category_id = request.POST.get('category')
+            subcategory_id = request.POST.get('subcategory')
             tags = request.POST.get('tags')
             image = request.FILES.get('image')
-            
+            servings = request.POST.get('servings')
+            prep_time = request.POST.get('prep_time')
+            cook_time = request.POST.get('cook_time')
+
             # Collect all instructions
             instructions = []
             for key, value in request.POST.items():
@@ -256,34 +260,38 @@ def addrecipe(request):
             instructions = '\n'.join(instructions)
 
             # Validate fields
-            if not all([recipename, category_id, tags, instructions]):
+            if not all([recipename, category_id, tags, instructions, servings, prep_time, cook_time]):
                 raise ValueError('All fields except image are required!')
 
             # Create Recipe
             recipe = Recipe.objects.create(
                 recipename=recipename,
                 category_id=category_id,
+                subcategory_id=subcategory_id,
                 tags=tags,
                 instructions=instructions,
                 image=image,
-                user_id=request.session.get('id')  # Assuming you're using authentication
+                user_id=request.session.get('id'),  # Assuming user ID is stored in session
+                servings=servings,
+                prep_time=prep_time,
+                cook_time=cook_time
             )
 
             # Process ingredients
             ingredient_count = 1
             while True:
                 ingredient_id = request.POST.get(f'ingredient_{ingredient_count}')
+                ingredient_name = request.POST.get(f'ingredient_name_{ingredient_count}')
                 quantity = request.POST.get(f'quantity_{ingredient_count}')
                 measurement = request.POST.get(f'measurement_{ingredient_count}')
 
                 if not all([ingredient_id, quantity, measurement]):
                     break
 
-                # Check if it's a new ingredient
                 if ingredient_id.startswith('new_'):
-                    ingredient_name = request.POST.get(f'ingredient_name_{ingredient_count}')
-                    ingredient = Ingredient.objects.create(name=ingredient_name, category_id=category_id)
-                    ingredient_id = ingredient.id
+                    # Create a new ingredient
+                    new_ingredient = Ingredient.objects.create(name=ingredient_name)
+                    ingredient_id = new_ingredient.ingredient_id
 
                 RecipeIngredient.objects.create(
                     recipe=recipe,
@@ -294,27 +302,28 @@ def addrecipe(request):
 
                 ingredient_count += 1
 
-            # Process subcategories (new code)
-            subcategories = request.POST.getlist('subcategories[]')
-            for subcategory_id in subcategories:
-                recipe.subcategories.add(subcategory_id)
-
             messages.success(request, 'Recipe added successfully!')
             return redirect('recipe')
 
+        except ValueError as ve:
+            messages.error(request, str(ve))  # Catch specific validation error
         except Exception as e:
-            messages.error(request, f'Error adding recipe: {str(e)}')
+            messages.error(request, f'Error adding recipe: {str(e)}')  # General error
 
-    categories = Category.objects.all()
+    # Fetch categories and ingredients for the form
+    categories = Category.objects.filter(status=True)
     ingredients = Ingredient.objects.all()
     return render(request, 'addrecipe.html', {'categories': categories, 'ingredients': ingredients})
+
 def recipe_detail(request, recipe_id, reviews=False):
     recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
+    
     reviews = Review.objects.filter(recipe_id=recipe_id)
     
     # Fetch the category name
     category = Category.objects.filter(category_id=recipe.category_id).first()
     category_name = category.name if category else "Unknown Category"
+    
     
     # Split instructions into a list
     instructions = [inst.strip() for inst in recipe.instructions.split('\n') if inst.strip()]
@@ -324,6 +333,12 @@ def recipe_detail(request, recipe_id, reviews=False):
         nutritional_info = NutritionalInformation.objects.get(recipe_id=recipe_id)
     except NutritionalInformation.DoesNotExist:
         nutritional_info = None
+     # Fetch ingredients
+    ingredients = recipe.recipe_ingredients.all().select_related('ingredient')
+    
+    # Fetch subcategory name
+    subcategory = SubCategory.objects.filter(subcategory_id=recipe.subcategory_id).first()
+    subcategory_name = subcategory.name if subcategory else "Unknown Subcategory"
     
     # Check if the user is an admin
     is_admin = request.user.is_admin if hasattr(request.user, 'is_admin') else False
@@ -337,6 +352,8 @@ def recipe_detail(request, recipe_id, reviews=False):
         'reviews_display': reviews if reviews else False,
         'nutritional_info': nutritional_info,
         'is_admin': is_admin,
+        'ingredients': ingredients,
+        'subcategory_name': subcategory_name,
     }
     return render(request, 'recipe_detail.html', context)
     
@@ -896,4 +913,6 @@ def get_subcategories(request, category_id):
 def get_subcategories(request, category_id):
     subcategories = SubCategory.objects.filter(category_id=category_id).values('subcategory_id', 'name')
     return JsonResponse({'subcategories': list(subcategories)})
+
+
 

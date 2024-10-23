@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -257,7 +258,11 @@
                         {% for recipe in recipes %}
                         <tr>
                             <td>
-                                <img src="{{ recipe.image.url }}" alt="{{ recipe.recipename }}" class="recipe-img">
+                                {% if recipe.image %}
+                                    <img src="{{ recipe.image.url }}" alt="{{ recipe.recipename }}" class="recipe-img">
+                                {% else %}
+                                    <img src="{% static 'images/default_recipe_image.jpg' %}" alt="Default Recipe Image" class="recipe-img">
+                                {% endif %}
                             </td>
                             <td class="recipe-name">{{ recipe.recipename }}</td>
                             <td>{{ recipe.time }}</td>

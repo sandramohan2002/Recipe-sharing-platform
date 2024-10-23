@@ -1,5 +1,5 @@
 {% load static %}
-{% include 'navbar.html' %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,19 +30,17 @@
         .about-section:nth-child(even) {
             flex-direction: row-reverse;
         }
+        /* Updated navbar styles */
         .navbar {
-            background-color: #f8f9fa;
-            padding: 10px;
+            background-color: #f8f9fa !important;
         }
-        .navbar-brand {
-            font-weight: bold;
-            color: #ff4081;
+        .navbar-light .navbar-nav .nav-link {
+            color: #333 !important;
         }
-        .nav-link {
-            color: #343a40 !important;
-            margin-right: 15px;
+        .navbar-light .navbar-nav .nav-link:hover,
+        .navbar-light .navbar-nav .nav-item.active .nav-link {
+            color: #FFA500 !important; /* Orange color on hover and active */
         }
-        
     </style>
 </head>
 <body>
@@ -50,80 +48,78 @@
     <!-- Include Navbar -->
     {% include 'navbar.html' %}
 
-<div class="about-section">
-    <div class="about-text">
-        <h1>ABOUT US</h1>
-        <p>Welcome FLAVORAUT-the Recipe Sharing Platform, an innovative online community where food lovers, from casual cooks to seasoned chefs, can discover, share, and save recipes. Our mission is to make culinary exploration accessible, enjoyable, and interactive for everyone, fostering a vibrant community of food enthusiasts.</p>
+    <div class="about-section">
+        <div class="about-text">
+            <h1>ABOUT US</h1>
+            <p>Welcome to FLAVORAUT - the Recipe Sharing Platform, an innovative online community where food lovers, from casual cooks to seasoned chefs, can discover, share, and save recipes. Our mission is to make culinary exploration accessible, enjoyable, and interactive for everyone, fostering a vibrant community of food enthusiasts.</p>
+        </div>
+        <div class="about-image">
+            <img src="{% static 'images/about.jpeg' %}" alt="About Us Image">
+        </div>
     </div>
-    <div class="about-image">
-        <img src="{% static 'images/about.jpeg' %}" alt="About Us Image">
-    </div>
-</div>
 
-<!-- 2nd Section -->
-<div class="about-section">
-    <div class="about-text">
-        <h1>OUR MISSION</h1>
-        <p>We aim to inspire creativity in the kitchen by providing a personalized and immersive culinary experience. Whether you're exploring new dishes or perfecting your favorite recipes, our platform is designed to enhance your cooking journey through user interaction, comprehensive recipe management, and robust community engagement.</p>       
+    <!-- 2nd Section -->
+    <div class="about-section">
+        <div class="about-text">
+            <h1>OUR MISSION</h1>
+            <p>We aim to inspire creativity in the kitchen by providing a personalized and immersive culinary experience. Whether you're exploring new dishes or perfecting your favorite recipes, our platform is designed to enhance your cooking journey through user interaction, comprehensive recipe management, and robust community engagement.</p>       
+        </div>
+        <div class="about-image">
+            <img src="{% static 'images/indian1.jpg' %}" alt="Our Mission Image">
+        </div>
     </div>
-    <div class="about-image">
-        <img src="{% static 'images/indian1.jpg' %}" alt="Our Mission Image">
-    </div>
-</div>
-<!-- 3rd Section -->
-<div class="about-section">
-    <div class="about-text">
-        <h1>OUR PLATFORM</h1>
-        <p>At the core of our platform is recipe management, allowing users to create, edit, and delete recipes, complete with ingredients, instructions, and images. With an extensive library of categorized and tagged recipes, finding and organizing your favorite dishes has never been easier.
 
-            Community engagement is a cornerstone of our platform, with features like a rating and review system that encourages users to share feedback and interact with others. Advanced functionalities include ingredient substitution suggestions, meal planning tools, and the ability to share recipes via social media or email. Nutritional information is provided for each recipe, and users can save their favorites, contribute cooking tips, and share personal stories behind their culinary creations.
-            
-            We also add a fun element by hosting recipe competitions, showcasing winners on the homepage, and offering high-rated recipes for sale. Whether you're looking for inspiration or aiming to inspire others, the Recipe Sharing Platform is your go-to destination for all things culinary.</p>       
-    </div>
-    <div class="about-image">
-        <img src="{% static 'images/logoo.png' %}" alt="Our Mission Image">
-    </div>
-</div>
-<!-- 4th Section -->
-<div class="about-section">
-    <div class="about-text">
-        <h1>OUR TEAM</h1>
-        <p>Our platform is supported by a dedicated team of administrators and recipe managers who ensure that the content remains high-quality and engaging. Administrators handle user management, oversee nutritional information, manage recipe contests, and generate performance reports. Recipe Managers curate and categorize recipes, provide ingredient knowledge, verify nutritional information, and even serve as judges in contests.</p>       
-    </div>
-    <div class="about-image">
-        <img src="{% static 'images/team.jpg' %}" alt="Our Team Image">
-    </div>
-</div>
+    <!-- 3rd Section -->
+    <div class="about-section">
+        <div class="about-text">
+            <h1>OUR PLATFORM</h1>
+            <p>At the core of our platform is recipe management, allowing users to create, edit, and delete recipes, complete with ingredients, instructions, and images. With an extensive library of categorized and tagged recipes, finding and organizing your favorite dishes has never been easier.
 
-<!-- 5th Section -->
-<div class="about-section">
-    <div class="about-text">
-        <h1>CONTACT US</h1>
-         
-           Email:flavoraut@gmail.com<br>
-            Phone: +911234567890<br>
-           Follow us on social media: <a href="https://www.facebook.com/fl">FACEBOOK</a><br>
-            <p>Get in touch with us to learn more about our platform, share your feedback,
-                or collaborate on new features. We're always excited to hear from our users!</p>
-    
+                Community engagement is a cornerstone of our platform, with features like a rating and review system that encourages users to share feedback and interact with others. Advanced functionalities include ingredient substitution suggestions, meal planning tools, and the ability to share recipes via social media or email. Nutritional information is provided for each recipe, and users can save their favorites, contribute cooking tips, and share personal stories behind their culinary creations.
+                
+                We also add a fun element by hosting recipe competitions, showcasing winners on the homepage, and offering high-rated recipes for sale. Whether you're looking for inspiration or aiming to inspire others, the Recipe Sharing Platform is your go-to destination for all things culinary.</p>       
+        </div>
+        <div class="about-image">
+            <img src="{% static 'images/logoo.png' %}" alt="Our Platform Image">
+        </div>
+    </div>
+
+    <!-- 4th Section -->
+    <div class="about-section">
+        <div class="about-text">
+            <h1>OUR TEAM</h1>
+            <p>Our platform is supported by a dedicated team of administrators and recipe managers who ensure that the content remains high-quality and engaging. Administrators handle user management, oversee nutritional information, manage recipe contests, and generate performance reports. Recipe Managers curate and categorize recipes, provide ingredient knowledge, verify nutritional information, and even serve as judges in contests.</p>       
+        </div>
+        <div class="about-image">
+            <img src="{% static 'images/team.jpg' %}" alt="Our Team Image">
+        </div>
+    </div>
+
+    <!-- 5th Section -->
+    <div class="about-section">
+        <div class="about-text">
+            <h1>CONTACT US</h1>
+            <p>
+                Email: flavoraut@gmail.com<br>
+                Phone: +911234567890<br>
+                Follow us on social media: <a href="https://www.facebook.com/fl">FACEBOOK</a><br>
+                Get in touch with us to learn more about our platform, share your feedback,
+                or collaborate on new features. We're always excited to hear from our users!
             </p>    
-           
+        </div>
+        <div class="about-image">
+            <!-- You can add a contact image here if desired -->
+        </div>
     </div>
-    <div class="about-image">
-       
-    </div>
-</div>
 
-
-
-
-
-
-
-
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Initialize Bootstrap components
+            $('[data-toggle="dropdown"]').dropdown();
+        });
+    </script>
 </body>
 </html>

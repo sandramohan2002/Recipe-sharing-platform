@@ -1,3 +1,4 @@
+import re
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
@@ -16,7 +17,8 @@ class RecipeForm(forms.ModelForm):
         queryset=Category.objects.all(),
         empty_label="Select a category",
         to_field_name="category_id",
-        widget=forms.Select(attrs={'class': 'form-control'})
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        required=True  # Ensure category is required
     )
     subcategory_id = forms.ModelChoiceField(
         queryset=SubCategory.objects.none(),
@@ -25,10 +27,10 @@ class RecipeForm(forms.ModelForm):
         to_field_name="subcategory_id",
         widget=forms.Select(attrs={'class': 'form-control'})
     )
-    
+
     class Meta:
         model = Recipe
-        fields = ['recipename', 'description', 'ingredients', 'instructions', 'image', 'tags', 'category_id', 'subcategory_id']
+        fields = ['recipename', 'description', 'ingredients', 'instructions', 'image', 'servings', 'timing','tags', 'category_id', 'subcategory_id']
         widgets = {
             'recipename': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.TextInput(attrs={'class': 'form-control'}),
@@ -36,7 +38,73 @@ class RecipeForm(forms.ModelForm):
             'instructions': forms.Textarea(attrs={'class': 'form-control'}),
             'tags': forms.TextInput(attrs={'class': 'form-control'}),
             'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'timing': forms.TimeInput(format='%H:%M'),  # Adjust the format if needed
         }
+
+    # Custom validation for recipename
+    def clean_recipename(self):
+        recipename = self.cleaned_data.get('recipename')
+        
+        # Check if the recipe name has only spaces
+        if not recipename.strip():
+            raise forms.ValidationError("Recipe name cannot be empty or contain only spaces.")
+        
+        # Check if recipe name is less than 3 characters
+        if len(recipename) < 3:
+            raise forms.ValidationError("Recipe name must be at least 3 characters long.")
+        
+        # Regular expression to allow only alphabets and spaces, no special characters or digits
+        if not re.match(r'^[A-Za-z\s]+$', recipename):
+            raise forms.ValidationError("Recipe name cannot contain digits or special characters. Only letters and spaces are allowed.")
+        
+        return recipename
+
+    # Custom validation for description (if required)
+    def clean_description(self):
+        description = self.cleaned_data.get('description')
+        
+        if not description.strip():
+            raise forms.ValidationError("Description cannot be empty or contain only spaces.")
+        
+        return description
+
+    # Custom validation for tags
+    def clean_tags(self):
+        tags = self.cleaned_data.get('tags')
+        
+        # Check if tags contain only spaces or is empty
+        if not tags.strip():
+            raise forms.ValidationError("Tags cannot be empty or contain only spaces.")
+        
+        # Regular expression to allow only alphabets and spaces, no special characters or digits
+        if not re.match(r'^[A-Za-z\s,]+$', tags):  # Allowing commas for multiple tags
+            raise forms.ValidationError("Tags cannot contain digits or special characters except commas. Only letters, spaces, and commas are allowed.")
+        
+        return tags
+
+    # Custom validation for category (ensure it's selected)
+    def clean_category_id(self):
+        category_id = self.cleaned_data.get('category_id')
+        
+        # Ensure a category is selected
+        if category_id is None:
+            raise forms.ValidationError("Please select a valid category.")
+        
+        return category_id
+
+    # Custom validation for image (ensure it's a valid image file)
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+        
+        # If image is required, check if it's present
+        if not image:
+            raise forms.ValidationError("Please upload an image for the recipe.")
+        
+        # Check if the uploaded file is an image
+        if image and not image.content_type.startswith('image/'):
+            raise forms.ValidationError("Please upload a valid image file.")
+        
+        return image
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

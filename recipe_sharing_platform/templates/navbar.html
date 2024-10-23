@@ -15,15 +15,20 @@
         .navbar-brand {
             font-size: 24px;
             font-weight: bold;
-            color: #ff6f00;
+            color: #ff6f00 !important; /* Force orange color */
+        }
+        .navbar-brand:hover {
+            color: #ff6f00 !important; /* Keep orange on hover */
         }
         .navbar-nav .nav-link {
             font-weight: bold;
             color: #555;
             margin-right: 20px;
+            transition: color 0.3s ease;
         }
-        .navbar-nav .nav-link:hover {
-            color: #ff6f00;
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-item.active .nav-link {
+            color: #ff6f00 !important;
         }
         .hello-msg {
             font-size: 18px;
@@ -43,14 +48,18 @@
         .search-form {
             display: flex;
             justify-content: center;
-            margin: 0 20px; /* Adjust margin for spacing */
+            margin: 0 20px;
         }
         .search-form input[type="search"] {
-            width: 300px; /* Adjust width as needed */
+            width: 300px;
         }
         .search-icon {
-            margin-left: -40px; /* Adjust to overlap with the input */
-            z-index: 1; /* Ensure icon overlaps the input field */
+            margin-left: -40px;
+            z-index: 1;
+        }
+        .dropdown-item:hover {
+            background-color: #ff6f00;
+            color: white;
         }
     </style>
 </head>
@@ -58,18 +67,18 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="#">Flavoraut</a>
+            <a class="navbar-brand" href="{% url 'homepage' %}">Flavoraut</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
+                    <li class="nav-item {% if request.resolver_match.url_name == 'homepage' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'homepage' %}">Home</a>
                     </li>
 
                     <!-- Recipes Dropdown -->
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown {% if 'recipe' in request.resolver_match.url_name %}active{% endif %}">
                         <a class="nav-link dropdown-toggle" href="#" id="recipesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Recipes
                         </a>
@@ -79,15 +88,15 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'about' %}">About</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if request.resolver_match.url_name == 'faq' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'faq' %}">FAQ</a>
                     </li>
 
                     <!-- Profile Dropdown -->
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown {% if 'profile' in request.resolver_match.url_name %}active{% endif %}">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Profile
                         </a>

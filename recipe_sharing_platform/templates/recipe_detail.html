@@ -170,11 +170,12 @@
                 <p><strong>Description:</strong> {{ recipe.description }}</p>
                 <div class="recipe-meta">
                     <p><strong>Servings:</strong> {{ recipe.servings }}</p>
-                    <p><strong>Timing:</strong> {{ recipe.timing }}</p>
+                    <p><strong>Timing:</strong> {{ recipe.prep_time }} minutes prep time, {{ recipe.cook_time }} minutes cook time</p>
                     <p><strong>Category:</strong> {{ category_name }}</p>
+                    <p><strong>Subcategory:</strong> {{ subcategory_name }}</p>
                     <p><strong>Tags:</strong> {{ recipe.tags }}</p>
                 </div>
-                <button class="save-recipe">Save Recipe</button>
+                <!-- <button class="save-recipe">Save Recipe</button> -->
             </div>
         </div>
 
@@ -205,12 +206,18 @@
             </div>
         {% endif %}
 
-        <h2>Ingredients</h2>
+        <!-- <h2>Ingredients</h2>
         <ul class="ingredients-list">
             {% for ingredient in recipe.recipe_ingredients.all %}
                 <li>{{ ingredient.quantity }} {{ ingredient.measurement }} {{ ingredient.ingredient.name }}</li>
             {% endfor %}
-        </ul>
+        </ul> -->
+        <h2>Ingredients:</h2>
+<ul>
+{% for recipe_ingredient in ingredients %}
+    <li>{{ recipe_ingredient.quantity }} {{ recipe_ingredient.measurement }} {{ recipe_ingredient.ingredient.name }}</li>
+{% endfor %}
+</ul>
         
         <h2>Instructions</h2>
         <ol class="instructions-list">
@@ -219,7 +226,7 @@
             {% endfor %}
         </ol>
 
-        <div class="ratings">
+        <!-- {% comment %} <div class="ratings">
             <h2>Ratings</h2>
             <p>Average Rating: {{ average_rating|default:"Not rated yet" }}</p>
             <p>Total Ratings: {{ total_ratings }}</p>
@@ -244,7 +251,12 @@
             {% empty %}
                 <p>No reviews yet. Be the first to review this recipe!</p>
             {% endfor %}
-        {% endif %}
+        {% endif %} {% endcomment %} -->
+
+
+        <div style="margin-top: 20px;">
+            <a href="{% url 'recipe' %}" class="btn btn-primary">Back to Recipes</a>
+        </div>
     </div>
 </body>
 </html>
