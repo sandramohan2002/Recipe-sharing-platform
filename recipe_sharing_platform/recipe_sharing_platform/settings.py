@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-&t6ep%lw-^ndhggffo90=ouq&v2_0e^!4d#*l^(9orpy29n^p(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['*']
 #name changed to localhost 
 
 
@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google', 
-    'new_app',
     'social_django',
     #'allauth.socialaccount.providers.github',
     #'allauth.socialaccount.providers.facebook',
@@ -57,6 +56,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -95,14 +95,25 @@ WSGI_APPLICATION = 'recipe_sharing_platform.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'recipe-sharing',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',  # Or your MySQL server address
+#         'PORT': '3306',  # Default MySQL port
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'recipe-sharing',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',  # Or your MySQL server address
-        'PORT': '3306',  # Default MySQL port
+        'NAME': 'Flavoraut_authorcase',
+        'USER': 'Flavoraut_authorcase',
+        'PASSWORD': '04456732859c9ee237e51d854ef093d91235e0f3',
+        'HOST': 'oqil1.h.filess.io', 
+        'PORT': '3307',  
     }
 }
 

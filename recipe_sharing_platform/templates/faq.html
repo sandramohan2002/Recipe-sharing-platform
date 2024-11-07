@@ -12,14 +12,14 @@
     <div class="container">
         <h1>Frequently Asked Questions</h1>
         <ul class="list-group">
-            {% for faq in faqs %}
+            {% comment %} {% for faq in faqs %}
                 <li class="list-group-item">
                     <strong>{{ faq.question }}</strong>
                     <p>{{ faq.answer }}</p>
                 </li>
-            {% empty %}
+            {% empty %} {% endcomment %}
                 <li class="list-group-item">No FAQs available.</li>
-            {% endfor %}
+            {% comment %} {% endfor %} {% endcomment %}
         </ul>
     </div>
 </body>

@@ -160,11 +160,6 @@ class RecipeIngredient(models.Model):
     def __str__(self):
         return f"{self.quantity} {self.measurement} of {self.ingredient.name} for {self.recipe.recipename}"
 
-class FAQ(models.Model):
-    question = models.CharField(max_length=255)
-    answer = models.TextField()
 
-    def __str__(self):
-        return self.question
     
 

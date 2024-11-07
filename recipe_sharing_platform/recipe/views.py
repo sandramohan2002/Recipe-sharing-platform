@@ -1,26 +1,22 @@
-import traceback
-from django.shortcuts import render, redirect
+import random
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import CustomUser, SubCategory
 from django.db import IntegrityError
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
-from .forms import CreateUserForm, SubCategoryForm
-from .models import Recipe, NutritionalInformation,Ingredient,Category,Rating,Review,Comment
-from .forms import RecipeForm, NutritionalInformationForm,ProfileForm,IngredientForm,CategoryForm,CreateUserForm,ContactForm
-import random
-from django.db.models import Q
-from django.db.models import Avg
-from django.shortcuts import render, get_object_or_404
+from .models import CustomUser, SubCategory, Recipe, NutritionalInformation, Ingredient, Category, Rating, Review, Comment, RecipeIngredient
+from .forms import RecipeForm, NutritionalInformationForm, ProfileForm, IngredientForm, CategoryForm, CreateUserForm, ContactForm, SubCategoryForm
+from django.db.models import Q, Avg
 from django.core.mail import send_mail 
 import logging
-from django.urls import reverse
+# from django.urls import reverse
 from django.db import transaction
-from .models import Recipe, Category, Ingredient, RecipeIngredient
-from django.conf import settings
+# from django.conf import settings
+import traceback
+
 
 logger = logging.getLogger(__name__)
 
@@ -236,7 +232,7 @@ def contact(request):
 
 
 from django.db import transaction
-from django.contrib import messages
+
 
 @transaction.atomic
 def addrecipe(request):
@@ -444,7 +440,8 @@ def profile_view(request,user_id):
     return render(request, 'profile.html', {'user': user})
     
 
-def profile_edit(request,user_id):
+def profile_edit(request):
+    user_id=request.session.get('id')
     custom=CustomUser.objects.get(id=user_id)
     return render(request, 'edit_profile.html',{'user':custom})
     #return render(request, 'profile.html')
@@ -548,6 +545,10 @@ def admin_dashboard(request):
 ##recipe manager add_recipe
 #code for add_recipe in recipe manager dashboard
 def add_recipe(request):
+    # Check if the user is logged in by verifying 'id' in the session
+    if 'id' not in request.session:
+        return redirect('login')  # Redirect to login page if not logged in
+
     if request.method == 'POST':
         recipe_form = RecipeForm(request.POST, request.FILES)
         nutritional_info_form = NutritionalInformationForm(request.POST)
@@ -557,12 +558,12 @@ def add_recipe(request):
             nutritional_info = nutritional_info_form.save(commit=False)  # Do not save yet
             nutritional_info.recipe = recipe  # Link it to the recipe
             nutritional_info.save()  # Now save the nutritional info
-            
+
             return redirect('admin_dashboard')
     else:
         recipe_form = RecipeForm()
         nutritional_info_form = NutritionalInformationForm()
-
+    
     category = Category.objects.all()
     return render(request, 'add_recipe.html', {
         'recipe_form': recipe_form,
@@ -818,10 +819,10 @@ def user_contact_recipemanager(request):
 def user_contact_recipemanager_success(request):
     return render(request, 'user_contact_recipemanager_success.html')
 
-from .models import FAQ
+
 def faq(request):
-    faqs = FAQ.objects.all()
-    return render(request, 'faq.html', {'faqs': faqs})
+     
+     return render(request, 'faq.html')
 
 def subcategory_list(request):
     subcategories = SubCategory.objects.all()
@@ -906,9 +907,9 @@ def get_ingredients(request, category_id):
         return JsonResponse({'ingredients': ingredient_list})
 
 
-def get_subcategories(request, category_id):
-    subcategories = SubCategory.objects.filter(category_id=category_id).values('id', 'name')
-    return JsonResponse({'subcategories': list(subcategories)})
+# def get_subcategories(request, category_id):
+#     subcategories = SubCategory.objects.filter(category_id=category_id).values('id', 'name')
+#     return JsonResponse({'subcategories': list(subcategories)})
 
 def get_subcategories(request, category_id):
     subcategories = SubCategory.objects.filter(category_id=category_id).values('subcategory_id', 'name')

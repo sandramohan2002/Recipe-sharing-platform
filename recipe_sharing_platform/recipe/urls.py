@@ -1,9 +1,9 @@
 from django.contrib.auth import views as auth_views
-from django.urls import path, include
+from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-from .forms import CreateUserForm
+# from .forms import CreateUserForm
 #from .views import pending_recipes, approve_recipe, reject_recipe
 
 urlpatterns = [
@@ -11,7 +11,7 @@ urlpatterns = [
     path('', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
     path('logout/', views.logout, name='logout'),
-    path('profile/<int:user_id>/', views.profile_view, name='profile'),
+    path('profile/', views.profile_view, name='profile'),
     path('edit_profile/<int:user_id>/', views.profile_edit, name='profile_edit'),
     path('edit_change/', views.profile_change, name='profile_change'),
 
@@ -66,7 +66,7 @@ urlpatterns = [
     #support 
     path('user/contact/', views.user_contact_recipemanager, name='user_contact_recipemanager'),
     path('user/contact/success/', views.user_contact_recipemanager_success, name='user_contact_recipemanager_success'),
-    path('faq/', views.faq, name='faq'),
+    # path('faq/', views.faq, name='faq'),
 
     # Manage Users
     path('manage_users/', views.manage_users, name='manage_users'),
@@ -90,62 +90,6 @@ urlpatterns = [
     path('get-ingredients/<int:category_id>/',views.get_ingredients, name='get_ingredients'),
     #path('recipe_details/<int:recipe_id>/', views.recipe_detail, name='recipe_detail'),
 ]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # Handle static and media files in development

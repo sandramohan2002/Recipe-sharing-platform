@@ -91,9 +91,9 @@
                     <li class="nav-item {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'about' %}">About</a>
                     </li>
-                    <li class="nav-item {% if request.resolver_match.url_name == 'faq' %}active{% endif %}">
+                    {% comment %} <li class="nav-item {% if request.resolver_match.url_name == 'faq' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'faq' %}">FAQ</a>
-                    </li>
+                    </li> {% endcomment %}
 
                     <!-- Profile Dropdown -->
                     <li class="nav-item dropdown {% if 'profile' in request.resolver_match.url_name %}active{% endif %}">
@@ -102,7 +102,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li>
-                                <a class="dropdown-item" href="{% url 'profile' user_id=request.session.id %}">My Account</a>
+                                <a class="dropdown-item" href="{% url 'profile' %}">My Account</a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
@@ -119,14 +119,25 @@
                     </button>
                 </form>
 
-                <div class="navbar-right">
+                {% comment %} <div class="navbar-right">
                     <div class="navbar-user">
-                        Hello, 
                         {% if request.session.is_admin %}
                             Admin
                         {% elif request.session.username %}
-                            {{ request.session.username }}
+                        Hello, 
+                        {{ request.session.username }}
                         {% endif %}
+                    </div> {% endcomment %}
+
+                    <div class="navbar-right">
+                        <div class="navbar-user">
+                            Hello, 
+                            {% if request.session.is_admin %}
+                                Admin
+                            {% elif request.session.username %}
+                                {{ request.session.username }}
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>

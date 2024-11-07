@@ -9179,3 +9179,1602 @@ Watching for file changes with StatReloader
 D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
 Using selector: SelectSelector
 Watching for file changes with StatReloader
+Total recipes: 16
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name: Chicken Salad Sandwich
+Total recipes: 16
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name: Chicken Salad Sandwich
+Total recipes: 6
+Show my recipes: True
+Current user ID: 1
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name: Chicken Salad Sandwich
+Total recipes: 0
+Show my recipes: True
+Current user ID: 1
+Total recipes: 1
+Show my recipes: True
+Current user ID: 1
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name: Chicken Salad Sandwich
+Total recipes: 16
+Show my recipes: False
+Current user ID: None
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      ----
+Internal Server Error: /recipe/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 225, in recipe
+    return render(request, 'recipe.html', context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader_tags.py", line 195, in render
+    return template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'profile' with keyword arguments '{'user_id': ''}' not found. 1 pattern(s) tried: ['profile\\/(?P<user_id>[0-9]+)\\/\\Z']
+Internal Server Error: /nutritional-info/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 713, in nutritional_info_list
+    'recipes': recipes
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader_tags.py", line 195, in render
+    return template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'profile' with keyword arguments '{'user_id': ''}' not found. 1 pattern(s) tried: ['profile\\/(?P<user_id>[0-9]+)\\/\\Z']
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Total recipes: 16
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      ----
+Total recipes: 0
+Show my recipes: False
+Current user ID: 1
+Total recipes: 1
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      ----
+Total recipes: 16
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      ----
+Total recipes: 16
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      ----
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 71, in reverse
+    extra, resolver = resolver.namespace_dict[ns]
+KeyError: 'social'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 76, in login
+    return render(request, 'login.html')
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 82, in reverse
+    raise NoReverseMatch("%s is not a registered namespace" % key)
+django.urls.exceptions.NoReverseMatch: 'social' is not a registered namespace
+Not Found: /favicon.ico
+D:\MINI_PROJECT\recipe_sharing_platform\recipe_sharing_platform\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Internal Server Error: /homepage/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 152, in homepage
+    return render(request, 'homepage.html', context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader_tags.py", line 195, in render
+    return template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'faq' not found. 'faq' is not a valid view function or pattern name.
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Internal Server Error: /homepage/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 152, in homepage
+    return render(request, 'homepage.html', context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader_tags.py", line 195, in render
+    return template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'faq' not found. 'faq' is not a valid view function or pattern name.
+Total recipes: 16
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      ----
+Total recipes: 16
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      ----
+Total recipes: 6
+Show my recipes: True
+Current user ID: 1
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      ----
+Total recipes: 16
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Total recipes: 16
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Total recipes: 6
+Show my recipes: True
+Current user ID: 1
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Internal Server Error: /profile/1/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 440, in profile_view
+    recipes = Recipe.objects.filter(created_by=user)  # Adjust if needed to match your Recipe model's user field
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 941, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 961, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 968, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1416, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1438, in _add_q
+    split_subq=split_subq, check_filterable=check_filterable,
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1309, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1135, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1563, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'created_by' into field. Choices are: category_id, cook_time, description, image, ingredients, instructions, nutritional_info_id, prep_time, recipe_id, recipe_ingredients, recipename, servings, subcategory_id, tags, timing, user_id
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Total recipes: 16
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Bad Request: /ingredients/add/
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Total recipes: 7
+Show my recipes: True
+Current user ID: 1
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Total recipes: 1
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Total recipes: 0
+Show my recipes: False
+Current user ID: 1
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Internal Server Error: /
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 152, in homepage
+    return render(request, 'homepage.html', context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader_tags.py", line 195, in render
+    return template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'profile' with keyword arguments '{'user_id': ''}' not found. 1 pattern(s) tried: ['profile\\/(?P<user_id>[0-9]+)\\/\\Z']
+Not Found: /favicon.ico
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Total recipes: 17
+Show my recipes: False
+Current user ID: None
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Total recipes: 17
+Show my recipes: False
+Current user ID: None
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Total recipes: 17
+Show my recipes: False
+Current user ID: None
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Total recipes: 17
+Show my recipes: False
+Current user ID: None
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Total recipes: 17
+Show my recipes: False
+Current user ID: None
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Total recipes: 0
+Show my recipes: True
+Current user ID: None
+Total recipes: 17
+Show my recipes: False
+Current user ID: None
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Total recipes: 0
+Show my recipes: False
+Current user ID: None
+Total recipes: 17
+Show my recipes: False
+Current user ID: None
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Total recipes: 17
+Show my recipes: False
+Current user ID: None
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Internal Server Error: /profile/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+TypeError: profile_view() missing 1 required positional argument: 'user_id'
+Total recipes: 17
+Show my recipes: False
+Current user ID: None
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Total recipes: 17
+Show my recipes: False
+Current user ID: None
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Internal Server Error: /profile/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+TypeError: profile_view() missing 1 required positional argument: 'user_id'
+Total recipes: 17
+Show my recipes: False
+Current user ID: None
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Total recipes: 0
+Show my recipes: True
+Current user ID: None
+Total recipes: 17
+Show my recipes: False
+Current user ID: None
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Total recipes: 17
+Show my recipes: False
+Current user ID: None
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Internal Server Error: /profile/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+TypeError: profile_view() missing 1 required positional argument: 'user_id'
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Total recipes: 7
+Show my recipes: True
+Current user ID: 1
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Internal Server Error: /profile/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+TypeError: profile_view() missing 1 required positional argument: 'user_id'
+Total recipes: 0
+Show my recipes: True
+Current user ID: 1
+Total recipes: 1
+Show my recipes: True
+Current user ID: 1
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Not Found: /favicon.ico
+Total recipes: 17
+Show my recipes: False
+Current user ID: None
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Not Found: /favicon.ico
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Total recipes: 17
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Total recipes: 3
+Show my recipes: True
+Current user ID: 2
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Total recipes: 17
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Total recipes: 3
+Show my recipes: True
+Current user ID: 2
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Not Found: /login/
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Not Found: /favicon.ico
+Not Found: /favicon.ico
+Total recipes: 17
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 11, Recipe ID type: <class 'int'>, Name: Motta Adaii
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Unnakaya
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: Kaipola recipe
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Mutta mala
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Motta bonda
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Unniyappam
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Coconut Laddu
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name:    Chicken Stuffed Pastry
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Prawn Pickle
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Ginger Salad
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: Pappadam Fritters
+Recipe ID: 24, Recipe ID type: <class 'int'>, Name: Peanut Butter Banana Toast
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name:      
+Recipe ID: 26, Recipe ID type: <class 'int'>, Name: Scrambled Eggs
+Recipe ID: 27, Recipe ID type: <class 'int'>, Name:      Chicken Stuffed Pastry
+Recipe ID: 28, Recipe ID type: <class 'int'>, Name: Avocado Toast
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe_sharing_platform\settings.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe_sharing_platform\settings.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Using selector: SelectSelector
+Using selector: SelectSelector
+Using selector: SelectSelector
+Using selector: SelectSelector
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Using selector: SelectSelector
+Using selector: SelectSelector
+Using selector: SelectSelector
+Using selector: SelectSelector
