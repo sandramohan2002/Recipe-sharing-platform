@@ -114,29 +114,56 @@ class NutritionalInformation(models.Model):
         recipe = Recipe.objects.get(recipe_id=self.recipe_id)
         return recipe.recipename  # Description for nutritional info
 
+# RATINGS MODEL           ####OLD CODE######
+# class Rating(models.Model):
+#     rating_id = models.AutoField(primary_key=True)  # Unique ID for the rating
+#     recipe_id = models.IntegerField()  # ID of the recipe being rated
+#     user_id = models.IntegerField()  # ID of the user who rated the recipe
+#     rating = models.IntegerField()  # Rating value (e.g., 1-5)
+#     created_at = models.DateTimeField(auto_now_add=True)  # Timestamp of when the rating was created
+
+#     class Meta:
+#         unique_together = ('recipe_id', 'user_id')  # Ensure unique rating per user and recipe
+#     def __str__(self):
+#         return f'User {self.user_id} rated Recipe {self.recipe_id} {self.rating}/5'  # Description for rating
 # RATINGS MODEL
 class Rating(models.Model):
-    rating_id = models.AutoField(primary_key=True)  # Unique ID for the rating
-    recipe_id = models.IntegerField()  # ID of the recipe being rated
-    user_id = models.IntegerField()  # ID of the user who rated the recipe
-    rating = models.IntegerField()  # Rating value (e.g., 1-5)
-    created_at = models.DateTimeField(auto_now_add=True)  # Timestamp of when the rating was created
+    rating_id = models.AutoField(primary_key=True)
+    recipe_id = models.IntegerField()
+    user_id = models.IntegerField()
+    rating = models.IntegerField(choices=[(i, str(i)) for i in range(1, 6)])  # 1-5 rating
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('recipe_id', 'user_id')  # Ensure unique rating per user and recipe
-    def __str__(self):
-        return f'User {self.user_id} rated Recipe {self.recipe_id} {self.rating}/5'  # Description for rating
+        unique_together = ('recipe_id', 'user_id')  # One rating per user per recipe
 
-# REVIEWS MODELS:
+    def __str__(self):
+        return f'User {self.user_id} rated Recipe {self.recipe_id} {self.rating}/5'
+
+# # REVIEWS MODELS:      ####OLD CODE######
+# class Review(models.Model):
+#     review_id = models.AutoField(primary_key=True)  # Unique ID for the review
+#     recipe_id = models.IntegerField()  # ID of the recipe being reviewed
+#     user_id = models.IntegerField()  # ID of the user who wrote the review
+#     review_text = models.TextField()  # Text of the review
+#     created_at = models.DateTimeField(auto_now_add=True)  # Timestamp of when the review was created
+#     def __str__(self):
+#         return f'User {self.user_id} reviewed Recipe {self.recipe_id}'  # Description for review
+# REVIEWS MODEL
 class Review(models.Model):
-    review_id = models.AutoField(primary_key=True)  # Unique ID for the review
-    recipe_id = models.IntegerField()  # ID of the recipe being reviewed
-    user_id = models.IntegerField()  # ID of the user who wrote the review
-    review_text = models.TextField()  # Text of the review
-    created_at = models.DateTimeField(auto_now_add=True)  # Timestamp of when the review was created
-    def __str__(self):
-        return f'User {self.user_id} reviewed Recipe {self.recipe_id}'  # Description for review
+    review_id = models.AutoField(primary_key=True)
+    recipe_id = models.IntegerField()
+    user_id = models.IntegerField()
+    #rating = models.IntegerField(choices=[(i, str(i)) for i in range(1, 6)])  # 1-5 rating
+    review_text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        db_table = 'recipe_review'
+
+    def __str__(self):
+        return f'User {self.user_id} reviewed Recipe {self.recipe_id}'
+    
 # COMMENT MODEL
 class Comment(models.Model):
     comment_id = models.AutoField(primary_key=True)  # Unique ID for the comment

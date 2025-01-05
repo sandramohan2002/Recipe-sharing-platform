@@ -1,149 +1,226 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{% static 'css/stylecontact.css' %}" rel="stylesheet">
-    <style>
-        .navbar {
-            background-color: #fff;
-            border-bottom: 1px solid #ddd;
-        }
-        .navbar-brand {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ff6f00 !important; /* Force orange color */
-        }
-        .navbar-brand:hover {
-            color: #ff6f00 !important; /* Keep orange on hover */
-        }
-        .navbar-nav .nav-link {
-            font-weight: bold;
-            color: #555;
-            margin-right: 20px;
-            transition: color 0.3s ease;
-        }
-        .navbar-nav .nav-link:hover,
-        .navbar-nav .nav-item.active .nav-link {
-            color: #ff6f00 !important;
-        }
-        .hello-msg {
-            font-size: 18px;
-            color: green;
-            margin-right: 20px;
-        }
-        .navbar-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .navbar-user {
-            font-size: 16px;
-            color: #343a40;
-            font-weight: bold;
-        }
+
+<!-- Required CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<!-- Navbar Styles -->
+<style>
+    /* Base Navbar Styles */
+    .navbar {
+        background-color: #fff;
+        border-bottom: 1px solid #ddd;
+        padding: 15px 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    /* Brand Styles */
+    .navbar-brand {
+        font-size: 24px;
+        font-weight: bold;
+        color: #ff6f00 !important;
+        padding: 0 15px;
+        transition: transform 0.3s ease;
+    }
+
+    .navbar-brand:hover {
+        transform: scale(1.05);
+    }
+
+    /* Navigation Links */
+    .navbar-nav {
+        margin-right: 20px;
+    }
+
+    .nav-item {
+        margin: 0 5px;
+    }
+
+    .nav-link {
+        font-weight: 600;
+        color: #555 !important;
+        padding: 8px 15px !important;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .nav-link:hover,
+    .nav-item.active .nav-link {
+        color: #ff6f00 !important;
+        background-color: rgba(255, 111, 0, 0.1);
+    }
+
+    /* Dropdown Styles */
+    .dropdown-menu {
+        border: none;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border-radius: 12px;
+        padding: 8px;
+    }
+
+    .dropdown-item {
+        padding: 8px 20px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .dropdown-item:hover {
+        background-color: #ff6f00;
+        color: white;
+        transform: translateX(5px);
+    }
+
+    /* Search Form */
+    .search-form {
+        position: relative;
+        margin: 0 20px;
+    }
+
+    .search-input {
+        width: 300px;
+        padding: 10px 20px;
+        border-radius: 25px;
+        border: 2px solid #eee;
+        transition: all 0.3s ease;
+        padding-right: 40px;
+    }
+
+    .search-input:focus {
+        border-color: #ff6f00;
+        box-shadow: 0 0 0 0.2rem rgba(255, 111, 0, 0.25);
+        outline: none;
+    }
+
+    .search-button {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #ff6f00;
+        padding: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .search-button:hover {
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    /* User Section */
+    .navbar-user {
+        display: flex;
+        align-items: center;
+        padding: 0 15px;
+        font-weight: 600;
+        color: #343a40;
+    }
+
+    .user-greeting {
+        margin-right: 10px;
+        color: #555;
+    }
+
+    .user-name {
+        color: #ff6f00;
+        font-weight: bold;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 991.98px) {
         .search-form {
-            display: flex;
+            margin: 10px 0;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+        }
+
+        .navbar-nav {
+            margin-bottom: 10px;
+        }
+
+        .navbar-user {
+            padding: 10px 0;
             justify-content: center;
-            margin: 0 20px;
         }
-        .search-form input[type="search"] {
-            width: 300px;
-        }
-        .search-icon {
-            margin-left: -40px;
-            z-index: 1;
-        }
-        .dropdown-item:hover {
-            background-color: #ff6f00;
-            color: white;
-        }
-    </style>
-</head>
-<body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'homepage' %}">Flavoraut</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item {% if request.resolver_match.url_name == 'homepage' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'homepage' %}">Home</a>
-                    </li>
+    }
+</style>
 
-                    <!-- Recipes Dropdown -->
-                    <li class="nav-item dropdown {% if 'recipe' in request.resolver_match.url_name %}active{% endif %}">
-                        <a class="nav-link dropdown-toggle" href="#" id="recipesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Recipes
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="recipesDropdown">
-                            <li><a class="dropdown-item" href="{% url 'recipe' %}">View Recipes</a></li>
-                            <li><a class="dropdown-item" href="{% url 'recipe' %}">My Recipes</a></li>
-                        </ul>
-                    </li>
+<!-- Navbar Structure -->
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+        <!-- Brand -->
+        <a class="navbar-brand" href="{% url 'homepage' %}">Flavornaut</a>
 
-                    <li class="nav-item {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'about' %}">About</a>
-                    </li>
-                    {% comment %} <li class="nav-item {% if request.resolver_match.url_name == 'faq' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'faq' %}">FAQ</a>
-                    </li> {% endcomment %}
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-                    <!-- Profile Dropdown -->
-                    <li class="nav-item dropdown {% if 'profile' in request.resolver_match.url_name %}active{% endif %}">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Profile
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li>
-                                <a class="dropdown-item" href="{% url 'profile' %}">My Account</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+        <!-- Navbar Content -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- Navigation Links -->
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item {% if request.resolver_match.url_name == 'homepage' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'homepage' %}">Home</a>
+                </li>
 
-                <!-- Centered Search Bar -->
-                <form class="d-flex search-form" method="GET" action="{% url 'search_recipe' %}">
-                    <input class="form-control me-2" type="search" placeholder="Search recipes..." aria-label="Search" name="query">
-                    <button class="btn search-icon" type="submit">
-                        <i class="bi bi-search"></i> <!-- Bootstrap icon for search -->
-                    </button>
-                </form>
+                <!-- Recipes Dropdown -->
+                <li class="nav-item dropdown {% if 'recipe' in request.resolver_match.url_name %}active{% endif %}">
+                    <a class="nav-link dropdown-toggle" href="#" id="recipesDropdown" role="button" 
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Recipes
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="recipesDropdown">
+                        <li><a class="dropdown-item" href="{% url 'recipe' %}">View Recipes</a></li>
+                        <li><a class="dropdown-item" href="{% url 'recipe' %}">My Recipes</a></li>
+                    </ul>
+                </li>
 
-                {% comment %} <div class="navbar-right">
-                    <div class="navbar-user">
-                        {% if request.session.is_admin %}
-                            Admin
-                        {% elif request.session.username %}
-                        Hello, 
+                <li class="nav-item {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                </li>
+
+                <!-- Profile Dropdown -->
+                <li class="nav-item dropdown {% if 'profile' in request.resolver_match.url_name %}active{% endif %}">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Profile
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'profile' %}">My Account</a></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Search Form -->
+            <form class="d-flex search-form" method="GET" action="{% url 'search_recipe' %}">
+                <input class="form-control search-input" type="search" placeholder="Search recipes..." 
+                       aria-label="Search" name="query">
+                <button class="search-button" type="submit">
+                    <i class="bi bi-search"></i>
+                </button>
+            </form>
+
+            <!-- User Section -->
+            <div class="navbar-user">
+                <span class="user-greeting">Hello,</span>
+                <span class="user-name">
+                    {% if request.session.is_admin %}
+                        Admin
+                    {% elif request.session.username %}
                         {{ request.session.username }}
-                        {% endif %}
-                    </div> {% endcomment %}
-
-                    <div class="navbar-right">
-                        <div class="navbar-user">
-                            Hello, 
-                            {% if request.session.is_admin %}
-                                Admin
-                            {% elif request.session.username %}
-                                {{ request.session.username }}
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
+                    {% endif %}
+                </span>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<!-- Required JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

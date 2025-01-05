@@ -88,8 +88,14 @@ urlpatterns = [
     path('recipe/<int:recipe_id>/review/', views.review_recipe, name='review_recipe'),
     path('review/<int:review_id>/comment/', views.comment_on_review, name='comment_on_review'),
     path('get-ingredients/<int:category_id>/',views.get_ingredients, name='get_ingredients'),
+
+    
+  path('subcategories/add/', views.add_subcategory, name='add_subcategory'),
+  
+    # ... other URLs ...
     #path('recipe_details/<int:recipe_id>/', views.recipe_detail, name='recipe_detail'),
 ]
+
 
 
 # Handle static and media files in development

@@ -139,6 +139,11 @@ def logout(request):
     return redirect('login')
 
 
+
+
+
+
+
 #HOMEPAGE VIEW
 def homepage(request):
        context = {}
@@ -313,9 +318,22 @@ def addrecipe(request):
 
 def recipe_detail(request, recipe_id, reviews=False):
     recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
+    reviews = Review.objects.filter(recipe_id=recipe_id).only(
+        'review_id', 'user_id', 'review_text', 'created_at'
+    )
+
+    ratings = Rating.objects.filter(recipe_id=recipe_id)
+    average_rating = ratings.aggregate(Avg('rating'))['rating__avg']
+    total_ratings = ratings.count()
     
-    reviews = Review.objects.filter(recipe_id=recipe_id)
-    
+    # Get user's rating if they've rated
+    user_rating = None
+    if request.session.get('id'):
+        user_rating = Rating.objects.filter(
+            recipe_id=recipe_id,
+            user_id=request.session['id']
+        ).first()
+
     # Fetch the category name
     category = Category.objects.filter(category_id=recipe.category_id).first()
     category_name = category.name if category else "Unknown Category"
@@ -345,16 +363,19 @@ def recipe_detail(request, recipe_id, reviews=False):
         'instructions': instructions,
         'messages': messages.get_messages(request),
         'reviews': reviews,
-        'reviews_display': reviews if reviews else False,
+        'reviews_display': True,
         'nutritional_info': nutritional_info,
         'is_admin': is_admin,
         'ingredients': ingredients,
         'subcategory_name': subcategory_name,
+
+        'average_rating': average_rating,
+        'total_ratings': total_ratings,
+        'user_rating': user_rating,
+
+
     }
     return render(request, 'recipe_detail.html', context)
-    
-
-
 
 #for edting recipes on recipe page for user
 from django.shortcuts import render, redirect, get_object_or_404
@@ -423,17 +444,42 @@ def usereditrecipe(request, recipe_id):
     }
     return render(request, 'usereditrecipe.html', context)
 
+# @login_required
+# def review_recipe(request, recipe_id):
+    
+#     if request.method == 'POST':
+#         review_text = request.POST.get('review')
+#         user_id = request.user.id
+
+#         review = Review(recipe_id=recipe_id, user_id=user_id, review_text=review_text)
+#         review.save()
+
+#         messages.success(request, "Your review has been submitted.")
+#         return redirect('recipe_detail', recipe_id=recipe_id,reviews=True)
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+from django.contrib import messages
+
 @login_required
 def review_recipe(request, recipe_id):
     if request.method == 'POST':
-        review_text = request.POST.get('review')
-        user_id = request.user.id
+        try:
+            review_text = request.POST.get('review')
+            
+            # Create new review with the current user
+            review = Review.objects.create(
+                recipe_id=recipe_id,
+                user_id=request.user.id,
+                review_text=review_text
+            )
+            
+            messages.success(request, 'Your review has been added successfully!')
+        except Exception as e:
+            messages.error(request, 'There was an error submitting your review.')
+            print(f"Error creating review: {str(e)}")
+    
+    return redirect('recipe_detail', recipe_id=recipe_id)
 
-        review = Review(recipe_id=recipe_id, user_id=user_id, review_text=review_text)
-        review.save()
-
-        messages.success(request, "Your review has been submitted.")
-        return redirect('recipe_detail', recipe_id=recipe_id,reviews=True)
 
 def profile_view(request,user_id):
     user=CustomUser.objects.get(id=user_id)
@@ -834,15 +880,15 @@ def subcategory_list(request):
     return render(request, 'subcategory_list.html', {'subcategories': subcategories})
 
 def add_subcategory(request):
-    if request.method == 'POST':
-        form = SubCategoryForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Subcategory added successfully.')
-            return redirect('subcategory_list')
-    else:
-        form = SubCategoryForm()
-    return render(request, 'subcategory_form.html', {'form': form, 'action': 'Add'})
+     if request.method == 'POST':
+         form = SubCategoryForm(request.POST)
+         if form.is_valid():
+             form.save()
+             messages.success(request, 'Subcategory added successfully.')
+             return redirect('subcategory_list')
+     else:
+         form = SubCategoryForm()
+     return render(request, 'subcategory_form.html', {'form': form, 'action': 'Add'})
 
 def edit_subcategory(request, subcategory_id):
     subcategory = get_object_or_404(SubCategory, subcategory_id=subcategory_id)

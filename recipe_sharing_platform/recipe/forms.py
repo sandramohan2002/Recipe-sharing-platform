@@ -215,3 +215,7 @@ class SubCategoryForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['category_id'].choices = [(c.category_id, c.name) for c in Category.objects.all()]
+
+
+
+        

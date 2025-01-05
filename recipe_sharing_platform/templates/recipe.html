@@ -25,7 +25,7 @@
             color: #ff6f00;
             margin-bottom: 30px;
         }
-        .btn-primary, .btn-search {
+        .btn-primary {
             background-color: #ff6f00;
             border: none;
             color: white;
@@ -34,13 +34,13 @@
             font-weight: 600;
             transition: all 0.3s ease;
         }
-        .btn-primary:hover, .btn-search:hover {
+        .btn-primary:hover {
             background-color: #e65100;
             transform: translateY(-2px);
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
         .btn-view-recipe {
-            background-color: #007bff !important; /* Ensure this overrides any other styles */
+            background-color: #007bff !important;
             border: none;
             color: white !important;
             padding: 10px 20px;
@@ -81,27 +81,58 @@
         .filter-item {
             flex: 1;
             min-width: 200px;
+            max-width: 300px;
         }
-        .form-select, .form-control {
-            border-radius: 25px;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            font-size: 0.9rem;
+        .form-select {
+            background-color: #ff6f00;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
         }
-        .search-wrapper {
-            position: relative;
-            flex: 2;
-            min-width: 300px;
+        .form-select:hover {
+            background-color: #e65100;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
-        .search-wrapper .form-control {
-            padding-right: 40px;
+        .form-select:focus {
+            box-shadow: 0 0 0 0.25rem rgba(255,111,0,0.25);
+            background-color: #ff6f00;
+            color: white;
+        }
+        .form-select option {
+            background-color: white;
+            color: #333;
+            font-weight: normal;
+        }
+        .search-icon-wrapper {
+            flex: 0 0 auto;
+            width: auto;
+            min-width: auto;
+            margin-left: -15px;
         }
         .search-icon {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
+            background: none;
+            border: none;
             color: #ff6f00;
+            font-size: 1.2rem;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .search-icon:hover {
+            color: #e65100;
+            transform: scale(1.1);
         }
         .card {
             border: none;
@@ -182,12 +213,10 @@
                         <option value="">All Subcategories</option>
                     </select>
                 </div>
-                <div class="search-wrapper">
-                    <input type="text" name="search" class="form-control" placeholder="Search recipes..." value="{{ search_query }}">
-                    <i class="fas fa-search search-icon"></i>
-                </div>
-                <div class="filter-item">
-                    <button type="submit" class="btn btn-search w-100">Search</button>
+                <div class="search-icon-wrapper">
+                    <button type="submit" class="search-icon">
+                        <i class="fas fa-search"></i>
+                    </button>
                 </div>
             </div>
             {% if show_my_recipes %}

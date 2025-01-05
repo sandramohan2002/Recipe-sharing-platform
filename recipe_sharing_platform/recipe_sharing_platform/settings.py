@@ -95,27 +95,27 @@ WSGI_APPLICATION = 'recipe_sharing_platform.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+DATABASES = {
+    'default': {
+         'ENGINE': 'django.db.backends.mysql',
+         'NAME': 'recipe-sharing',
+         'USER': 'root',
+         'PASSWORD': '',
+         'HOST': 'localhost',  # Or your MySQL server address
+         'PORT': '3306',  # Default MySQL port
+     }
+ }
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'recipe-sharing',
-#         'USER': 'root',
-#         'PASSWORD': '',
-#         'HOST': 'localhost',  # Or your MySQL server address
-#         'PORT': '3306',  # Default MySQL port
+#         'NAME': 'Flavoraut_authorcase',
+#         'USER': 'Flavoraut_authorcase',
+#         'PASSWORD': '04456732859c9ee237e51d854ef093d91235e0f3',
+#         'HOST': 'oqil1.h.filess.io', 
+#         'PORT': '3307',  
 #     }
 # }
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Flavoraut_authorcase',
-        'USER': 'Flavoraut_authorcase',
-        'PASSWORD': '04456732859c9ee237e51d854ef093d91235e0f3',
-        'HOST': 'oqil1.h.filess.io', 
-        'PORT': '3307',  
-    }
-}
 
 
 # Password validation

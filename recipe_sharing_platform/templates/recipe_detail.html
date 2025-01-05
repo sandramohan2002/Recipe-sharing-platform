@@ -35,7 +35,7 @@
             margin-bottom: 20px;
         }
         .recipe-image {
-            width: 300px;
+            width: 425px;
             height: auto;
             border-radius: 8px;
             margin-right: 20px;
@@ -45,7 +45,7 @@
         }
         .recipe-meta {
             background-color: #ecf0f1;
-            padding: 10px;
+            padding: 25px;
             border-radius: 8px;
             margin-bottom: 20px;
         }
@@ -167,7 +167,7 @@
                 <img src="{{ recipe.image.url }}" alt="{{ recipe.recipename }}" class="recipe-image">
             {% endif %}
             <div class="recipe-details">
-                <p><strong>Description:</strong> {{ recipe.description }}</p>
+                {% comment %} <p><strong>Description:</strong> {{ recipe.description }}</p> {% endcomment %}
                 <div class="recipe-meta">
                     <p><strong>Servings:</strong> {{ recipe.servings }}</p>
                     <p><strong>Timing:</strong> {{ recipe.prep_time }} minutes prep time, {{ recipe.cook_time }} minutes cook time</p>
@@ -226,7 +226,8 @@
             {% endfor %}
         </ol>
 
-        <!-- {% comment %} <div class="ratings">
+        
+         <div class="ratings">
             <h2>Ratings</h2>
             <p>Average Rating: {{ average_rating|default:"Not rated yet" }}</p>
             <p>Total Ratings: {{ total_ratings }}</p>
@@ -234,11 +235,15 @@
 
         <div class="review-form">
             <h2>Write a Review</h2>
+            {% if user.is_authenticated %}
             <form method="POST" action="{% url 'review_recipe' recipe.recipe_id %}">
                 {% csrf_token %}
                 <textarea name="review" placeholder="Write your review here..." required></textarea>
                 <button type="submit">Submit Review</button>
             </form>
+            {% else %}
+                <p>Please log in to write a review.</p>
+            {% endif %}
         </div>
 
         {% if reviews_display %}
@@ -246,12 +251,14 @@
             {% for review in reviews %}
                 <div class="review">
                     <p><strong>User {{ review.user_id }}</strong>: {{ review.review_text }}</p>
-                    <small>Posted on: {{ review.created_at }}</small>
+            <small>Posted on: {{ review.created_at }}</small>
                 </div>
             {% empty %}
                 <p>No reviews yet. Be the first to review this recipe!</p>
             {% endfor %}
-        {% endif %} {% endcomment %} -->
+        {% endif %} 
+        
+        
 
 
         <div style="margin-top: 20px;">
