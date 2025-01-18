@@ -1,0 +1,256 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Photography - Flavornaut</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Hero Section */
+        .photography-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                        url('{% static "images/photography-hero.jpg" %}') center/cover;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        .back-button-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #ff6f00;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #ff6f00;
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .class-card {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            background: white;
+        }
+
+        .class-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .class-image {
+            height: 300px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .class-details {
+            padding: 30px;
+        }
+
+        .topic-tag {
+            background: #ff6f00;
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 5px;
+            display: inline-block;
+        }
+
+        .gallery-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            height: 300px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .equipment-section {
+            padding: 80px 0;
+        }
+
+        .equipment-card {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .equipment-icon {
+            font-size: 2.5rem;
+            color: #ff6f00;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <div class="back-button-container">
+        <a href="{% url 'homepage' %}" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="photography-hero">
+        <div class="container">
+            <h1 class="display-3 fw-bold mb-4">Food Photography</h1>
+            <p class="lead fs-4">Capture the art of culinary creation through your lens</p>
+        </div>
+    </div>
+
+    <!-- Classes Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Photography Workshops</h2>
+            <div class="row">
+                {% for class in upcoming_classes %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="class-card">
+                        <img src="{% static class.image %}" class="class-image" alt="{{ class.title }}">
+                        <div class="class-details">
+                            <h3 class="mb-3">{{ class.title }}</h3>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-calendar-alt me-2 text-muted"></i>
+                                <span>{{ class.date }}</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-clock me-2 text-muted"></i>
+                                <span>{{ class.time }}</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-user me-2 text-muted"></i>
+                                <span>{{ class.instructor }}</span>
+                            </div>
+                            <p class="mb-4">{{ class.description }}</p>
+                            <div class="mb-4">
+                                {% for topic in class.topics %}
+                                <span class="topic-tag">{{ topic }}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <span class="h4 mb-0">{{ class.price }}</span>
+                                <span class="text-muted">{{ class.spots }}</span>
+                            </div>
+                            <button class="btn btn-primary w-100 register-btn">Register Now</button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2 class="text-center mb-4">Student Gallery</h2>
+            <p class="text-center mb-5">Stunning photos captured by our workshop participants</p>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="{% static 'images/dragonchicken.jpeg' %}" alt="Food Photo 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="{% static 'images/gallery2.jpg' %}" alt="Food Photo 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="{% static 'images/gallery3.jpg' %}" alt="Food Photo 3">
+                </div>
+                <div class="gallery-item">
+                    <img src="{% static 'images/gallery4.jpg' %}" alt="Food Photo 4">
+                </div>
+                <div class="gallery-item">
+                    <img src="{% static 'images/gallery5.jpg' %}" alt="Food Photo 5">
+                </div>
+                <div class="gallery-item">
+                    <img src="{% static 'images/gallery6.jpg' %}" alt="Food Photo 6">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipment Section -->
+    <section class="equipment-section">
+        <div class="container">
+            <h2 class="text-center mb-5">What You'll Need</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="equipment-card">
+                        <i class="fas fa-camera equipment-icon"></i>
+                        <h3>Camera</h3>
+                        <p>DSLR or Mirrorless camera (can be provided)</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="equipment-card">
+                        <i class="fas fa-lightbulb equipment-icon"></i>
+                        <h3>Lighting</h3>
+                        <p>Basic lighting equipment will be provided</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="equipment-card">
+                        <i class="fas fa-laptop equipment-icon"></i>
+                        <h3>Editing Software</h3>
+                        <p>Lightroom/Photoshop (trial version available)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

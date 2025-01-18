@@ -1,0 +1,207 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baking Masterclass - Flavornaut</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Hero Section */
+        .baking-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        url('{% static "images/baking-hero.jpg" %}') center/cover;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        .back-button-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #ff6f00;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #ff6f00;
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .class-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            margin-bottom: 30px;
+            background: white;
+        }
+
+        .class-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .class-image {
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .class-details {
+            padding: 25px;
+        }
+
+        .topic-tag {
+            background: #ff6f00;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 5px;
+            display: inline-block;
+        }
+
+        .register-btn {
+            background: #ff6f00;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            border: none;
+            width: 100%;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .register-btn:hover {
+            background: #e65100;
+            transform: translateY(-2px);
+        }
+
+        .features-section {
+            background: #f8f9fa;
+            padding: 80px 0;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #ff6f00;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <div class="back-button-container">
+        <a href="{% url 'homepage' %}" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="baking-hero">
+        <div class="container">
+            <h1 class="display-3 fw-bold mb-4">Baking Masterclass</h1>
+            <p class="lead fs-4">Master the art of baking with our expert pastry chefs</p>
+        </div>
+    </div>
+
+    <!-- Classes Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Upcoming Classes</h2>
+            <div class="row">
+                {% for class in upcoming_classes %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="class-card">
+                        <img src="{% static class.image %}" class="class-image" alt="{{ class.title }}">
+                        <div class="class-details">
+                            <h3 class="mb-3">{{ class.title }}</h3>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-calendar-alt me-2 text-muted"></i>
+                                <span>{{ class.date }}</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-clock me-2 text-muted"></i>
+                                <span>{{ class.time }}</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-user-chef me-2 text-muted"></i>
+                                <span>{{ class.chef }}</span>
+                            </div>
+                            <p class="mb-4">{{ class.description }}</p>
+                            <div class="mb-4">
+                                {% for topic in class.topics %}
+                                <span class="topic-tag">{{ topic }}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <span class="h4 mb-0">{{ class.price }}</span>
+                                <span class="text-muted">{{ class.spots }}</span>
+                            </div>
+                            <button class="register-btn">Register Now</button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="text-center mb-5">What You'll Learn</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="fas fa-graduation-cap feature-icon"></i>
+                        <h3>Professional Techniques</h3>
+                        <p>Learn industry-standard baking methods and secrets</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="fas fa-tools feature-icon"></i>
+                        <h3>Essential Skills</h3>
+                        <p>Master fundamental baking skills and measurements</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <i class="fas fa-award feature-icon"></i>
+                        <h3>Certification</h3>
+                        <p>Receive a certificate of completion</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

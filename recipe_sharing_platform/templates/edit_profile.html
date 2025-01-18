@@ -27,29 +27,82 @@
         }
         .form-label {
             font-weight: bold;
-            color: #555;
+            color: #333;
+            margin-bottom: 8px;
         }
         .form-control {
             border: 1px solid #ddd;
             border-radius: 8px;
             padding: 12px;
+            width: 100%;
             margin-bottom: 20px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #2196F3;
+            box-shadow: 0 0 0 0.2rem rgba(33, 150, 243, 0.25);
+            outline: none;
+        }
+        .form-control[readonly] {
+            background-color: #f8f9fa;
+            border-color: #ddd;
+            color: #6c757d;
+            cursor: not-allowed;
         }
         .btn-save {
-            background-color: #ff6f00;
-            color: #fff;
+            background: linear-gradient(45deg, #2196F3, #1976D2);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
             border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-            width: 100%;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+            cursor: pointer;
         }
         .btn-save:hover {
-            background-color: #e65100;
+            background: linear-gradient(45deg, #1976D2, #1565C0);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+        }
+        .btn-save:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
         }
         .alert {
             margin-bottom: 20px;
+        }
+        [title] {
+            position: relative;
+        }
+        [title]:hover::after {
+            content: attr(title);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 12px;
+            background-color: #333;
+            color: white;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            white-space: nowrap;
+            z-index: 1000;
+            margin-bottom: 5px;
+        }
+        [title]:hover::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #333;
+            margin-bottom: -6px;
         }
     </style>
 </head>
@@ -69,19 +122,20 @@
         
         <form method="POST" action="{% url 'profile_change' %}">
             {% csrf_token %}
-            <input type="hidden" id="id" name="id" value="{{ user.id }}">
-            
-            <div class="mb-3">
-                <label for="id_name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="id_name" name="name" value="{{ user.name }}" required>
+            <input type="hidden" name="id" value="{{ user.id }}">
+            <div class="mb-4">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ user.name }}">
             </div>
-
-            <div class="mb-3">
-                <label for="id_email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="id_email" name="email" value="{{ user.email }}" required>
+            <div class="mb-4">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" readonly 
+                    style="background-color: #f8f9fa; color: #6c757d; cursor: not-allowed;" 
+                    title="Email cannot be changed">
             </div>
-
-            <button type="submit" class="btn btn-save">Save Changes</button>
+            <div class="text-center mt-4">
+                <button type="submit" class="btn-save">Save Changes</button>
+            </div>
         </form>
     </div>
 

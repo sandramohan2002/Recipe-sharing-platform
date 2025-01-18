@@ -84,7 +84,7 @@ class Recipe(models.Model):
     ingredients = models.ManyToManyField(Ingredient)  # Many-to-many relation with ingredients
     instructions = models.TextField()  # Instructions for the recipe
     image = models.ImageField(upload_to='recipes/')  # Image of the recipe
-    servings = models.IntegerField(null=True, blank=True)  # Add servings field
+    servings = models.CharField(max_length=200)  # Add servings field
     prep_time = models.IntegerField()
     cook_time = models.IntegerField()
     timing = models.DurationField(null=True, blank=True)  # Add timing field

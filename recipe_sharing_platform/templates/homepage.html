@@ -363,13 +363,15 @@
             <div class="categories-grid">
                 <!-- Appetizers Category -->
                 <div class="card">
-                    <div class="image-container">
-                        <img src="{% static 'images/paneer.jpg' %}" alt="Appetizers">
-                        <div class="overlay">
-                            <h2>Appetizers</h2>
-                            <p>Start your meal with a burst of flavor and spice!</p>
+                    <a href="{% url 'recipe' %}?category=appetizers" class="text-decoration-none">
+                        <div class="image-container">
+                            <img src="{% static 'images/paneer.jpg' %}" alt="Appetizers">
+                            <div class="overlay">
+                                <h2>Appetizers</h2>
+                                <p>Start your meal with a burst of flavor and spice!</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <!-- Desserts Category -->
@@ -404,29 +406,35 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="event">
-                        <img src="{% static 'images/workshop.jpg' %}" alt="Cooking Workshop">
-                        <div class="event-info">
-                            <h3>Cooking Workshop</h3>
-                            <p>Learn the basics of Italian cuisine with our expert chefs.</p>
-                        </div>
+                        <a href="{% url 'workshop' %}" class="text-decoration-none">
+                            <img src="{% static 'images/workshop.jpg' %}" alt="Cooking Workshop">
+                            <div class="event-info">
+                                <h3>Cooking Workshop</h3>
+                                <p>Learn the basics of Italian cuisine with our expert chefs.</p>
+                            </div>
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="event">
-                        <img src="{% static 'images/baking.jpg' %}" alt="Baking Masterclass">
-                        <div class="event-info">
-                            <h3>Baking Masterclass</h3>
-                            <p>Master the art of bread making and pastries.</p>
-                        </div>
+                        <a href="{% url 'baking' %}" class="text-decoration-none">
+                            <img src="{% static 'images/baking.jpg' %}" alt="Baking Masterclass">
+                            <div class="event-info">
+                                <h3>Baking Masterclass</h3>
+                                <p>Master the art of bread making and pastries.</p>
+                            </div>
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="event">
-                        <img src="{% static 'images/food.jpg' %}" alt="Food Photography">
-                        <div class="event-info">
-                            <h3>Food Photography</h3>
-                            <p>Tips and tricks for stunning food photos.</p>
-                        </div>
+                        <a href="{% url 'food_photography' %}" class="text-decoration-none">
+                            <img src="{% static 'images/food.jpg' %}" alt="Food Photography">
+                            <div class="event-info">
+                                <h3>Food Photography</h3>
+                                <p>Tips and tricks for stunning food photos.</p>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>

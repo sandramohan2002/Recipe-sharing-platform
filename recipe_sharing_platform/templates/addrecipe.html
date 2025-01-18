@@ -249,7 +249,7 @@
             <div class="form-row">
                 <div class="form-col">
                     <label for="servings">Servings:</label>
-                    <input type="number" id="servings" name="servings" min="1" required>
+                    <input type="text" id="servings" name="servings" min="1" required>
                 </div>
                 <div class="form-col">
                     <label for="prep_time">Prep Time (minutes):</label>
@@ -350,7 +350,10 @@
                                 {% endfor %}
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary">Add Ingredient</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add Ingredient</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -525,9 +528,27 @@
             .then(data => {
                 console.log('Response data:', data);
                 if (data.success) {
+                    // Clear the form
+                    this.reset();
+                    
+                    // Close the modal properly
+                    const modal = document.getElementById('addIngredientModal');
+                    const modalInstance = bootstrap.Modal.getInstance(modal);
+                    modalInstance.hide();
+                    
+                    // Remove modal backdrop and reset body styles
+                    document.body.classList.remove('modal-open');
+                    const backdrop = document.querySelector('.modal-backdrop');
+                    if (backdrop) {
+                        backdrop.remove();
+                    }
+                    document.body.style.overflow = '';
+                    document.body.style.paddingRight = '';
+
+                    // Show success message
                     alert('Ingredient added successfully!');
-                    var modal = bootstrap.Modal.getInstance(document.getElementById('addIngredientModal'));
-                    modal.hide();
+                    
+                    // Update ingredients dropdown
                     localStorage.setItem('newIngredientId', data.id);
                     updateIngredients();
                 } else {
@@ -538,6 +559,17 @@
                 console.error('Error:', error);
                 alert('An error occurred: ' + error.message);
             });
+        });
+
+        // Add modal cleanup on close
+        document.getElementById('addIngredientModal').addEventListener('hidden.bs.modal', function () {
+            document.body.classList.remove('modal-open');
+            const backdrop = document.querySelector('.modal-backdrop');
+            if (backdrop) {
+                backdrop.remove();
+            }
+            document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
         });
 
         function logFormData(formData) {

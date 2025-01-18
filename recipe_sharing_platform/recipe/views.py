@@ -16,6 +16,7 @@ import logging
 from django.db import transaction
 # from django.conf import settings
 import traceback
+from django.http import JsonResponse
 
 
 logger = logging.getLogger(__name__)
@@ -211,7 +212,7 @@ def recipe(request):
     
     for recipe in recipes:
         logger.info(f"Recipe ID: {recipe.recipe_id}, Recipe ID type: {type(recipe.recipe_id)}, Name: {recipe.recipename}")
-
+    
     context = {
         'categories': categories,
         'subcategories': subcategories,
@@ -318,10 +319,31 @@ def addrecipe(request):
 
 def recipe_detail(request, recipe_id, reviews=False):
     recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
-    reviews = Review.objects.filter(recipe_id=recipe_id).only(
-        'review_id', 'user_id', 'review_text', 'created_at'
-    )
+    
+    # Get the user_id from request.session
+    user_id = request.session.get('id')
+    is_logged_in = user_id is not None
+    
+    try:
+        # Modified this part to include user information
+        reviews = Review.objects.filter(recipe_id=recipe_id).values(
+            'review_id', 
+            'user_id', 
+            'review_text', 
+            'created_at'
+        ).order_by('-created_at')
+        
+        # Fetch user names for all reviews
+        for review in reviews:
+            try:
+                user = CustomUser.objects.get(id=review['user_id'])
+                review['user_name'] = user.name
+            except CustomUser.DoesNotExist:
+                review['user_name'] = "Unknown User"
+    except:
+        reviews = []
 
+    # Get ratings
     ratings = Rating.objects.filter(recipe_id=recipe_id)
     average_rating = ratings.aggregate(Avg('rating'))['rating__avg']
     total_ratings = ratings.count()
@@ -338,7 +360,6 @@ def recipe_detail(request, recipe_id, reviews=False):
     category = Category.objects.filter(category_id=recipe.category_id).first()
     category_name = category.name if category else "Unknown Category"
     
-    
     # Split instructions into a list
     instructions = [inst.strip() for inst in recipe.instructions.split('\n') if inst.strip()]
     
@@ -347,7 +368,8 @@ def recipe_detail(request, recipe_id, reviews=False):
         nutritional_info = NutritionalInformation.objects.get(recipe_id=recipe_id)
     except NutritionalInformation.DoesNotExist:
         nutritional_info = None
-     # Fetch ingredients
+     
+    # Fetch ingredients
     ingredients = recipe.recipe_ingredients.all().select_related('ingredient')
     
     # Fetch subcategory name
@@ -368,12 +390,11 @@ def recipe_detail(request, recipe_id, reviews=False):
         'is_admin': is_admin,
         'ingredients': ingredients,
         'subcategory_name': subcategory_name,
-
         'average_rating': average_rating,
         'total_ratings': total_ratings,
         'user_rating': user_rating,
-
-
+        'is_logged_in': is_logged_in,  # Add this to context
+        'user_id': user_id,  # Add this to context
     }
     return render(request, 'recipe_detail.html', context)
 
@@ -460,37 +481,64 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.contrib import messages
 
-@login_required
 def review_recipe(request, recipe_id):
     if request.method == 'POST':
-        try:
-            review_text = request.POST.get('review')
-            
-            # Create new review with the current user
-            review = Review.objects.create(
+        # Check if user is logged in using session
+        user_id = request.session.get('id')
+        if not user_id:
+            messages.error(request, 'Please log in to submit a review.')
+            return redirect('recipe_detail', recipe_id=recipe_id)
+
+        review_text = request.POST.get('review')
+        if review_text:
+            # Create new review
+            review = Review(
                 recipe_id=recipe_id,
-                user_id=request.user.id,
+                user_id=user_id,
                 review_text=review_text
             )
+            review.save()
+            messages.success(request, 'Your review has been submitted successfully!')
+        else:
+            messages.error(request, 'Review text cannot be empty.')
             
-            messages.success(request, 'Your review has been added successfully!')
-        except Exception as e:
-            messages.error(request, 'There was an error submitting your review.')
-            print(f"Error creating review: {str(e)}")
-    
     return redirect('recipe_detail', recipe_id=recipe_id)
 
 
-def profile_view(request,user_id):
-    user=CustomUser.objects.get(id=user_id)
-    return render(request, 'profile.html', {'user': user})
-    
+def profile_view(request):
+    # Get user_id from session
+    user_id = request.session.get('id')
+    if not user_id:
+        messages.error(request, 'Please log in to view your profile.')
+        return redirect('login')
+        
+    try:
+        user = CustomUser.objects.get(id=user_id)
+        # Fetch recipes for this user
+        recipes = Recipe.objects.filter(user_id=user_id).order_by('-recipe_id')  # Most recent first
+        
+        context = {
+            'user': user,
+            'recipes': recipes
+        }
+        return render(request, 'profile.html', context)
+    except CustomUser.DoesNotExist:
+        messages.error(request, 'User profile not found.')
+        return redirect('login')
 
 def profile_edit(request):
-    user_id=request.session.get('id')
-    custom=CustomUser.objects.get(id=user_id)
-    return render(request, 'edit_profile.html',{'user':custom})
-    #return render(request, 'profile.html')
+    # Get user_id from session
+    user_id = request.session.get('id')
+    if not user_id:
+        messages.error(request, 'Please log in to edit your profile.')
+        return redirect('login')
+    
+    try:
+        user = CustomUser.objects.get(id=user_id)
+        return render(request, 'edit_profile.html', {'user': user})
+    except CustomUser.DoesNotExist:
+        messages.error(request, 'User profile not found.')
+        return redirect('login')
 
 def profile_change(request):
     if request.method == 'POST':
@@ -960,6 +1008,179 @@ def get_ingredients(request, category_id):
 def get_subcategories(request, category_id):
     subcategories = SubCategory.objects.filter(category_id=category_id).values('subcategory_id', 'name')
     return JsonResponse({'subcategories': list(subcategories)})
+
+def search_suggestions(request):
+    query = request.GET.get('query', '').strip()
+    if not query:
+        return JsonResponse([], safe=False)
+
+    recipes = Recipe.objects.filter(
+        Q(recipename__icontains=query) |
+        Q(description__icontains=query) |
+        Q(category__icontains=query)
+    )[:10]  # Limit to 10 suggestions
+
+    suggestions = [{
+        'name': recipe.recipename,
+        'category': recipe.category,
+        'url': reverse('recipe_detail', args=[recipe.recipe_id])
+    } for recipe in recipes]
+
+    return JsonResponse(suggestions, safe=False)
+
+def workshop_view(request):
+    workshops = {
+        'upcoming_workshops': [
+            {
+                'title': 'Italian Cuisine Masterclass',
+                'date': 'April 15, 2024',
+                'time': '2:00 PM - 5:00 PM',
+                'chef': 'Chef Mario Rossi',
+                'price': '$99',
+                'spots': '15 spots left',
+                'description': 'Learn authentic Italian cooking techniques...',
+                'image': 'images/italian-workshop.jpg',
+                'topics': ['Pasta Making', 'Sauce Basics', 'Italian Desserts']
+            },
+             {
+                'title': 'Indian Spice Journey',
+                'date': 'April 20, 2024',
+                'time': '3:00 PM - 6:00 PM',
+                'chef': 'Chef Priya Sharma',
+                'price': '$89',
+                'spots': '10 spots left',
+                'description': 'Dive into the world of Indian spices and learn how to create authentic Indian dishes. From curry basics to bread making, discover the secrets of balancing spices and creating authentic flavors.',
+                'image': 'images/indian-workshop.jpg',
+                'topics': ['Spice Blending', 'Curry Mastery', 'Bread Making']
+            },
+            {
+                'title': 'Japanese Sushi Workshop',
+                'date': 'April 25, 2024',
+                'time': '1:00 PM - 4:00 PM',
+                'chef': 'Chef Takashi Yamamoto',
+                'price': '$120',
+                'spots': '8 spots left',
+                'description': 'Learn the art of sushi making from a master chef. Perfect your rice cooking, fish selection, and rolling techniques. Includes tips on presentation and traditional serving methods.',
+                'image': 'images/sushi-workshop.jpg',
+                'topics': ['Rice Preparation', 'Rolling Techniques', 'Fish Selection']
+            },
+            {
+                'title': 'French Pastry Excellence',
+                'date': 'May 1, 2024',
+                'time': '10:00 AM - 2:00 PM',
+                'chef': 'Chef Sophie Laurent',
+                'price': '$150',
+                'spots': '12 spots left',
+                'description': 'Master the art of French pastry making. Learn to create perfect croissants, eclairs, and macarons. Discover professional techniques and secrets of French baking.',
+                'image': 'images/french-pastry.jpg',
+                'topics': ['Croissant Making', 'Eclair Mastery', 'Macaron Techniques']
+            },
+            {
+                'title': 'Thai Street Food Secrets',
+                'date': 'May 5, 2024',
+                'time': '4:00 PM - 7:00 PM',
+                'chef': 'Chef Somchai Pan',
+                'price': '$95',
+                'spots': '15 spots left',
+                'description': 'Experience the vibrant flavors of Thai street food. Learn to make popular dishes like Pad Thai, Som Tam, and authentic curry pastes from scratch.',
+                'image': 'images/thai-workshop.jpg',
+                'topics': ['Wok Skills', 'Curry Paste Making', 'Noodle Dishes']
+            },
+            {
+                'title': 'Mediterranean Healthy Cooking',
+                'date': 'May 10, 2024',
+                'time': '11:00 AM - 2:00 PM',
+                'chef': 'Chef Elena Costa',
+                'price': '$85',
+                'spots': '20 spots left',
+                'description': 'Discover the healthy and delicious world of Mediterranean cuisine. Learn to prepare fresh, nutritious dishes using olive oil, fresh vegetables, and herbs.',
+                'image': 'images/mediterranean-workshop.jpg',
+                'topics': ['Healthy Cooking', 'Fresh Ingredients', 'Mediterranean Diet']
+            }
+            # Add more workshops...
+        ]
+    }
+    return render(request, 'workshop.html', workshops)
+
+def baking_view(request):
+    baking_classes = {
+        'upcoming_classes': [
+            {
+                'title': 'Artisan Bread Making',
+                'date': 'April 18, 2024',
+                'time': '9:00 AM - 1:00 PM',
+                'chef': 'Chef Emma Baker',
+                'price': '$120',
+                'spots': '10 spots left',
+                'description': 'Master the art of artisan bread making. Learn to create perfect sourdough, baguettes, and rustic loaves using traditional techniques.',
+                'image': 'images/bread-making.jpg',
+                'topics': ['Sourdough Basics', 'Kneading Techniques', 'Bread Shaping']
+            },
+            {
+                'title': 'French Pastry Essentials',
+                'date': 'April 22, 2024',
+                'time': '2:00 PM - 6:00 PM',
+                'chef': 'Chef Sophie Laurent',
+                'price': '$150',
+                'spots': '8 spots left',
+                'description': 'Discover the secrets of French pastry. Create perfect croissants, pain au chocolat, and Danish pastries.',
+                'image': 'images/french-pastry.jpg',
+                'topics': ['Lamination', 'Pastry Fillings', 'Perfect Layers']
+            },
+            {
+                'title': 'Cake Decorating Masterclass',
+                'date': 'April 25, 2024',
+                'time': '10:00 AM - 3:00 PM',
+                'chef': 'Chef Lisa Thompson',
+                'price': '$180',
+                'spots': '6 spots left',
+                'description': 'Learn professional cake decorating techniques. Master fondant, buttercream, and sugar flowers.',
+                'image': 'images/cake-decorating.jpg',
+                'topics': ['Fondant Work', 'Piping Skills', 'Sugar Flowers']
+            }
+        ]
+    }
+    return render(request, 'baking.html', baking_classes)
+
+def food_photography_view(request):
+    photography_classes = {
+        'upcoming_classes': [
+            {
+                'title': 'Food Photography Basics',
+                'date': 'April 20, 2024',
+                'time': '10:00 AM - 2:00 PM',
+                'instructor': 'Sarah Williams',
+                'price': '$149',
+                'spots': '12 spots left',
+                'description': 'Learn the fundamentals of food photography, from composition to lighting techniques.',
+                'image': 'images/photo-basics.jpg',
+                'topics': ['Camera Basics', 'Composition', 'Natural Lighting']
+            },
+            {
+                'title': 'Advanced Food Styling',
+                'date': 'April 25, 2024',
+                'time': '1:00 PM - 5:00 PM',
+                'instructor': 'Michael Chen',
+                'price': '$179',
+                'spots': '8 spots left',
+                'description': 'Master the art of food styling and learn professional tricks for stunning food presentations.',
+                'image': 'images/food-styling.jpg',
+                'topics': ['Prop Styling', 'Food Arrangement', 'Color Theory']
+            },
+            {
+                'title': 'Restaurant Photography',
+                'date': 'April 30, 2024',
+                'time': '3:00 PM - 7:00 PM',
+                'instructor': 'Emily Parker',
+                'price': '$199',
+                'spots': '10 spots left',
+                'description': 'Specialized workshop for restaurant menu and ambiance photography.',
+                'image': 'images/restaurant.jpeg',
+                'topics': ['Menu Photography', 'Ambient Light', 'Restaurant Scenes']
+            }
+        ]
+    }
+    return render(request, 'food_photography.html', photography_classes)
 
 
 

@@ -12,8 +12,8 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('logout/', views.logout, name='logout'),
     path('profile/', views.profile_view, name='profile'),
-    path('edit_profile/<int:user_id>/', views.profile_edit, name='profile_edit'),
-    path('edit_change/', views.profile_change, name='profile_change'),
+    path('profile/edit/', views.profile_edit, name='profile_edit'),
+    path('profile/change/', views.profile_change, name='profile_change'),
 
     
     # Password reset flow
@@ -94,6 +94,10 @@ urlpatterns = [
   
     # ... other URLs ...
     #path('recipe_details/<int:recipe_id>/', views.recipe_detail, name='recipe_detail'),
+    path('api/search-suggestions/', views.search_suggestions, name='search_suggestions'),
+    path('workshop/', views.workshop_view, name='workshop'),
+    path('baking/', views.baking_view, name='baking'),
+    path('food-photography/', views.food_photography_view, name='food_photography'),
 ]
 
 
