@@ -14823,3 +14823,838 @@ Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
 D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
 Using selector: SelectSelector
 Watching for file changes with StatReloader
+Total recipes: 3
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Total recipes: 3
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Total recipes: 3
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Total recipes: 3
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Total recipes: 3
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Total recipes: 3
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Total recipes: 3
+Show my recipes: True
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Internal Server Error: /recipe/1/nutritional-info/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\decorators.py", line 12, in _wrapped_view
+    return redirect('home')  # or wherever you want to redirect non-admin users
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 41, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 130, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'home' not found. 'home' is not a valid view function or pattern name.
+Internal Server Error: /recipe/1/delete-nutritional-info/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\decorators.py", line 12, in _wrapped_view
+    return redirect('home')  # or wherever you want to redirect non-admin users
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 41, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 130, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'home' not found. 'home' is not a valid view function or pattern name.
+Internal Server Error: /recipe/1/nutritional-info/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\decorators.py", line 12, in _wrapped_view
+    return redirect('home')  # or wherever you want to redirect non-admin users
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 41, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 130, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'home' not found. 'home' is not a valid view function or pattern name.
+Internal Server Error: /recipe/0/nutritional-info/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\decorators.py", line 12, in _wrapped_view
+    return redirect('home')  # or wherever you want to redirect non-admin users
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 41, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 130, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'home' not found. 'home' is not a valid view function or pattern name.
+Internal Server Error: /recipe/1/nutritional-info/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\decorators.py", line 12, in _wrapped_view
+    return redirect('home')  # or wherever you want to redirect non-admin users
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 41, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 130, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'home' not found. 'home' is not a valid view function or pattern name.
+Internal Server Error: /recipe/1/nutritional-info/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\decorators.py", line 12, in _wrapped_view
+    return redirect('home')  # or wherever you want to redirect non-admin users
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 41, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 130, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'home' not found. 'home' is not a valid view function or pattern name.
+Internal Server Error: /recipe/1/nutritional-info/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\decorators.py", line 12, in _wrapped_view
+    return redirect('home')  # or wherever you want to redirect non-admin users
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 41, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 130, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'home' not found. 'home' is not a valid view function or pattern name.
+Internal Server Error: /recipe/1/delete-nutritional-info/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\decorators.py", line 12, in _wrapped_view
+    return redirect('home')  # or wherever you want to redirect non-admin users
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 41, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 130, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'home' not found. 'home' is not a valid view function or pattern name.
+D:\MINI_PROJECT\recipe_sharing_platform\recipe_sharing_platform\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Internal Server Error: /recipe/0/nutritional-info/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\decorators.py", line 12, in _wrapped_view
+    return redirect('home')  # or wherever you want to redirect non-admin users
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 41, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 130, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'home' not found. 'home' is not a valid view function or pattern name.
+Internal Server Error: /recipe/0/nutritional-info/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\contrib\sessions\backends\base.py", line 233, in _get_session
+    return self._session_cache
+AttributeError: 'SessionStore' object has no attribute '_session_cache'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 614, in connect
+    (self.host, self.port), self.connect_timeout, **kwargs
+  File "c:\users\sandr\appdata\local\programs\python\python36\lib\socket.py", line 722, in create_connection
+    raise err
+  File "c:\users\sandr\appdata\local\programs\python\python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\base\base.py", line 219, in ensure_connection
+    self.connect()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\utils\asyncio.py", line 33, in inner
+    return func(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\base\base.py", line 200, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\utils\asyncio.py", line 33, in inner
+    return func(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\mysql\base.py", line 234, in get_new_connection
+    connection = Database.connect(**conn_params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 353, in __init__
+    self.connect()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 664, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on 'localhost' ([WinError 10061] No connection could be made because the target machine actively refused it)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\middleware.py", line 9, in __call__
+    user_id = request.session.get('user_id')
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\contrib\sessions\backends\base.py", line 80, in get
+    return self._session.get(key, default)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\contrib\sessions\backends\base.py", line 238, in _get_session
+    self._session_cache = self.load()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\contrib\sessions\backends\db.py", line 43, in load
+    s = self._get_session_from_db()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\contrib\sessions\backends\db.py", line 34, in _get_session_from_db
+    expire_date__gt=timezone.now()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 431, in get
+    num = len(clone)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 262, in __len__
+    self._fetch_all()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 1324, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 51, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 1173, in execute_sql
+    cursor = self.connection.cursor()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\utils\asyncio.py", line 33, in inner
+    return func(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\base\base.py", line 259, in cursor
+    return self._cursor()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\base\base.py", line 235, in _cursor
+    self.ensure_connection()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\utils\asyncio.py", line 33, in inner
+    return func(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\base\base.py", line 219, in ensure_connection
+    self.connect()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\base\base.py", line 219, in ensure_connection
+    self.connect()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\utils\asyncio.py", line 33, in inner
+    return func(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\base\base.py", line 200, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\utils\asyncio.py", line 33, in inner
+    return func(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\mysql\base.py", line 234, in get_new_connection
+    connection = Database.connect(**conn_params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 353, in __init__
+    self.connect()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 664, in connect
+    raise exc
+django.db.utils.OperationalError: (2003, "Can't connect to MySQL server on 'localhost' ([WinError 10061] No connection could be made because the target machine actively refused it)")
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Internal Server Error: /edit-user/1/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 188, in _get_response
+    self.check_response(response, callback)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 311, in check_response
+    "instead." % name
+ValueError: The view recipe.views.edit_user didn't return an HttpResponse object. It returned None instead.
+Internal Server Error: /add-user/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 188, in _get_response
+    self.check_response(response, callback)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 311, in check_response
+    "instead." % name
+ValueError: The view recipe.views.add_user didn't return an HttpResponse object. It returned None instead.
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Total recipes: 3
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Total recipes: 3
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Total recipes: 3
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Total recipes: 3
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Total recipes: 1
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Total recipes: 3
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Not Found: /api/toggle-favorite/
+Not Found: /api/toggle-favorite/
+Total recipes: 3
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Total recipes: 3
+Show my recipes: True
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Total recipes: 3
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Internal Server Error: /recipe/0/nutritional-info/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\decorators.py", line 12, in _wrapped_view
+    return redirect('home')  # or wherever you want to redirect non-admin users
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 41, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 130, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'home' not found. 'home' is not a valid view function or pattern name.
+Internal Server Error: /recipe/0/nutritional-info/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\decorators.py", line 12, in _wrapped_view
+    return redirect('home')  # or wherever you want to redirect non-admin users
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 41, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 130, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'home' not found. 'home' is not a valid view function or pattern name.
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Internal Server Error: /recipe/0/nutritional-info/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\decorators.py", line 12, in _wrapped_view
+    return redirect('home')  # or wherever you want to redirect non-admin users
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 41, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 130, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'home' not found. 'home' is not a valid view function or pattern name.
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Internal Server Error: /recipe/0/nutritional-info/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\decorators.py", line 12, in _wrapped_view
+    return redirect('home')  # or wherever you want to redirect non-admin users
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 41, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 130, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'home' not found. 'home' is not a valid view function or pattern name.
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\decorators.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Total recipes: 3
+Show my recipes: False
+Current user ID: 5
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Total recipes: 3
+Show my recipes: False
+Current user ID: 5
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Total recipes: 3
+Show my recipes: False
+Current user ID: 5
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Total recipes: 3
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Total recipes: 3
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Internal Server Error: /recipe/1/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 399, in recipe_detail
+    return render(request, 'recipe_detail.html', context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'get_nutrition_analysis' not found. 'get_nutrition_analysis' is not a valid view function or pattern name.
+D:\MINI_PROJECT\recipe_sharing_platform\recipe_sharing_platform\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Total recipes: 3
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Internal Server Error: /recipe/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 732, in _read_bytes
+    data = self._rfile.read(num_bytes)
+  File "c:\users\sandr\appdata\local\programs\python\python36\lib\socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 692, in _read_packet
+    packet_header = self._read_bytes(4)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 740, in _read_bytes
+    "Lost connection to MySQL server during query (%s)" % (e,),
+pymysql.err.OperationalError: (2013, 'Lost connection to MySQL server during query ([WinError 10054] An existing connection was forcibly closed by the remote host)')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 206, in recipe
+    for recipe in recipes:
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 280, in __iter__
+    self._fetch_all()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 1324, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 51, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 1175, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 692, in _read_packet
+    packet_header = self._read_bytes(4)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 740, in _read_bytes
+    "Lost connection to MySQL server during query (%s)" % (e,),
+django.db.utils.OperationalError: (2013, 'Lost connection to MySQL server during query ([WinError 10054] An existing connection was forcibly closed by the remote host)')
+Total recipes: 3
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Total recipes: 3
+Show my recipes: True
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Total recipes: 3
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Total recipes: 3
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Total recipes: 3
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+Internal Server Error: /homepage/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 158, in homepage
+    return render(request, 'homepage.html', context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'event_registration' not found. 'event_registration' is not a valid view function or pattern name.
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\models.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\models.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader

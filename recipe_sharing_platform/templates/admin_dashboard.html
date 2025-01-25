@@ -249,8 +249,8 @@
                         <tr>
                             <th>Recipe Image</th>
                             <th>Recipe Name</th>
-                            <th>Time</th>
-                            <th>Category</th>
+                            <th>PreparationTime(in minutes)</th>
+                            <!-- <th>Category</th> -->
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -265,8 +265,8 @@
                                 {% endif %}
                             </td>
                             <td class="recipe-name">{{ recipe.recipename }}</td>
-                            <td>{{ recipe.time }}</td>
-                            <td class="recipe-category">{{ recipe.category.name }}</td>
+                            <td>{{ recipe.prep_time }}</td>
+                            <!-- <td class="recipe-category">{{ recipe.category.name }}</td> -->
                             <td class="actions">
                                 <a href="{% url 'edit_recipe' recipe.recipe_id %}" class="btn btn-sm btn-edit"><i class="bi bi-pencil-square"></i> Edit</a>
                                 <a href="#" class="btn btn-sm btn-delete" data-recipe-id="{{ recipe.recipe_id }}" onclick="confirmDelete(this, '{% url 'delete_recipe' recipe.recipe_id %}');">
@@ -290,7 +290,7 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>id</th>
+                            <th>Name</th>
                             <th>Email</th>
                             <th>Status</th>
                             <th>Actions</th>

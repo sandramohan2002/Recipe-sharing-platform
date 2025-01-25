@@ -76,34 +76,6 @@
         .alert {
             margin-bottom: 20px;
         }
-        [title] {
-            position: relative;
-        }
-        [title]:hover::after {
-            content: attr(title);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 8px 12px;
-            background-color: #333;
-            color: white;
-            border-radius: 4px;
-            font-size: 0.875rem;
-            white-space: nowrap;
-            z-index: 1000;
-            margin-bottom: 5px;
-        }
-        [title]:hover::before {
-            content: '';
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 6px solid transparent;
-            border-top-color: #333;
-            margin-bottom: -6px;
-        }
     </style>
 </head>
 <body>
@@ -133,7 +105,8 @@
                     style="background-color: #f8f9fa; color: #6c757d; cursor: not-allowed;" 
                     title="Email cannot be changed">
             </div>
-            <div class="text-center mt-4">
+            <div class="text-center mt-4 d-flex justify-content-between">
+                <a href="javascript:history.back()" class="btn btn-secondary" style="border-radius: 25px; padding: 10px 20px; font-size: 1rem; font-weight: 600;">Back</a>
                 <button type="submit" class="btn-save">Save Changes</button>
             </div>
         </form>

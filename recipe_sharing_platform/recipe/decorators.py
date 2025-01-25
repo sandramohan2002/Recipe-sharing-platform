@@ -9,5 +9,5 @@ def admin_required(view_func):
                return view_func(request, *args, **kwargs)
            else:
                messages.error(request, 'You do not have permission to access this page.')
-               return redirect('home')  # or wherever you want to redirect non-admin users
+               return redirect('homepage')  # or wherever you want to redirect non-admin users
        return _wrapped_view

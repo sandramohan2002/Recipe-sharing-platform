@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration - Flavornaut</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff6f00 0%, #ff9800 100%);
+            min-height: 100vh;
+            padding: 40px 0;
+        }
+        .registration-form {
+            background: white;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .form-title {
+            color: #ff6f00;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+        .form-select {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .form-select:focus {
+            border-color: #ff6f00;
+            box-shadow: none;
+        }
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 5px;
+            display: none;
+        }
+        .btn-submit {
+            background: #ff6f00;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        .btn-submit:hover {
+            background: #e65100;
+            transform: translateY(-2px);
+        }
+        .is-invalid {
+            border-color: #dc3545 !important;
+        }
+        .is-valid {
+            border-color: #198754 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="registration-form">
+            <h2 class="form-title">Event Registration</h2>
+
+            {% if messages %}
+            <div class="messages mb-4">
+                {% for message in messages %}
+                <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %} alert-dismissible fade show">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <form method="POST" id="registrationForm" onsubmit="return validateForm()">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" name="name" 
+                           value="{{ values.name }}" required>
+                    <div class="error-message" id="nameError"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" name="email" 
+                           value="{{ values.email }}" required>
+                    <div class="error-message" id="emailError"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" 
+                           value="{{ values.phone }}" required>
+                    <div class="error-message" id="phoneError"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="event" class="form-label">Select Event</label>
+                    <select class="form-select" id="event" name="event" required>
+                        <option value="">Choose an event...</option>
+                        <option value="italian" {% if values.event == 'italian' %}selected{% endif %}>
+                            Italian Cuisine Workshop - March 25th
+                        </option>
+                        <option value="bread" {% if values.event == 'bread' %}selected{% endif %}>
+                            Bread Making Masterclass - April 2nd
+                        </option>
+                        <option value="photography" {% if values.event == 'photography' %}selected{% endif %}>
+                            Food Photography Session - April 15th
+                        </option>
+                    </select>
+                    <div class="error-message" id="eventError"></div>
+                </div>
+
+                <button type="submit" class="btn btn-submit">Register Now</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Name validation - Allow only letters and spaces
+        document.getElementById('name').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
+            validateField('name');
+        });
+
+        // Phone validation - Allow only numbers and limit to 10 digits
+        document.getElementById('phone').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+            if (this.value.length > 10) {
+                this.value = this.value.slice(0, 10);
+            }
+            validateField('phone');
+        });
+
+        // Email validation
+        document.getElementById('email').addEventListener('input', function(e) {
+            validateField('email');
+        });
+
+        // Event selection validation
+        document.getElementById('event').addEventListener('change', function(e) {
+            validateField('event');
+        });
+
+        function validateField(fieldName) {
+            const field = document.getElementById(fieldName);
+            const errorElement = document.getElementById(fieldName + 'Error');
+            let isValid = true;
+
+            switch(fieldName) {
+                case 'name':
+                    if (!field.value.trim()) {
+                        errorElement.textContent = 'Name is required';
+                        isValid = false;
+                    } else if (field.value.length < 2) {
+                        errorElement.textContent = 'Name must be at least 2 characters';
+                        isValid = false;
+                    }
+                    break;
+
+                case 'email':
+                    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                    if (!field.value.trim()) {
+                        errorElement.textContent = 'Email is required';
+                        isValid = false;
+                    } else if (!emailRegex.test(field.value)) {
+                        errorElement.textContent = 'Please enter a valid email address';
+                        isValid = false;
+                    }
+                    break;
+
+                case 'phone':
+                    if (!field.value.trim()) {
+                        errorElement.textContent = 'Phone number is required';
+                        isValid = false;
+                    } else if (field.value.length !== 10) {
+                        errorElement.textContent = 'Phone number must be 10 digits';
+                        isValid = false;
+                    }
+                    break;
+
+                case 'event':
+                    if (!field.value) {
+                        errorElement.textContent = 'Please select an event';
+                        isValid = false;
+                    }
+                    break;
+            }
+
+            errorElement.style.display = isValid ? 'none' : 'block';
+            field.classList.toggle('is-invalid', !isValid);
+            field.classList.toggle('is-valid', isValid);
+            return isValid;
+        }
+
+        function validateForm() {
+            const isNameValid = validateField('name');
+            const isEmailValid = validateField('email');
+            const isPhoneValid = validateField('phone');
+            const isEventValid = validateField('event');
+
+            return isNameValid && isEmailValid && isPhoneValid && isEventValid;
+        }
+    </script>
+</body>
+</html>

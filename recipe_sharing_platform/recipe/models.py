@@ -187,6 +187,22 @@ class RecipeIngredient(models.Model):
     def __str__(self):
         return f"{self.quantity} {self.measurement} of {self.ingredient.name} for {self.recipe.recipename}"
 
+class EventRegistration(models.Model):
+    EVENT_CHOICES = [
+        ('italian', 'Italian Cuisine Workshop'),
+        ('bread', 'Bread Making Masterclass'),
+        ('photography', 'Food Photography Session'),
+    ]
+
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone = models.CharField(max_length=10)
+    event = models.CharField(max_length=20, choices=EVENT_CHOICES)
+    registration_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.get_event_display()}"
+
 
     
 

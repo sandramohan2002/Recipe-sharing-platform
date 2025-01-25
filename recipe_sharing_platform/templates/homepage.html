@@ -279,6 +279,132 @@
                 width: 100%;
             }
         }
+
+        /* Advertisement Banner Styles */
+        .advertisement-banner {
+            background: linear-gradient(45deg, #ff6f00, #ff9800);
+            padding: 20px 0;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .ad-content {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .ad-text {
+            color: white;
+            text-align: center;
+        }
+
+        .ad-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .ad-text h3 i {
+            color: #FFD700;
+            margin-right: 8px;
+        }
+
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .event-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .event-item:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .event-item i {
+            font-size: 1.2rem;
+            color: #FFD700;
+        }
+
+        .event-item span {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .event-item small {
+            margin-left: auto;
+            opacity: 0.9;
+            font-size: 0.85rem;
+        }
+
+        .register-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: white;
+            color: #ff6f00;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .register-btn:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-2px);
+            color: #e65100;
+        }
+
+        .register-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .register-btn:hover i {
+            transform: translateX(3px);
+        }
+
+        @media (max-width: 768px) {
+            .advertisement-banner {
+                padding: 15px 0;
+                margin: 20px 0;
+            }
+
+            .event-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .ad-text h3 {
+                font-size: 1.2rem;
+            }
+
+            .event-item {
+                padding: 10px;
+            }
+
+            .event-item span {
+                font-size: 0.9rem;
+            }
+
+            .register-btn {
+                padding: 6px 15px;
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -363,15 +489,13 @@
             <div class="categories-grid">
                 <!-- Appetizers Category -->
                 <div class="card">
-                    <a href="{% url 'recipe' %}?category=appetizers" class="text-decoration-none">
-                        <div class="image-container">
-                            <img src="{% static 'images/paneer.jpg' %}" alt="Appetizers">
-                            <div class="overlay">
-                                <h2>Appetizers</h2>
-                                <p>Start your meal with a burst of flavor and spice!</p>
-                            </div>
+                    <div class="image-container">
+                        <img src="{% static 'images/paneer.jpg' %}" alt="Appetizers">
+                        <div class="overlay">
+                            <h2>Appetizers</h2>
+                            <p>Start your meal with a burst of flavor and spice!</p>
                         </div>
-                    </a>
+                    </div>
                 </div>
 
                 <!-- Desserts Category -->
@@ -398,6 +522,39 @@
             </div>
         </div>
     </section>
+
+    <!-- Advertisement Banner -->
+    <div class="advertisement-banner animate__animated animate__fadeIn">
+        <div class="container">
+            <div class="ad-content">
+                <div class="ad-text">
+                    <h3 class="animate__animated animate__fadeInDown">
+                        <i class="bi bi-stars"></i> Upcoming Culinary Events
+                    </h3>
+                    <div class="event-grid">
+                        <div class="event-item animate__animated animate__fadeInLeft" style="animation-delay: 0.2s">
+                            <i class="bi bi-mortarboard-fill"></i>
+                            <span>Italian Cuisine Workshop</span>
+                            <small>March 25th</small>
+                        </div>
+                        <div class="event-item animate__animated animate__fadeInLeft" style="animation-delay: 0.4s">
+                            <i class="bi bi-basket-fill"></i>
+                            <span>Bread Making Masterclass</span>
+                            <small>April 2nd</small>
+                        </div>
+                        <div class="event-item animate__animated animate__fadeInLeft" style="animation-delay: 0.6s">
+                            <i class="bi bi-camera-fill"></i>
+                            <span>Food Photography Session</span>
+                            <small>April 15th</small>
+                        </div>
+                    </div>
+                    <a href="{% url 'event_registration' %}" class="register-btn animate__animated animate__fadeInUp">
+                        Register Now <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Events Section -->
     <section class="events-section">

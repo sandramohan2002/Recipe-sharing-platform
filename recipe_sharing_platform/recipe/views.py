@@ -7,7 +7,7 @@ from django.db import IntegrityError
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
-from .models import CustomUser, SubCategory, Recipe, NutritionalInformation, Ingredient, Category, Rating, Review, Comment, RecipeIngredient
+from .models import CustomUser, SubCategory, Recipe, NutritionalInformation, Ingredient, Category, Rating, Review, Comment, RecipeIngredient, EventRegistration
 from .forms import RecipeForm, NutritionalInformationForm, ProfileForm, IngredientForm, CategoryForm, CreateUserForm, ContactForm, SubCategoryForm
 from django.db.models import Q, Avg
 from django.core.mail import send_mail 
@@ -17,6 +17,7 @@ from django.db import transaction
 # from django.conf import settings
 import traceback
 from django.http import JsonResponse
+import re
 
 
 logger = logging.getLogger(__name__)
@@ -1036,7 +1037,7 @@ def workshop_view(request):
                 'date': 'April 15, 2024',
                 'time': '2:00 PM - 5:00 PM',
                 'chef': 'Chef Mario Rossi',
-                'price': '$99',
+                'price': 'Rs. 1500',
                 'spots': '15 spots left',
                 'description': 'Learn authentic Italian cooking techniques...',
                 'image': 'images/italian-workshop.jpg',
@@ -1046,58 +1047,26 @@ def workshop_view(request):
                 'title': 'Indian Spice Journey',
                 'date': 'April 20, 2024',
                 'time': '3:00 PM - 6:00 PM',
-                'chef': 'Chef Priya Sharma',
-                'price': '$89',
+                'chef': 'Chef Rahul Sharma',
+                'price': 'Rs. 1000',
                 'spots': '10 spots left',
                 'description': 'Dive into the world of Indian spices and learn how to create authentic Indian dishes. From curry basics to bread making, discover the secrets of balancing spices and creating authentic flavors.',
                 'image': 'images/indian-workshop.jpg',
                 'topics': ['Spice Blending', 'Curry Mastery', 'Bread Making']
             },
-            {
-                'title': 'Japanese Sushi Workshop',
-                'date': 'April 25, 2024',
-                'time': '1:00 PM - 4:00 PM',
-                'chef': 'Chef Takashi Yamamoto',
-                'price': '$120',
-                'spots': '8 spots left',
-                'description': 'Learn the art of sushi making from a master chef. Perfect your rice cooking, fish selection, and rolling techniques. Includes tips on presentation and traditional serving methods.',
-                'image': 'images/sushi-workshop.jpg',
-                'topics': ['Rice Preparation', 'Rolling Techniques', 'Fish Selection']
-            },
+           
             {
                 'title': 'French Pastry Excellence',
                 'date': 'May 1, 2024',
                 'time': '10:00 AM - 2:00 PM',
                 'chef': 'Chef Sophie Laurent',
-                'price': '$150',
+                'price': 'Rs. 1600',
                 'spots': '12 spots left',
                 'description': 'Master the art of French pastry making. Learn to create perfect croissants, eclairs, and macarons. Discover professional techniques and secrets of French baking.',
                 'image': 'images/french-pastry.jpg',
                 'topics': ['Croissant Making', 'Eclair Mastery', 'Macaron Techniques']
             },
-            {
-                'title': 'Thai Street Food Secrets',
-                'date': 'May 5, 2024',
-                'time': '4:00 PM - 7:00 PM',
-                'chef': 'Chef Somchai Pan',
-                'price': '$95',
-                'spots': '15 spots left',
-                'description': 'Experience the vibrant flavors of Thai street food. Learn to make popular dishes like Pad Thai, Som Tam, and authentic curry pastes from scratch.',
-                'image': 'images/thai-workshop.jpg',
-                'topics': ['Wok Skills', 'Curry Paste Making', 'Noodle Dishes']
-            },
-            {
-                'title': 'Mediterranean Healthy Cooking',
-                'date': 'May 10, 2024',
-                'time': '11:00 AM - 2:00 PM',
-                'chef': 'Chef Elena Costa',
-                'price': '$85',
-                'spots': '20 spots left',
-                'description': 'Discover the healthy and delicious world of Mediterranean cuisine. Learn to prepare fresh, nutritious dishes using olive oil, fresh vegetables, and herbs.',
-                'image': 'images/mediterranean-workshop.jpg',
-                'topics': ['Healthy Cooking', 'Fresh Ingredients', 'Mediterranean Diet']
-            }
-            # Add more workshops...
+
         ]
     }
     return render(request, 'workshop.html', workshops)
@@ -1110,7 +1079,7 @@ def baking_view(request):
                 'date': 'April 18, 2024',
                 'time': '9:00 AM - 1:00 PM',
                 'chef': 'Chef Emma Baker',
-                'price': '$120',
+                'price': 'Rs.1200',
                 'spots': '10 spots left',
                 'description': 'Master the art of artisan bread making. Learn to create perfect sourdough, baguettes, and rustic loaves using traditional techniques.',
                 'image': 'images/bread-making.jpg',
@@ -1121,7 +1090,7 @@ def baking_view(request):
                 'date': 'April 22, 2024',
                 'time': '2:00 PM - 6:00 PM',
                 'chef': 'Chef Sophie Laurent',
-                'price': '$150',
+                'price': 'Rs.1500',
                 'spots': '8 spots left',
                 'description': 'Discover the secrets of French pastry. Create perfect croissants, pain au chocolat, and Danish pastries.',
                 'image': 'images/french-pastry.jpg',
@@ -1132,7 +1101,7 @@ def baking_view(request):
                 'date': 'April 25, 2024',
                 'time': '10:00 AM - 3:00 PM',
                 'chef': 'Chef Lisa Thompson',
-                'price': '$180',
+                'price': 'Rs.1800',
                 'spots': '6 spots left',
                 'description': 'Learn professional cake decorating techniques. Master fondant, buttercream, and sugar flowers.',
                 'image': 'images/cake-decorating.jpg',
@@ -1150,7 +1119,7 @@ def food_photography_view(request):
                 'date': 'April 20, 2024',
                 'time': '10:00 AM - 2:00 PM',
                 'instructor': 'Sarah Williams',
-                'price': '$149',
+                'price': 'Rs.1500',
                 'spots': '12 spots left',
                 'description': 'Learn the fundamentals of food photography, from composition to lighting techniques.',
                 'image': 'images/photo-basics.jpg',
@@ -1161,7 +1130,7 @@ def food_photography_view(request):
                 'date': 'April 25, 2024',
                 'time': '1:00 PM - 5:00 PM',
                 'instructor': 'Michael Chen',
-                'price': '$179',
+                'price': 'Rs.1600',
                 'spots': '8 spots left',
                 'description': 'Master the art of food styling and learn professional tricks for stunning food presentations.',
                 'image': 'images/food-styling.jpg',
@@ -1172,7 +1141,7 @@ def food_photography_view(request):
                 'date': 'April 30, 2024',
                 'time': '3:00 PM - 7:00 PM',
                 'instructor': 'Emily Parker',
-                'price': '$199',
+                'price': 'Rs.1200',
                 'spots': '10 spots left',
                 'description': 'Specialized workshop for restaurant menu and ambiance photography.',
                 'image': 'images/restaurant.jpeg',
@@ -1182,5 +1151,58 @@ def food_photography_view(request):
     }
     return render(request, 'food_photography.html', photography_classes)
 
+def event_registration(request):
+    if request.method == 'POST':
+        name = request.POST.get('name', '').strip()
+        email = request.POST.get('email', '').strip()
+        phone = request.POST.get('phone', '').strip()
+        event = request.POST.get('event')
+        
+        # Validation
+        errors = []
+        
+        # Name validation
+        if not name or not name.replace(' ', '').isalpha():
+            errors.append('Name should contain only letters')
+        
+        # Email validation
+        email_regex = r'^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        if not re.match(email_regex, email):
+            errors.append('Please enter a valid email address')
+        
+        # Phone validation
+        if not phone.isdigit() or len(phone) != 10:
+            errors.append('Phone number should be 10 digits')
+        
+        # Event validation
+        if not event:
+            errors.append('Please select an event')
+        
+        if errors:
+            for error in errors:
+                messages.error(request, error)
+            return render(request, 'event_registration.html', {'values': request.POST})
+        
+        try:
+            # Check for duplicate registration
+            if EventRegistration.objects.filter(email=email, event=event).exists():
+                messages.error(request, 'You have already registered for this event!')
+                return render(request, 'event_registration.html', {'values': request.POST})
 
+            # Save registration
+            EventRegistration.objects.create(
+                name=name,
+                email=email,
+                phone=phone,
+                event=event
+            )
+            
+            messages.success(request, 'Registration successful! We will contact you soon.')
+            return redirect('homepage')
+            
+        except Exception as e:
+            messages.error(request, 'Registration failed. Please try again.')
+            return render(request, 'event_registration.html', {'values': request.POST})
+    
+    return render(request, 'event_registration.html')
 
