@@ -231,6 +231,41 @@
             display: block;
             margin-top: 5px;
         }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .recipe-author {
+            font-size: 1.1em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        
+        .difficulty-badge.easy {
+            background-color: #2ecc71;
+        }
+        
+        .difficulty-badge.medium {
+            background-color: #f1c40f;
+        }
+        
+        .difficulty-badge.hard {
+            background-color: #e74c3c;
+        }
     </style>
 </head>
 <body>
@@ -252,8 +287,15 @@
                 <img src="{{ recipe.image.url }}" alt="{{ recipe.recipename }}" class="recipe-image">
             {% endif %}
             <div class="recipe-details">
-                {% comment %} <p><strong>Description:</strong> {{ recipe.description }}</p> {% endcomment %}
+                <div class="recipe-author">
+                    <strong>Recipe by:</strong> {{ author_name }}
+                </div>
                 <div class="recipe-meta">
+                    <p><strong>Difficulty:</strong> 
+                        <span class="difficulty-badge {{ recipe.difficulty|default:'medium'|lower }}">
+                            {{ recipe.difficulty|default:'Medium'|title }}
+                        </span>
+                    </p>
                     <p><strong>Servings:</strong> {{ recipe.servings }}</p>
                     <p><strong>Timing:</strong> {{ recipe.prep_time }} minutes prep time, {{ recipe.cook_time }} minutes cook time</p>
                     <p><strong>Category:</strong> {{ category_name }}</p>
@@ -344,7 +386,7 @@
                 {% endfor %}
             {% endif %}
         </div>
-        <div style="margin-top: 20px;">
+        <div class="action-buttons">
             <a href="{% url 'recipe' %}" class="btn btn-primary">Back to Recipes</a>
         </div>
     </div>

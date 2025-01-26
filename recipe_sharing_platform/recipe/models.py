@@ -77,6 +77,12 @@ class Ingredient(models.Model):
 
 # RECIPE MODEL:
 class Recipe(models.Model):
+    DIFFICULTY_CHOICES = [
+        ('easy', 'Easy'),
+        ('medium', 'Medium'),
+        ('hard', 'Hard')
+    ]
+    
     user_id=models.IntegerField()
     recipe_id = models.AutoField(primary_key=True)  # This is likely your current primary key
     recipename = models.CharField(max_length=200)  # Name of the recipe
@@ -92,6 +98,13 @@ class Recipe(models.Model):
     category_id = models.IntegerField()  # Category ID for this recipe
     subcategory_id = models.IntegerField(null=True)
     nutritional_info_id = models.IntegerField(null=True, blank=True)  # Nutritional info ID
+    difficulty = models.CharField(
+        max_length=10,
+        choices=DIFFICULTY_CHOICES,
+        default='medium',
+        null=True,  # Allow null for existing recipes
+        blank=True  # Allow blank in forms
+    )
     def __str__(self):
         return self.recipename  # Returns the name of the recipe
         

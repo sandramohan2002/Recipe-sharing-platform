@@ -99,6 +99,8 @@ urlpatterns = [
     path('baking/', views.baking_view, name='baking'),
     path('food-photography/', views.food_photography_view, name='food_photography'),
     path('event-registration/', views.event_registration, name='event_registration'),
+    
+    
 ]
 
 

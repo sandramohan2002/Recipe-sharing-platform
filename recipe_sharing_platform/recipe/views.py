@@ -254,6 +254,7 @@ def addrecipe(request):
             servings = request.POST.get('servings')
             prep_time = request.POST.get('prep_time')
             cook_time = request.POST.get('cook_time')
+            difficulty = request.POST.get('difficulty', 'medium')  # Add difficulty field
 
             # Collect all instructions
             instructions = []
@@ -277,7 +278,8 @@ def addrecipe(request):
                 user_id=request.session.get('id'),  # Assuming user ID is stored in session
                 servings=servings,
                 prep_time=prep_time,
-                cook_time=cook_time
+                cook_time=cook_time,
+                difficulty=difficulty  # Add difficulty to recipe creation
             )
 
             # Process ingredients
@@ -320,6 +322,13 @@ def addrecipe(request):
 
 def recipe_detail(request, recipe_id, reviews=False):
     recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
+    
+    # Get the user name from CustomUser model
+    try:
+        recipe_author = CustomUser.objects.get(id=recipe.user_id)
+        author_name = recipe_author.name
+    except CustomUser.DoesNotExist:
+        author_name = "Unknown User"
     
     # Get the user_id from request.session
     user_id = request.session.get('id')
@@ -382,6 +391,7 @@ def recipe_detail(request, recipe_id, reviews=False):
     
     context = {
         'recipe': recipe,
+        'author_name': author_name,
         'category_name': category_name,
         'instructions': instructions,
         'messages': messages.get_messages(request),

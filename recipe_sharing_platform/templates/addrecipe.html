@@ -318,6 +318,16 @@
                 <p class="error">{{ form.image.errors }}</p>
             </div>
 
+            <!-- Difficulty -->
+            <div class="form-group">
+                <label for="difficulty">Difficulty Level:</label>
+                <select name="difficulty" id="difficulty" class="form-control" required>
+                    <option value="easy">Easy</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+
             <!-- Submit Button -->
             <button type="submit">Add Recipe</button>
         </form>

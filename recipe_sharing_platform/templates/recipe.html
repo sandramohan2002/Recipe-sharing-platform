@@ -198,6 +198,14 @@
             transition: all 0.3s ease;
         }
 
+        .btn-favorite i.far {
+            font-weight: normal;
+        }
+
+        .btn-favorite i.fas {
+            font-weight: 900;
+        }
+
         .btn-favorite:hover {
             transform: scale(1.1);
         }
@@ -433,7 +441,7 @@
                         <button class="btn-favorite {% if recipe.recipe_id in favorite_recipes %}active{% endif %}" 
                                 data-recipe-id="{{ recipe.recipe_id }}"
                                 title="Add to favorites">
-                            <i class="fas fa-heart"></i>
+                            <i class="{% if recipe.recipe_id in favorite_recipes %}fas{% else %}far{% endif %} fa-heart"></i>
                         </button>
                     </div>
                     <div class="card-body">
@@ -559,6 +567,8 @@
         favoriteButtons.forEach(button => {
             button.addEventListener('click', async function() {
                 const recipeId = this.dataset.recipeId;
+                const heartIcon = this.querySelector('i');
+                
                 try {
                     const response = await fetch('/api/toggle-favorite/', {
                         method: 'POST',
@@ -570,7 +580,17 @@
                     });
                     
                     if (response.ok) {
+                        // Toggle active class on button
                         this.classList.toggle('active');
+                        
+                        // Toggle heart icon between filled and outline
+                        if (heartIcon.classList.contains('far')) {
+                            heartIcon.classList.remove('far');
+                            heartIcon.classList.add('fas');
+                        } else {
+                            heartIcon.classList.remove('fas');
+                            heartIcon.classList.add('far');
+                        }
                     }
                 } catch (error) {
                     console.error('Error toggling favorite:', error);
