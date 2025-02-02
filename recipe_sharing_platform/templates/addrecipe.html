@@ -328,6 +328,46 @@
                 </select>
             </div>
 
+            <!-- Allergen Information -->
+            <div class="form-group">
+                <h4>Allergen Information</h4>
+                <div id="allergen-container">
+                    <div class="allergen-item mb-3">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <select name="allergen_name[]" class="form-control">
+                                    <option value="">Select Allergen</option>
+                                    <option value="dairy">Dairy</option>
+                                    <option value="eggs">Eggs</option>
+                                    <option value="nuts">Tree Nuts</option>
+                                    <option value="peanuts">Peanuts</option>
+                                    <option value="shellfish">Shellfish</option>
+                                    <option value="wheat">Wheat</option>
+                                    <option value="soy">Soy</option>
+                                    <option value="fish">Fish</option>
+                                    <option value="gluten">Gluten</option>
+                                    <option value="sesame">Sesame</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select name="severity[]" class="form-control">
+                                    <option value="contains">Contains</option>
+                                    <option value="may_contain">May Contain</option>
+                                    <option value="traces">Traces</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" name="allergen_notes[]" class="form-control" placeholder="Notes (optional)">
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-danger remove-allergen">×</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary" id="add-allergen">Add Another Allergen</button>
+            </div>
+
             <!-- Submit Button -->
             <button type="submit">Add Recipe</button>
         </form>
@@ -627,6 +667,21 @@
                     });
             }
         }
+
+        document.getElementById('add-allergen').addEventListener('click', function() {
+            const container = document.getElementById('allergen-container');
+            const newItem = container.children[0].cloneNode(true);
+            newItem.querySelectorAll('select, input').forEach(el => el.value = '');
+            container.appendChild(newItem);
+        });
+
+        document.getElementById('allergen-container').addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-allergen')) {
+                if (document.getElementsByClassName('allergen-item').length > 1) {
+                    e.target.closest('.allergen-item').remove();
+                }
+            }
+        });
     </script>
 </body>
 

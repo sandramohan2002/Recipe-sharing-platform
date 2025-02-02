@@ -405,6 +405,87 @@
                 font-size: 0.9rem;
             }
         }
+
+        /* Update existing styles */
+        .event-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .event-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .event-info {
+            padding: 20px;
+        }
+
+        .event-info h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .event-info p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .event-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .event-details span {
+            font-size: 0.85rem;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .event-details i {
+            color: #ff6f00;
+        }
+
+        /* Update event grid styles */
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .event-item {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .event-item:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .event-item i {
+            color: #ff6f00;
+            font-size: 1.2rem;
+        }
     </style>
 </head>
 <body>
@@ -435,7 +516,17 @@
                     <li class="nav-item {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'about' %}">About</a>
                     </li>
-
+                    <!-- Events Dropdown -->
+                <li class="nav-item dropdown {% if 'event' in request.resolver_match.url_name %}active{% endif %}">
+                    <a class="nav-link dropdown-toggle" href="#" id="eventsDropdown" role="button" 
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Events
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="eventsDropdown">
+                        <li><a class="dropdown-item" href="{% url 'create_event' %}">My Events</a></li>
+                        <li><a class="dropdown-item" href="{% url 'view_events' %}">View Events</a></li>
+                    </ul>
+                </li>
                     <!-- Profile Dropdown -->
                     <li class="nav-item dropdown {% if 'profile' in request.resolver_match.url_name %}active{% endif %}">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -529,71 +620,65 @@
             <div class="ad-content">
                 <div class="ad-text">
                     <h3 class="animate__animated animate__fadeInDown">
-                        <i class="bi bi-stars"></i> Upcoming Culinary Events
+                        <i class="bi bi-stars"></i> Upcoming Events
                     </h3>
                     <div class="event-grid">
-                        <div class="event-item animate__animated animate__fadeInLeft" style="animation-delay: 0.2s">
-                            <i class="bi bi-mortarboard-fill"></i>
-                            <span>Italian Cuisine Workshop</span>
-                            <small>March 25th</small>
+                        {% for event in upcoming_events %}
+                        <div class="event-item animate__animated animate__fadeInLeft" style="animation-delay: {{ forloop.counter }}00ms">
+                            <i class="bi bi-calendar-event"></i>
+                            <span>{{ event.title }}</span>
+                            <small>{{ event.event_date|date:"F jS" }} at {{ event.event_time|time:"g:i A" }}</small>
                         </div>
-                        <div class="event-item animate__animated animate__fadeInLeft" style="animation-delay: 0.4s">
-                            <i class="bi bi-basket-fill"></i>
-                            <span>Bread Making Masterclass</span>
-                            <small>April 2nd</small>
+                        {% empty %}
+                        <div class="event-item animate__animated animate__fadeInLeft">
+                            <i class="bi bi-info-circle"></i>
+                            <span>No upcoming events</span>
+                            <small>Stay tuned!</small>
                         </div>
-                        <div class="event-item animate__animated animate__fadeInLeft" style="animation-delay: 0.6s">
-                            <i class="bi bi-camera-fill"></i>
-                            <span>Food Photography Session</span>
-                            <small>April 15th</small>
-                        </div>
+                        {% endfor %}
                     </div>
-                    <a href="{% url 'event_registration' %}" class="register-btn animate__animated animate__fadeInUp">
-                        Register Now <i class="bi bi-arrow-right"></i>
-                    </a>
+                    {% if request.session.id %}
+                        <a href="{% url 'create_event' %}" class="register-btn animate__animated animate__fadeInUp">
+                            Create Event <i class="bi bi-plus-circle"></i>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="register-btn animate__animated animate__fadeInUp">
+                            Login to Create Event <i class="bi bi-arrow-right"></i>
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Events Section -->
+    <!-- Events Section with Cards -->
     <section class="events-section">
         <div class="container">
-            <h2 class="section-title">Upcoming Events</h2>
+            <h2 class="section-title">Featured Events</h2>
             <div class="row">
-                <div class="col-md-4">
+                {% for event in featured_events %}
+                <div class="col-md-4 mb-4">
                     <div class="event">
-                        <a href="{% url 'workshop' %}" class="text-decoration-none">
-                            <img src="{% static 'images/workshop.jpg' %}" alt="Cooking Workshop">
+                        <div class="event-card">
+                            {% if event.image %}
+                                <img src="{{ event.image.url }}" alt="{{ event.title }}">
+                            {% else %}
+                                <img src="{% static 'images/default-event.jpg' %}" alt="{{ event.title }}">
+                            {% endif %}
                             <div class="event-info">
-                                <h3>Cooking Workshop</h3>
-                                <p>Learn the basics of Italian cuisine with our expert chefs.</p>
+                                <h3>{{ event.title }}</h3>
+                                <p>{{ event.description|truncatewords:20 }}</p>
+                                <div class="event-details">
+                                    <span><i class="bi bi-geo-alt"></i> {{ event.location }}</span>
+                                    <span><i class="bi bi-calendar"></i> {{ event.event_date|date:"F j, Y" }}</span>
+                                    <span><i class="bi bi-clock"></i> {{ event.event_time|time:"g:i A" }}</span>
+                                    <span><i class="bi bi-people"></i> {{ event.current_participants }}/{{ event.max_participants }} participants</span>
+                                </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="event">
-                        <a href="{% url 'baking' %}" class="text-decoration-none">
-                            <img src="{% static 'images/baking.jpg' %}" alt="Baking Masterclass">
-                            <div class="event-info">
-                                <h3>Baking Masterclass</h3>
-                                <p>Master the art of bread making and pastries.</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="event">
-                        <a href="{% url 'food_photography' %}" class="text-decoration-none">
-                            <img src="{% static 'images/food.jpg' %}" alt="Food Photography">
-                            <div class="event-info">
-                                <h3>Food Photography</h3>
-                                <p>Tips and tricks for stunning food photos.</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>

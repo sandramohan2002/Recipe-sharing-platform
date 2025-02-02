@@ -438,9 +438,7 @@
                         {% else %}
                             <img src="{% static 'images/default_image.jpg' %}" alt="No image available" class="card-img-top">
                         {% endif %}
-                        <button class="btn-favorite {% if recipe.recipe_id in favorite_recipes %}active{% endif %}" 
-                                data-recipe-id="{{ recipe.recipe_id }}"
-                                title="Add to favorites">
+                        <button class="btn-favorite" data-recipe-id="{{ recipe.recipe_id }}">
                             <i class="{% if recipe.recipe_id in favorite_recipes %}fas{% else %}far{% endif %} fa-heart"></i>
                         </button>
                     </div>
@@ -562,29 +560,30 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Favorite functionality
         const favoriteButtons = document.querySelectorAll('.btn-favorite');
+        
         favoriteButtons.forEach(button => {
-            button.addEventListener('click', async function() {
+            button.addEventListener('click', async function(e) {
+                e.preventDefault();
                 const recipeId = this.dataset.recipeId;
                 const heartIcon = this.querySelector('i');
                 
                 try {
+                    const formData = new FormData();
+                    formData.append('recipe_id', recipeId);
+                    
                     const response = await fetch('/api/toggle-favorite/', {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json',
                             'X-CSRFToken': getCookie('csrftoken')
                         },
-                        body: JSON.stringify({ recipe_id: recipeId })
+                        body: formData
                     });
                     
-                    if (response.ok) {
-                        // Toggle active class on button
-                        this.classList.toggle('active');
-                        
-                        // Toggle heart icon between filled and outline
-                        if (heartIcon.classList.contains('far')) {
+                    const data = await response.json();
+                    
+                    if (data.status === 'success') {
+                        if (data.is_favorite) {
                             heartIcon.classList.remove('far');
                             heartIcon.classList.add('fas');
                         } else {
@@ -593,7 +592,7 @@
                         }
                     }
                 } catch (error) {
-                    console.error('Error toggling favorite:', error);
+                    console.error('Error:', error);
                 }
             });
         });

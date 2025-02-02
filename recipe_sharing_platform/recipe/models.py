@@ -105,6 +105,8 @@ class Recipe(models.Model):
         null=True,  # Allow null for existing recipes
         blank=True  # Allow blank in forms
     )
+    image_category = models.CharField(max_length=50, blank=True, null=True)
+    category_confidence = models.FloatField(null=True, blank=True)
     def __str__(self):
         return self.recipename  # Returns the name of the recipe
         
@@ -215,6 +217,78 @@ class EventRegistration(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.get_event_display()}"
+
+class Favorite(models.Model):
+    user_id = models.IntegerField()  # Instead of ForeignKey to CustomUser
+    recipe_id = models.IntegerField()  # Instead of ForeignKey to Recipe
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ['user_id', 'recipe_id']
+        db_table = 'recipe_favorites'  # Optional: specify table name
+
+    def __str__(self):
+        try:
+            user = CustomUser.objects.get(id=self.user_id)
+            recipe = Recipe.objects.get(recipe_id=self.recipe_id)
+            return f"{user.name} favorited {recipe.recipename}"
+        except (CustomUser.DoesNotExist, Recipe.DoesNotExist):
+            return f"Favorite {self.id}"
+
+class RecipeAllergen(models.Model):
+    recipe_id = models.IntegerField()
+    allergen_name = models.CharField(max_length=50, choices=[
+        ('dairy', 'Dairy'),
+        ('eggs', 'Eggs'),
+        ('nuts', 'Tree Nuts'),
+        ('peanuts', 'Peanuts'),
+        ('shellfish', 'Shellfish'),
+        ('wheat', 'Wheat'),
+        ('soy', 'Soy'),
+        ('fish', 'Fish'),
+        ('gluten', 'Gluten'),
+        ('sesame', 'Sesame')
+    ])
+    severity = models.CharField(max_length=20, choices=[
+        ('contains', 'Contains'),
+        ('may_contain', 'May Contain'),
+        ('traces', 'Traces')
+    ])
+    notes = models.TextField(blank=True, null=True)
+    
+    class Meta:
+        db_table = 'recipe_allergens'
+        unique_together = ['recipe_id', 'allergen_name']
+
+    def __str__(self):
+        return f"{self.get_allergen_name_display()} - {self.get_severity_display()}"
+
+class Event(models.Model):
+    event_id = models.AutoField(primary_key=True)
+    user_id = models.IntegerField()  # Creator of the event
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    event_date = models.DateField()
+    event_time = models.TimeField()
+    location = models.CharField(max_length=200)
+    max_participants = models.IntegerField()
+    current_participants = models.IntegerField(default=0)
+    image = models.ImageField(upload_to='events/', null=True, blank=True)
+    status = models.CharField(max_length=20, choices=[
+        ('upcoming', 'Upcoming'),
+        ('ongoing', 'Ongoing'),
+        ('completed', 'Completed'),
+        ('cancelled', 'Cancelled')
+    ], default='upcoming')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'events'
+        ordering = ['event_date', 'event_time']
+
+    def __str__(self):
+        return self.title
 
 
     

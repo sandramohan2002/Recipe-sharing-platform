@@ -14,6 +14,64 @@
             color: #333;
             overflow-x: hidden;
         }
+        .navbar {
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+        }
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6f00 !important;
+        }
+        .navbar-brand:hover {
+            color: #ff6f00 !important;
+        }
+        .navbar-nav .nav-link {
+            font-weight: bold;
+            color: #555;
+            margin-right: 20px;
+            transition: color 0.3s ease;
+        }
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-item.active .nav-link {
+            color: #ff6f00 !important;
+        }
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .navbar-user {
+            font-size: 16px;
+            color: #343a40;
+            font-weight: bold;
+        }
+        .search-form {
+            display: flex;
+            justify-content: center;
+            margin: 0 20px;
+        }
+        .search-form input[type="search"] {
+            width: 300px;
+            border-radius: 20px;
+            padding: 8px 15px;
+        }
+        .search-icon {
+            background-color: #ff6f00;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 20px;
+            margin-left: 10px;
+        }
+        .search-icon:hover {
+            background-color: #e65100;
+        }
+        .dropdown-item:hover {
+            background-color: #ff6f00;
+            color: white;
+        }
 
         /* Hero Section */
         .hero-section {
@@ -201,7 +259,77 @@
     </style>
 </head>
 <body>
-    {% include 'navbar.html' %}
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'homepage' %}">Flavornaut</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item {% if request.resolver_match.url_name == 'homepage' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'homepage' %}">Home</a>
+                    </li>
+
+                    <!-- Recipes Dropdown -->
+                    <li class="nav-item dropdown {% if 'recipe' in request.resolver_match.url_name %}active{% endif %}">
+                        <a class="nav-link dropdown-toggle" href="#" id="recipesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Recipes
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="recipesDropdown">
+                            <li><a class="dropdown-item" href="{% url 'recipe' %}">View Recipes</a></li>
+                            <li><a class="dropdown-item" href="{% url 'recipe' %}">My Recipes</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'about' %}">About</a>
+                    </li>
+                    <!-- Events Dropdown -->
+                <li class="nav-item dropdown {% if 'event' in request.resolver_match.url_name %}active{% endif %}">
+                    <a class="nav-link dropdown-toggle" href="#" id="eventsDropdown" role="button" 
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Events
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="eventsDropdown">
+                        <li><a class="dropdown-item" href="{% url 'create_event' %}">My Events</a></li>
+                        <li><a class="dropdown-item" href="{% url 'view_events' %}">View Events</a></li>
+                    </ul>
+                </li>
+                    <!-- Profile Dropdown -->
+                    <li class="nav-item dropdown {% if 'profile' in request.resolver_match.url_name %}active{% endif %}">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Profile
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">My Account</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- Centered Search Bar -->
+                <form class="d-flex search-form" method="GET" action="{% url 'search_recipe' %}">
+                    <input class="form-control me-2" type="search" placeholder="Search recipes..." aria-label="Search" name="query">
+                    <button class="btn search-icon" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+
+                <div class="navbar-right">
+                    <div class="navbar-user">
+                        Hello, 
+                        {% if request.session.is_admin %}
+                            Admin
+                        {% elif request.session.username %}
+                            {{ request.session.username }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <!-- Hero Section -->
     <section class="hero-section">

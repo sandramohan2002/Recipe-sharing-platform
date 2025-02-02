@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ recipe.recipename }} - Recipe Details</title>
     <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -266,6 +267,137 @@
         .difficulty-badge.hard {
             background-color: #e74c3c;
         }
+
+        .allergen-warnings {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .allergen-section h4 {
+            color: #e65100;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .allergen-group {
+            margin-bottom: 20px;
+        }
+
+        .allergen-group h5 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .allergen-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .allergen-tag {
+            position: relative;
+            background: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .allergen-group.contains .allergen-tag {
+            border-left: 3px solid #dc3545;
+        }
+
+        .allergen-group.may-contain .allergen-tag {
+            border-left: 3px solid #ffc107;
+        }
+
+        .allergen-group.traces .allergen-tag {
+            border-left: 3px solid #6c757d;
+        }
+
+        .allergen-name {
+            font-weight: 500;
+        }
+
+        .allergen-note {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .allergen-note i {
+            color: #ff6f00;
+        }
+
+        .note-tooltip {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            white-space: normal;
+            width: max-content;
+            max-width: 250px;
+            margin-bottom: 10px;
+            z-index: 1000;
+            text-align: left;
+        }
+
+        .allergen-note:hover .note-tooltip {
+            display: block;
+        }
+
+        /* Add arrow to tooltip */
+        .note-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        @media (max-width: 768px) {
+            .allergen-warnings {
+                padding: 15px;
+            }
+            
+            .allergen-tag {
+                padding: 6px 12px;
+            }
+        }
+
+        .instructions-section {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .instructions-list {
+            padding-left: 20px;
+            margin-top: 15px;
+        }
+
+        .instructions-list li {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            padding-left: 10px;
+        }
     </style>
 </head>
 <body>
@@ -342,12 +474,90 @@
     <li>{{ recipe_ingredient.quantity }} {{ recipe_ingredient.measurement }} {{ recipe_ingredient.ingredient.name }}</li>
 {% endfor %}
 </ul>  
-        <h2>Instructions</h2>
-        <ol class="instructions-list">
-            {% for instruction in instructions %}
-                <li>{{ instruction|safe }}</li>
-            {% endfor %}
-        </ol>      
+        <!-- Add this after the recipe meta information and before the instructions section -->
+        {% if allergens.contains or allergens.may_contain or allergens.traces %}
+        <div class="allergen-warnings">
+            <div class="allergen-section">
+                <h4><i class="fas fa-exclamation-triangle"></i> Allergen Information</h4>
+                
+                {% if allergens.contains %}
+                <div class="allergen-group contains">
+                    <h5>Contains:</h5>
+                    <div class="allergen-tags">
+                        {% for allergen in allergens.contains %}
+                        <div class="allergen-tag">
+                            <span class="allergen-name">{{ allergen.name }}</span>
+                            {% if allergen.notes %}
+                            <div class="allergen-note">
+                                <i class="fas fa-info-circle"></i>
+                                <div class="note-tooltip">
+                                    <strong>Note:</strong> {{ allergen.notes }}
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                
+                {% if allergens.may_contain %}
+                <div class="allergen-group may-contain">
+                    <h5>May Contain:</h5>
+                    <div class="allergen-tags">
+                        {% for allergen in allergens.may_contain %}
+                        <div class="allergen-tag">
+                            <span class="allergen-name">{{ allergen.name }}</span>
+                            {% if allergen.notes %}
+                            <div class="allergen-note">
+                                <i class="fas fa-info-circle"></i>
+                                <div class="note-tooltip">
+                                    <strong>Note:</strong> {{ allergen.notes }}
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                
+                {% if allergens.traces %}
+                <div class="allergen-group traces">
+                    <h5>Traces:</h5>
+                    <div class="allergen-tags">
+                        {% for allergen in allergens.traces %}
+                        <div class="allergen-tag">
+                            <span class="allergen-name">{{ allergen.name }}</span>
+                            {% if allergen.notes %}
+                            <div class="allergen-note">
+                                <i class="fas fa-info-circle"></i>
+                                <div class="note-tooltip">
+                                    <strong>Note:</strong> {{ allergen.notes }}
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        <!-- Instructions Section -->
+        <div class="instructions-section">
+            <h2>Instructions</h2>
+            {% if instructions %}
+                <ol class="instructions-list">
+                    {% for step in instructions %}
+                        <li>{{ step|safe }}</li>
+                    {% endfor %}
+                </ol>
+            {% else %}
+                <p>No instructions available</p>
+            {% endif %}
+        </div>
          <!-- <div class="ratings">
             <h2>Ratings</h2>
             <p>Average Rating: {{ average_rating|default:"Not rated yet" }}</p>
@@ -389,6 +599,19 @@
         <div class="action-buttons">
             <a href="{% url 'recipe' %}" class="btn btn-primary">Back to Recipes</a>
         </div>
+
+        <!-- Add this where you want to display the classification -->
+        {% if recipe.image_category %}
+        <div class="recipe-classification">
+            <span class="badge bg-info">
+                <i class="bi bi-tag"></i>
+                AI Category: {{ recipe.image_category|title }}
+                {% if recipe.category_confidence %}
+                    ({{ recipe.category_confidence|floatformat:2 }})
+                {% endif %}
+            </span>
+        </div>
+        {% endif %}
     </div>
 </body>
 </html>

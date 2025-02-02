@@ -7,7 +7,7 @@ from django.db import IntegrityError
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
-from .models import CustomUser, SubCategory, Recipe, NutritionalInformation, Ingredient, Category, Rating, Review, Comment, RecipeIngredient, EventRegistration
+from .models import CustomUser, SubCategory, Recipe, NutritionalInformation, Ingredient, Category, Rating, Review, Comment, RecipeIngredient, EventRegistration, Favorite, RecipeAllergen, Event
 from .forms import RecipeForm, NutritionalInformationForm, ProfileForm, IngredientForm, CategoryForm, CreateUserForm, ContactForm, SubCategoryForm
 from django.db.models import Q, Avg
 from django.core.mail import send_mail 
@@ -18,6 +18,9 @@ from django.db import transaction
 import traceback
 from django.http import JsonResponse
 import re
+from datetime import datetime
+from django.utils import timezone
+from .image_classifier import RecipeImageClassifier
 
 
 logger = logging.getLogger(__name__)
@@ -148,15 +151,27 @@ def logout(request):
 
 #HOMEPAGE VIEW
 def homepage(request):
-       context = {}
-       if request.user:
-           if request.user.is_admin:
-               context['admin_message'] = "Welcome, Admin!"
-           else:
-               context['user_message'] = f"Welcome, {request.user.name}!"
-       else:
-           context['guest_message'] = "Welcome, Guest! Please log in or sign up."
-       return render(request, 'homepage.html', context)
+    # Get upcoming events (next 30 days)
+    current_date = timezone.now().date()
+    upcoming_events = Event.objects.filter(
+        event_date__gte=current_date,
+        event_date__lte=current_date + timezone.timedelta(days=30),
+        status='upcoming'
+    ).order_by('event_date', 'event_time')[:3]  # Show only next 3 events
+
+    # Get featured events (all upcoming events with images)
+    featured_events = Event.objects.filter(
+        event_date__gte=current_date,
+        status='upcoming',
+        image__isnull=False
+    ).order_by('event_date', 'event_time')[:6]  # Show up to 6 featured events
+
+    context = {
+        'upcoming_events': upcoming_events,
+        'featured_events': featured_events,
+        'guest_message': "Welcome, Guest! Please log in or sign up.",
+    }
+    return render(request, 'homepage.html', context)
 
 def search_recipe(request):
     query = request.GET.get('query', '')
@@ -178,6 +193,9 @@ def recipe(request):
     show_my_recipes = request.GET.get('my_recipes', '') == 'true'
     
     current_user_id = request.session.get('id')
+    favorite_recipes = []
+    if current_user_id:
+        favorite_recipes = Favorite.objects.filter(user_id=current_user_id).values_list('recipe_id', flat=True)
     
     recipes = Recipe.objects.all()
     
@@ -223,6 +241,7 @@ def recipe(request):
         'current_user_id': current_user_id,
         'show_my_recipes': show_my_recipes,
         'search_query': search_query,
+        'favorite_recipes': favorite_recipes,
     }
     
     return render(request, 'recipe.html', context)
@@ -307,13 +326,29 @@ def addrecipe(request):
 
                 ingredient_count += 1
 
+
+            # Handle allergens
+            allergen_names = request.POST.getlist('allergen_name[]')
+            severities = request.POST.getlist('severity[]')
+            notes = request.POST.getlist('allergen_notes[]')
+            
+            # Create allergen entries
+            for name, severity, note in zip(allergen_names, severities, notes):
+                if name and severity:  # Only create if allergen is selected
+                    RecipeAllergen.objects.create(
+                        recipe_id=recipe.recipe_id,
+                        allergen_name=name,
+                        severity=severity,
+                        notes=note if note else None
+                    )
+
             messages.success(request, 'Recipe added successfully!')
             return redirect('recipe')
 
         except ValueError as ve:
-            messages.error(request, str(ve))  # Catch specific validation error
+            messages.error(request, str(ve))
         except Exception as e:
-            messages.error(request, f'Error adding recipe: {str(e)}')  # General error
+            messages.error(request, f'Error adding recipe: {str(e)}')
 
     # Fetch categories and ingredients for the form
     categories = Category.objects.filter(status=True)
@@ -389,6 +424,21 @@ def recipe_detail(request, recipe_id, reviews=False):
     # Check if the user is an admin
     is_admin = request.user.is_admin if hasattr(request.user, 'is_admin') else False
     
+    # Fetch allergens and organize them by severity
+    allergens = {
+        'contains': [],
+        'may_contain': [],
+        'traces': []
+    }
+    
+    recipe_allergens = RecipeAllergen.objects.filter(recipe_id=recipe_id)
+    for allergen in recipe_allergens:
+        allergen_info = {
+            'name': allergen.get_allergen_name_display(),
+            'notes': allergen.notes
+        }
+        allergens[allergen.severity].append(allergen_info)
+    
     context = {
         'recipe': recipe,
         'author_name': author_name,
@@ -404,8 +454,9 @@ def recipe_detail(request, recipe_id, reviews=False):
         'average_rating': average_rating,
         'total_ratings': total_ratings,
         'user_rating': user_rating,
-        'is_logged_in': is_logged_in,  # Add this to context
-        'user_id': user_id,  # Add this to context
+        'is_logged_in': is_logged_in,
+        'user_id': user_id,
+        'allergens': allergens,
     }
     return render(request, 'recipe_detail.html', context)
 
@@ -1215,4 +1266,75 @@ def event_registration(request):
             return render(request, 'event_registration.html', {'values': request.POST})
     
     return render(request, 'event_registration.html')
+
+def toggle_favorite(request):
+    if request.method == 'POST':
+        recipe_id = request.POST.get('recipe_id')
+        user_id = request.session.get('id')
+        
+        if not user_id:
+            return JsonResponse({'error': 'User not authenticated'}, status=401)
+        
+        try:
+            recipe = Recipe.objects.get(recipe_id=recipe_id)
+            user = CustomUser.objects.get(id=user_id)
+            
+            favorite, created = Favorite.objects.get_or_create(
+                user=user,
+                recipe=recipe
+            )
+            
+            if not created:
+                favorite.delete()
+                is_favorite = False
+            else:
+                is_favorite = True
+                
+            return JsonResponse({
+                'status': 'success',
+                'is_favorite': is_favorite
+            })
+            
+        except (Recipe.DoesNotExist, CustomUser.DoesNotExist):
+            return JsonResponse({'error': 'Invalid recipe or user'}, status=400)
+            
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
+def create_event(request):
+    if not request.session.get('id'):
+        messages.error(request, 'Please login to create an event')
+        return redirect('login')
+
+    if request.method == 'POST':
+        try:
+            Event.objects.create(
+                user_id=request.session.get('id'),
+                title=request.POST.get('title'),
+                description=request.POST.get('description'),
+                event_date=request.POST.get('event_date'),
+                event_time=request.POST.get('event_time'),
+                location=request.POST.get('location'),
+                max_participants=request.POST.get('max_participants'),
+                image=request.FILES.get('image')
+            )
+            messages.success(request, 'Event created successfully!')
+            return redirect('my_events')
+        except Exception as e:
+            messages.error(request, f'Error creating event: {str(e)}')
+    
+    return render(request, 'create_event.html')
+
+def my_events(request):
+    if not request.session.get('id'):
+        messages.error(request, 'Please login to view your events')
+        return redirect('login')
+    
+    events = Event.objects.filter(user_id=request.session.get('id')).order_by('event_date', 'event_time')
+    return render(request, 'my_events.html', {'events': events})
+
+def view_events(request):
+    events = EventRegistration.objects.all().order_by('-registration_date')
+    return render(request, 'view_events.html', {
+        'events': events
+    })
 
