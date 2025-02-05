@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit My Account</title>
+    <title>Edit Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -12,43 +12,27 @@
             font-family: 'Arial', sans-serif;
         }
         .profile-container {
-            max-width: 500px;
+            max-width: 800px;
             margin: 50px auto;
             background-color: #fff;
             padding: 40px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             border-radius: 12px;
         }
-        h1 {
-            font-size: 2.2rem;
-            color: #333;
-            margin-bottom: 30px;
+        .profile-image-container {
             text-align: center;
+            margin-bottom: 30px;
+        }
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
         }
         .form-label {
             font-weight: bold;
             color: #333;
-            margin-bottom: 8px;
-        }
-        .form-control {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 12px;
-            width: 100%;
-            margin-bottom: 20px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-        .form-control:focus {
-            border-color: #2196F3;
-            box-shadow: 0 0 0 0.2rem rgba(33, 150, 243, 0.25);
-            outline: none;
-        }
-        .form-control[readonly] {
-            background-color: #f8f9fa;
-            border-color: #ddd;
-            color: #6c757d;
-            cursor: not-allowed;
         }
         .btn-save {
             background: linear-gradient(45deg, #2196F3, #1976D2);
@@ -57,24 +41,13 @@
             border-radius: 25px;
             border: none;
             font-weight: 600;
-            font-size: 1rem;
             letter-spacing: 0.5px;
             text-transform: uppercase;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
-            cursor: pointer;
         }
         .btn-save:hover {
-            background: linear-gradient(45deg, #1976D2, #1565C0);
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
-        }
-        .btn-save:active {
-            transform: translateY(0);
-            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
-        }
-        .alert {
-            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -82,7 +55,7 @@
     {% include 'navbar.html' %}
 
     <div class="profile-container">
-        <h1>Edit My Account</h1>
+        <h1 class="text-center mb-4">Edit Profile</h1>
         
         {% if messages %}
             {% for message in messages %}
@@ -92,26 +65,157 @@
             {% endfor %}
         {% endif %}
         
-        <form method="POST" action="{% url 'profile_change' %}">
+        <form method="POST" action="{% url 'profile_change' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <input type="hidden" name="id" value="{{ user.id }}">
-            <div class="mb-4">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ user.name }}">
+
+            <div class="profile-image-container">
+                {% if user.profile_image %}
+                    <img src="{{ user.profile_image.url }}" alt="Profile" class="profile-image">
+                {% else %}
+                    <img src="{% static 'images/default_profile.png' %}" alt="Default Profile" class="profile-image">
+                {% endif %}
+                <div class="mb-3">
+                    <label for="profile_image" class="form-label">Change Profile Picture</label>
+                    <input type="file" class="form-control" id="profile_image" name="profile_image" accept="image/*">
+                </div>
             </div>
-            <div class="mb-4">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" readonly 
-                    style="background-color: #f8f9fa; color: #6c757d; cursor: not-allowed;" 
-                    title="Email cannot be changed">
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ user.name }}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" readonly>
+                </div>
             </div>
-            <div class="text-center mt-4 d-flex justify-content-between">
-                <a href="javascript:history.back()" class="btn btn-secondary" style="border-radius: 25px; padding: 10px 20px; font-size: 1rem; font-weight: 600;">Back</a>
-                <button type="submit" class="btn-save">Save Changes</button>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="age" class="form-label">Age</label>
+                    <input type="number" class="form-control" id="age" name="age" 
+                           value="{{ user.age }}" min="13" max="120">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="mobile" class="form-label">Mobile Number</label>
+                    <input type="tel" class="form-control" id="mobile" name="mobile" 
+                           value="{{ user.mobile }}" pattern="[0-9]{10}" 
+                           title="Please enter a valid 10-digit mobile number">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="date_of_birth" class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" id="date_of_birth" 
+                           name="date_of_birth" value="{{ user.date_of_birth|date:'Y-m-d' }}">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <textarea class="form-control" id="address" name="address" rows="3">{{ user.address }}</textarea>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="diet_preference" class="form-label">Dietary Preference</label>
+                    <select class="form-control" id="diet_preference" name="diet_preference">
+                        <option value="veg" {% if user.diet_preference == 'veg' %}selected{% endif %}>Vegetarian</option>
+                        <option value="non_veg" {% if user.diet_preference == 'non_veg' %}selected{% endif %}>Non-Vegetarian</option>
+                        <option value="vegan" {% if user.diet_preference == 'vegan' %}selected{% endif %}>Vegan</option>
+                        <option value="pescatarian" {% if user.diet_preference == 'pescatarian' %}selected{% endif %}>Pescatarian</option>
+                        <option value="other" {% if user.diet_preference == 'other' %}selected{% endif %}>Other</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="cooking_experience" class="form-label">Cooking Experience</label>
+                    <select class="form-control" id="cooking_experience" name="cooking_experience">
+                        <option value="beginner" {% if user.cooking_experience == 'beginner' %}selected{% endif %}>Beginner</option>
+                        <option value="intermediate" {% if user.cooking_experience == 'intermediate' %}selected{% endif %}>Intermediate</option>
+                        <option value="advanced" {% if user.cooking_experience == 'advanced' %}selected{% endif %}>Advanced</option>
+                        <option value="professional" {% if user.cooking_experience == 'professional' %}selected{% endif %}>Professional</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="allergies" class="form-label">Food Allergies</label>
+                <textarea class="form-control" id="allergies" name="allergies" rows="2" 
+                          placeholder="List any food allergies...">{{ user.allergies }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="favorite_cuisine" class="form-label">Favorite Cuisine</label>
+                <input type="text" class="form-control" id="favorite_cuisine" name="favorite_cuisine" 
+                       value="{{ user.favorite_cuisine }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="bio" class="form-label">Bio</label>
+                <textarea class="form-control" id="bio" name="bio" rows="3" 
+                          placeholder="Tell us about yourself...">{{ user.bio }}</textarea>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-save">Save Changes</button>
+                <a href="javascript:history.back()" class="btn btn-secondary ms-2">Cancel</a>
             </div>
         </form>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Mobile number validation
+        document.getElementById('mobile').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+            if (this.value.length > 10) {
+                this.value = this.value.slice(0, 10);
+            }
+        });
+
+        // Date of birth validation
+        document.getElementById('date_of_birth').addEventListener('change', function(e) {
+            const selectedDate = new Date(this.value);
+            const today = new Date();
+            const minDate = new Date();
+            minDate.setFullYear(today.getFullYear() - 100); // Minimum age 100 years
+            const maxDate = new Date();
+            maxDate.setFullYear(today.getFullYear() - 13); // Minimum age 13 years
+
+            if (selectedDate > maxDate) {
+                alert('You must be at least 13 years old to use this platform.');
+                this.value = '';
+            } else if (selectedDate < minDate) {
+                alert('Please enter a valid date of birth.');
+                this.value = '';
+            }
+        });
+
+        // Age validation
+        document.getElementById('age').addEventListener('input', function(e) {
+            const age = parseInt(this.value);
+            if (age < 13) {
+                alert('You must be at least 13 years old to use this platform.');
+                this.value = '';
+            } else if (age > 120) {
+                alert('Please enter a valid age.');
+                this.value = '';
+            }
+        });
+
+        // Auto-calculate age from date of birth
+        document.getElementById('date_of_birth').addEventListener('change', function(e) {
+            const birthDate = new Date(this.value);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            
+            document.getElementById('age').value = age;
+        });
+    </script>
 </body>
 </html>

@@ -4,4 +4,3 @@ $ git commit -m "second commit"
 
 $ git push
 
-ennu cheyithathu evidem thottu ollatha chat ill..styam paranjal inn njn onnum chthila ath chytha chat poii, edkk cursor poyayirnu, athukond njn chytha event inte vare poiii

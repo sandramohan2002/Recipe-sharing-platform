@@ -13,12 +13,9 @@
             font-family: 'Arial', sans-serif;
         }
         .profile-container {
-            max-width: 800px;
-            margin: 50px auto;
-            background-color: #fff;
-            padding: 40px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-radius: 12px;
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
         }
         h1 {
             font-size: 2.5rem;
@@ -95,27 +92,19 @@
         .btn-edit-profile {
             background: linear-gradient(45deg, #2196F3, #1976D2);
             color: white;
-            padding: 12px 30px;
+            padding: 10px 25px;
             border-radius: 25px;
-            border: none;
-            font-weight: 600;
-            font-size: 1rem;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
-            position: relative;
-            overflow: hidden;
+            text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
         .btn-edit-profile:hover {
-            background: linear-gradient(45deg, #1976D2, #1565C0);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
             color: white;
-            text-decoration: none;
         }
         .btn-edit-profile:active {
             transform: translateY(0);
@@ -130,11 +119,7 @@
         }
         .edit-profile-container {
             text-align: center;
-            margin: 30px 0;
-            padding: 20px;
-            background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0.95));
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin: 20px 0;
         }
         @keyframes pulse {
             0% {
@@ -247,6 +232,379 @@
                 padding: 10px 15px;
             }
         }
+
+        /* Profile Header */
+        .profile-header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        /* Profile Image */
+        .profile-image-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .profile-image, .profile-image-placeholder {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-image-placeholder {
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-image-placeholder i {
+            font-size: 50px;
+            color: #ccc;
+        }
+
+        .profile-image-edit {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px;
+            text-align: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .profile-image-container:hover .profile-image-edit {
+            opacity: 1;
+        }
+
+        .profile-image-edit i {
+            margin-right: 5px;
+        }
+
+        .image-preview-container {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        #imagePreview {
+            max-height: 300px;
+            width: auto;
+        }
+
+        /* User Details Cards */
+        .info-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            height: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .info-card h3 {
+            color: #2196F3;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .info-card p {
+            margin-bottom: 12px;
+            color: #555;
+        }
+
+        .info-card strong {
+            color: #333;
+            margin-right: 8px;
+        }
+
+        /* Bio Section */
+        .bio-section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .bio-section h3 {
+            color: #2196F3;
+            margin-bottom: 15px;
+        }
+
+        /* Recipe Cards */
+        .recipe-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .recipe-image, .recipe-image-placeholder {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .recipe-image-placeholder {
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .recipe-card-content {
+            padding: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .profile-container {
+                padding: 15px;
+            }
+
+            .profile-header {
+                padding: 20px;
+            }
+
+            .info-card, .bio-section {
+                padding: 15px;
+            }
+
+            .recipe-image, .recipe-image-placeholder {
+                height: 160px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .profile-image-container {
+                width: 100px;
+                height: 100px;
+            }
+
+            .profile-image, .profile-image-placeholder {
+                width: 100px;
+                height: 100px;
+            }
+
+            .recipe-card-content {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .info-card h3, .bio-section h3 {
+                font-size: 1.1rem;
+            }
+        }
+
+        .add-info-btn {
+            color: #ff6b6b;
+            border: 2px dashed #ff6b6b;
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+            font-size: 0.9rem;
+        }
+
+        .add-info-btn:hover {
+            background: rgba(255, 107, 107, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .info-value {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .edit-btn {
+            font-size: 0.9rem;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .edit-btn:hover {
+            color: #ff6b6b;
+        }
+
+        .modal-content {
+            border-radius: 15px;
+        }
+
+        .modal-header {
+            background: #ff6b6b;
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .recipe-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .recipe-card img, .placeholder-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .recipe-card-content {
+            padding: 15px;
+        }
+
+        .recipe-card h3 {
+            font-size: 1.1rem;
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+
+        .recipe-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .recipe-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .recipe-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-view, .btn-edit {
+            flex: 1;
+            padding: 8px;
+            border-radius: 6px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-view {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-edit {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        .btn-view:hover, .btn-edit:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .placeholder-img {
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .placeholder-img i {
+            font-size: 40px;
+            color: #ccc;
+        }
+
+        .no-recipes {
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .no-recipes i {
+            font-size: 40px;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        .no-recipes h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .no-recipes p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .btn-add-recipe {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-add-recipe:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -259,347 +617,273 @@
         </a>
     </div>
 
-    <div class="profile-page">
+    <div class="profile-container">
         <div class="profile-header">
-            <div class="profile-cover"></div>
-            <!-- <div class="profile-avatar">
-                <i class="fas fa-user-circle"></i>
-            </div> -->
-            <div class="profile-info">
-                <h1>{{ user.name }}</h1>
-                <p>{{ user.email }}</p>
-                <a href="{% url 'profile_edit' %}" class="btn-edit-profile">
-                    <i class="fas fa-user-edit"></i>
-                    Edit Profile
-                </a>
+            <div class="profile-image-container">
+                {% if user.profile_image %}
+                    <img src="{{ user.profile_image.url }}" alt="Profile" class="profile-image">
+                {% else %}
+                    <div class="profile-image-placeholder">
+                        <i class="fas fa-user"></i>
+                    </div>
+                {% endif %}
+                <div class="profile-image-edit" data-bs-toggle="modal" data-bs-target="#profileImageModal">
+                    <i class="fas fa-camera"></i>
+                    <span>Change Photo</span>
+                </div>
+            </div>
+            <h1>{{ user.name }}</h1>
+            <p class="text-muted">{{ user.email }}</p>
+        </div>
+
+        <div class="user-details mt-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="info-card">
+                        <h3>Personal Information</h3>
+                        <p><strong>Name:</strong> {{ user.name }}</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        <p><strong>Age:</strong> {{ user.age|default:"Not provided" }} years</p>
+                        <p><strong>Mobile:</strong> {{ user.mobile|default:"Not provided" }}</p>
+                        <p><strong>Date of Birth:</strong> {{ user.date_of_birth|date:"F d, Y"|default:"Not provided" }}</p>
+                        <div class="info-item">
+                            <strong>Address:</strong>
+                            {% if user.address %}
+                                <div class="info-value">
+                                    <span>{{ user.address }}</span>
+                                    <span class="edit-btn" data-bs-toggle="modal" data-bs-target="#addressModal">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </span>
+                                </div>
+                            {% else %}
+                                <button class="add-info-btn" data-bs-toggle="modal" data-bs-target="#addressModal">
+                                    <i class="fas fa-plus"></i> Add Address
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="info-card">
+                        <h3>Cooking Preferences</h3>
+                        <p><strong>Diet Preference:</strong> {{ user.get_diet_preference_display }}</p>
+                        <div class="info-item">
+                            <strong>Cooking Experience:</strong>
+                            {% if user.cooking_experience %}
+                                <div class="info-value">
+                                    <span>{{ user.cooking_experience }}</span>
+                                    <span class="edit-btn" data-bs-toggle="modal" data-bs-target="#experienceModal">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </span>
+                                </div>
+                            {% else %}
+                                <button class="add-info-btn" data-bs-toggle="modal" data-bs-target="#experienceModal">
+                                    <i class="fas fa-plus"></i> Add Experience
+                                </button>
+                            {% endif %}
+                        </div>
+                        <div class="info-item mt-3">
+                            <strong>Favorite Cuisine:</strong>
+                            {% if user.favorite_cuisine %}
+                                <div class="info-value">
+                                    <span>{{ user.favorite_cuisine }}</span>
+                                    <span class="edit-btn" data-bs-toggle="modal" data-bs-target="#cuisineModal">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </span>
+                                </div>
+                            {% else %}
+                                <button class="add-info-btn" data-bs-toggle="modal" data-bs-target="#cuisineModal">
+                                    <i class="fas fa-plus"></i> Add Favorite Cuisine
+                                </button>
+                            {% endif %}
+                        </div>
+                        <div class="info-item mt-3">
+                            <strong>Allergies:</strong>
+                            {% if user.allergies %}
+                                <div class="info-value">
+                                    <span>{{ user.allergies }}</span>
+                                    <span class="edit-btn" data-bs-toggle="modal" data-bs-target="#allergiesModal">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </span>
+                                </div>
+                            {% else %}
+                                <button class="add-info-btn" data-bs-toggle="modal" data-bs-target="#allergiesModal">
+                                    <i class="fas fa-plus"></i> Add Allergies
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bio-section mt-4">
+                <h3>About Me</h3>
+                <p>{{ user.bio|default:"No bio provided yet." }}</p>
             </div>
         </div>
 
-        <div class="profile-content">
-            <div class="stats-section">
-                <div class="stat-card">
-                    <i class="fas fa-utensils"></i>
-                    <h3>{{ recipes|length }}</h3>
-                    <p>Recipes</p>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-star"></i>
-                    <h3>{{ recipes.count }}</h3>
-                    <p>Total Reviews</p>
-                </div>
-            </div>
+        <div class="edit-profile-container">
+            <a href="{% url 'profile_edit' %}" class="btn-edit-profile">
+                <i class="fas fa-edit"></i> Edit Profile
+            </a>
+        </div>
 
-            <div class="recipes-section">
-                <h2>My Recipes</h2>
-                {% if recipes %}
-                    <div class="recipe-grid">
-                        {% for recipe in recipes %}
-                        <div class="recipe-card">
-                            {% if recipe.image %}
-                                <img src="{{ recipe.image.url }}" alt="{{ recipe.recipename }}">
-                            {% else %}
-                                <div class="placeholder-img">
-                                    <i class="fas fa-utensils"></i>
-                                </div>
-                            {% endif %}
-                            <div class="recipe-card-content">
-                                <h3>{{ recipe.recipename }}</h3>
-                                <!-- <p class="recipe-date">Added on: {{ recipe.created_at|date:"F j, Y" }}</p> -->
-                                <div class="recipe-actions">
-                                    <a href="{% url 'recipe_detail' recipe_id=recipe.recipe_id %}" class="btn-view">
-                                        <i class="fas fa-eye"></i> View
-                                    </a>
-                                    <a href="{% url 'usereditrecipe' recipe_id=recipe.recipe_id %}" class="btn-edit">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </a>
-                                </div>
-                            </div>
+        <div class="recipes-section">
+            <h2>My Recipes</h2>
+            {% if user_recipes %}
+            <div class="recipe-grid">
+                {% for recipe in user_recipes %}
+                <div class="recipe-card">
+                    {% if recipe.image %}
+                    <img src="{{ recipe.image.url }}" alt="{{ recipe.recipename }}">
+                    {% else %}
+                    <div class="placeholder-img">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    {% endif %}
+                    <div class="recipe-card-content">
+                        <h3>{{ recipe.recipename }}</h3>
+                        <div class="recipe-meta">
+                            <span><i class="far fa-clock"></i> {{ recipe.total_time }} mins</span>
+                            <span><i class="fas fa-user-friends"></i> {{ recipe.servings }}</span>
                         </div>
-                        {% endfor %}
+                        <div class="recipe-buttons">
+                            <a href="{% url 'recipe_detail' recipe.recipe_id %}" class="btn btn-view">
+                                <i class="fas fa-eye"></i> View
+                            </a>
+                            <a href="{% url 'usereditrecipe' recipe.recipe_id %}" class="btn btn-edit">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                        </div>
                     </div>
-                {% else %}
-                    <div class="no-recipes">
-                        <i class="fas fa-book-open"></i>
-                        <p>You haven't added any recipes yet.</p>
-                        <a href="{% url 'addrecipe' %}" class="btn-add-recipe">Create Your First Recipe</a>
-                    </div>
-                {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="no-recipes">
+                <i class="fas fa-book-open"></i>
+                <h3>No Recipes Yet</h3>
+                <p>Start sharing your culinary creations with the world!</p>
+                <a href="{% url 'addrecipe' %}" class="btn btn-add-recipe">
+                    <i class="fas fa-plus"></i> Add Your First Recipe
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Modals for editing information -->
+    <!-- Address Modal -->
+    <div class="modal fade" id="addressModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Address</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'profile_edit' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="field" value="address">
+                        <textarea class="form-control" name="address" rows="3">{{ user.address }}</textarea>
+                        <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
-    <style>
-        /* Modern styling for the entire profile page */
-        .profile-page {
-            background-color: #f8f9fa;
-            min-height: 100vh;
-        }
+    <!-- Experience Modal -->
+    <div class="modal fade" id="experienceModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Cooking Experience</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'profile_edit' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="field" value="cooking_experience">
+                        <select class="form-control" name="cooking_experience">
+                            <option value="">Select Experience Level</option>
+                            <option value="Beginner" {% if user.cooking_experience == 'Beginner' %}selected{% endif %}>Beginner</option>
+                            <option value="Intermediate" {% if user.cooking_experience == 'Intermediate' %}selected{% endif %}>Intermediate</option>
+                            <option value="Advanced" {% if user.cooking_experience == 'Advanced' %}selected{% endif %}>Advanced</option>
+                            <option value="Professional" {% if user.cooking_experience == 'Professional' %}selected{% endif %}>Professional</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        /* Profile Header Styles */
-        .profile-header {
-            position: relative;
-            background-color: white;
-            padding-bottom: 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+    <!-- Cuisine Modal -->
+    <div class="modal fade" id="cuisineModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Favorite Cuisine</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'profile_edit' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="field" value="favorite_cuisine">
+                        <input type="text" class="form-control" name="favorite_cuisine" value="{{ user.favorite_cuisine }}" placeholder="e.g., Italian, Indian, Mexican">
+                        <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        .profile-cover {
-            height: 200px;
-            background: linear-gradient(45deg, #2196F3, #1976D2);
-            position: relative;
-        }
+    <!-- Allergies Modal -->
+    <div class="modal fade" id="allergiesModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Food Allergies</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'profile_edit' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="field" value="allergies">
+                        <textarea class="form-control" name="allergies" rows="3" placeholder="List any food allergies...">{{ user.allergies }}</textarea>
+                        <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        .profile-avatar {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 100px;
-            width: 150px;
-            height: 150px;
-            background-color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .profile-avatar i {
-            font-size: 80px;
-            color: #1976D2;
-        }
-
-        .profile-info {
-            text-align: center;
-            padding-top: 60px;
-        }
-
-        .profile-info h1 {
-            margin: 0;
-            color: #333;
-            font-size: 2rem;
-        }
-
-        .profile-info p {
-            color: #666;
-            margin: 10px 0 20px;
-        }
-
-        /* Stats Section */
-        .stats-section {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 2rem 0;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            min-width: 150px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .stat-card i {
-            font-size: 24px;
-            color: #1976D2;
-        }
-
-        .stat-card h3 {
-            margin: 10px 0;
-            color: #333;
-            font-size: 24px;
-        }
-
-        .stat-card p {
-            color: #666;
-            margin: 0;
-        }
-
-        /* Recipe Grid */
-        .recipes-section {
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .recipes-section h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 2rem;
-        }
-
-        .recipe-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .recipe-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .recipe-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .recipe-card img, .placeholder-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            background-color: #f8f9fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .placeholder-img i {
-            font-size: 40px;
-            color: #1976D2;
-        }
-
-        .recipe-card-content {
-            padding: 20px;
-        }
-
-        .recipe-card-content h3 {
-            margin: 0;
-            color: #333;
-            font-size: 1.2rem;
-        }
-
-        .recipe-date {
-            color: #666;
-            font-size: 0.9rem;
-            margin: 10px 0;
-        }
-
-        .recipe-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        /* Buttons */
-        .btn-edit-profile {
-            background: linear-gradient(45deg, #2196F3, #1976D2);
-            color: white;
-            padding: 10px 25px;
-            border-radius: 25px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
-        }
-
-        .btn-edit-profile:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
-            color: white;
-        }
-
-        .btn-view, .btn-edit {
-            padding: 8px 15px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-view {
-            background-color: #2196F3;
-            color: white;
-        }
-
-        .btn-edit {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        .btn-view:hover, .btn-edit:hover {
-            opacity: 0.9;
-            color: white;
-        }
-
-        /* No Recipes State */
-        .no-recipes {
-            text-align: center;
-            padding: 50px 20px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .no-recipes i {
-            font-size: 50px;
-            color: #1976D2;
-            margin-bottom: 20px;
-        }
-
-        .btn-add-recipe {
-            background: linear-gradient(45deg, #4CAF50, #388E3C);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 25px;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 20px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .btn-add-recipe:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
-            color: white;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .profile-cover {
-                height: 150px;
-            }
-
-            .profile-avatar {
-                width: 120px;
-                height: 120px;
-                bottom: 60px;
-            }
-
-            .profile-avatar i {
-                font-size: 60px;
-            }
-
-            .profile-info {
-                padding-top: 40px;
-            }
-
-            .stats-section {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .stat-card {
-                width: 80%;
-            }
-
-            .recipes-section {
-                padding: 1rem;
-            }
-        }
-    </style>
+    <!-- Add Profile Image Modal -->
+    <div class="modal fade" id="profileImageModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Profile Picture</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'profile_edit' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="field" value="profile_image">
+                        <div class="mb-3">
+                            <label for="profile_image" class="form-label">Choose Image</label>
+                            <input type="file" class="form-control" id="profile_image" name="profile_image" accept="image/*" required>
+                        </div>
+                        <div class="image-preview-container mb-3 d-none">
+                            <img id="imagePreview" src="#" alt="Preview" class="img-fluid rounded">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload Photo</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -610,6 +894,25 @@
                 backButton.classList.add('floating');
             } else {
                 backButton.classList.remove('floating');
+            }
+        });
+
+        // Initialize Bootstrap modals
+        var myModal = new bootstrap.Modal(document.getElementById('addressModal'))
+
+        document.getElementById('profile_image').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                const previewContainer = document.querySelector('.image-preview-container');
+                const preview = document.getElementById('imagePreview');
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    previewContainer.classList.remove('d-none');
+                }
+
+                reader.readAsDataURL(file);
             }
         });
     </script>

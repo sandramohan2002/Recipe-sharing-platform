@@ -21,6 +21,8 @@ import re
 from datetime import datetime
 from django.utils import timezone
 from .image_classifier import RecipeImageClassifier
+from django.conf import settings
+from .ai_utils import get_nutritional_info_from_ai
 
 
 logger = logging.getLogger(__name__)
@@ -28,21 +30,44 @@ logger = logging.getLogger(__name__)
 #USER DASHBOARD
 def signup(request):
     if request.method == 'POST':
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        #mobile = request.POST.get('mobile')
-        password1 = request.POST.get('password1')
-        password2 = request.POST.get('password2')
+        try:
+            name = request.POST.get('name')
+            email = request.POST.get('email')
+            password1 = request.POST.get('password1')
+            password2 = request.POST.get('password2')
+            
+            # Get optional fields
+            age = request.POST.get('age')
+            mobile = request.POST.get('mobile')
+            date_of_birth = request.POST.get('date_of_birth')
+            diet_preference = request.POST.get('diet_preference')
+            profile_image = request.FILES.get('profile_image')
 
-        if password1 != password2:
-            messages.error(request, 'Passwords do not match')
-            return redirect('signup')
+            if password1 != password2:
+                messages.error(request, 'Passwords do not match')
+                return redirect('signup')
 
-        user = CustomUser(name=name, email=email, password=password1)
-        user.save()
-        if user:
+            # Create user with all provided information
+            user = CustomUser(
+                name=name,
+                email=email,
+                password=password1,
+                age=age if age else None,
+                mobile=mobile if mobile else None,
+                date_of_birth=date_of_birth if date_of_birth else None,
+                diet_preference=diet_preference if diet_preference != 'other' else None,
+                profile_image=profile_image if profile_image else None
+            )
+            user.save()
+
             messages.success(request, 'Account created successfully')
-            return redirect('login')  # Redirect to homepage after signup
+            return redirect('login')
+            
+        except IntegrityError:
+            messages.error(request, 'Email already exists')
+        except Exception as e:
+            messages.error(request, f'Error creating account: {str(e)}')
+            
     return render(request, 'signup.html')
 
 
@@ -355,109 +380,29 @@ def addrecipe(request):
     ingredients = Ingredient.objects.all()
     return render(request, 'addrecipe.html', {'categories': categories, 'ingredients': ingredients})
 
-def recipe_detail(request, recipe_id, reviews=False):
+def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
+    context = {
+        'recipe': recipe,
+        'is_logged_in': 'id' in request.session,
+    }
     
-    # Get the user name from CustomUser model
-    try:
-        recipe_author = CustomUser.objects.get(id=recipe.user_id)
-        author_name = recipe_author.name
-    except CustomUser.DoesNotExist:
-        author_name = "Unknown User"
-    
-    # Get the user_id from request.session
-    user_id = request.session.get('id')
-    is_logged_in = user_id is not None
-    
-    try:
-        # Modified this part to include user information
-        reviews = Review.objects.filter(recipe_id=recipe_id).values(
-            'review_id', 
-            'user_id', 
-            'review_text', 
-            'created_at'
-        ).order_by('-created_at')
-        
-        # Fetch user names for all reviews
-        for review in reviews:
-            try:
-                user = CustomUser.objects.get(id=review['user_id'])
-                review['user_name'] = user.name
-            except CustomUser.DoesNotExist:
-                review['user_name'] = "Unknown User"
-    except:
-        reviews = []
-
-    # Get ratings
-    ratings = Rating.objects.filter(recipe_id=recipe_id)
-    average_rating = ratings.aggregate(Avg('rating'))['rating__avg']
-    total_ratings = ratings.count()
-    
-    # Get user's rating if they've rated
-    user_rating = None
-    if request.session.get('id'):
-        user_rating = Rating.objects.filter(
-            recipe_id=recipe_id,
-            user_id=request.session['id']
-        ).first()
-
-    # Fetch the category name
-    category = Category.objects.filter(category_id=recipe.category_id).first()
-    category_name = category.name if category else "Unknown Category"
-    
-    # Split instructions into a list
-    instructions = [inst.strip() for inst in recipe.instructions.split('\n') if inst.strip()]
-    
-    # Fetch nutritional information
+    # Get nutritional info
     try:
         nutritional_info = NutritionalInformation.objects.get(recipe_id=recipe_id)
     except NutritionalInformation.DoesNotExist:
+        # Try to get AI-generated nutritional info
         nutritional_info = None
-     
-    # Fetch ingredients
-    ingredients = recipe.recipe_ingredients.all().select_related('ingredient')
+        if settings.GEMINI_API_KEY:
+            ai_nutrition = get_nutritional_info_from_ai(recipe.recipename, settings.GEMINI_API_KEY)
+            if ai_nutrition:
+                nutritional_info = NutritionalInformation.objects.create(
+                    recipe_id=recipe_id,
+                    **ai_nutrition
+                )
+                context['is_ai_generated'] = True
     
-    # Fetch subcategory name
-    subcategory = SubCategory.objects.filter(subcategory_id=recipe.subcategory_id).first()
-    subcategory_name = subcategory.name if subcategory else "Unknown Subcategory"
-    
-    # Check if the user is an admin
-    is_admin = request.user.is_admin if hasattr(request.user, 'is_admin') else False
-    
-    # Fetch allergens and organize them by severity
-    allergens = {
-        'contains': [],
-        'may_contain': [],
-        'traces': []
-    }
-    
-    recipe_allergens = RecipeAllergen.objects.filter(recipe_id=recipe_id)
-    for allergen in recipe_allergens:
-        allergen_info = {
-            'name': allergen.get_allergen_name_display(),
-            'notes': allergen.notes
-        }
-        allergens[allergen.severity].append(allergen_info)
-    
-    context = {
-        'recipe': recipe,
-        'author_name': author_name,
-        'category_name': category_name,
-        'instructions': instructions,
-        'messages': messages.get_messages(request),
-        'reviews': reviews,
-        'reviews_display': True,
-        'nutritional_info': nutritional_info,
-        'is_admin': is_admin,
-        'ingredients': ingredients,
-        'subcategory_name': subcategory_name,
-        'average_rating': average_rating,
-        'total_ratings': total_ratings,
-        'user_rating': user_rating,
-        'is_logged_in': is_logged_in,
-        'user_id': user_id,
-        'allergens': allergens,
-    }
+    context['nutritional_info'] = nutritional_info
     return render(request, 'recipe_detail.html', context)
 
 #for edting recipes on recipe page for user
@@ -568,28 +513,30 @@ def review_recipe(request, recipe_id):
 
 
 def profile_view(request):
-    # Get user_id from session
     user_id = request.session.get('id')
     if not user_id:
         messages.error(request, 'Please log in to view your profile.')
         return redirect('login')
-        
+    
     try:
         user = CustomUser.objects.get(id=user_id)
-        # Fetch recipes for this user
-        recipes = Recipe.objects.filter(user_id=user_id).order_by('-recipe_id')  # Most recent first
+        user_recipes = Recipe.objects.filter(user_id=user_id)
+        
+        # Calculate total time for each recipe
+        for recipe in user_recipes:
+            recipe.total_time = recipe.prep_time + recipe.cook_time
         
         context = {
             'user': user,
-            'recipes': recipes
+            'user_recipes': user_recipes,
         }
         return render(request, 'profile.html', context)
+        
     except CustomUser.DoesNotExist:
         messages.error(request, 'User profile not found.')
         return redirect('login')
 
 def profile_edit(request):
-    # Get user_id from session
     user_id = request.session.get('id')
     if not user_id:
         messages.error(request, 'Please log in to edit your profile.')
@@ -597,24 +544,59 @@ def profile_edit(request):
     
     try:
         user = CustomUser.objects.get(id=user_id)
+        
+        if request.method == 'POST':
+            field = request.POST.get('field')
+            value = request.POST.get(field)
+            
+            if field in ['address', 'cooking_experience', 'favorite_cuisine', 'allergies']:
+                setattr(user, field, value)
+                user.save()
+                messages.success(request, f'Your {field.replace("_", " ")} has been updated.')
+                return redirect('profile')
+                
         return render(request, 'edit_profile.html', {'user': user})
+        
     except CustomUser.DoesNotExist:
         messages.error(request, 'User profile not found.')
         return redirect('login')
 
 def profile_change(request):
     if request.method == 'POST':
-        username=request.POST.get('name')
-        email=request.POST.get('email')
-        userid=request.POST.get('id')
-        user=CustomUser.objects.get(id=userid)
-        if user:
-            user.name=username
-            user.email=email
+        user_id = request.POST.get('id')
+        try:
+            user = CustomUser.objects.get(id=user_id)
+            
+            # Update basic info
+            user.name = request.POST.get('name')
+            user.email = request.POST.get('email')
+            user.age = request.POST.get('age')
+            user.mobile = request.POST.get('mobile')
+            user.date_of_birth = request.POST.get('date_of_birth') or None
+            user.address = request.POST.get('address')
+            
+            # Update preferences
+            user.diet_preference = request.POST.get('diet_preference')
+            user.cooking_experience = request.POST.get('cooking_experience')
+            user.favorite_cuisine = request.POST.get('favorite_cuisine')
+            user.allergies = request.POST.get('allergies')
+            user.bio = request.POST.get('bio')
+
+            # Handle profile image
+            if request.FILES.get('profile_image'):
+                user.profile_image = request.FILES['profile_image']
+
             user.save()
-            request.session['username'] = username
-            customer=CustomUser.objects.get(id=userid)
-            return render(request,'profile.html',{'user':customer})
+            request.session['username'] = user.name
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('profile')
+            
+        except CustomUser.DoesNotExist:
+            messages.error(request, 'User not found.')
+        except Exception as e:
+            messages.error(request, f'Error updating profile: {str(e)}')
+    
+    return redirect('profile')
 
 # 
 # 
@@ -1307,20 +1289,26 @@ def create_event(request):
 
     if request.method == 'POST':
         try:
+            # Create event with all form fields
             Event.objects.create(
                 user_id=request.session.get('id'),
                 title=request.POST.get('title'),
                 description=request.POST.get('description'),
+                event_type=request.POST.get('event_type'),
                 event_date=request.POST.get('event_date'),
                 event_time=request.POST.get('event_time'),
                 location=request.POST.get('location'),
-                max_participants=request.POST.get('max_participants'),
+                max_participants=int(request.POST.get('max_participants')),
+                price=request.POST.get('price', 0),
+                contact_email=request.POST.get('contact_email'),
+                contact_phone=request.POST.get('contact_phone'),
                 image=request.FILES.get('image')
             )
             messages.success(request, 'Event created successfully!')
             return redirect('my_events')
         except Exception as e:
             messages.error(request, f'Error creating event: {str(e)}')
+            return render(request, 'create_event.html')
     
     return render(request, 'create_event.html')
 
@@ -1337,4 +1325,20 @@ def view_events(request):
     return render(request, 'view_events.html', {
         'events': events
     })
+
+@login_required
+def update_profile(request):
+    if request.method == 'POST':
+        field = request.POST.get('field')
+        value = request.POST.get(field)
+        user = CustomUser.objects.get(id=request.session.get('id'))
+        
+        if field in ['address', 'cooking_experience', 'favorite_cuisine', 'allergies']:
+            setattr(user, field, value)
+            user.save()
+            messages.success(request, f'Your {field.replace("_", " ")} has been updated.')
+        
+        return redirect('profile')
+    
+    return redirect('profile')
 

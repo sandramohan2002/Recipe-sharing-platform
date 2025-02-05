@@ -25,11 +25,32 @@ class login(models.Model):
 
 #SIGNUP DATABASE DETAILS
 class CustomUser(models.Model):
-    name = models.CharField(max_length=255, null=False, blank=False)  # User's name
-    email = models.EmailField(unique=True)  # User's unique email
-    password = models.CharField(max_length=128)  # User's password (hashed)
-    is_blocked = models.BooleanField(default=False)  # Block status of user
+    DIET_CHOICES = [
+        ('veg', 'Vegetarian'),
+        ('non_veg', 'Non-Vegetarian'), 
+        ('vegan', 'Vegan'),
+        ('pescatarian', 'Pescatarian'),
+        ('other', 'Other')
+    ]
+
+    name = models.CharField(max_length=255, null=False, blank=False)
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=128)
+    mobile = models.CharField(max_length=15, blank=True, null=True)
+    age = models.IntegerField(blank=True, null=True)
+    date_of_birth = models.DateField(blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+    diet_preference = models.CharField(max_length=20, choices=DIET_CHOICES, default='other')
+    profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
+    allergies = models.TextField(blank=True, null=True)
+    cooking_experience = models.CharField(max_length=50, blank=True, null=True)
+    favorite_cuisine = models.CharField(max_length=100, blank=True, null=True)
+    bio = models.TextField(blank=True, null=True)
+    is_blocked = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return self.name  # Returns the name when object is printed
     
@@ -265,21 +286,41 @@ class RecipeAllergen(models.Model):
 
 class Event(models.Model):
     event_id = models.AutoField(primary_key=True)
-    user_id = models.IntegerField()  # Creator of the event
+    user_id = models.IntegerField()
     title = models.CharField(max_length=200)
     description = models.TextField()
+    event_type = models.CharField(
+        max_length=50, 
+        choices=[
+            ('cooking_class', 'Cooking Class'),
+            ('workshop', 'Workshop'),
+            ('tasting', 'Food Tasting'),
+            ('competition', 'Cooking Competition'),
+            ('seminar', 'Culinary Seminar')
+        ],
+        default='workshop'  # Added default
+    )
     event_date = models.DateField()
     event_time = models.TimeField()
     location = models.CharField(max_length=200)
-    max_participants = models.IntegerField()
-    current_participants = models.IntegerField(default=0)
+    max_participants = models.IntegerField(default=10)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    contact_email = models.EmailField(default='example@email.com')
+    contact_phone = models.CharField(max_length=15, default='1234567890')
+    duration_hours = models.IntegerField(default=1)  # Added new field
+    duration_minutes = models.IntegerField(default=0)  # Added new field
     image = models.ImageField(upload_to='events/', null=True, blank=True)
-    status = models.CharField(max_length=20, choices=[
-        ('upcoming', 'Upcoming'),
-        ('ongoing', 'Ongoing'),
-        ('completed', 'Completed'),
-        ('cancelled', 'Cancelled')
-    ], default='upcoming')
+    current_participants = models.IntegerField(default=0)
+    status = models.CharField(
+        max_length=20, 
+        choices=[
+            ('upcoming', 'Upcoming'),
+            ('ongoing', 'Ongoing'),
+            ('completed', 'Completed'),
+            ('cancelled', 'Cancelled')
+        ],
+        default='upcoming'
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -381,22 +381,257 @@
         }
 
         .instructions-section {
-            margin: 30px 0;
-            padding: 20px;
+            margin: 40px 0;
+            padding: 30px;
             background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .instructions-section h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .instructions-section h2 i {
+            color: #3498db;
         }
 
         .instructions-list {
-            padding-left: 20px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            counter-reset: instruction;
+        }
+
+        .instruction-step {
+            margin-bottom: 25px;
+            padding-left: 60px;
+            position: relative;
+            min-height: 50px;
+        }
+
+        .step-content {
+            position: relative;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .instruction-step:hover .step-content {
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .step-number {
+            position: absolute;
+            left: -60px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            box-shadow: 0 2px 4px rgba(52, 152, 219, 0.3);
+        }
+
+        .step-text {
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+
+        .no-instructions {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
             margin-top: 15px;
         }
 
-        .instructions-list li {
-            margin-bottom: 15px;
-            line-height: 1.6;
-            padding-left: 10px;
+        @media (max-width: 768px) {
+            .instructions-section {
+                padding: 20px;
+            }
+
+            .instruction-step {
+                padding-left: 45px;
+            }
+
+            .step-number {
+                left: -45px;
+                width: 32px;
+                height: 32px;
+                font-size: 0.9em;
+            }
+
+            .step-content {
+                padding: 15px;
+            }
+        }
+
+        .ingredients-section {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .ingredients-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ingredients-section h2 i {
+            color: #3498db;
+        }
+
+        .no-ingredients {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .nutritional-info-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .nutrition-item {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .nutrition-item .label {
+            display: block;
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .nutrition-item .value {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .ai-badge {
+            display: inline-block;
+            background: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .ai-badge i {
+            margin-right: 5px;
+            color: #007bff;
+        }
+
+        .nutrition-btn {
+            margin: 20px 0;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            background-color: #17a2b8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nutrition-btn:hover {
+            background-color: #138496;
+            transform: translateY(-2px);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .close-modal {
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .close-modal:hover {
+            color: #333;
+        }
+
+        /* Reuse existing modal styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .no-data {
+            text-align: center;
+            color: #666;
+            font-style: italic;
         }
     </style>
 </head>
@@ -437,20 +672,55 @@
                 <!-- <button class="save-recipe">Save Recipe</button> -->
             </div>
         </div>
-        <!-- Nutritional Information Section -->
-        {% if nutritional_info %}
-            <div class="nutritional-info">
-                <h3>Nutritional Information</h3>
-                <ul>
-                    <li>Calories: {{ nutritional_info.calories }}</li>
-                    <li>Protein: {{ nutritional_info.protein }}g</li>
-                    <li>Fat: {{ nutritional_info.fat }}g</li>
-                    <li>Carbohydrates: {{ nutritional_info.carbohydrates }}g</li>
-                    <li>Sugar: {{ nutritional_info.sugar }}g</li>
-                    <li>Fiber: {{ nutritional_info.fiber }}g</li>
-                </ul>
+        <!-- Nutritional Information Button -->
+        <button class="btn btn-info nutrition-btn" onclick="showNutritionalInfo()">
+            <i class="fas fa-chart-pie"></i> View Nutritional Information
+        </button>
+
+        <!-- Nutritional Information Modal -->
+        <div id="nutritionalModal" class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fas fa-chart-pie"></i> Nutritional Information</h2>
+                    <span class="close-modal" onclick="closeNutritionalModal()">&times;</span>
+                </div>
+                {% if nutritional_info %}
+                    <div class="nutrition-grid">
+                        <div class="nutrition-item">
+                            <span class="label">Calories</span>
+                            <span class="value">{{ nutritional_info.calories|default:"N/A"|floatformat:0 }}</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span class="label">Protein</span>
+                            <span class="value">{{ nutritional_info.protein|default:"N/A"|floatformat:1 }}g</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span class="label">Carbs</span>
+                            <span class="value">{{ nutritional_info.carbohydrates|default:"N/A"|floatformat:1 }}g</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span class="label">Fat</span>
+                            <span class="value">{{ nutritional_info.fat|default:"N/A"|floatformat:1 }}g</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span class="label">Fiber</span>
+                            <span class="value">{{ nutritional_info.fiber|default:"N/A"|floatformat:1 }}g</span>
+                        </div>
+                        <div class="nutrition-item">
+                            <span class="label">Sugar</span>
+                            <span class="value">{{ nutritional_info.sugar|default:"N/A"|floatformat:1 }}g</span>
+                        </div>
+                    </div>
+                    {% if is_ai_generated %}
+                        <div class="ai-badge">
+                            <i class="fas fa-robot"></i> AI-Generated Nutrition Facts
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <p class="no-data">Nutritional information not available for this recipe.</p>
+                {% endif %}
             </div>
-        {% endif %}
+        </div>
         <!-- Admin Controls for Nutritional Information -->
         {% if is_admin %}
             <div class="admin-controls">
@@ -468,12 +738,20 @@
                 <li>{{ ingredient.quantity }} {{ ingredient.measurement }} {{ ingredient.ingredient.name }}</li>
             {% endfor %}
         </ul> -->
-        <h2>Ingredients:</h2>
-<ul>
-{% for recipe_ingredient in ingredients %}
-    <li>{{ recipe_ingredient.quantity }} {{ recipe_ingredient.measurement }} {{ recipe_ingredient.ingredient.name }}</li>
-{% endfor %}
-</ul>  
+        <div class="ingredients-section">
+            <h2><i class="fas fa-mortar-pestle"></i> Ingredients</h2>
+            {% if recipe.recipe_ingredients.all %}
+                <ul class="ingredients-list">
+                    {% for recipe_ingredient in recipe.recipe_ingredients.all %}
+                        <li>
+                            {{ recipe_ingredient.quantity }} {{ recipe_ingredient.measurement }} {{ recipe_ingredient.ingredient.name }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="no-ingredients">No ingredients available for this recipe.</p>
+            {% endif %}
+        </div>
         <!-- Add this after the recipe meta information and before the instructions section -->
         {% if allergens.contains or allergens.may_contain or allergens.traces %}
         <div class="allergen-warnings">
@@ -547,15 +825,22 @@
         {% endif %}
         <!-- Instructions Section -->
         <div class="instructions-section">
-            <h2>Instructions</h2>
-            {% if instructions %}
-                <ol class="instructions-list">
-                    {% for step in instructions %}
-                        <li>{{ step|safe }}</li>
+            <h2><i class="fas fa-list-ol"></i> Instructions</h2>
+            {% if recipe.instructions %}
+                <div class="instructions-list">
+                    {% for step in recipe.instructions.splitlines %}
+                        {% if step %}
+                            <div class="instruction-step">
+                                <div class="step-content">
+                                    <div class="step-number">{{ forloop.counter }}</div>
+                                    <div class="step-text">{{ step|safe }}</div>
+                                </div>
+                            </div>
+                        {% endif %}
                     {% endfor %}
-                </ol>
+                </div>
             {% else %}
-                <p>No instructions available</p>
+                <p class="no-instructions">No instructions available for this recipe.</p>
             {% endif %}
         </div>
          <!-- <div class="ratings">
@@ -613,5 +898,22 @@
         </div>
         {% endif %}
     </div>
+
+    <script>
+    function showNutritionalInfo() {
+        document.getElementById('nutritionalModal').classList.add('active');
+    }
+
+    function closeNutritionalModal() {
+        document.getElementById('nutritionalModal').classList.remove('active');
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('nutritionalModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeNutritionalModal();
+        }
+    });
+    </script>
 </body>
 </html>

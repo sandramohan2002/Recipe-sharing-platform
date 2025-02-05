@@ -4,97 +4,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Account</title>
+    <title>Sign Up - Flavoraut</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
-            margin: 0;
-            display: flex;
-            height: 100vh;
-            font-family: Arial, sans-serif;
-            overflow: hidden;
+            background-color: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
         }
-        .left-panel {
-            width: 50%;
-            background-image: url("{% static 'images/signup.jpg' %}");
+
+        .signup-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 40px 0;
+        }
+
+        .signup-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 0 auto;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .row {
+            margin: 0;
+        }
+
+        .image-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
+                        url('{% static "images/team.jpg" %}');
             background-size: cover;
             background-position: center;
-        }
-        .right-panel {
-            width: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f7f7f7;
-            padding: 20px;
-        }
-        .signup-form {
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        .signup-form h2 {
-            color: #ff6f00;
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .signup-form p {
-            text-align: center;
-            font-size: 14px;
-            color: black;
-            margin-bottom: 15px;
-        }
-        .signup-form label {
-            font-weight: 500;
-            margin-bottom: 5px;
-            display: block;
-        }
-        .signup-form input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 12px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .signup-form button {
-            width: 100%;
-            padding: 10px;
-            background-color: #ff6f00;
+            padding: 40px;
             color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 600px;
+            position: relative;
         }
-        .signup-form button:hover {
-            background-color: #e65a00;
+
+        .image-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 107, 107, 0.9),
+                rgba(255, 107, 107, 0.7)
+            );
+            opacity: 0.2;
         }
-        .signup-form .error-message {
-            color: red;
-            margin-bottom: 12px;
+
+        .image-section > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .features {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            margin-top: 30px;
+        }
+
+        .feature {
+            padding: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateX(10px);
+        }
+
+        .feature i {
+            color: #ff6b6b;
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .feature span {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .welcome-text {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .welcome-text h2 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .welcome-text p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-section {
+            padding: 40px;
+            background: white;
+        }
+
+        .form-section h3 {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 30px;
             text-align: center;
         }
+
+        .form-floating {
+            margin-bottom: 20px;
+        }
+
+        .form-floating > label {
+            color: #666;
+        }
+
+        .form-control {
+            border: 2px solid #e1e1e1;
+            padding: 12px;
+            height: auto;
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            border-color: #ff6b6b;
+            box-shadow: none;
+        }
+
+        .btn-signup {
+            background: #ff6b6b;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-signup:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .form-text {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+
+        .form-text a {
+            color: #ff6b6b;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .form-text a:hover {
+            text-decoration: underline;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group-text {
+            background: transparent;
+            border: 2px solid #e1e1e1;
+            border-right: none;
+        }
+
+        .password-toggle {
+            cursor: pointer;
+            padding: 12px;
+            color: #666;
+        }
+
+        .form-section .row {
+            margin: 0 -10px;
+        }
+
+        .form-section .col-md-6 {
+            padding: 0 10px;
+        }
+
         @media (max-width: 768px) {
-            .left-panel {
-                display: none;
+            .image-section {
+                min-height: 300px;
             }
-            .right-panel {
-                width: 100%;
-                padding: 20px;
-            }
-            .signup-form {
-                width: 100%;
-                max-width: 100%;
-            }
-            .signup-form h2 {
-                font-size: 24px;
+            
+            .form-section {
+                padding: 30px 20px;
             }
         }
     </style>
@@ -154,39 +276,149 @@
 
             return true;
         }
+
+        // Age and Date of Birth validation
+        document.getElementById('date_of_birth').addEventListener('change', function(e) {
+            const birthDate = new Date(this.value);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            
+            if (age < 13) {
+                alert('You must be at least 13 years old to register.');
+                this.value = '';
+                document.getElementById('age').value = '';
+            } else {
+                document.getElementById('age').value = age;
+            }
+        });
+
+        // Mobile number validation
+        document.getElementById('mobile').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+            if (this.value.length > 10) {
+                this.value = this.value.slice(0, 10);
+            }
+        });
     </script>
 </head>
 <body>
-    <div class="left-panel"></div>
-    <div class="right-panel">
-        <form class="signup-form" onsubmit="return validateForm()" action="{% url 'signup' %}" method="POST">
-            {% csrf_token %}
-            <h2>Create Account</h2>
+    <div class="signup-container">
+        <div class="signup-card">
+            <div class="row g-0">
+                <div class="col-lg-6">
+                    <div class="image-section">
+                        <div class="welcome-text">
+                            <h2>Join Our Culinary Community</h2>
+                            <p>Discover, share, and celebrate the joy of cooking with food enthusiasts from around the world.</p>
+                        </div>
+                        <div class="features">
+                            <div class="feature d-flex align-items-center mb-3">
+                                <i class="fas fa-utensils"></i>
+                                <span>Share your signature recipes</span>
+                            </div>
+                            <div class="feature d-flex align-items-center mb-3">
+                                <i class="fas fa-book-open"></i>
+                                <span>Explore diverse cuisines</span>
+                            </div>
+                            <div class="feature d-flex align-items-center mb-3">
+                                <i class="fas fa-users"></i>
+                                <span>Connect with fellow foodies</span>
+                            </div>
+                            <div class="feature d-flex align-items-center">
+                                <i class="fas fa-star"></i>
+                                <span>Get inspired daily</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-section">
+                        <h3>Create Your Account</h3>
+                        <form method="POST" action="{% url 'signup' %}" enctype="multipart/form-data" onsubmit="return validateForm()">
+                            {% csrf_token %}
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" required>
+                                        <label for="name">Full Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                                        <label for="email">Email</label>
+                                    </div>
+                                </div>
+                            </div>
 
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required pattern="[A-Za-z\s]+" title="Name can only contain letters and spaces">
-            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control" id="age" name="age" placeholder="Age" min="13" max="120">
+                                        <label for="age">Age</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating">
+                                        <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Mobile" pattern="[0-9]{10}">
+                                        <label for="mobile">Mobile</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-floating">
+                                        <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" placeholder="Date of Birth">
+                                        <label for="date_of_birth">Date of Birth</label>
+                                    </div>
+                                </div>
+                            </div>
 
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="password1">Password</label>
-                <input type="password" id="password1" name="password1" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="password2">Confirm Password</label>
-                <input type="password" id="password2" name="password2" required>
-            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="password" class="form-control" id="password1" name="password1" placeholder="Password" required>
+                                        <label for="password1">Password</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm Password" required>
+                                        <label for="password2">Confirm Password</label>
+                                    </div>
+                                </div>
+                            </div>
 
-            <button type="submit">Register</button>
-            
-            <a href="{% url 'login' %}">Already have an account? Log in here</a>
-        </form>
+                            <div class="form-floating">
+                                <select class="form-control" id="diet_preference" name="diet_preference">
+                                    <option value="other">Select Preference</option>
+                                    <option value="veg">Vegetarian</option>
+                                    <option value="non_veg">Non-Vegetarian</option>
+                                    <option value="vegan">Vegan</option>
+                                    <option value="pescatarian">Pescatarian</option>
+                                </select>
+                                <label for="diet_preference">Dietary Preference</label>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="profile_image" class="form-label">Profile Picture</label>
+                                <input type="file" class="form-control" id="profile_image" name="profile_image" accept="image/*">
+                            </div>
+
+                            <button type="submit" class="btn btn-signup">Create Account</button>
+
+                            <p class="form-text">
+                                Already have an account? <a href="{% url 'login' %}">Login here</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
