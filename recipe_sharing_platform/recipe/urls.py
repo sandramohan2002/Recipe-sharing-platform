@@ -98,13 +98,15 @@ urlpatterns = [
     path('workshop/', views.workshop_view, name='workshop'),
     path('baking/', views.baking_view, name='baking'),
     path('food-photography/', views.food_photography_view, name='food_photography'),
-    path('event-registration/', views.event_registration, name='event_registration'),
+   
     path('api/toggle-favorite/', views.toggle_favorite, name='toggle_favorite'),
     
     path('events/create/', views.create_event, name='create_event'),
     path('events/my-events/', views.my_events, name='my_events'),
     path('events/view/', views.view_events, name='view_events'),
-    
+    path('event-registration/', views.event_registration, name='event_registration'),
+    path('events/edit/<int:event_id>/', views.edit_event, name='edit_event'),
+    path('events/delete/<int:event_id>/', views.delete_event, name='delete_event'),
 ]
 
 

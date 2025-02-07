@@ -1195,59 +1195,57 @@ def food_photography_view(request):
     return render(request, 'food_photography.html', photography_classes)
 
 def event_registration(request):
-    if request.method == 'POST':
-        name = request.POST.get('name', '').strip()
-        email = request.POST.get('email', '').strip()
-        phone = request.POST.get('phone', '').strip()
-        event = request.POST.get('event')
+    if not request.session.get('id'):
+        messages.error(request, 'Please login to register for events')
+        return redirect('login')
         
-        # Validation
-        errors = []
+    event_id = request.GET.get('event_id')
+    
+    try:
+        event = Event.objects.get(event_id=event_id)
+        available_spots = event.max_participants - event.current_participants
         
-        # Name validation
-        if not name or not name.replace(' ', '').isalpha():
-            errors.append('Name should contain only letters')
-        
-        # Email validation
-        email_regex = r'^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-        if not re.match(email_regex, email):
-            errors.append('Please enter a valid email address')
-        
-        # Phone validation
-        if not phone.isdigit() or len(phone) != 10:
-            errors.append('Phone number should be 10 digits')
-        
-        # Event validation
-        if not event:
-            errors.append('Please select an event')
-        
-        if errors:
-            for error in errors:
-                messages.error(request, error)
-            return render(request, 'event_registration.html', {'values': request.POST})
-        
-        try:
-            # Check for duplicate registration
-            if EventRegistration.objects.filter(email=email, event=event).exists():
-                messages.error(request, 'You have already registered for this event!')
-                return render(request, 'event_registration.html', {'values': request.POST})
-
-            # Save registration
-            EventRegistration.objects.create(
-                name=name,
-                email=email,
-                phone=phone,
-                event=event
+        if request.method == 'POST':
+            # Check if already registered
+            if EventRegistration.objects.filter(
+                event_id=event_id,
+                user_id=request.session.get('id')
+            ).exists():
+                messages.error(request, 'You are already registered for this event')
+                return redirect('view_events')
+                
+            # Check if event is full
+            if event.current_participants >= event.max_participants:
+                messages.error(request, 'Sorry, this event is already full')
+                return redirect('view_events')
+                
+            # Create registration
+            registration = EventRegistration.objects.create(
+                event_id=event_id,
+                user_id=request.session.get('id'),
+                name=request.POST.get('name'),
+                email=request.POST.get('email'),
+                phone=request.POST.get('phone'),
+                status='confirmed'
             )
             
-            messages.success(request, 'Registration successful! We will contact you soon.')
-            return redirect('homepage')
+            # Increment participants count
+            event.current_participants += 1
+            event.save()
             
-        except Exception as e:
-            messages.error(request, 'Registration failed. Please try again.')
-            return render(request, 'event_registration.html', {'values': request.POST})
-    
-    return render(request, 'event_registration.html')
+            messages.success(request, f'Successfully registered for {event.title}!')
+            return redirect('view_events')
+            
+        context = {
+            'event': event,
+            'user': CustomUser.objects.get(id=request.session.get('id')),
+            'available_spots': available_spots
+        }
+        return render(request, 'event_registration.html', context)
+        
+    except Event.DoesNotExist:
+        messages.error(request, 'Please select an event to register')
+        return redirect('view_events')
 
 def toggle_favorite(request):
     if request.method == 'POST':
@@ -1284,12 +1282,21 @@ def toggle_favorite(request):
 
 def create_event(request):
     if not request.session.get('id'):
-        messages.error(request, 'Please login to create an event')
+        messages.error(request, 'Please login to create events')
         return redirect('login')
-
+        
+    # Add event types for the dropdown
+    event_types = [
+        ('workshop', 'Workshop'),
+        ('class', 'Cooking Class'),
+        ('competition', 'Competition'),
+        ('tasting', 'Food Tasting'),
+        ('seminar', 'Culinary Seminar'),
+        ('other', 'Other')
+    ]
+    
     if request.method == 'POST':
         try:
-            # Create event with all form fields
             Event.objects.create(
                 user_id=request.session.get('id'),
                 title=request.POST.get('title'),
@@ -1300,17 +1307,19 @@ def create_event(request):
                 location=request.POST.get('location'),
                 max_participants=int(request.POST.get('max_participants')),
                 price=request.POST.get('price', 0),
+                duration_hours=int(request.POST.get('duration_hours', 1)),
+                duration_minutes=int(request.POST.get('duration_minutes', 0)),
+                instructor_name=request.POST.get('instructor_name'),
                 contact_email=request.POST.get('contact_email'),
                 contact_phone=request.POST.get('contact_phone'),
                 image=request.FILES.get('image')
             )
             messages.success(request, 'Event created successfully!')
-            return redirect('my_events')
+            return redirect('view_events')
         except Exception as e:
             messages.error(request, f'Error creating event: {str(e)}')
-            return render(request, 'create_event.html')
     
-    return render(request, 'create_event.html')
+    return render(request, 'create_event.html', {'event_types': event_types})
 
 def my_events(request):
     if not request.session.get('id'):
@@ -1321,10 +1330,26 @@ def my_events(request):
     return render(request, 'my_events.html', {'events': events})
 
 def view_events(request):
-    events = EventRegistration.objects.all().order_by('-registration_date')
-    return render(request, 'view_events.html', {
-        'events': events
-    })
+    if not request.session.get('id'):
+        messages.error(request, 'Please login to view events')
+        return redirect('login')
+    
+    # Get all events
+    all_events = Event.objects.filter(
+        event_date__gte=timezone.now().date()
+    ).order_by('event_date', 'event_time')
+    
+    # Get events created by the current user
+    user_events = Event.objects.filter(
+        user_id=request.session.get('id')
+    ).order_by('event_date', 'event_time')
+    
+    context = {
+        'all_events': all_events,
+        'user_events': user_events
+    }
+    
+    return render(request, 'view_events.html', context)
 
 @login_required
 def update_profile(request):
@@ -1341,4 +1366,72 @@ def update_profile(request):
         return redirect('profile')
     
     return redirect('profile')
+
+def edit_event(request, event_id):
+    if not request.session.get('id'):
+        messages.error(request, 'Please login to edit events')
+        return redirect('login')
+        
+    try:
+        event = Event.objects.get(event_id=event_id, user_id=request.session.get('id'))
+        
+        # Add event types for the dropdown
+        event_types = [
+            ('workshop', 'Workshop'),
+            ('class', 'Cooking Class'),
+            ('competition', 'Competition'),
+            ('tasting', 'Food Tasting'),
+            ('seminar', 'Culinary Seminar'),
+            ('other', 'Other')
+        ]
+        
+        if request.method == 'POST':
+            try:
+                event.title = request.POST.get('title')
+                event.description = request.POST.get('description')
+                event.event_type = request.POST.get('event_type')
+                event.event_date = request.POST.get('event_date')
+                event.event_time = request.POST.get('event_time')
+                event.location = request.POST.get('location')
+                event.max_participants = int(request.POST.get('max_participants'))
+                event.price = request.POST.get('price', 0)
+                event.duration_hours = int(request.POST.get('duration_hours', 1))
+                event.duration_minutes = int(request.POST.get('duration_minutes', 0))
+                event.contact_email = request.POST.get('contact_email')
+                event.contact_phone = request.POST.get('contact_phone')
+                
+                if 'image' in request.FILES:
+                    event.image = request.FILES['image']
+                    
+                event.save()
+                messages.success(request, 'Event updated successfully!')
+                return redirect('view_events')
+            except Exception as e:
+                messages.error(request, f'Error updating event: {str(e)}')
+        
+        context = {
+            'event': event,
+            'event_types': event_types
+        }
+        return render(request, 'edit_event.html', context)
+        
+    except Event.DoesNotExist:
+        messages.error(request, 'Event not found or you do not have permission to edit it')
+        return redirect('view_events')
+
+def delete_event(request, event_id):
+    if not request.session.get('id'):
+        messages.error(request, 'Please login to delete events')
+        return redirect('login')
+        
+    try:
+        event = Event.objects.get(event_id=event_id, user_id=request.session.get('id'))
+        event.delete()
+        messages.success(request, 'Event deleted successfully!')
+    except Event.DoesNotExist:
+        messages.error(request, 'Event not found or you do not have permission to delete it')
+    except Exception as e:
+        messages.error(request, f'Error deleting event: {str(e)}')
+        
+    return redirect('view_events')
 

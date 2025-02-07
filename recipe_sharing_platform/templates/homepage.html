@@ -282,127 +282,166 @@
 
         /* Advertisement Banner Styles */
         .advertisement-banner {
-            background: linear-gradient(45deg, #ff6f00, #ff9800);
-            padding: 20px 0;
-            margin: 30px 0;
-            position: relative;
+            background: linear-gradient(135deg, #ff6f00, #ff9100);
+            padding: 40px 0;
+            margin: 40px 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .ad-content {
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 20px;
+            border-radius: 15px;
+            padding: 30px;
         }
 
         .ad-text {
             color: white;
-            text-align: center;
         }
 
         .ad-text h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
+            font-size: 2rem;
+            margin-bottom: 30px;
             font-weight: 600;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .ad-text h3 i {
             color: #FFD700;
-            margin-right: 8px;
         }
 
         .event-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
             margin: 20px 0;
         }
 
         .event-item {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 12px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: transform 0.3s ease;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
 
         .event-item:hover {
-            transform: translateX(5px);
-            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
-        .event-item i {
-            font-size: 1.2rem;
-            color: #FFD700;
+        .event-item i.bi-calendar-event {
+            font-size: 2rem;
+            color: #ff6f00;
+            margin-bottom: 15px;
+            display: block;
         }
 
-        .event-item span {
-            font-size: 0.95rem;
-            font-weight: 500;
+        .event-details h4 {
+            color: #333;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            font-weight: 600;
         }
 
-        .event-item small {
-            margin-left: auto;
-            opacity: 0.9;
-            font-size: 0.85rem;
+        .event-details p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
         }
 
-        .register-btn {
-            display: inline-flex;
+        .event-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .event-meta span {
+            display: flex;
             align-items: center;
             gap: 8px;
-            background-color: white;
-            color: #ff6f00;
-            padding: 8px 20px;
-            border-radius: 20px;
+            color: #555;
             font-size: 0.95rem;
-            font-weight: 600;
-            text-decoration: none;
+        }
+
+        .event-meta i {
+            color: #ff6f00;
+            font-size: 1.1rem;
+        }
+
+        .btn-outline-primary {
+            color: #ff6f00;
+            border-color: #ff6f00;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 500;
             transition: all 0.3s ease;
-            margin-top: 10px;
+            width: 100%;
         }
 
-        .register-btn:hover {
-            background-color: #f8f9fa;
+        .btn-outline-primary:hover {
+            background-color: #ff6f00;
+            border-color: #ff6f00;
+            color: white;
             transform: translateY(-2px);
-            color: #e65100;
         }
 
-        .register-btn i {
-            transition: transform 0.3s ease;
+        /* Empty state styling */
+        .event-item.empty {
+            text-align: center;
+            padding: 40px;
         }
 
-        .register-btn:hover i {
-            transform: translateX(3px);
+        .event-item.empty i {
+            font-size: 3rem;
+            color: #ff6f00;
+            margin-bottom: 15px;
+        }
+
+        .event-item.empty span {
+            font-size: 1.2rem;
+            color: #333;
+            font-weight: 500;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .event-item.empty small {
+            color: #666;
+            font-size: 0.95rem;
         }
 
         @media (max-width: 768px) {
             .advertisement-banner {
-                padding: 15px 0;
-                margin: 20px 0;
+                padding: 30px 0;
+                margin: 30px 0;
+            }
+
+            .ad-text h3 {
+                font-size: 1.5rem;
             }
 
             .event-grid {
                 grid-template-columns: 1fr;
-                gap: 10px;
-            }
-
-            .ad-text h3 {
-                font-size: 1.2rem;
+                gap: 20px;
             }
 
             .event-item {
-                padding: 10px;
+                padding: 20px;
             }
 
-            .event-item span {
-                font-size: 0.9rem;
+            .event-details h4 {
+                font-size: 1.2rem;
             }
 
-            .register-btn {
-                padding: 6px 15px;
-                font-size: 0.9rem;
+            .event-meta {
+                grid-template-columns: 1fr;
+                gap: 8px;
             }
         }
 
@@ -459,32 +498,144 @@
             color: #ff6f00;
         }
 
-        /* Update event grid styles */
+        .advertisement-banner {
+            background: linear-gradient(135deg, #ff6f00, #ff9100);
+            padding: 40px 0;
+            margin: 40px 0;
+        }
+
+        .ad-content {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+        }
+
+        .ad-text {
+            color: white;
+        }
+
+        .ad-text h3 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
         .event-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
 
         .event-item {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 15px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
         }
 
         .event-item:hover {
-            transform: translateX(5px);
-            background: rgba(255, 255, 255, 1);
+            transform: translateY(-5px);
         }
 
-        .event-item i {
+        .event-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .event-header i {
+            font-size: 2rem;
             color: #ff6f00;
+        }
+
+        .event-header h4 {
+            color: #333;
+            margin: 0;
             font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .event-content p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .event-meta {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .meta-item i {
+            color: #ff6f00;
+        }
+
+        .event-actions {
+            text-align: right;
+        }
+
+        .btn-primary {
+            background: #ff6f00;
+            border-color: #ff6f00;
+            padding: 8px 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background: #e65100;
+            border-color: #e65100;
+            transform: translateX(5px);
+        }
+
+        .event-item.empty {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .event-item.empty i {
+            font-size: 3rem;
+            color: #ff6f00;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .event-item.empty span {
+            display: block;
+            color: #333;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .event-item.empty small {
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .event-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .event-meta {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -567,7 +718,7 @@
             <div class="hero-title-container">
                 <span class="chef-emoji">👨‍🍳</span>
                 <h1>Welcome to Flavornaut</h1>
-                <span class="chef-emoji">👨‍🍳</span>
+                <span class="chef-emoji">👨‍🍳‍</span>
             </div>
             <p>Discover amazing recipes from around the world and share your culinary creations with our community.</p>
         </div>
@@ -614,7 +765,7 @@
         </div>
     </section>
 
-    <!-- Advertisement Banner -->
+    <!-- Advertisement Banner for Upcoming Events -->
     <div class="advertisement-banner animate__animated animate__fadeIn">
         <div class="container">
             <div class="ad-content">
@@ -625,27 +776,46 @@
                     <div class="event-grid">
                         {% for event in upcoming_events %}
                         <div class="event-item animate__animated animate__fadeInLeft" style="animation-delay: {{ forloop.counter }}00ms">
-                            <i class="bi bi-calendar-event"></i>
-                            <span>{{ event.title }}</span>
-                            <small>{{ event.event_date|date:"F jS" }} at {{ event.event_time|time:"g:i A" }}</small>
+                            <div class="event-header">
+                                <i class="bi bi-calendar-event"></i>
+                                <h4>{{ event.title }}</h4>
+                            </div>
+                            <div class="event-content">
+                                <p>{{ event.description|truncatewords:20 }}</p>
+                                <div class="event-meta">
+                                    <div class="meta-item">
+                                        <i class="bi bi-calendar"></i>
+                                        <span>{{ event.event_date|date:"F j, Y" }}</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <i class="bi bi-clock"></i>
+                                        <span>{{ event.event_time|time:"g:i A" }}</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <i class="bi bi-geo-alt"></i>
+                                        <span>{{ event.location }}</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <i class="bi bi-people"></i>
+                                        <span>{{ event.current_participants }}/{{ event.max_participants }} participants</span>
+                                    </div>
+                                </div>
+                                <div class="event-actions">
+                                    <a href="{% url 'event_registration' %}?event_id={{ event.event_id }}" 
+                                       class="btn btn-primary btn-sm">
+                                        Register Now <i class="bi bi-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                         {% empty %}
-                        <div class="event-item animate__animated animate__fadeInLeft">
-                            <i class="bi bi-info-circle"></i>
-                            <span>No upcoming events</span>
-                            <small>Stay tuned!</small>
+                        <div class="event-item empty animate__animated animate__fadeInLeft">
+                            <i class="bi bi-calendar-x"></i>
+                            <span>No Upcoming Events</span>
+                            <small>Check back later for new events!</small>
                         </div>
                         {% endfor %}
                     </div>
-                    {% if request.session.id %}
-                        <a href="{% url 'create_event' %}" class="register-btn animate__animated animate__fadeInUp">
-                            Create Event <i class="bi bi-plus-circle"></i>
-                        </a>
-                    {% else %}
-                        <a href="{% url 'login' %}" class="register-btn animate__animated animate__fadeInUp">
-                            Login to Create Event <i class="bi bi-arrow-right"></i>
-                        </a>
-                    {% endif %}
                 </div>
             </div>
         </div>
