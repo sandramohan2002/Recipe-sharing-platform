@@ -22335,3 +22335,1371 @@ Creating converter from 7 to 5
 Creating converter from 5 to 7
 Creating converter from 7 to 5
 Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Internal Server Error: /event-registration/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.ProgrammingError: (1146, "Table 'recipe-sharing.event_registrations' doesn't exist")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 1212, in event_registration
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 808, in exists
+    return self.query.has_results(using=self.db)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 561, in has_results
+    return compiler.has_results()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 1145, in has_results
+    return bool(self.execute_sql(SINGLE))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 1175, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.ProgrammingError: (1146, "Table 'recipe-sharing.event_registrations' doesn't exist")
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\models.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\migrations\XXXX_fix_duplicate_address.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\migrations\XXXX_fix_duplicate_address.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Total recipes: 20
+Show my recipes: False
+Current user ID: 3
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 4, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 5, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 7, Recipe ID type: <class 'int'>, Name: Chicken Gravy
+Recipe ID: 8, Recipe ID type: <class 'int'>, Name: Kaipola
+Recipe ID: 9, Recipe ID type: <class 'int'>, Name: Cake
+Recipe ID: 10, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: yujnyutnyuny
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: sssss
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Unyyyy
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: syyjjj
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: test
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: No-Bake Chocolate Oat Bars
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: qqqq
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Chicken Pickle
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: gggggggggggggggg
+Total recipes: 0
+Show my recipes: True
+Current user ID: 3
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Internal Server Error: /event-registration/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.ProgrammingError: (1146, "Table 'recipe-sharing.recipe_event_registrations' doesn't exist")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 1217, in event_registration
+    user_id=request.session.get('id')
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 808, in exists
+    return self.query.has_results(using=self.db)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 561, in has_results
+    return compiler.has_results()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 1145, in has_results
+    return bool(self.execute_sql(SINGLE))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 1175, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.ProgrammingError: (1146, "Table 'recipe-sharing.recipe_event_registrations' doesn't exist")
+Total recipes: 20
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 4, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 5, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 7, Recipe ID type: <class 'int'>, Name: Chicken Gravy
+Recipe ID: 8, Recipe ID type: <class 'int'>, Name: Kaipola
+Recipe ID: 9, Recipe ID type: <class 'int'>, Name: Cake
+Recipe ID: 10, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: yujnyutnyuny
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: sssss
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Unyyyy
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: syyjjj
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: test
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: No-Bake Chocolate Oat Bars
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: qqqq
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Chicken Pickle
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: gggggggggggggggg
+Total recipes: 20
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 4, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 5, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 7, Recipe ID type: <class 'int'>, Name: Chicken Gravy
+Recipe ID: 8, Recipe ID type: <class 'int'>, Name: Kaipola
+Recipe ID: 9, Recipe ID type: <class 'int'>, Name: Cake
+Recipe ID: 10, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: yujnyutnyuny
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: sssss
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Unyyyy
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: syyjjj
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: test
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: No-Bake Chocolate Oat Bars
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: qqqq
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Chicken Pickle
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: gggggggggggggggg
+Internal Server Error: /event-registration/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.ProgrammingError: (1146, "Table 'recipe-sharing.recipe_event_registrations' doesn't exist")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 1217, in event_registration
+    user_id=request.session.get('id')
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 808, in exists
+    return self.query.has_results(using=self.db)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 561, in has_results
+    return compiler.has_results()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 1145, in has_results
+    return bool(self.execute_sql(SINGLE))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 1175, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.ProgrammingError: (1146, "Table 'recipe-sharing.recipe_event_registrations' doesn't exist")
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\templatetags\custom_filters.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Not Found: /favicon.ico
+Total recipes: 20
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 4, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 5, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 7, Recipe ID type: <class 'int'>, Name: Chicken Gravy
+Recipe ID: 8, Recipe ID type: <class 'int'>, Name: Kaipola
+Recipe ID: 9, Recipe ID type: <class 'int'>, Name: Cake
+Recipe ID: 10, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: yujnyutnyuny
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: sssss
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Unyyyy
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: syyjjj
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: test
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: No-Bake Chocolate Oat Bars
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: qqqq
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Chicken Pickle
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: gggggggggggggggg
+Internal Server Error: /events/view/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 1344, in view_events
+    return render(request, 'view_events.html', context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 214, in render
+    nodelist.append(node.render_annotated(context))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'edit_event' with arguments '('',)' not found. 1 pattern(s) tried: ['events\\/edit\\/(?P<event_id>[0-9]+)\\/\\Z']
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Internal Server Error: /events/view/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 1344, in view_events
+    return render(request, 'view_events.html', context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 214, in render
+    nodelist.append(node.render_annotated(context))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'edit_event' with arguments '('',)' not found. 1 pattern(s) tried: ['events\\/edit\\/(?P<event_id>[0-9]+)\\/\\Z']
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Not Found: /favicon.ico
+Total recipes: 20
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Strawberry Jam
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Motta Bonda
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 4, Recipe ID type: <class 'int'>, Name: Cutlet
+Recipe ID: 5, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 7, Recipe ID type: <class 'int'>, Name: Chicken Gravy
+Recipe ID: 8, Recipe ID type: <class 'int'>, Name: Kaipola
+Recipe ID: 9, Recipe ID type: <class 'int'>, Name: Cake
+Recipe ID: 10, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: yujnyutnyuny
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: sssss
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Unyyyy
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: syyjjj
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: test
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: No-Bake Chocolate Oat Bars
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: qqqq
+Recipe ID: 21, Recipe ID type: <class 'int'>, Name: Chicken Pickle
+Recipe ID: 22, Recipe ID type: <class 'int'>, Name: gggggggggggggggg
+Internal Server Error: /admin_dashboard/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 681, in admin_dashboard
+    return render(request, 'admin_dashboard.html',context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 34, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\engine.py", line 143, in get_template
+    template, origin = self.find_template(template_name)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\engine.py", line 125, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loaders\base.py", line 30, in get_template
+    contents, origin, origin.template_name, self.engine,
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 155, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 193, in compile_nodelist
+    return parser.parse()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 478, in parse
+    raise self.error(token, e)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 476, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 817, in do_for
+    nodelist_loop = parser.parse(('empty', 'endfor',))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 449, in parse
+    raise self.error(token, e)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 447, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 563, in compile_filter
+    return FilterExpression(token, self)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 657, in __init__
+    filter_func = parser.find_filter(filter_name)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 569, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'multiply'
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\templatetags\custom_filters.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\templatetags\custom_filters.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Internal Server Error: /admin_dashboard/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 702, in admin_dashboard
+    return render(request, 'admin_dashboard.html',context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 34, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\engine.py", line 143, in get_template
+    template, origin = self.find_template(template_name)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\engine.py", line 125, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loaders\base.py", line 30, in get_template
+    contents, origin, origin.template_name, self.engine,
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 155, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 193, in compile_nodelist
+    return parser.parse()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 478, in parse
+    raise self.error(token, e)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 476, in parse
+    compiled_result = compile_func(self, token)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 817, in do_for
+    nodelist_loop = parser.parse(('empty', 'endfor',))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 449, in parse
+    raise self.error(token, e)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 447, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 563, in compile_filter
+    return FilterExpression(token, self)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 657, in __init__
+    filter_func = parser.find_filter(filter_name)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 569, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'calculate_percentage'
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\templatetags\custom_filters.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\models.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\models.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\models.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Internal Server Error: /homepage/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.ProgrammingError: (1146, "Table 'recipe-sharing.recipe_event' doesn't exist")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 199, in homepage
+    return render(request, 'homepage.html', context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 171, in render
+    len_values = len(values)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 262, in __len__
+    self._fetch_all()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 1324, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 51, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 1175, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.ProgrammingError: (1146, "Table 'recipe-sharing.recipe_event' doesn't exist")
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\models.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Internal Server Error: /homepage/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.ProgrammingError: (1146, "Table 'recipe-sharing.recipe_event' doesn't exist")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 199, in homepage
+    return render(request, 'homepage.html', context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 171, in render
+    len_values = len(values)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 262, in __len__
+    self._fetch_all()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 1324, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 51, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 1175, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.ProgrammingError: (1146, "Table 'recipe-sharing.recipe_event' doesn't exist")
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\templatetags\__init__.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Internal Server Error: /manage_events/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 671, in manage_events
+    return render(request, 'manage_events.html')
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 34, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\engine.py", line 143, in get_template
+    template, origin = self.find_template(template_name)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\engine.py", line 125, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loaders\base.py", line 30, in get_template
+    contents, origin, origin.template_name, self.engine,
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 155, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 193, in compile_nodelist
+    return parser.parse()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 449, in parse
+    raise self.error(token, e)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 447, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 563, in compile_filter
+    return FilterExpression(token, self)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 663, in __init__
+    "from '%s'" % (token[upto:], token))
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '('created_by').distinct.count' from 'events.values('created_by').distinct.count'
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Internal Server Error: /manage_events/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1955, in add_fields
+    join_info = self.setup_joins(name.split(LOOKUP_SEP), opts, alias, allow_many=allow_m2m)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1649, in setup_joins
+    names[:pivot], opts, allow_many, fail_on_missing=True,
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1563, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'created_by' into field. Choices are: contact_email, contact_phone, created_at, current_participants, description, duration_hours, duration_minutes, event_date, event_id, event_time, event_type, image, location, max_participants, price, status, title, updated_at, user_id
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 675, in manage_events
+    'creator_count': Event.objects.values('created_by').distinct().count(),
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 840, in values
+    clone = self._values(*fields, **expressions)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 835, in _values
+    clone.query.set_values(fields)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 2272, in set_values
+    self.add_fields(field_names, True)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1983, in add_fields
+    "Choices are: %s" % (name, ", ".join(names)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'created_by' into field. Choices are: contact_email, contact_phone, created_at, current_participants, description, duration_hours, duration_minutes, event_date, event_id, event_time, event_type, image, location, max_participants, price, status, title, updated_at, user_id
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Internal Server Error: /manage_events/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1955, in add_fields
+    join_info = self.setup_joins(name.split(LOOKUP_SEP), opts, alias, allow_many=allow_m2m)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1649, in setup_joins
+    names[:pivot], opts, allow_many, fail_on_missing=True,
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1563, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'created_by' into field. Choices are: contact_email, contact_phone, created_at, current_participants, description, duration_hours, duration_minutes, event_date, event_id, event_time, event_type, image, location, max_participants, price, status, title, updated_at, user_id
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 675, in manage_events
+    'creator_count': Event.objects.values('user_id').distinct().count(),
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 840, in values
+    clone = self._values(*fields, **expressions)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 835, in _values
+    clone.query.set_values(fields)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 2272, in set_values
+    self.add_fields(field_names, True)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1983, in add_fields
+    "Choices are: %s" % (name, ", ".join(names)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'created_by' into field. Choices are: contact_email, contact_phone, created_at, current_participants, description, duration_hours, duration_minutes, event_date, event_id, event_time, event_type, image, location, max_participants, price, status, title, updated_at, user_id
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Internal Server Error: /manage_events/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 680, in manage_events
+    return render(request, 'manage_events.html', context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 171, in render
+    len_values = len(values)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 262, in __len__
+    self._fetch_all()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 1324, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 51, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 1162, in execute_sql
+    sql, params = self.as_sql()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 513, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 55, in pre_sql_setup
+    self.setup_query()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 46, in setup_query
+    self.select, self.klass_info, self.annotation_col_map = self.get_select()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 248, in get_select
+    related_klass_infos = self.get_related_selections(select)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 989, in get_related_selections
+    ', '.join(_get_field_choices()) or '(none)',
+django.core.exceptions.FieldError: Invalid field name(s) given in select_related: 'user'. Choices are: (none)
+Internal Server Error: /manage_events/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 680, in manage_events
+    return render(request, 'manage_events.html', context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 171, in render
+    len_values = len(values)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 262, in __len__
+    self._fetch_all()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 1324, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 51, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 1162, in execute_sql
+    sql, params = self.as_sql()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 513, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 55, in pre_sql_setup
+    self.setup_query()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 46, in setup_query
+    self.select, self.klass_info, self.annotation_col_map = self.get_select()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 248, in get_select
+    related_klass_infos = self.get_related_selections(select)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 989, in get_related_selections
+    ', '.join(_get_field_choices()) or '(none)',
+django.core.exceptions.FieldError: Invalid field name(s) given in select_related: 'user'. Choices are: (none)
+Internal Server Error: /manage_events/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 680, in manage_events
+    return render(request, 'manage_events.html', context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 171, in render
+    len_values = len(values)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 262, in __len__
+    self._fetch_all()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 1324, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 51, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 1162, in execute_sql
+    sql, params = self.as_sql()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 513, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 55, in pre_sql_setup
+    self.setup_query()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 46, in setup_query
+    self.select, self.klass_info, self.annotation_col_map = self.get_select()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 248, in get_select
+    related_klass_infos = self.get_related_selections(select)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 989, in get_related_selections
+    ', '.join(_get_field_choices()) or '(none)',
+django.core.exceptions.FieldError: Invalid field name(s) given in select_related: 'user'. Choices are: (none)
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Internal Server Error: /manage_events/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 680, in manage_events
+    event.user = None
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 171, in render
+    len_values = len(values)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 262, in __len__
+    self._fetch_all()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 1324, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 51, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 1162, in execute_sql
+    sql, params = self.as_sql()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 513, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 55, in pre_sql_setup
+    self.setup_query()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 46, in setup_query
+    self.select, self.klass_info, self.annotation_col_map = self.get_select()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 248, in get_select
+    related_klass_infos = self.get_related_selections(select)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 989, in get_related_selections
+    ', '.join(_get_field_choices()) or '(none)',
+django.core.exceptions.FieldError: Invalid field name(s) given in select_related: 'user'. Choices are: (none)
+Internal Server Error: /manage_events/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 680, in manage_events
+    event.user = None
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 171, in render
+    len_values = len(values)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 262, in __len__
+    self._fetch_all()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 1324, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 51, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 1162, in execute_sql
+    sql, params = self.as_sql()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 513, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 55, in pre_sql_setup
+    self.setup_query()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 46, in setup_query
+    self.select, self.klass_info, self.annotation_col_map = self.get_select()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 248, in get_select
+    related_klass_infos = self.get_related_selections(select)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 989, in get_related_selections
+    ', '.join(_get_field_choices()) or '(none)',
+django.core.exceptions.FieldError: Invalid field name(s) given in select_related: 'user'. Choices are: (none)
+Internal Server Error: /manage_events/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 680, in manage_events
+    event.user = None
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 171, in render
+    len_values = len(values)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 262, in __len__
+    self._fetch_all()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 1324, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 51, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 1162, in execute_sql
+    sql, params = self.as_sql()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 513, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 55, in pre_sql_setup
+    self.setup_query()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 46, in setup_query
+    self.select, self.klass_info, self.annotation_col_map = self.get_select()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 248, in get_select
+    related_klass_infos = self.get_related_selections(select)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 989, in get_related_selections
+    ', '.join(_get_field_choices()) or '(none)',
+django.core.exceptions.FieldError: Invalid field name(s) given in select_related: 'user'. Choices are: (none)
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Not Found: /events/2/edit/
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7

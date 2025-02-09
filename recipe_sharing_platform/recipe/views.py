@@ -23,6 +23,7 @@ from django.utils import timezone
 from .image_classifier import RecipeImageClassifier
 from django.conf import settings
 from .ai_utils import get_nutritional_info_from_ai
+from django.db.models import Count
 
 
 logger = logging.getLogger(__name__)
@@ -606,19 +607,39 @@ def profile_change(request):
 # ADMIN DASHBOARD VIEW
 #@login_required(login_url='login')
 def admin_dashboard(request):
-    if request.user and request.user.is_admin:
-        # User is an admin, fetch data and show admin dashboard
-        recipes = Recipe.objects.all()
-        users = CustomUser.objects.all()
+    if not request.session.get('id'):
+        return redirect('login')
+        
+    try:
+        user = CustomUser.objects.get(id=request.session.get('id'))
+        if not user.is_admin:
+            return redirect('homepage')
+            
+        events = Event.objects.all().order_by('-created_at')
+        event_data = []
+        
+        for event in events:
+            try:
+                organizer = CustomUser.objects.get(id=event.user_id)
+                event.organizer = organizer
+            except CustomUser.DoesNotExist:
+                event.organizer = None
+            event_data.append(event)
+            
         context = {
-            'recipes': recipes,
-            'users': users,
+            'total_events': Event.objects.count(),
+            'active_events': Event.objects.filter(status='upcoming').count(),
+            'total_registrations': EventRegistration.objects.count(),
+            'total_organizers': Event.objects.values('user_id').distinct().count(),
+            'events': event_data,
+            'recipes': Recipe.objects.all(),
+            'users': CustomUser.objects.all()
         }
+        
         return render(request, 'admin_dashboard.html', context)
-    else:
-        # User is not an admin, show error and redirect
-        messages.error(request, 'You do not have permission to access this page.')
-        return redirect('homepage')
+        
+    except CustomUser.DoesNotExist:
+        return redirect('login')
     
 def block_user(request, user_id):
     user = get_object_or_404(CustomUser, id=user_id)
@@ -648,7 +669,22 @@ def manage_subcategories(request):
     return render(request, 'manage_subcategories.html')
 
 def manage_events(request):
-    return render(request, 'manage_events.html')
+    # Get all events
+    events = Event.objects.all().order_by('-created_at')
+    
+    # Get all users in a single query to avoid multiple database hits
+    user_dict = {user.id: user for user in CustomUser.objects.all()}
+    
+    # Attach user objects to events
+    for event in events:
+        event.user = user_dict.get(event.user_id)
+    
+    context = {
+        'events': events,
+        'creator_count': Event.objects.values('user_id').distinct().count(),
+        'active_events_count': Event.objects.filter(status='upcoming').count()
+    }
+    return render(request, 'manage_events.html', context)
 
 
 
@@ -1195,57 +1231,59 @@ def food_photography_view(request):
     return render(request, 'food_photography.html', photography_classes)
 
 def event_registration(request):
-    if not request.session.get('id'):
-        messages.error(request, 'Please login to register for events')
-        return redirect('login')
+    if request.method == 'POST':
+        name = request.POST.get('name', '').strip()
+        email = request.POST.get('email', '').strip()
+        phone = request.POST.get('phone', '').strip()
+        event = request.POST.get('event')
         
-    event_id = request.GET.get('event_id')
-    
-    try:
-        event = Event.objects.get(event_id=event_id)
-        available_spots = event.max_participants - event.current_participants
+        # Validation
+        errors = []
         
-        if request.method == 'POST':
-            # Check if already registered
-            if EventRegistration.objects.filter(
-                event_id=event_id,
-                user_id=request.session.get('id')
-            ).exists():
-                messages.error(request, 'You are already registered for this event')
-                return redirect('view_events')
-                
-            # Check if event is full
-            if event.current_participants >= event.max_participants:
-                messages.error(request, 'Sorry, this event is already full')
-                return redirect('view_events')
-                
-            # Create registration
-            registration = EventRegistration.objects.create(
-                event_id=event_id,
-                user_id=request.session.get('id'),
-                name=request.POST.get('name'),
-                email=request.POST.get('email'),
-                phone=request.POST.get('phone'),
-                status='confirmed'
+        # Name validation
+        if not name or not name.replace(' ', '').isalpha():
+            errors.append('Name should contain only letters')
+        
+        # Email validation
+        email_regex = r'^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        if not re.match(email_regex, email):
+            errors.append('Please enter a valid email address')
+        
+        # Phone validation
+        if not phone.isdigit() or len(phone) != 10:
+            errors.append('Phone number should be 10 digits')
+        
+        # Event validation
+        if not event:
+            errors.append('Please select an event')
+        
+        if errors:
+            for error in errors:
+                messages.error(request, error)
+            return render(request, 'event_registration.html', {'values': request.POST})
+        
+        try:
+            # Check for duplicate registration
+            if EventRegistration.objects.filter(email=email, event=event).exists():
+                messages.error(request, 'You have already registered for this event!')
+                return render(request, 'event_registration.html', {'values': request.POST})
+
+            # Save registration
+            EventRegistration.objects.create(
+                name=name,
+                email=email,
+                phone=phone,
+                event=event
             )
             
-            # Increment participants count
-            event.current_participants += 1
-            event.save()
+            messages.success(request, 'Registration successful! We will contact you soon.')
+            return redirect('homepage')
             
-            messages.success(request, f'Successfully registered for {event.title}!')
-            return redirect('view_events')
-            
-        context = {
-            'event': event,
-            'user': CustomUser.objects.get(id=request.session.get('id')),
-            'available_spots': available_spots
-        }
-        return render(request, 'event_registration.html', context)
-        
-    except Event.DoesNotExist:
-        messages.error(request, 'Please select an event to register')
-        return redirect('view_events')
+        except Exception as e:
+            messages.error(request, 'Registration failed. Please try again.')
+            return render(request, 'event_registration.html', {'values': request.POST})
+    
+    return render(request, 'event_registration.html')
 
 def toggle_favorite(request):
     if request.method == 'POST':
@@ -1282,19 +1320,9 @@ def toggle_favorite(request):
 
 def create_event(request):
     if not request.session.get('id'):
-        messages.error(request, 'Please login to create events')
+        messages.error(request, 'Please login to create an event')
         return redirect('login')
-        
-    # Add event types for the dropdown
-    event_types = [
-        ('workshop', 'Workshop'),
-        ('class', 'Cooking Class'),
-        ('competition', 'Competition'),
-        ('tasting', 'Food Tasting'),
-        ('seminar', 'Culinary Seminar'),
-        ('other', 'Other')
-    ]
-    
+
     if request.method == 'POST':
         try:
             Event.objects.create(
@@ -1319,7 +1347,7 @@ def create_event(request):
         except Exception as e:
             messages.error(request, f'Error creating event: {str(e)}')
     
-    return render(request, 'create_event.html', {'event_types': event_types})
+    return render(request, 'create_event.html')
 
 def my_events(request):
     if not request.session.get('id'):
@@ -1434,4 +1462,3 @@ def delete_event(request, event_id):
         messages.error(request, f'Error deleting event: {str(e)}')
         
     return redirect('view_events')
-

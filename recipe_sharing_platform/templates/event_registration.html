@@ -1,5 +1,4 @@
 {% load static %}
-{% load custom_filters %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -158,40 +157,36 @@
         </a>
 
         <!-- Event Details Card -->
-        <div class="event-details-card mb-4">
+        <div class="event-details-card">
             {% if event.image %}
                 <img src="{{ event.image.url }}" alt="{{ event.title }}" class="event-image">
+            {% else %}
+                <div class="event-image bg-light d-flex align-items-center justify-content-center">
+                    <i class="bi bi-image text-muted" style="font-size: 2rem;"></i>
+                </div>
             {% endif %}
+
             <div class="event-info">
                 <span class="event-type">{{ event.get_event_type_display }}</span>
-                <h2>{{ event.title }}</h2>
-                <p>{{ event.description }}</p>
-                
-                <div class="event-meta">
+                <h3>{{ event.title }}</h3>
+                <p class="text-muted">{{ event.description }}</p>
+
+                <div class="event-meta mt-4">
                     <div class="meta-item">
                         <i class="bi bi-calendar"></i>
-                        <span>Date:</span> {{ event.event_date|date:"F j, Y" }}
+                        <span>Date: {{ event.event_date|date:"F d, Y" }}</span>
                     </div>
                     <div class="meta-item">
                         <i class="bi bi-clock"></i>
-                        <span>Time:</span> {{ event.event_time|time:"g:i A" }}
+                        <span>Time: {{ event.event_time|time:"g:i A" }}</span>
                     </div>
                     <div class="meta-item">
                         <i class="bi bi-geo-alt"></i>
-                        <span>Location:</span> {{ event.location }}
-                    </div>
-                    <div class="meta-item">
-                        <i class="bi bi-people"></i>
-                        <span>Available Spots:</span> 
-                        {{ available_spots }} of {{ event.max_participants }}
-                    </div>
-                    <div class="meta-item">
-                        <i class="bi bi-clock-history"></i>
-                        <span>Duration:</span> {{ event.duration_hours }}h {{ event.duration_minutes }}m
+                        <span>Location: {{ event.location }}</span>
                     </div>
                     <div class="meta-item">
                         <i class="bi bi-currency-rupee"></i>
-                        <span>Price:</span> ₹{{ event.price }}
+                        <span>Price: ₹{{ event.price }}</span>
                     </div>
                 </div>
             </div>
@@ -199,27 +194,38 @@
 
         <!-- Registration Form -->
         <div class="registration-form">
-            <h3 class="form-title">Registration Details</h3>
-            <form method="POST" onsubmit="return validateForm()">
+            <h2 class="form-title">Register for Event</h2>
+
+            {% if messages %}
+            <div class="messages mb-4">
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <form method="POST" id="registrationForm" onsubmit="return validateForm()">
                 {% csrf_token %}
+                <input type="hidden" name="event_id" value="{{ event.id }}">
+                
                 <div class="mb-3">
                     <label class="form-label">Full Name</label>
-                    <input type="text" class="form-control" id="name" name="name" 
-                           value="{{ user.name }}" required>
+                    <input type="text" class="form-control" id="name" name="name" required>
                     <div class="error-message" id="nameError"></div>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Email Address</label>
-                    <input type="email" class="form-control" id="email" name="email" 
-                           value="{{ user.email }}" required>
+                    <input type="email" class="form-control" id="email" name="email" required>
                     <div class="error-message" id="emailError"></div>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Phone Number</label>
-                    <input type="tel" class="form-control" id="phone" name="phone" 
-                           value="{{ user.mobile }}" required>
+                    <input type="tel" class="form-control" id="phone" name="phone" required>
                     <div class="error-message" id="phoneError"></div>
                 </div>
 

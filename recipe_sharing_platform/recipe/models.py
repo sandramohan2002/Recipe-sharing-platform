@@ -224,29 +224,20 @@ class RecipeIngredient(models.Model):
         return f"{self.quantity} {self.measurement} of {self.ingredient.name} for {self.recipe.recipename}"
 
 class EventRegistration(models.Model):
-    id = models.AutoField(primary_key=True)
-    event_id = models.IntegerField()  # Instead of ForeignKey
-    user_id = models.IntegerField()   # Instead of ForeignKey
+    EVENT_CHOICES = [
+        ('italian', 'Italian Cuisine Workshop'),
+        ('bread', 'Bread Making Masterclass'),
+        ('photography', 'Food Photography Session'),
+    ]
+
     name = models.CharField(max_length=100)
     email = models.EmailField()
-    phone = models.CharField(max_length=15)
+    phone = models.CharField(max_length=10)
+    event = models.CharField(max_length=20, choices=EVENT_CHOICES)
     registration_date = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(
-        max_length=20,
-        choices=[
-            ('pending', 'Pending'),
-            ('confirmed', 'Confirmed'),
-            ('cancelled', 'Cancelled')
-        ],
-        default='pending'
-    )
-
-    class Meta:
-        db_table = 'event_registrations'
-        unique_together = ('event_id', 'user_id')  # Prevent duplicate registrations
 
     def __str__(self):
-        return f"{self.name} - {self.event_id}"
+        return f"{self.name} - {self.get_event_display()}"
 
 class Favorite(models.Model):
     user_id = models.IntegerField()  # Instead of ForeignKey to CustomUser

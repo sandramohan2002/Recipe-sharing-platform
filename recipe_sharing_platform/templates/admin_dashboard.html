@@ -218,7 +218,7 @@
             <h2>Dashboard</h2>
             <a href="#" id="manageRecipes"><i class="bi bi-journal-richtext"></i> Manage Recipes</a>
             <a href="{% url 'ingredient_list' %}"><i class="bi bi-egg-fried"></i> Manage Ingredients</a>
-            <a href="{% url 'nutritional_info_list' %}"><i class="bi bi-clipboard-data"></i> Manage Nutrition Info</a>  
+            {% comment %} <a href="{% url 'nutritional_info_list' %}"><i class="bi bi-clipboard-data"></i> Manage Nutrition Info</a>   {% endcomment %}
             <a href="{% url 'category_list' %}"><i class="bi bi-tags"></i> Manage Categories</a> 
             <a href="#" id="manageUsers"><i class="bi bi-people"></i> Manage Users</a>
             <a href="{% url 'subcategory_list' %}"><i class="bi bi-diagram-3"></i> Manage Subcategories</a>
