@@ -177,23 +177,17 @@ def logout(request):
 
 #HOMEPAGE VIEW
 def homepage(request):
-    # Get upcoming events (next 30 days)
+    # Get current date
     current_date = timezone.now().date()
-    upcoming_events = Event.objects.filter(
-        event_date__gte=current_date,
-        event_date__lte=current_date + timezone.timedelta(days=30),
-        status='upcoming'
-    ).order_by('event_date', 'event_time')[:3]  # Show only next 3 events
-
+    
     # Get featured events (all upcoming events with images)
     featured_events = Event.objects.filter(
         event_date__gte=current_date,
         status='upcoming',
         image__isnull=False
     ).order_by('event_date', 'event_time')[:6]  # Show up to 6 featured events
-
+    
     context = {
-        'upcoming_events': upcoming_events,
         'featured_events': featured_events,
         'guest_message': "Welcome, Guest! Please log in or sign up.",
     }
