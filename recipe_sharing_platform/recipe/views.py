@@ -383,27 +383,95 @@ def addrecipe(request):
 
 def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
-    context = {
-        'recipe': recipe,
-        'is_logged_in': 'id' in request.session,
-    }
     
+    # Get the user name from CustomUser model
+    try:
+        recipe_author = CustomUser.objects.get(id=recipe.user_id)
+        author_name = recipe_author.name
+    except CustomUser.DoesNotExist:
+        author_name = "Unknown User"
+    
+    # Get the user_id from request.session
+    user_id = request.session.get('id')
+    is_logged_in = user_id is not None
+    
+    # Get reviews
+    try:
+        reviews = Review.objects.filter(recipe_id=recipe_id).values(
+            'review_id', 'user_id', 'review_text', 'created_at'
+        ).order_by('-created_at')
+        
+        # Fetch user names for reviews
+        for review in reviews:
+            try:
+                user = CustomUser.objects.get(id=review['user_id'])
+                review['user_name'] = user.name
+            except CustomUser.DoesNotExist:
+                review['user_name'] = "Unknown User"
+    except:
+        reviews = []
+
+    # Get category and subcategory
+    try:
+        category = Category.objects.get(category_id=recipe.category_id)
+        category_name = category.name
+    except Category.DoesNotExist:
+        category_name = "Unknown Category"
+    
+    try:
+        subcategory = SubCategory.objects.get(subcategory_id=recipe.subcategory_id)
+        subcategory_name = subcategory.name
+    except SubCategory.DoesNotExist:
+        subcategory_name = "Unknown Subcategory"
+
     # Get nutritional info
     try:
         nutritional_info = NutritionalInformation.objects.get(recipe_id=recipe_id)
     except NutritionalInformation.DoesNotExist:
-        # Try to get AI-generated nutritional info
         nutritional_info = None
-        if settings.GEMINI_API_KEY:
-            ai_nutrition = get_nutritional_info_from_ai(recipe.recipename, settings.GEMINI_API_KEY)
-            if ai_nutrition:
-                nutritional_info = NutritionalInformation.objects.create(
-                    recipe_id=recipe_id,
-                    **ai_nutrition
-                )
-                context['is_ai_generated'] = True
+
+    # Get ingredients
+    ingredients = recipe.recipe_ingredients.all().select_related('ingredient')
+
+    # Split instructions into a list
+    instructions = [inst.strip() for inst in recipe.instructions.split('\n') if inst.strip()]
+
+    # Fetch allergens and organize them by severity
+    allergens = {
+        'contains': [],
+        'may_contain': [],
+        'traces': []
+    }
     
-    context['nutritional_info'] = nutritional_info
+    recipe_allergens = RecipeAllergen.objects.filter(recipe_id=recipe_id)
+    for allergen in recipe_allergens:
+        allergen_info = {
+            'name': allergen.get_allergen_name_display(),
+            'notes': allergen.notes
+        }
+        allergens[allergen.severity].append(allergen_info)
+
+    # Check if user is admin
+    is_admin = request.user.is_admin if hasattr(request.user, 'is_admin') else False
+
+    context = {
+        'recipe': recipe,
+        'author_name': author_name,
+        'category_name': category_name,
+        'subcategory_name': subcategory_name,
+        'instructions': instructions,
+        'nutritional_info': nutritional_info,
+        'ingredients': ingredients,
+        'allergens': allergens,
+        'has_allergens': any(allergens.values()),
+        'reviews': reviews,
+        'reviews_display': True,
+        'is_admin': is_admin,
+        'is_logged_in': is_logged_in,
+        'user_id': user_id,
+        'messages': messages.get_messages(request)
+    }
+    
     return render(request, 'recipe_detail.html', context)
 
 #for edting recipes on recipe page for user
@@ -719,20 +787,41 @@ def admin_dashboard(request):
 ##recipe manager add_recipe
 #code for add_recipe in recipe manager dashboard
 def add_recipe(request):
-    # Check if the user is logged in by verifying 'id' in the session
     if 'id' not in request.session:
-        return redirect('login')  # Redirect to login page if not logged in
+        return redirect('login')
 
     if request.method == 'POST':
         recipe_form = RecipeForm(request.POST, request.FILES)
         nutritional_info_form = NutritionalInformationForm(request.POST)
 
         if recipe_form.is_valid() and nutritional_info_form.is_valid():
-            recipe = recipe_form.save()  # Save the recipe first
-            nutritional_info = nutritional_info_form.save(commit=False)  # Do not save yet
-            nutritional_info.recipe = recipe  # Link it to the recipe
-            nutritional_info.save()  # Now save the nutritional info
+            recipe = recipe_form.save(commit=False)
+            
+            # If an image was uploaded, classify it
+            if 'image' in request.FILES:
+                try:
+                    classifier = RecipeImageClassifier()
+                    classification = classifier.classify_image(request.FILES['image'])
+                    
+                    # Add classification results to recipe
+                    recipe.image_category = classification['category']
+                    recipe.category_confidence = classification['confidence']
+                    
+                    # If it's not a food image, add a message
+                    if not classification['is_food']:
+                        messages.warning(request, "The uploaded image might not be a food image.")
+                        
+                except Exception as e:
+                    messages.error(request, f"Error classifying image: {str(e)}")
+            
+            recipe.save()
+            
+            # Save nutritional info
+            nutritional_info = nutritional_info_form.save(commit=False)
+            nutritional_info.recipe = recipe
+            nutritional_info.save()
 
+            messages.success(request, 'Recipe added successfully!')
             return redirect('admin_dashboard')
     else:
         recipe_form = RecipeForm()
@@ -1230,12 +1319,14 @@ def food_photography_view(request):
     }
     return render(request, 'food_photography.html', photography_classes)
 
-def event_registration(request):
+def event_registration(request, event_id):
+    # Get the event details
+    event = get_object_or_404(Event, event_id=event_id)
+    
     if request.method == 'POST':
         name = request.POST.get('name', '').strip()
         email = request.POST.get('email', '').strip()
         phone = request.POST.get('phone', '').strip()
-        event = request.POST.get('event')
         
         # Validation
         errors = []
@@ -1253,37 +1344,42 @@ def event_registration(request):
         if not phone.isdigit() or len(phone) != 10:
             errors.append('Phone number should be 10 digits')
         
-        # Event validation
-        if not event:
-            errors.append('Please select an event')
-        
         if errors:
             for error in errors:
                 messages.error(request, error)
-            return render(request, 'event_registration.html', {'values': request.POST})
+            return render(request, 'event_registration.html', {
+                'event': event,
+                'values': request.POST
+            })
         
         try:
             # Check for duplicate registration
-            if EventRegistration.objects.filter(email=email, event=event).exists():
+            if EventRegistration.objects.filter(email=email, event_id=event_id).exists():
                 messages.error(request, 'You have already registered for this event!')
-                return render(request, 'event_registration.html', {'values': request.POST})
+                return render(request, 'event_registration.html', {
+                    'event': event,
+                    'values': request.POST
+                })
 
             # Save registration
             EventRegistration.objects.create(
                 name=name,
                 email=email,
                 phone=phone,
-                event=event
+                event_id=event_id
             )
             
-            messages.success(request, 'Registration successful! We will contact you soon.')
-            return redirect('homepage')
+            messages.success(request, 'Registration successful!')
+            return redirect('view_events')
             
         except Exception as e:
             messages.error(request, 'Registration failed. Please try again.')
-            return render(request, 'event_registration.html', {'values': request.POST})
+            return render(request, 'event_registration.html', {
+                'event': event,
+                'values': request.POST
+            })
     
-    return render(request, 'event_registration.html')
+    return render(request, 'event_registration.html', {'event': event})
 
 def toggle_favorite(request):
     if request.method == 'POST':

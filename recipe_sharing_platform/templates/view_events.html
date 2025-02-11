@@ -279,8 +279,7 @@
                                         <i class="bi bi-trash"></i> Delete Event
                                     </button>
                                     {% else %}
-                                    <a href="{% url 'event_registration' %}?event_id={{ event.event_id }}" 
-                                       class="register-btn btn mt-3">
+                                    <a href="{% url 'event_registration' event.event_id %}" class="register-btn btn mt-3">
                                         Register Now
                                     </a>
                                     {% endif %}

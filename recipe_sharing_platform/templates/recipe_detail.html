@@ -633,6 +633,16 @@
             color: #666;
             font-style: italic;
         }
+
+        .recipe-classification {
+            margin: 15px 0;
+        }
+        .badge.bg-info {
+            background-color: #17a2b8;
+            color: white;
+            padding: 5px 10px;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
@@ -753,14 +763,14 @@
             {% endif %}
         </div>
         <!-- Add this after the recipe meta information and before the instructions section -->
-        {% if allergens.contains or allergens.may_contain or allergens.traces %}
+        {% if has_allergens %}
         <div class="allergen-warnings">
             <div class="allergen-section">
                 <h4><i class="fas fa-exclamation-triangle"></i> Allergen Information</h4>
                 
                 {% if allergens.contains %}
                 <div class="allergen-group contains">
-                    <h5>Contains:</h5>
+                    <h5><i class="fas fa-exclamation-circle text-danger"></i> Contains:</h5>
                     <div class="allergen-tags">
                         {% for allergen in allergens.contains %}
                         <div class="allergen-tag">
@@ -781,7 +791,7 @@
                 
                 {% if allergens.may_contain %}
                 <div class="allergen-group may-contain">
-                    <h5>May Contain:</h5>
+                    <h5><i class="fas fa-exclamation-triangle text-warning"></i> May Contain:</h5>
                     <div class="allergen-tags">
                         {% for allergen in allergens.may_contain %}
                         <div class="allergen-tag">
@@ -802,7 +812,7 @@
                 
                 {% if allergens.traces %}
                 <div class="allergen-group traces">
-                    <h5>Traces:</h5>
+                    <h5><i class="fas fa-info-circle text-info"></i> Traces:</h5>
                     <div class="allergen-tags">
                         {% for allergen in allergens.traces %}
                         <div class="allergen-tag">
