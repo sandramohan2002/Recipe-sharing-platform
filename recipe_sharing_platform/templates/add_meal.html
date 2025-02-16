@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h3>Add Meal to Plan</h3>
+        </div>
+        <div class="card-body">
+            <form method="post" class="meal-form">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="plan_date" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="plan_date" name="plan_date" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="meal_type" class="form-label">Meal Type</label>
+                    <select class="form-select" id="meal_type" name="meal_type" required>
+                        <option value="">Select meal type</option>
+                        <option value="breakfast">Breakfast</option>
+                        <option value="lunch">Lunch</option>
+                        <option value="dinner">Dinner</option>
+                        <option value="snack">Snack</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="recipe_id" class="form-label">Recipe</label>
+                    <select class="form-select" id="recipe_id" name="recipe_id" required>
+                        <option value="">Select recipe</option>
+                        {% for recipe in recipes %}
+                            <option value="{{ recipe.recipe_id }}" 
+                                    data-calories="{{ recipe.nutritional_info.calories }}"
+                                    data-protein="{{ recipe.nutritional_info.protein }}"
+                                    data-carbs="{{ recipe.nutritional_info.carbohydrates }}"
+                                    data-fat="{{ recipe.nutritional_info.fat }}">
+                                {{ recipe.recipename }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="servings" class="form-label">Number of Servings</label>
+                    <input type="number" class="form-control" id="servings" name="servings" min="1" value="1" required>
+                </div>
+
+                <div class="nutrition-info mb-3">
+                    <h4>Nutritional Information (per serving)</h4>
+                    <input type="hidden" id="calories" name="calories">
+                    <input type="hidden" id="protein" name="protein">
+                    <input type="hidden" id="carbs" name="carbs">
+                    <input type="hidden" id="fat" name="fat">
+                    <div id="nutrition-display">
+                        <p>Calories: <span id="calories-display">0</span></p>
+                        <p>Protein: <span id="protein-display">0</span>g</p>
+                        <p>Carbs: <span id="carbs-display">0</span>g</p>
+                        <p>Fat: <span id="fat-display">0</span>g</p>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="notes" class="form-label">Notes</label>
+                    <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary">Add to Meal Plan</button>
+                    <a href="{% url 'meal_planner' %}" class="btn btn-secondary">Back to Meal Planner</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const recipeSelect = document.getElementById('recipe_id');
+    const servingsInput = document.getElementById('servings');
+    
+    function updateNutritionInfo() {
+        const selectedOption = recipeSelect.options[recipeSelect.selectedIndex];
+        const servings = parseInt(servingsInput.value) || 1;
+        
+        if (selectedOption.value) {
+            const calories = parseFloat(selectedOption.dataset.calories) * servings;
+            const protein = parseFloat(selectedOption.dataset.protein) * servings;
+            const carbs = parseFloat(selectedOption.dataset.carbs) * servings;
+            const fat = parseFloat(selectedOption.dataset.fat) * servings;
+            
+            document.getElementById('calories').value = calories;
+            document.getElementById('protein').value = protein;
+            document.getElementById('carbs').value = carbs;
+            document.getElementById('fat').value = fat;
+            
+            document.getElementById('calories-display').textContent = calories.toFixed(1);
+            document.getElementById('protein-display').textContent = protein.toFixed(1);
+            document.getElementById('carbs-display').textContent = carbs.toFixed(1);
+            document.getElementById('fat-display').textContent = fat.toFixed(1);
+        }
+    }
+    
+    recipeSelect.addEventListener('change', updateNutritionInfo);
+    servingsInput.addEventListener('input', updateNutritionInfo);
+    
+    // Set today as the default date
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('plan_date').value = today;
+});
+</script>
+
+<style>
+.meal-form {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.nutrition-info {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+}
+.nutrition-info h4 {
+    color: #495057;
+    margin-bottom: 15px;
+}
+#nutrition-display p {
+    margin-bottom: 8px;
+    color: #666;
+}
+</style>
+{% endblock %} 

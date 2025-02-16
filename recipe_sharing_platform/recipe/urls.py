@@ -107,6 +107,8 @@ urlpatterns = [
     path('event/registration/<int:event_id>/', views.event_registration, name='event_registration'),
     path('events/edit/<int:event_id>/', views.edit_event, name='edit_event'),
     path('events/delete/<int:event_id>/', views.delete_event, name='delete_event'),
+    path('meal-planner/', views.meal_planner, name='meal_planner'),
+    path('add-meal/', views.add_meal_plan, name='add_meal_plan'),
 ]
 
 

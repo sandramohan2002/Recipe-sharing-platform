@@ -133,18 +133,18 @@ class Recipe(models.Model):
         
 # NUTRITIONAL INFORMATION OF RECIPE
 class NutritionalInformation(models.Model):
-    nutritional_info_id = models.AutoField(primary_key=True) 
+    nutritional_id = models.AutoField(primary_key=True)
+    recipe_id = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='nutritional_info')
+    calories = models.FloatField(default=0)
+    protein = models.FloatField(default=0)
+    carbohydrates = models.FloatField(default=0)
+    fat = models.FloatField(default=0)
+    fiber = models.FloatField(default=0)
+    sugar = models.FloatField(default=0)
+    is_ai_generated = models.BooleanField(default=False)
     
-    recipe_id = models.IntegerField()  # Recipe ID associated with this nutritional info
-    calories = models.FloatField(null=True, blank=True)  # Calories in the recipe
-    protein = models.FloatField(null=True, blank=True)  # Protein content
-    fat = models.FloatField(null=True, blank=True)  # Fat content
-    carbohydrates = models.FloatField(null=True, blank=True)  # Carbohydrates content
-    sugar = models.FloatField(null=True, blank=True)  # Sugar content
-    fiber = models.FloatField(null=True, blank=True)  # Fiber content
-    def __str__(self):
-        recipe = Recipe.objects.get(recipe_id=self.recipe_id)
-        return f"Nutritional Info for {recipe.recipename} (Calories: {self.calories})"
+    class Meta:
+        db_table = 'nutritional_information'
 
     def get_recipe_name(self):
         recipe = Recipe.objects.get(recipe_id=self.recipe_id)
@@ -330,6 +330,31 @@ class Event(models.Model):
 
     def __str__(self):
         return self.title
+
+class MealPlan(models.Model):
+    user_id = models.IntegerField()
+    plan_date = models.DateField()
+    meal_type = models.CharField(max_length=20)  # breakfast, lunch, dinner, snack
+    recipe_details = models.JSONField()  # Store recipe info as JSON
+    notes = models.TextField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        db_table = 'meal_plan'
+
+class DietaryTracking(models.Model):
+    user_id = models.IntegerField()
+    tracking_date = models.DateField()
+    total_calories = models.FloatField(default=0)
+    total_protein = models.FloatField(default=0)
+    total_carbs = models.FloatField(default=0)
+    total_fat = models.FloatField(default=0)
+    water_intake = models.FloatField(default=0)  # in liters
+    notes = models.TextField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        db_table = 'dietary_tracking'
 
 
     

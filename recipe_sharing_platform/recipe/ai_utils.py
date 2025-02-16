@@ -2,7 +2,7 @@ import requests
 import json
 
 def get_nutritional_info_from_ai(recipe_name, api_key):
-    url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
+    url = "https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent"
     
     headers = {
         "Content-Type": "application/json",
@@ -17,11 +17,11 @@ def get_nutritional_info_from_ai(recipe_name, api_key):
                 Return only a JSON object with these exact keys and numerical values:
                 {{
                     "calories": number,
-                    "protein_g": number,
-                    "carbohydrates_g": number,
-                    "fat_g": number,
-                    "fiber_g": number,
-                    "sugar_g": number
+                    "protein": number,
+                    "carbohydrates": number,
+                    "fat": number,
+                    "fiber": number,
+                    "sugar": number
                 }}
                 """
             }]
@@ -30,7 +30,8 @@ def get_nutritional_info_from_ai(recipe_name, api_key):
     
     try:
         response = requests.post(url, headers=headers, json=prompt)
-        response.raise_for_status()
+        response.raise_for_status()  # Raises an HTTPError for bad responses
+        
         content = response.json()
         
         # Extract the text from the response
@@ -43,12 +44,16 @@ def get_nutritional_info_from_ai(recipe_name, api_key):
             nutrition_data = json.loads(json_match.group())
             return {
                 'calories': float(nutrition_data.get('calories', 0)),
-                'protein': float(nutrition_data.get('protein_g', 0)),
-                'carbohydrates': float(nutrition_data.get('carbohydrates_g', 0)),
-                'fat': float(nutrition_data.get('fat_g', 0)),
-                'fiber': float(nutrition_data.get('fiber_g', 0)),
-                'sugar': float(nutrition_data.get('sugar_g', 0))
+                'protein': float(nutrition_data.get('protein', 0)),
+                'carbohydrates': float(nutrition_data.get('carbohydrates', 0)),
+                'fat': float(nutrition_data.get('fat', 0)),
+                'fiber': float(nutrition_data.get('fiber', 0)),
+                'sugar': float(nutrition_data.get('sugar', 0))
             }
+        else:
+            print("No JSON data found in response")
+            return None
+            
     except Exception as e:
         print(f"Error getting AI nutrition data: {str(e)}")
         return None

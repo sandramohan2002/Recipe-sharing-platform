@@ -7,7 +7,7 @@ from django.db import IntegrityError
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
-from .models import CustomUser, SubCategory, Recipe, NutritionalInformation, Ingredient, Category, Rating, Review, Comment, RecipeIngredient, EventRegistration, Favorite, RecipeAllergen, Event
+from .models import CustomUser, SubCategory, Recipe, NutritionalInformation, Ingredient, Category, Rating, Review, Comment, RecipeIngredient, EventRegistration, Favorite, RecipeAllergen, Event, MealPlan, DietaryTracking
 from .forms import RecipeForm, NutritionalInformationForm, ProfileForm, IngredientForm, CategoryForm, CreateUserForm, ContactForm, SubCategoryForm
 from django.db.models import Q, Avg
 from django.core.mail import send_mail 
@@ -18,7 +18,7 @@ from django.db import transaction
 import traceback
 from django.http import JsonResponse
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.utils import timezone
 from .image_classifier import RecipeImageClassifier
 from django.conf import settings
@@ -367,17 +367,18 @@ def addrecipe(request):
 
                 # After creating the recipe, generate nutritional info
                 try:
-                    api_key = settings.GEMINI_API_KEY  # Make sure this is set in settings.py
+                    api_key = settings.GEMINI_API_KEY
                     nutritional_info = get_nutritional_info_from_ai(recipe.recipename, api_key)
                     if nutritional_info:
                         NutritionalInformation.objects.create(
-                            recipe=recipe,
+                            recipe_id=recipe,
                             calories=nutritional_info['calories'],
                             protein=nutritional_info['protein'],
                             carbohydrates=nutritional_info['carbohydrates'],
                             fat=nutritional_info['fat'],
                             fiber=nutritional_info['fiber'],
-                            sugar=nutritional_info['sugar']
+                            sugar=nutritional_info['sugar'],
+                            is_ai_generated=True
                         )
                 except Exception as e:
                     print(f"Error generating nutritional info: {str(e)}")
@@ -401,6 +402,35 @@ def addrecipe(request):
 def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
     
+    # Get nutritional info
+    try:
+        nutritional_info = NutritionalInformation.objects.get(recipe_id=recipe_id)
+        is_ai_generated = nutritional_info.is_ai_generated
+    except NutritionalInformation.DoesNotExist:
+        nutritional_info = None
+        is_ai_generated = False
+        
+        # Try to generate nutritional info if it doesn't exist
+        try:
+            api_key = settings.GEMINI_API_KEY
+            if api_key:
+                ai_nutritional_info = get_nutritional_info_from_ai(recipe.recipename, api_key)
+                if ai_nutritional_info:
+                    nutritional_info = NutritionalInformation.objects.create(
+                        recipe_id=recipe,
+                        calories=ai_nutritional_info['calories'],
+                        protein=ai_nutritional_info['protein'],
+                        carbohydrates=ai_nutritional_info['carbohydrates'],
+                        fat=ai_nutritional_info['fat'],
+                        fiber=ai_nutritional_info['fiber'],
+                        sugar=ai_nutritional_info['sugar'],
+                        is_ai_generated=True
+                    )
+                    is_ai_generated = True
+        except Exception as e:
+            print(f"Error generating nutritional info: {str(e)}")
+            messages.warning(request, "Could not generate nutritional information.")
+
     # Get the recipe author details
     try:
         recipe_author = CustomUser.objects.get(id=recipe.user_id)
@@ -442,34 +472,6 @@ def recipe_detail(request, recipe_id):
         subcategory_name = subcategory.name
     except SubCategory.DoesNotExist:
         subcategory_name = "Unknown Subcategory"
-
-    # Get nutritional info
-    try:
-        nutritional_info = NutritionalInformation.objects.get(recipe_id=recipe_id)
-        is_ai_generated = True  # Assuming all nutritional info is AI generated for now
-    except NutritionalInformation.DoesNotExist:
-        # Try to generate nutritional info if it doesn't exist
-        try:
-            api_key = settings.GEMINI_API_KEY
-            ai_nutritional_info = get_nutritional_info_from_ai(recipe.recipename, api_key)
-            if ai_nutritional_info:
-                nutritional_info = NutritionalInformation.objects.create(
-                    recipe=recipe,
-                    calories=ai_nutritional_info['calories'],
-                    protein=ai_nutritional_info['protein'],
-                    carbohydrates=ai_nutritional_info['carbohydrates'],
-                    fat=ai_nutritional_info['fat'],
-                    fiber=ai_nutritional_info['fiber'],
-                    sugar=ai_nutritional_info['sugar']
-                )
-                is_ai_generated = True
-            else:
-                nutritional_info = None
-                is_ai_generated = False
-        except Exception as e:
-            print(f"Error generating nutritional info: {str(e)}")
-            nutritional_info = None
-            is_ai_generated = False
 
     # Get ingredients
     ingredients = recipe.recipe_ingredients.all().select_related('ingredient')
@@ -1629,3 +1631,89 @@ def delete_event(request, event_id):
         messages.error(request, f'Error deleting event: {str(e)}')
         
     return redirect('view_events')
+
+def meal_planner(request):
+    user_id = request.session.get('id')
+    if not user_id:
+        return redirect('login')
+    
+    # Get date range for weekly view
+    today = datetime.now().date()
+    week_start = today - timedelta(days=today.weekday())
+    week_end = week_start + timedelta(days=6)
+    
+    # Get meal plans for the week
+    weekly_meals = MealPlan.objects.filter(
+        user_id=user_id,
+        plan_date__range=[week_start, week_end]
+    ).order_by('plan_date', 'meal_type')
+    
+    # Get today's meals
+    daily_meals = MealPlan.objects.filter(
+        user_id=user_id,
+        plan_date=today
+    ).order_by('meal_type')
+    
+    # Get dietary tracking for the week
+    weekly_tracking = DietaryTracking.objects.filter(
+        user_id=user_id,
+        tracking_date__range=[week_start, week_end]
+    ).order_by('tracking_date')
+    
+    context = {
+        'weekly_meals': weekly_meals,
+        'daily_meals': daily_meals,
+        'weekly_tracking': weekly_tracking,
+        'week_start': week_start,
+        'week_end': week_end,
+        'today': today
+    }
+    
+    return render(request, 'meal_planner.html', context)
+
+def add_meal_plan(request):
+    if not request.session.get('id'):
+        return redirect('login')
+        
+    if request.method == 'POST':
+        user_id = request.session.get('id')
+        recipe_id = request.POST.get('recipe_id')
+        recipe = Recipe.objects.get(recipe_id=recipe_id)
+        
+        meal_plan = MealPlan(
+            user_id=user_id,
+            plan_date=request.POST.get('plan_date'),
+            meal_type=request.POST.get('meal_type'),
+            recipe_details={
+                'recipe_id': recipe_id,
+                'recipe_name': recipe.recipename,
+                'servings': request.POST.get('servings'),
+                'calories': request.POST.get('calories'),
+                'protein': request.POST.get('protein'),
+                'carbs': request.POST.get('carbs'),
+                'fat': request.POST.get('fat')
+            },
+            notes=request.POST.get('notes')
+        )
+        meal_plan.save()
+        
+        # Update dietary tracking
+        tracking_date = request.POST.get('plan_date')
+        tracking, created = DietaryTracking.objects.get_or_create(
+            user_id=user_id,
+            tracking_date=tracking_date
+        )
+        
+        # Update totals
+        tracking.total_calories += float(request.POST.get('calories', 0))
+        tracking.total_protein += float(request.POST.get('protein', 0))
+        tracking.total_carbs += float(request.POST.get('carbs', 0))
+        tracking.total_fat += float(request.POST.get('fat', 0))
+        tracking.save()
+        
+        return redirect('meal_planner')
+    
+    # Get all recipes with their nutritional info for the form
+    recipes = Recipe.objects.select_related('nutritional_info').all()
+    
+    return render(request, 'add_meal.html', {'recipes': recipes})

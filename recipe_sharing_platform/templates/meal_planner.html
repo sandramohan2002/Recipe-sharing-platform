@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- Daily Meal Plan -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Today's Meals</h3>
+                    <p class="text-muted">{{ today|date:"l, F j, Y" }}</p>
+                </div>
+                <div class="card-body">
+                    {% for meal in daily_meals %}
+                    <div class="meal-item">
+                        <h4>{{ meal.meal_type|title }}</h4>
+                        <div class="recipe-details">
+                            <h5>{{ meal.recipe_details.recipe_name }}</h5>
+                            <p>Servings: {{ meal.recipe_details.servings }}</p>
+                            <div class="nutrition-info">
+                                <span>Calories: {{ meal.recipe_details.calories }}</span>
+                                <span>Protein: {{ meal.recipe_details.protein }}g</span>
+                                <span>Carbs: {{ meal.recipe_details.carbs }}g</span>
+                                <span>Fat: {{ meal.recipe_details.fat }}g</span>
+                            </div>
+                            {% if meal.notes %}
+                            <p class="notes">{{ meal.notes }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p>No meals planned for today</p>
+                    {% endfor %}
+                    <button class="btn btn-primary mt-3" onclick="location.href='{% url 'add_meal_plan' %}'">
+                        Add Meal
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Daily Tracking -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3>Today's Nutrition</h3>
+                </div>
+                <div class="card-body">
+                    {% for track in weekly_tracking %}
+                        {% if track.tracking_date == today %}
+                        <div class="nutrition-summary">
+                            <div class="progress-item">
+                                <label>Calories</label>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: {% widthratio track.total_calories 2000 100 %}%">
+                                        {{ track.total_calories }} / 2000
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="progress-item">
+                                <label>Protein</label>
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" style="width: {% widthratio track.total_protein 50 100 %}%">
+                                        {{ track.total_protein }}g / 50g
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="water-tracking">
+                                <label>Water Intake</label>
+                                <div class="water-progress">
+                                    <div class="progress-bar bg-info" style="width: {% widthratio track.water_intake 2 100 %}%">
+                                        {{ track.water_intake }}L / 2L
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Weekly Meal Plan -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Weekly Meal Plan</h3>
+                    <p class="text-muted">{{ week_start|date:"M j" }} - {{ week_end|date:"M j, Y" }}</p>
+                </div>
+                <div class="card-body">
+                    {% regroup weekly_meals by plan_date as meals_by_date %}
+                    {% for date in meals_by_date %}
+                    <div class="day-plan">
+                        <h4>{{ date.grouper|date:"l, M j" }}</h4>
+                        {% for meal in date.list %}
+                        <div class="meal-item">
+                            <h5>{{ meal.meal_type|title }}</h5>
+                            <div class="recipe-details">
+                                <p>{{ meal.recipe_details.recipe_name }}</p>
+                                <small class="text-muted">
+                                    {{ meal.recipe_details.calories }} cal
+                                </small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .meal-item {
+        border-bottom: 1px solid #eee;
+        padding: 15px 0;
+    }
+    .nutrition-info {
+        display: flex;
+        gap: 15px;
+        margin: 10px 0;
+    }
+    .progress-item {
+        margin-bottom: 15px;
+    }
+    .water-tracking {
+        margin-top: 20px;
+    }
+    .day-plan {
+        margin-bottom: 20px;
+    }
+    .notes {
+        font-style: italic;
+        color: #666;
+    }
+</style>
+{% endblock %} 
