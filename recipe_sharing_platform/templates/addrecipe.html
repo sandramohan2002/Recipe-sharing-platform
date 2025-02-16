@@ -205,6 +205,24 @@
             font-size: 1em;
             box-sizing: border-box;
         }
+
+        /* Add to existing styles */
+        .gap-2 {
+            gap: 0.5rem;
+        }
+        
+        .form-group .d-flex {
+            flex-wrap: nowrap;
+        }
+        
+        .form-group .btn {
+            white-space: nowrap;
+            height: 38px;  /* Match the height of the select and input */
+        }
+        
+        #ingredients, #newIngredient {
+            min-height: 38px;
+        }
     </style>
 </head>
 
@@ -264,16 +282,19 @@
             <!-- Ingredients Selection -->
             <div class="form-group">
                 <label for="ingredients">Add Ingredient:</label>
-                <div class="d-flex">
-                    <select id="ingredients" class="flex-grow-1 me-2">
+                <div class="d-flex align-items-center gap-2">
+                    <select id="ingredients" class="form-control" style="width: 60%;">
                         <option value="">Select an ingredient</option>
                         {% for ingredient in ingredients %}
                             <option value="{{ ingredient.ingredient_id }}">{{ ingredient.name }}</option>
                         {% endfor %}
                     </select>
-                    <input type="text" id="newIngredient" class="flex-grow-1 me-2" placeholder="Or type a new ingredient">
                     <button type="button" class="btn btn-primary" onclick="addIngredientRow()">Add</button>
-                    <button type="button" class="btn btn-secondary ms-2" data-bs-toggle="modal" data-bs-target="#addIngredientModal">New Ingredient</button>
+                    <span style="margin: 0 10px;">or</span>
+                    <input type="text" id="newIngredient" class="form-control" placeholder="Type a new ingredient" style="width: 30%;">
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addIngredientModal">
+                        <i class="fas fa-plus"></i> New
+                    </button>
                 </div>
             </div>
 
@@ -463,32 +484,56 @@
                 ingredientId = selectedIngredient.value;
                 ingredientName = selectedIngredient.options[selectedIngredient.selectedIndex].text;
             } else if (newIngredientInput.value.trim()) {
-                ingredientId = 'new_' + Date.now();
-                ingredientName = newIngredientInput.value.trim();
+                // Create new ingredient via API first
+                createNewIngredient(newIngredientInput.value.trim())
+                    .then(data => {
+                        if (data.success) {
+                            // Add new ingredient to dropdown
+                            const option = document.createElement('option');
+                            option.value = data.id;
+                            option.textContent = data.name;
+                            selectedIngredient.appendChild(option);
+                            
+                            // Add ingredient row with the new ID
+                            addIngredientRowToTable(data.id, data.name);
+                            
+                            // Clear input
+                            newIngredientInput.value = '';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error creating ingredient:', error);
+                        alert('Error creating new ingredient. Please try again.');
+                    });
+                return;
             } else {
-                console.log('No ingredient selected or entered');
+                alert('Please select an ingredient or enter a new one');
                 return;
             }
 
+            addIngredientRowToTable(ingredientId, ingredientName);
+        }
+
+        function addIngredientRowToTable(ingredientId, ingredientName) {
             const existingIngredient = document.querySelector(`input[name^="ingredient_"][value="${ingredientId}"]`);
             if (existingIngredient) {
                 alert('This ingredient is already in the recipe.');
-                selectedIngredient.value = '';
-                newIngredientInput.value = '';
                 return;
             }
 
-            ingredientRowCount++;
+            const ingredientRows = document.getElementById('ingredientRows');
+            const rowCount = ingredientRows.children.length + 1;
+
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
                 <td>
-                    <input type="hidden" name="ingredient_${ingredientRowCount}" value="${ingredientId}">
-                    <input type="hidden" name="ingredient_name_${ingredientRowCount}" value="${ingredientName}">
+                    <input type="hidden" name="ingredient_${rowCount}" value="${ingredientId}">
+                    <input type="hidden" name="ingredient_name_${rowCount}" value="${ingredientName}">
                     ${ingredientName}
                 </td>
-                <td><input type="number" name="quantity_${ingredientRowCount}" step="0.01" required></td>
+                <td><input type="number" name="quantity_${rowCount}" step="0.01" required></td>
                 <td>
-                    <select name="measurement_${ingredientRowCount}" required>
+                    <select name="measurement_${rowCount}" required>
                         <option value="g">Grams (g)</option>
                         <option value="kg">Kilograms (kg)</option>
                         <option value="ml">Milliliters (ml)</option>
@@ -502,9 +547,23 @@
                 </td>
                 <td><button type="button" onclick="removeIngredientRow(this)">Remove</button></td>
             `;
-            document.getElementById('ingredientRows').appendChild(newRow);
-            selectedIngredient.value = '';
-            newIngredientInput.value = '';
+            ingredientRows.appendChild(newRow);
+        }
+
+        function createNewIngredient(name) {
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('category_id', document.getElementById('category').value);
+            formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+
+            return fetch('{% url "add_ingredient" %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                }
+            })
+            .then(response => response.json());
         }
 
         function removeIngredientRow(button) {
@@ -556,58 +615,46 @@
 
         document.getElementById('addIngredientForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            console.log('Submitting add ingredient form');
+            
+            const formData = new FormData(this);
             
             fetch('{% url "add_ingredient" %}', {
                 method: 'POST',
-                body: new FormData(this),
+                body: formData,
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
                     'X-CSRFToken': this.querySelector('[name=csrfmiddlewaretoken]').value,
                 },
             })
-            .then(response => {
-                console.log('Response status:', response.status);
-                if (!response.ok) {
-                    return response.json().then(data => {
-                        throw new Error(JSON.stringify(data));
-                    });
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
-                console.log('Response data:', data);
                 if (data.success) {
-                    // Clear the form
-                    this.reset();
+                    // Add the new ingredient to the dropdown
+                    const ingredientsDropdown = document.getElementById('ingredients');
+                    const option = document.createElement('option');
+                    option.value = data.id;
+                    option.textContent = data.name;
+                    ingredientsDropdown.appendChild(option);
                     
-                    // Close the modal properly
-                    const modal = document.getElementById('addIngredientModal');
-                    const modalInstance = bootstrap.Modal.getInstance(modal);
-                    modalInstance.hide();
+                    // Select the newly added ingredient
+                    ingredientsDropdown.value = data.id;
                     
-                    // Remove modal backdrop and reset body styles
-                    document.body.classList.remove('modal-open');
-                    const backdrop = document.querySelector('.modal-backdrop');
-                    if (backdrop) {
-                        backdrop.remove();
-                    }
-                    document.body.style.overflow = '';
-                    document.body.style.paddingRight = '';
-
+                    // Clear the new ingredient input
+                    document.getElementById('newIngredient').value = '';
+                    
+                    // Close the modal
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('addIngredientModal'));
+                    modal.hide();
+                    
                     // Show success message
                     alert('Ingredient added successfully!');
-                    
-                    // Update ingredients dropdown
-                    localStorage.setItem('newIngredientId', data.id);
-                    updateIngredients();
                 } else {
-                    alert('Error: ' + JSON.stringify(data.errors));
+                    alert('Error adding ingredient: ' + JSON.stringify(data.errors));
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('An error occurred: ' + error.message);
+                alert('An error occurred while adding the ingredient');
             });
         });
 

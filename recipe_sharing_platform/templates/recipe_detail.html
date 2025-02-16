@@ -9,19 +9,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
+            color: #2c3e50;
+            background-color: #f8fafc;
         }
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
         h1, h2, h3 {
             color: #2c3e50;
@@ -32,213 +28,175 @@
         }
         .recipe-header {
             display: flex;
-            align-items: center;
-            margin-bottom: 20px;
+            flex-direction: column;
+            gap: 30px;
+            margin: 30px 0;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        @media (min-width: 992px) {
+            .recipe-header {
+                flex-direction: row;
+            }
+        }
+        .recipe-image-container {
+            flex: 1;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
         }
         .recipe-image {
-            width: 425px;
-            height: auto;
-            border-radius: 8px;
-            margin-right: 20px;
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+        .recipe-image:hover {
+            transform: scale(1.02);
         }
         .recipe-details {
             flex: 1;
+            padding: 20px;
+            background: #fff;
+            border-radius: 12px;
+        }
+        .recipe-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 20px;
+            line-height: 1.2;
         }
         .recipe-meta {
-            background-color: #ecf0f1;
+            background: #f8fafc;
             padding: 25px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        .ingredients-list, .instructions-list {
-            padding-left: 0;
-            margin-bottom: 20px;
-        }
-        .ingredients-list li, .instructions-list li {
-            margin-bottom: 8px;
-            list-style-type: none;
-        }
-        .ingredients-list li:before {
-            content: "•";
-            color: #3498db;
-            font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-left: -1em;
-        }
-        .instructions-list li {
-            counter-increment: step-counter;
-            position: relative;
-            padding-left: 30px;
-            margin-bottom: 15px;
-        }
-        .instructions-list li:before {
-            content: counter(step-counter);
-            position: absolute;
-            left: 0;
-            top: 0;
-            background-color: #3498db;
-            color: white;
-            font-weight: bold;
-            padding: 5px 10px;
-            border-radius: 50%;
-        }
-        .ratings {
-            background-color: #ecf0f1;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        .review-form textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .review-form button {
-            background-color: #3498db;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .review-form button:hover {
-            background-color: #2980b9;
-        }
-        .review {
-            background-color: #ecf0f1;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 4px;
-        }
-        .alert-success {
-            background-color: #dff0d8;
-            color: #3c763d;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-        .nutritional-info {
-            background-color: #e8f5e9;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        .admin-controls {
-            margin-top: 20px;
-        }
-        .btn {
-            display: inline-block;
-            padding: 10px 15px;
-            margin-right: 10px;
-            border-radius: 4px;
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-        }
-        .btn-primary {
-            background-color: #3498db;
-        }
-        
-        .btn-danger {
-            background-color: #e74c3c;
-        }
-        .review-section {
+            border-radius: 12px;
             margin: 20px 0;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
-
-        .review-form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .review-form textarea {
-            width: 100%;
-            min-height: 120px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            resize: vertical;
-            font-family: inherit;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-
-        .review-form textarea:focus {
-            border-color: #3498db;
-            outline: none;
-        }
-
-        .review-form button {
-            background-color: #3498db;
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-
-        .review-form button:hover {
-            background-color: #2980b9;
-        }
-
-        .login-prompt {
-            text-align: center;
-            padding: 20px;
-            background-color: #f8f9fa;
-            border-radius: 4px;
-            border: 1px solid #e9ecef;
-        }
-
-        .login-prompt a {
-            color: #3498db;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .login-prompt a:hover {
-            text-decoration: underline;
-        }
-
-        .review {
-            background-color: white;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .review strong {
-            color: #2c3e50;
-        }
-
-        .review small {
-            color: #7f8c8d;
-            display: block;
-            margin-top: 5px;
-        }
-
-        .action-buttons {
+        .meta-item {
             display: flex;
-            gap: 15px;
-            margin: 20px 0;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
         }
-
+        .meta-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .meta-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e2e8f0;
+            border-radius: 6px;
+            color: #4a5568;
+        }
+        .ingredients-section, .instructions-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        .section-title {
+            font-size: 1.8rem;
+            color: #1a202c;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .ingredients-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 0;
+        }
+        .ingredient-item {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.2s ease;
+        }
+        .ingredient-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .instruction-step {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+        .instruction-step:hover {
+            transform: translateX(5px);
+        }
+        .step-number {
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .nutrition-btn {
+            background: #3498db;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .nutrition-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .recipe-header {
+                padding: 20px;
+            }
+            .recipe-image {
+                height: 300px;
+            }
+            .recipe-title {
+                font-size: 2rem;
+            }
+            .ingredients-section, .instructions-section {
+                padding: 20px;
+            }
+            .ingredients-list {
+                grid-template-columns: 1fr;
+            }
+        }
         .recipe-author {
             font-size: 1.1em;
             color: #2c3e50;
@@ -246,7 +204,6 @@
             padding: 8px 0;
             border-bottom: 1px solid #eee;
         }
-
         .difficulty-badge {
             display: inline-block;
             padding: 4px 12px;
@@ -267,7 +224,6 @@
         .difficulty-badge.hard {
             background-color: #e74c3c;
         }
-
         .allergen-warnings {
             background: #fff3e0;
             padding: 20px;
@@ -275,7 +231,6 @@
             margin: 20px 0;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
         .allergen-section h4 {
             color: #e65100;
             margin-bottom: 20px;
@@ -283,22 +238,18 @@
             align-items: center;
             gap: 10px;
         }
-
         .allergen-group {
             margin-bottom: 20px;
         }
-
         .allergen-group h5 {
             color: #333;
             margin-bottom: 10px;
         }
-
         .allergen-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
         }
-
         .allergen-tag {
             position: relative;
             background: white;
@@ -309,32 +260,25 @@
             gap: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
         .allergen-group.contains .allergen-tag {
             border-left: 3px solid #dc3545;
         }
-
         .allergen-group.may-contain .allergen-tag {
             border-left: 3px solid #ffc107;
         }
-
         .allergen-group.traces .allergen-tag {
             border-left: 3px solid #6c757d;
         }
-
         .allergen-name {
             font-weight: 500;
         }
-
         .allergen-note {
             position: relative;
             cursor: pointer;
         }
-
         .allergen-note i {
             color: #ff6f00;
         }
-
         .note-tooltip {
             display: none;
             position: absolute;
@@ -353,11 +297,9 @@
             z-index: 1000;
             text-align: left;
         }
-
         .allergen-note:hover .note-tooltip {
             display: block;
         }
-
         /* Add arrow to tooltip */
         .note-tooltip::after {
             content: '';
@@ -369,7 +311,6 @@
             border-style: solid;
             border-color: #333 transparent transparent transparent;
         }
-
         @media (max-width: 768px) {
             .allergen-warnings {
                 padding: 15px;
@@ -379,7 +320,6 @@
                 padding: 6px 12px;
             }
         }
-
         .instructions-section {
             margin: 40px 0;
             padding: 30px;
@@ -387,7 +327,6 @@
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-
         .instructions-section h2 {
             color: #2c3e50;
             margin-bottom: 25px;
@@ -397,25 +336,21 @@
             align-items: center;
             gap: 10px;
         }
-
         .instructions-section h2 i {
             color: #3498db;
         }
-
         .instructions-list {
             list-style: none;
             padding: 0;
             margin: 0;
             counter-reset: instruction;
         }
-
         .instruction-step {
-            margin-bottom: 25px;
-            padding-left: 60px;
+            margin-bottom: 20px;
+            padding-left: 45px;
             position: relative;
-            min-height: 50px;
+            min-height: 40px;
         }
-
         .step-content {
             position: relative;
             background-color: #f8f9fa;
@@ -424,19 +359,17 @@
             border-left: 4px solid #3498db;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-
         .instruction-step:hover .step-content {
             transform: translateX(5px);
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-
         .step-number {
             position: absolute;
-            left: -60px;
+            left: -45px;
             top: 50%;
             transform: translateY(-50%);
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             background-color: #3498db;
             color: white;
             border-radius: 50%;
@@ -444,15 +377,13 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 0.9em;
             box-shadow: 0 2px 4px rgba(52, 152, 219, 0.3);
         }
-
         .step-text {
             line-height: 1.6;
             color: #2c3e50;
         }
-
         .no-instructions {
             text-align: center;
             color: #7f8c8d;
@@ -462,28 +393,23 @@
             border-radius: 8px;
             margin-top: 15px;
         }
-
         @media (max-width: 768px) {
             .instructions-section {
                 padding: 20px;
             }
-
             .instruction-step {
                 padding-left: 45px;
             }
-
             .step-number {
                 left: -45px;
                 width: 32px;
                 height: 32px;
                 font-size: 0.9em;
             }
-
             .step-content {
                 padding: 15px;
             }
         }
-
         .ingredients-section {
             margin: 30px 0;
             padding: 20px;
@@ -491,7 +417,6 @@
             border-radius: 12px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
         .ingredients-section h2 {
             color: #2c3e50;
             margin-bottom: 20px;
@@ -501,11 +426,9 @@
             align-items: center;
             gap: 10px;
         }
-
         .ingredients-section h2 i {
             color: #3498db;
         }
-
         .no-ingredients {
             text-align: center;
             color: #7f8c8d;
@@ -515,7 +438,6 @@
             border-radius: 8px;
             margin-top: 15px;
         }
-
         .nutritional-info-section {
             background-color: #f8f9fa;
             padding: 20px;
@@ -523,14 +445,12 @@
             margin: 20px 0;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
         .nutrition-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 15px;
             margin-top: 15px;
         }
-
         .nutrition-item {
             background: white;
             padding: 15px;
@@ -538,20 +458,17 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             text-align: center;
         }
-
         .nutrition-item .label {
             display: block;
             color: #666;
             font-size: 0.9em;
             margin-bottom: 5px;
         }
-
         .nutrition-item .value {
             font-size: 1.2em;
             font-weight: bold;
             color: #2c3e50;
         }
-
         .ai-badge {
             display: inline-block;
             background: #e9ecef;
@@ -561,12 +478,10 @@
             font-size: 0.9em;
             color: #666;
         }
-
         .ai-badge i {
             margin-right: 5px;
             color: #007bff;
         }
-
         .nutrition-btn {
             margin: 20px 0;
             padding: 10px 20px;
@@ -578,29 +493,24 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-
         .nutrition-btn:hover {
             background-color: #138496;
             transform: translateY(-2px);
         }
-
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
         }
-
         .close-modal {
             font-size: 24px;
             cursor: pointer;
             color: #666;
         }
-
         .close-modal:hover {
             color: #333;
         }
-
         /* Reuse existing modal styles */
         .modal-overlay {
             display: none;
@@ -614,11 +524,9 @@
             justify-content: center;
             align-items: center;
         }
-
         .modal-overlay.active {
             display: flex;
         }
-
         .modal-content {
             background: white;
             padding: 25px;
@@ -627,13 +535,11 @@
             width: 90%;
             position: relative;
         }
-
         .no-data {
             text-align: center;
             color: #666;
             font-style: italic;
         }
-
         .recipe-classification {
             margin: 15px 0;
         }
@@ -643,6 +549,121 @@
             padding: 5px 10px;
             font-size: 0.9em;
         }
+        .back-nav {
+            position: relative;
+            z-index: 1;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            color: #2c3e50;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            background-color: #f8f9fa;
+            transform: translateX(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            color: #3498db;
+        }
+        .back-link i {
+            font-size: 1.2em;
+        }
+        .review-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        .review-form {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        .review-form textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            min-height: 100px;
+            margin-bottom: 15px;
+            transition: border-color 0.3s ease;
+        }
+        .review-form textarea:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        .review-form button {
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .review-form button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        .review {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        .reviewer-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .reviewer-info {
+            flex: 1;
+        }
+        .reviewer-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .review-date {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .review-content {
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+        .login-prompt {
+            text-align: center;
+            padding: 30px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 2px dashed #e2e8f0;
+        }
+        .login-prompt a {
+            color: #3498db;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .login-prompt a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -650,6 +671,13 @@
     {% include 'navbar.html' %}
 
     <div class="container">
+        <!-- Back button at the top -->
+        <div class="back-nav">
+            <a href="{% url 'recipe' %}" class="back-link" title="Back to Recipes">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+        </div>
+
         <!-- Message Display Block -->
         {% if messages %}
             <div class="alert alert-success">
@@ -658,35 +686,69 @@
                 {% endfor %}
             </div>
         {% endif %}
-        <h1>{{ recipe.recipename }}</h1>      
+        
+        <h1 class="recipe-title">{{ recipe.recipename }}</h1>      
         <div class="recipe-header">
-            {% if recipe.image %}
-                <img src="{{ recipe.image.url }}" alt="{{ recipe.recipename }}" class="recipe-image">
-            {% endif %}
+            <div class="recipe-image-container">
+                {% if recipe.image %}
+                    <img src="{{ recipe.image.url }}" alt="{{ recipe.recipename }}" class="recipe-image">
+                {% endif %}
+            </div>
             <div class="recipe-details">
                 <div class="recipe-author">
+                    <i class="fas fa-user-chef"></i>
                     <strong>Recipe by:</strong> {{ author_name }}
                 </div>
                 <div class="recipe-meta">
-                    <p><strong>Difficulty:</strong> 
-                        <span class="difficulty-badge {{ recipe.difficulty|default:'medium'|lower }}">
-                            {{ recipe.difficulty|default:'Medium'|title }}
-                        </span>
-                    </p>
-                    <p><strong>Servings:</strong> {{ recipe.servings }}</p>
-                    <p><strong>Timing:</strong> {{ recipe.prep_time }} minutes prep time, {{ recipe.cook_time }} minutes cook time</p>
-                    <p><strong>Category:</strong> {{ category_name }}</p>
-                    <p><strong>Subcategory:</strong> {{ subcategory_name }}</p>
-                    <p><strong>Tags:</strong> {{ recipe.tags }}</p>
+                    <div class="meta-item">
+                        <div class="meta-icon">
+                            <i class="fas fa-signal"></i>
+                        </div>
+                        <div>
+                            <strong>Mode of Preparation:</strong>
+                            <span class="difficulty-badge {{ recipe.difficulty|default:'medium'|lower }}">
+                                {{ recipe.difficulty|default:'Medium'|title }}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="meta-item">
+                        <div class="meta-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>
+                            <strong>Servings:</strong> {{ recipe.servings }}
+                        </div>
+                    </div>
+                    
+                    <div class="meta-item">
+                        <div class="meta-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <strong>Prep:</strong> {{ recipe.prep_time }} mins
+                            <strong>Cook:</strong> {{ recipe.cook_time }} mins
+                        </div>
+                    </div>
+                    
+                    <div class="meta-item">
+                        <div class="meta-icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <div>
+                            <strong>Category:</strong> {{ category_name }}
+                            {% if subcategory_name %}
+                                <span class="text-muted">/ {{ subcategory_name }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
-                <!-- <button class="save-recipe">Save Recipe</button> -->
+                <button class="nutrition-btn" onclick="showNutritionalInfo()">
+                    <i class="fas fa-chart-pie"></i>
+                    View Nutritional Information
+                </button>
             </div>
         </div>
-        <!-- Nutritional Information Button -->
-        <button class="btn btn-info nutrition-btn" onclick="showNutritionalInfo()">
-            <i class="fas fa-chart-pie"></i> View Nutritional Information
-        </button>
-
         <!-- Nutritional Information Modal -->
         <div id="nutritionalModal" class="modal-overlay">
             <div class="modal-content">
@@ -742,12 +804,6 @@
                 {% endif %}
             </div>
         {% endif %}
-        <!-- <h2>Ingredients</h2>
-        <ul class="ingredients-list">
-            {% for ingredient in recipe.recipe_ingredients.all %}
-                <li>{{ ingredient.quantity }} {{ ingredient.measurement }} {{ ingredient.ingredient.name }}</li>
-            {% endfor %}
-        </ul> -->
         <div class="ingredients-section">
             <h2><i class="fas fa-mortar-pestle"></i> Ingredients</h2>
             {% if recipe.recipe_ingredients.all %}
@@ -853,26 +909,25 @@
                 <p class="no-instructions">No instructions available for this recipe.</p>
             {% endif %}
         </div>
-         <!-- <div class="ratings">
-            <h2>Ratings</h2>
-            <p>Average Rating: {{ average_rating|default:"Not rated yet" }}</p>
-            <p>Total Ratings: {{ total_ratings }}</p>
-        </div> -->
         <!-- Reviews Section -->
         <div class="review-section">
+            <h2 class="section-title">
+                <i class="fas fa-comments"></i> Reviews
+            </h2>
+            
             <!-- Review Form -->
             <div class="review-form">
-                <h2>Write a Review</h2>
                 {% if is_logged_in %}
                     <form method="POST" action="{% url 'review_recipe' recipe.recipe_id %}">
                         {% csrf_token %}
-                        <div class="form-group">
-                            <textarea name="review" placeholder="Share your thoughts about this recipe..." required></textarea>
-                        </div>
-                        <button type="submit">Submit Review</button>
+                        <textarea name="review" placeholder="Share your thoughts about this recipe..." required></textarea>
+                        <button type="submit">
+                            <i class="fas fa-paper-plane"></i> Submit Review
+                        </button>
                     </form>
                 {% else %}
                     <div class="login-prompt">
+                        <i class="fas fa-lock" style="font-size: 2em; color: #3498db; margin-bottom: 15px;"></i>
                         <p>Please <a href="{% url 'login' %}">log in</a> to write a review.</p>
                     </div>
                 {% endif %}
@@ -880,20 +935,33 @@
 
             <!-- Reviews Display -->
             {% if reviews_display %}
-                <h3>Reviews</h3>
                 {% for review in reviews %}
                     <div class="review">
-                        <p><strong>{{ review.user_name }}</strong>: {{ review.review_text }}</p>
-                        <small>Posted on: {{ review.created_at }}</small>
+                        <div class="review-header">
+                            {% if review.user.profile_image %}
+                                <img src="{{ review.user.profile_image.url }}" alt="{{ review.user_name }}" class="reviewer-avatar">
+                            {% else %}
+                                <div class="reviewer-avatar" style="background: #e2e8f0; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-user" style="color: #94a3b8;"></i>
+                                </div>
+                            {% endif %}
+                            <div class="reviewer-info">
+                                <div class="reviewer-name">{{ review.user_name }}</div>
+                                <div class="review-date">{{ review.created_at|date:"F j, Y" }}</div>
+                            </div>
+                        </div>
+                        <div class="review-content">
+                            {{ review.review_text }}
+                        </div>
                     </div>
                 {% empty %}
-                    <p>No reviews yet. Be the first to review this recipe!</p>
+                    <p class="no-data">No reviews yet. Be the first to review this recipe!</p>
                 {% endfor %}
             {% endif %}
         </div>
-        <div class="action-buttons">
+        <!-- <div class="action-buttons">
             <a href="{% url 'recipe' %}" class="btn btn-primary">Back to Recipes</a>
-        </div>
+        </div> -->
 
         <!-- Add this where you want to display the classification -->
         {% if recipe.image_category %}

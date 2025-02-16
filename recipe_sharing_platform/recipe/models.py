@@ -39,7 +39,7 @@ class CustomUser(models.Model):
     mobile = models.CharField(max_length=15, blank=True, null=True)
     age = models.IntegerField(blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
-    address = models.TextField(blank=True, null=True)
+    address = models.TextField(blank=True, null=True)  # Only one address field
     diet_preference = models.CharField(max_length=20, choices=DIET_CHOICES, default='other')
     profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
     allergies = models.TextField(blank=True, null=True)

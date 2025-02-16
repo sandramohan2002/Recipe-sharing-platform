@@ -98,7 +98,7 @@ WSGI_APPLICATION = 'recipe_sharing_platform.wsgi.application'
 DATABASES = {
     'default': {
          'ENGINE': 'django.db.backends.mysql',
-         'NAME': 'recipe-sharing',
+         'NAME': 'recipe_sharing_platform',
          'USER': 'root',
          'PASSWORD': '',
          'HOST': 'localhost',  # Or your MySQL server address

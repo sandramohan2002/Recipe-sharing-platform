@@ -87,7 +87,7 @@ urlpatterns = [
     path('recipe/<int:recipe_id>/rate/', views.rate_recipe, name='rate_recipe'),
     path('recipe/<int:recipe_id>/review/', views.review_recipe, name='review_recipe'),
     path('review/<int:review_id>/comment/', views.comment_on_review, name='comment_on_review'),
-    path('get-ingredients/<int:category_id>/',views.get_ingredients, name='get_ingredients'),
+    path('get-ingredients/<int:category_id>/', views.get_ingredients, name='get_ingredients'),
 
     
   path('subcategories/add/', views.add_subcategory, name='add_subcategory'),
