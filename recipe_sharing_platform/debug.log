@@ -27634,3 +27634,285 @@ Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
 https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
 Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
 https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Total recipes: 3
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: www
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\models.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\models.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Total recipes: 3
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: www
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Total recipes: 3
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: www
+Total recipes: 3
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: www
+Total recipes: 3
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: www
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Total recipes: 3
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: www
+Total recipes: 3
+Show my recipes: True
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: www
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Total recipes: 3
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Pastry
+Total recipes: 3
+Show my recipes: True
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Pastry
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Total recipes: 3
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Pastry
+Total recipes: 3
+Show my recipes: True
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Pastry
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Total recipes: 3
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Pastry
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Total recipes: 3
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Pastry
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Total recipes: 3
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Pastry
+Total recipes: 3
+Show my recipes: True
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Pastry
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Total recipes: 3
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Pastry
+Total recipes: 3
+Show my recipes: True
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Pastry
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Total recipes: 3
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Pastry
+Total recipes: 3
+Show my recipes: True
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Pastry
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Total recipes: 3
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Pastry
+Total recipes: 3
+Show my recipes: True
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Pastry
+Total recipes: 3
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Pastry
+Total recipes: 3
+Show my recipes: True
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Peanut Butter Cookies
+Recipe ID: 2, Recipe ID type: <class 'int'>, Name: Cucumber Pickles
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Pastry
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1beta/models/gemini-pro:generateContent HTTP/1.1" 200 None
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\models.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\models.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7

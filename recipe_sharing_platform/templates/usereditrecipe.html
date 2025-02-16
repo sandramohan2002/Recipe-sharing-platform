@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Recipe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,6 +16,7 @@
             color: #333;
         }
         .form-container {
+            position: relative;
             max-width: 800px;
             margin: 0 auto;
             background-color: #fff;
@@ -25,6 +27,7 @@
         h1 {
             color: #2c3e50;
             text-align: center;
+            margin-top: 30px;
             margin-bottom: 30px;
         }
         .form-group {
@@ -106,24 +109,84 @@
         .form-col:last-child {
             margin-right: 0;
         }
-        .back-button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #34495e;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            margin-bottom: 20px;
+        .back-nav {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            z-index: 1;
         }
-        .back-button:hover {
-            background-color: #2c3e50;
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            color: #2c3e50;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            background-color: #f8f9fa;
+            transform: translateX(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            color: #3498db;
+        }
+        .back-link i {
+            font-size: 1.2em;
+        }
+        @media (max-width: 768px) {
+            .back-nav {
+                left: 15px;
+                top: 15px;
+            }
+            .back-link {
+                width: 35px;
+                height: 35px;
+            }
+            .back-link i {
+                font-size: 1em;
+            }
+        }
+        .allergen-item {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .remove-allergen {
+            padding: 8px;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #add-allergen {
+            background: linear-gradient(45deg, #28a745, #218838);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        #add-allergen:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
         }
     </style>
 </head>
 <body>
     {%include 'navbar.html'%}
     <div class="form-container">
-        <a href="{% url 'recipe' %}" class="back-button">← Back to Recipes</a>
+        <div class="back-nav">
+            <a href="{% url 'recipe' %}" class="back-link" title="Back to Recipes">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+        </div>
         <h1>Edit Recipe</h1>
 
         <form method="post" action="{% url 'usereditrecipe' recipe.recipe_id %}" enctype="multipart/form-data" id="recipeForm">
@@ -146,6 +209,19 @@
                     {% endfor %}
                 </select>
                 <div class="error-message" id="category-error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="subcategory">Subcategory:</label>
+                <select id="subcategory" name="subcategory" required>
+                    <option value="">Select a subcategory</option>
+                    {% for subcategory in subcategories %}
+                        <option value="{{ subcategory.subcategory_id }}" {% if subcategory.subcategory_id == recipe.subcategory_id %}selected{% endif %}>
+                            {{ subcategory.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <div class="error-message" id="subcategory-error"></div>
             </div>
 
             <div class="form-row">
@@ -220,6 +296,90 @@
                 </table>
             </div>
             <div class="error-message" id="ingredients-error"></div>
+
+            <div class="form-group">
+                <h3>Allergen Information</h3>
+                <div id="allergen-container">
+                    {% if recipe_allergens %}
+                        {% for allergen in recipe_allergens %}
+                        <div class="allergen-item mb-3">
+                            <div class="row align-items-center">
+                                <div class="col-md-4">
+                                    <select name="allergen_name[]" class="form-control" required>
+                                        <option value="">Select Allergen</option>
+                                        <option value="dairy" {% if allergen.allergen_name == 'dairy' %}selected{% endif %}>Dairy</option>
+                                        <option value="eggs" {% if allergen.allergen_name == 'eggs' %}selected{% endif %}>Eggs</option>
+                                        <option value="nuts" {% if allergen.allergen_name == 'nuts' %}selected{% endif %}>Tree Nuts</option>
+                                        <option value="peanuts" {% if allergen.allergen_name == 'peanuts' %}selected{% endif %}>Peanuts</option>
+                                        <option value="shellfish" {% if allergen.allergen_name == 'shellfish' %}selected{% endif %}>Shellfish</option>
+                                        <option value="wheat" {% if allergen.allergen_name == 'wheat' %}selected{% endif %}>Wheat</option>
+                                        <option value="soy" {% if allergen.allergen_name == 'soy' %}selected{% endif %}>Soy</option>
+                                        <option value="fish" {% if allergen.allergen_name == 'fish' %}selected{% endif %}>Fish</option>
+                                        <option value="gluten" {% if allergen.allergen_name == 'gluten' %}selected{% endif %}>Gluten</option>
+                                        <option value="sesame" {% if allergen.allergen_name == 'sesame' %}selected{% endif %}>Sesame</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select name="allergen_severity[]" class="form-control" required>
+                                        <option value="">Select Severity</option>
+                                        <option value="contains" {% if allergen.severity == 'contains' %}selected{% endif %}>Contains</option>
+                                        <option value="may_contain" {% if allergen.severity == 'may_contain' %}selected{% endif %}>May Contain</option>
+                                        <option value="traces" {% if allergen.severity == 'traces' %}selected{% endif %}>Traces</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" name="allergen_notes[]" class="form-control" placeholder="Notes (optional)" value="{{ allergen.notes }}">
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="button" class="btn btn-danger remove-allergen">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="allergen-item mb-3">
+                            <div class="row align-items-center">
+                                <div class="col-md-4">
+                                    <select name="allergen_name[]" class="form-control" required>
+                                        <option value="">Select Allergen</option>
+                                        <option value="dairy">Dairy</option>
+                                        <option value="eggs">Eggs</option>
+                                        <option value="nuts">Tree Nuts</option>
+                                        <option value="peanuts">Peanuts</option>
+                                        <option value="shellfish">Shellfish</option>
+                                        <option value="wheat">Wheat</option>
+                                        <option value="soy">Soy</option>
+                                        <option value="fish">Fish</option>
+                                        <option value="gluten">Gluten</option>
+                                        <option value="sesame">Sesame</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select name="allergen_severity[]" class="form-control" required>
+                                        <option value="">Select Severity</option>
+                                        <option value="contains">Contains</option>
+                                        <option value="may_contain">May Contain</option>
+                                        <option value="traces">Traces</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" name="allergen_notes[]" class="form-control" placeholder="Notes (optional)">
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="button" class="btn btn-danger remove-allergen">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <button type="button" id="add-allergen" class="btn btn-success mt-2">
+                    <i class="fas fa-plus"></i> Add Allergen
+                </button>
+            </div>
 
             <div class="form-group">
                 <label>Instructions:</label>
@@ -449,6 +609,62 @@
 
         // Initial call to populate ingredients based on the default selected category
         updateIngredients();
+
+        // Add allergen functionality
+        document.getElementById('add-allergen').addEventListener('click', function() {
+            const container = document.getElementById('allergen-container');
+            const newItem = container.children[0].cloneNode(true);
+            
+            // Clear all selected values and inputs
+            newItem.querySelectorAll('select, input').forEach(el => el.value = '');
+            
+            container.appendChild(newItem);
+        });
+
+        // Remove allergen functionality
+        document.getElementById('allergen-container').addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-allergen') || e.target.closest('.remove-allergen')) {
+                const allergenItems = document.getElementsByClassName('allergen-item');
+                if (allergenItems.length > 1) {
+                    e.target.closest('.allergen-item').remove();
+                }
+            }
+        });
+
+        function loadSubcategories() {
+            var categoryId = document.getElementById('category').value;
+            var subcategorySelect = document.getElementById('subcategory');
+            
+            // Clear existing options
+            subcategorySelect.innerHTML = '<option value="">Select a subcategory</option>';
+            
+            if (categoryId) {
+                fetch(`/get-subcategories/${categoryId}/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.subcategories.forEach(subcategory => {
+                            var option = document.createElement('option');
+                            option.value = subcategory.subcategory_id;
+                            option.textContent = subcategory.name;
+                            subcategorySelect.appendChild(option);
+                            
+                            // Select the current subcategory if editing
+                            if (subcategory.subcategory_id == {{ recipe.subcategory_id|default:'null' }}) {
+                                option.selected = true;
+                            }
+                        });
+                    });
+            }
+        }
+
+        // Call loadSubcategories when category changes
+        document.getElementById('category').addEventListener('change', function() {
+            loadSubcategories();
+            updateIngredients();
+        });
+
+        // Initial load of subcategories
+        loadSubcategories();
     </script>
 </body>
 </html>

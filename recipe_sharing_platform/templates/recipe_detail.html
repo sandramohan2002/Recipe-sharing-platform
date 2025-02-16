@@ -46,6 +46,9 @@
             position: relative;
             border-radius: 12px;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
         .recipe-image {
             width: 100%;
@@ -102,16 +105,16 @@
         }
         .ingredients-section, .instructions-section {
             background: white;
-            border-radius: 16px;
-            padding: 30px;
-            margin: 30px 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
         .section-title {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: #1a202c;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
             border-bottom: 2px solid #e2e8f0;
             display: flex;
             align-items: center;
@@ -119,18 +122,19 @@
         }
         .ingredients-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
             padding: 0;
         }
         .ingredient-item {
             background: #f8fafc;
-            padding: 15px;
+            padding: 10px;
             border-radius: 8px;
             display: flex;
             align-items: center;
             gap: 10px;
             transition: transform 0.2s ease;
+            font-size: 0.95em;
         }
         .ingredient-item:hover {
             transform: translateY(-2px);
@@ -138,22 +142,23 @@
         }
         .instruction-step {
             background: #f8fafc;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
             position: relative;
             transition: transform 0.2s ease;
+            font-size: 0.95em;
         }
         .instruction-step:hover {
             transform: translateX(5px);
         }
         .step-number {
             position: absolute;
-            left: -15px;
+            left: -12px;
             top: 50%;
             transform: translateY(-50%);
-            width: 30px;
-            height: 30px;
+            width: 25px;
+            height: 25px;
             background: #3498db;
             color: white;
             border-radius: 50%;
@@ -161,25 +166,34 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            font-size: 0.9em;
         }
-        .nutrition-btn {
-            background: #3498db;
-            color: white;
-            padding: 12px 24px;
+        .step-content {
+            position: relative;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .instruction-step:hover .step-content {
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .step-text {
+            line-height: 1.5;
+            color: #2c3e50;
+            font-size: 0.95em;
+        }
+        .no-instructions {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            padding: 20px;
+            background-color: #f8f9fa;
             border-radius: 8px;
-            border: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            margin-top: 15px;
         }
-        .nutrition-btn:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-        }
-        /* Responsive adjustments */
         @media (max-width: 768px) {
             .recipe-header {
                 padding: 20px;
@@ -191,18 +205,69 @@
                 font-size: 2rem;
             }
             .ingredients-section, .instructions-section {
-                padding: 20px;
+                padding: 15px;
             }
             .ingredients-list {
                 grid-template-columns: 1fr;
             }
+            .instruction-step {
+                padding: 12px;
+            }
+            .step-content {
+                padding: 12px;
+            }
         }
         .recipe-author {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+        }
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .author-avatar i {
+            font-size: 1.5em;
+            color: #94a3b8;
+        }
+        .author-details {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .author-label {
+            font-size: 0.9em;
+            color: #64748b;
+        }
+        .author-name {
             font-size: 1.1em;
+            font-weight: 600;
             color: #2c3e50;
-            margin-bottom: 15px;
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
+        }
+        .recipe-date {
+            font-size: 0.85em;
+            color: #64748b;
         }
         .difficulty-badge {
             display: inline-block;
@@ -693,11 +758,28 @@
                 {% if recipe.image %}
                     <img src="{{ recipe.image.url }}" alt="{{ recipe.recipename }}" class="recipe-image">
                 {% endif %}
+                <button class="nutrition-btn" onclick="showNutritionalInfo()">
+                    <i class="fas fa-chart-pie"></i>
+                    View Nutritional Information
+                </button>
             </div>
             <div class="recipe-details">
                 <div class="recipe-author">
-                    <i class="fas fa-user-chef"></i>
-                    <strong>Recipe by:</strong> {{ author_name }}
+                    <div class="author-info">
+                        {% if author_profile_image %}
+                            <div class="author-avatar">
+                                <img src="{{ author_profile_image.url }}" alt="{{ author_name }}">
+                            </div>
+                        {% else %}
+                            <div class="author-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        {% endif %}
+                        <div class="author-details">
+                            <span class="author-label">Recipe by</span>
+                            <span class="author-name">{{ author_name }}</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="recipe-meta">
                     <div class="meta-item">
@@ -743,10 +825,6 @@
                         </div>
                     </div>
                 </div>
-                <button class="nutrition-btn" onclick="showNutritionalInfo()">
-                    <i class="fas fa-chart-pie"></i>
-                    View Nutritional Information
-                </button>
             </div>
         </div>
         <!-- Nutritional Information Modal -->
@@ -818,75 +896,51 @@
                 <p class="no-ingredients">No ingredients available for this recipe.</p>
             {% endif %}
         </div>
-        <!-- Add this after the recipe meta information and before the instructions section -->
+        <!-- Add this where you want to display allergens -->
         {% if has_allergens %}
         <div class="allergen-warnings">
-            <div class="allergen-section">
-                <h4><i class="fas fa-exclamation-triangle"></i> Allergen Information</h4>
-                
-                {% if allergens.contains %}
-                <div class="allergen-group contains">
-                    <h5><i class="fas fa-exclamation-circle text-danger"></i> Contains:</h5>
+            <h4><i class="fas fa-exclamation-triangle"></i> Allergen Information</h4>
+            {% if allergens.contains %}
+                <div class="allergen-group">
+                    <h5>Contains:</h5>
                     <div class="allergen-tags">
                         {% for allergen in allergens.contains %}
-                        <div class="allergen-tag">
-                            <span class="allergen-name">{{ allergen.name }}</span>
-                            {% if allergen.notes %}
-                            <div class="allergen-note">
-                                <i class="fas fa-info-circle"></i>
-                                <div class="note-tooltip">
-                                    <strong>Note:</strong> {{ allergen.notes }}
-                                </div>
-                            </div>
-                            {% endif %}
-                        </div>
+                            <span class="allergen-tag contains">
+                                {{ allergen.name }}
+                                {% if allergen.notes %}<small>({{ allergen.notes }})</small>{% endif %}
+                            </span>
                         {% endfor %}
                     </div>
                 </div>
-                {% endif %}
-                
-                {% if allergens.may_contain %}
-                <div class="allergen-group may-contain">
-                    <h5><i class="fas fa-exclamation-triangle text-warning"></i> May Contain:</h5>
+            {% endif %}
+            
+            {% if allergens.may_contain %}
+                <div class="allergen-group">
+                    <h5>May Contain:</h5>
                     <div class="allergen-tags">
                         {% for allergen in allergens.may_contain %}
-                        <div class="allergen-tag">
-                            <span class="allergen-name">{{ allergen.name }}</span>
-                            {% if allergen.notes %}
-                            <div class="allergen-note">
-                                <i class="fas fa-info-circle"></i>
-                                <div class="note-tooltip">
-                                    <strong>Note:</strong> {{ allergen.notes }}
-                                </div>
-                            </div>
-                            {% endif %}
-                        </div>
+                            <span class="allergen-tag may-contain">
+                                {{ allergen.name }}
+                                {% if allergen.notes %}<small>({{ allergen.notes }})</small>{% endif %}
+                            </span>
                         {% endfor %}
                     </div>
                 </div>
-                {% endif %}
-                
-                {% if allergens.traces %}
-                <div class="allergen-group traces">
-                    <h5><i class="fas fa-info-circle text-info"></i> Traces:</h5>
+            {% endif %}
+            
+            {% if allergens.traces %}
+                <div class="allergen-group">
+                    <h5>Traces:</h5>
                     <div class="allergen-tags">
                         {% for allergen in allergens.traces %}
-                        <div class="allergen-tag">
-                            <span class="allergen-name">{{ allergen.name }}</span>
-                            {% if allergen.notes %}
-                            <div class="allergen-note">
-                                <i class="fas fa-info-circle"></i>
-                                <div class="note-tooltip">
-                                    <strong>Note:</strong> {{ allergen.notes }}
-                                </div>
-                            </div>
-                            {% endif %}
-                        </div>
+                            <span class="allergen-tag traces">
+                                {{ allergen.name }}
+                                {% if allergen.notes %}<small>({{ allergen.notes }})</small>{% endif %}
+                            </span>
                         {% endfor %}
                     </div>
                 </div>
-                {% endif %}
-            </div>
+            {% endif %}
         </div>
         {% endif %}
         <!-- Instructions Section -->

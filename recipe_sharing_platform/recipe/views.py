@@ -401,12 +401,14 @@ def addrecipe(request):
 def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
     
-    # Get the user name from CustomUser model
+    # Get the recipe author details
     try:
         recipe_author = CustomUser.objects.get(id=recipe.user_id)
         author_name = recipe_author.name
+        author_profile_image = recipe_author.profile_image
     except CustomUser.DoesNotExist:
         author_name = "Unknown User"
+        author_profile_image = None
     
     # Get the user_id from request.session
     user_id = request.session.get('id')
@@ -496,6 +498,7 @@ def recipe_detail(request, recipe_id):
     context = {
         'recipe': recipe,
         'author_name': author_name,
+        'author_profile_image': author_profile_image,
         'category_name': category_name,
         'subcategory_name': subcategory_name,
         'instructions': instructions,
@@ -532,17 +535,22 @@ def usereditrecipe(request, recipe_id):
     if request.method == 'POST':
         try:
             with transaction.atomic():
-                # Update basic recipe information
+                # Update recipe basic info
                 recipe.recipename = request.POST.get('recipename')
                 recipe.category_id = request.POST.get('category')
-                recipe.tags = request.POST.get('tags')
+                recipe.subcategory_id = request.POST.get('subcategory')
+                recipe.servings = request.POST.get('servings')
+                recipe.prep_time = request.POST.get('prep_time')
+                recipe.cook_time = request.POST.get('cook_time')
+                recipe.difficulty = request.POST.get('difficulty')
+                recipe.instructions = '\n'.join(request.POST.getlist('instructions[]'))
                 
                 if 'image' in request.FILES:
                     recipe.image = request.FILES['image']
-                elif 'clear_image' in request.POST:
-                    recipe.image = None
+                
+                recipe.save()
 
-                # Handle ingredients
+                # Update recipe ingredients
                 RecipeIngredient.objects.filter(recipe=recipe).delete()
                 ingredient_ids = request.POST.getlist('ingredient[]')
                 quantities = request.POST.getlist('quantity[]')
@@ -557,28 +565,48 @@ def usereditrecipe(request, recipe_id):
                         measurement=measurements[i]
                     )
 
-                # Handle instructions
-                instructions = request.POST.getlist('instructions[]')
-                recipe.instructions = '\n'.join(filter(None, instructions))  # Join non-empty instructions
+                # Update allergens
+                # First, delete existing allergens
+                RecipeAllergen.objects.filter(recipe_id=recipe_id).delete()
+                
+                # Add new allergens
+                allergen_names = request.POST.getlist('allergen_name[]')
+                allergen_severities = request.POST.getlist('allergen_severity[]')
+                allergen_notes = request.POST.getlist('allergen_notes[]')
+                
+                for i in range(len(allergen_names)):
+                    if allergen_names[i] and allergen_severities[i]:
+                        RecipeAllergen.objects.create(
+                            recipe_id=recipe_id,
+                            allergen_name=allergen_names[i],
+                            severity=allergen_severities[i],
+                            notes=allergen_notes[i] if allergen_notes[i] else None
+                        )
 
-                recipe.save()
-
-                messages.success(request, "Recipe updated successfully!")
-                return redirect('recipe_detail', recipe_id=recipe.recipe_id)
+                messages.success(request, 'Recipe updated successfully!')
+                return redirect('recipe_detail', recipe_id=recipe_id)
+            
         except Exception as e:
-            logger.error(f"Error updating recipe {recipe_id}: {str(e)}")
-            messages.error(request, f"An error occurred while updating the recipe: {str(e)}")
-    else:
-        form = RecipeForm(instance=recipe)
-
+            messages.error(request, f'Error updating recipe: {str(e)}')
+    
+    # Get data for the form
+    categories = Category.objects.all()
+    subcategories = SubCategory.objects.filter(category_id=recipe.category_id)
+    ingredients = Ingredient.objects.all()
+    recipe_ingredients = RecipeIngredient.objects.filter(recipe_id=recipe_id)
+    recipe_allergens = RecipeAllergen.objects.filter(recipe_id=recipe_id)
+    instructions = recipe.instructions.split('\n') if recipe.instructions else []
+    
     context = {
         'recipe': recipe,
-        'form': form,
-        'recipe_ingredients': recipe.recipe_ingredients.all(),
-        'all_ingredients': Ingredient.objects.all(),
-        'categories': Category.objects.all(),
-        'instructions': recipe.instructions.split('\n') if recipe.instructions else [],
+        'categories': categories,
+        'subcategories': subcategories,
+        'ingredients': ingredients,
+        'recipe_ingredients': recipe_ingredients,
+        'recipe_allergens': recipe_allergens,
+        'instructions': instructions,
     }
+    
     return render(request, 'usereditrecipe.html', context)
 
 # @login_required
