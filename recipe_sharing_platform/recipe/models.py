@@ -134,7 +134,13 @@ class Recipe(models.Model):
 # NUTRITIONAL INFORMATION OF RECIPE
 class NutritionalInformation(models.Model):
     nutritional_id = models.AutoField(primary_key=True)
-    recipe_id = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='nutritional_info')
+    recipe = models.OneToOneField(
+        Recipe,
+        on_delete=models.CASCADE,
+        related_name='nutritional_info',
+        db_column='recipe_id',
+        null=True  # Temporarily allow null
+    )
     calories = models.FloatField(default=0)
     protein = models.FloatField(default=0)
     carbohydrates = models.FloatField(default=0)
@@ -142,13 +148,12 @@ class NutritionalInformation(models.Model):
     fiber = models.FloatField(default=0)
     sugar = models.FloatField(default=0)
     is_ai_generated = models.BooleanField(default=False)
-    
+
     class Meta:
         db_table = 'nutritional_information'
 
-    def get_recipe_name(self):
-        recipe = Recipe.objects.get(recipe_id=self.recipe_id)
-        return recipe.recipename  # Description for nutritional info
+    def __str__(self):
+        return f"Nutrition for {self.recipe.recipename if self.recipe else 'Unknown Recipe'}"
 
 # RATINGS MODEL           ####OLD CODE######
 # class Rating(models.Model):
@@ -298,7 +303,7 @@ class Event(models.Model):
             ('competition', 'Cooking Competition'),
             ('seminar', 'Culinary Seminar')
         ],
-        default='workshop'  # Added default
+        default='workshop'
     )
     event_date = models.DateField()
     event_time = models.TimeField()
@@ -307,8 +312,15 @@ class Event(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     contact_email = models.EmailField(default='example@email.com')
     contact_phone = models.CharField(max_length=15, default='1234567890')
-    duration_hours = models.IntegerField(default=1)  # Added new field
-    duration_minutes = models.IntegerField(default=0)  # Added new field
+    duration_hours = models.IntegerField(default=1)
+    duration_minutes = models.IntegerField(default=0)
+    
+    # Make instructor fields nullable
+    instructor_name = models.CharField(max_length=200, null=True, blank=True)
+    instructor_bio = models.TextField(null=True, blank=True)
+    prerequisites = models.TextField(null=True, blank=True)
+    schedule = models.TextField(null=True, blank=True)
+    
     image = models.ImageField(upload_to='events/', null=True, blank=True)
     current_participants = models.IntegerField(default=0)
     status = models.CharField(
