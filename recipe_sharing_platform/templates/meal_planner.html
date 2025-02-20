@@ -1,136 +1,400 @@
-{% extends 'base.html' %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Planner - Flavornaut</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <style>
+        /* Copy navbar styles from homepage.html */
+        .navbar {
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+        }
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6f00 !important;
+        }
+        .navbar-brand:hover {
+            color: #ff6f00 !important;
+        }
+        .navbar-nav .nav-link {
+            font-weight: bold;
+            color: #555;
+            margin-right: 20px;
+            transition: color 0.3s ease;
+        }
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-item.active .nav-link {
+            color: #ff6f00 !important;
+        }
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .navbar-user {
+            font-size: 16px;
+            color: #343a40;
+            font-weight: bold;
+        }
+        .search-form {
+            display: flex;
+            justify-content: center;
+            margin: 0 20px;
+        }
+        .search-form input[type="search"] {
+            width: 300px;
+            border-radius: 20px;
+            padding: 8px 15px;
+        }
+        .search-icon {
+            background-color: #ff6f00;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 20px;
+            margin-left: 10px;
+        }
+        .search-icon:hover {
+            background-color: #e65100;
+        }
+        .dropdown-item:hover {
+            background-color: #ff6f00;
+            color: white;
+        }
 
-{% block content %}
-<div class="container mt-4">
-    <div class="row">
-        <!-- Daily Meal Plan -->
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Today's Meals</h3>
-                    <p class="text-muted">{{ today|date:"l, F j, Y" }}</p>
-                </div>
-                <div class="card-body">
-                    {% for meal in daily_meals %}
-                    <div class="meal-item">
-                        <h4>{{ meal.meal_type|title }}</h4>
-                        <div class="recipe-details">
-                            <h5>{{ meal.recipe_details.recipe_name }}</h5>
-                            <p>Servings: {{ meal.recipe_details.servings }}</p>
-                            <div class="nutrition-info">
-                                <span>Calories: {{ meal.recipe_details.calories }}</span>
-                                <span>Protein: {{ meal.recipe_details.protein }}g</span>
-                                <span>Carbs: {{ meal.recipe_details.carbs }}g</span>
-                                <span>Fat: {{ meal.recipe_details.fat }}g</span>
-                            </div>
-                            {% if meal.notes %}
-                            <p class="notes">{{ meal.notes }}</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                    {% empty %}
-                    <p>No meals planned for today</p>
-                    {% endfor %}
-                    <button class="btn btn-primary mt-3" onclick="location.href='{% url 'add_meal_plan' %}'">
-                        Add Meal
+        /* Meal Planner specific styles */
+        .meal-item {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background: white;
+            transition: box-shadow 0.3s ease;
+        }
+        .meal-item:hover {
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+        .meal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .meal-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .nutrition-info {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        .nutrition-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .nutrition-item i {
+            color: #ff6f00;
+        }
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .progress-item {
+            margin-bottom: 15px;
+        }
+        .progress {
+            height: 20px;
+            border-radius: 10px;
+        }
+        .progress-bar {
+            line-height: 20px;
+            font-size: 0.8rem;
+        }
+        .notes {
+            font-style: italic;
+            color: #666;
+            margin-top: 10px;
+        }
+        .day-plan {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Copy navbar from homepage.html -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'homepage' %}">Flavornaut</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'homepage' %}">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="recipesDropdown" role="button" data-bs-toggle="dropdown">
+                            Recipes
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="recipesDropdown">
+                            <li><a class="dropdown-item" href="{% url 'recipe' %}">View Recipes</a></li>
+                            <li><a class="dropdown-item" href="{% url 'recipe' %}">My Recipes</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">About</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="eventsDropdown" role="button" data-bs-toggle="dropdown">
+                            Events
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="eventsDropdown">
+                            <li><a class="dropdown-item" href="{% url 'create_event' %}">My Events</a></li>
+                            <li><a class="dropdown-item" href="{% url 'view_events' %}">View Events</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            Profile
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">
+                                <i class="bi bi-person"></i> My Account
+                            </a></li>
+                            <li><a class="dropdown-item" href="{% url 'meal_planner' %}">
+                                <i class="bi bi-calendar-check"></i> Meal Planner
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">
+                                <i class="bi bi-box-arrow-right"></i> Logout
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex search-form" method="GET" action="{% url 'search_recipe' %}">
+                    <input class="form-control me-2" type="search" placeholder="Search recipes..." name="query">
+                    <button class="btn search-icon" type="submit">
+                        <i class="bi bi-search"></i>
                     </button>
-                </div>
-            </div>
-            
-            <!-- Daily Tracking -->
-            <div class="card mt-4">
-                <div class="card-header">
-                    <h3>Today's Nutrition</h3>
-                </div>
-                <div class="card-body">
-                    {% for track in weekly_tracking %}
-                        {% if track.tracking_date == today %}
-                        <div class="nutrition-summary">
-                            <div class="progress-item">
-                                <label>Calories</label>
-                                <div class="progress">
-                                    <div class="progress-bar" style="width: {% widthratio track.total_calories 2000 100 %}%">
-                                        {{ track.total_calories }} / 2000
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="progress-item">
-                                <label>Protein</label>
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" style="width: {% widthratio track.total_protein 50 100 %}%">
-                                        {{ track.total_protein }}g / 50g
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="water-tracking">
-                                <label>Water Intake</label>
-                                <div class="water-progress">
-                                    <div class="progress-bar bg-info" style="width: {% widthratio track.water_intake 2 100 %}%">
-                                        {{ track.water_intake }}L / 2L
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {% endif %}
-                    {% endfor %}
+                </form>
+                <div class="navbar-right">
+                    <div class="navbar-user">
+                        Hello, {{ request.session.username }}
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Weekly Meal Plan -->
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Weekly Meal Plan</h3>
-                    <p class="text-muted">{{ week_start|date:"M j" }} - {{ week_end|date:"M j, Y" }}</p>
-                </div>
-                <div class="card-body">
-                    {% regroup weekly_meals by plan_date as meals_by_date %}
-                    {% for date in meals_by_date %}
-                    <div class="day-plan">
-                        <h4>{{ date.grouper|date:"l, M j" }}</h4>
-                        {% for meal in date.list %}
-                        <div class="meal-item">
-                            <h5>{{ meal.meal_type|title }}</h5>
-                            <div class="recipe-details">
-                                <p>{{ meal.recipe_details.recipe_name }}</p>
-                                <small class="text-muted">
-                                    {{ meal.recipe_details.calories }} cal
-                                </small>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Daily Meal Plan -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h3>Today's Meals</h3>
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="addMealDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-plus"></i> Add Meal
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="addMealDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'add_meal_plan' %}?type=daily">
+                                            <i class="bi bi-calendar-day"></i> Add to Today
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'add_meal_plan' %}?type=weekly">
+                                            <i class="bi bi-calendar-week"></i> Add to Weekly Plan
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
+                        </div>
+                        <p class="text-muted">{{ today|date:"l, F j, Y" }}</p>
+                    </div>
+                    <div class="card-body">
+                        {% for meal in daily_meals %}
+                        <div class="meal-item">
+                            <div class="meal-header">
+                                <h4>{{ meal.meal_type|title }}</h4>
+                                <div class="meal-actions">
+                                    <a href="{% url 'edit_meal' meal.id %}" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                    <button class="btn btn-sm btn-outline-danger" onclick="confirmDelete('{{ meal.id }}')">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="recipe-details">
+                                <h5>{{ meal.recipe_details.recipe_name }}</h5>
+                                <p>Servings: {{ meal.recipe_details.servings }}</p>
+                                <div class="nutrition-info">
+                                    <div class="nutrition-item">
+                                        <i class="bi bi-fire"></i>
+                                        <span>{{ meal.recipe_details.calories }} cal</span>
+                                    </div>
+                                    <div class="nutrition-item">
+                                        <i class="bi bi-egg"></i>
+                                        <span>{{ meal.recipe_details.protein }}g protein</span>
+                                    </div>
+                                    <div class="nutrition-item">
+                                        <i class="bi bi-circle"></i>
+                                        <span>{{ meal.recipe_details.carbs }}g carbs</span>
+                                    </div>
+                                    <div class="nutrition-item">
+                                        <i class="bi bi-droplet"></i>
+                                        <span>{{ meal.recipe_details.fat }}g fat</span>
+                                    </div>
+                                </div>
+                                {% if meal.notes %}
+                                <p class="notes">
+                                    <i class="bi bi-journal-text"></i>
+                                    {{ meal.notes }}
+                                </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p class="text-center text-muted mt-4">
+                            <i class="bi bi-calendar-x fs-4 d-block mb-2"></i>
+                            No meals planned for today
+                        </p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Daily Nutrition Tracking -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h3>Today's Nutrition</h3>
+                    </div>
+                    <div class="card-body">
+                        {% for track in weekly_tracking %}
+                            {% if track.tracking_date == today %}
+                            <div class="nutrition-summary">
+                                <div class="progress-item">
+                                    <label>Calories</label>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: {% widthratio track.total_calories 2000 100 %}%">
+                                            {{ track.total_calories }} / 2000
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="progress-item">
+                                    <label>Protein</label>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" style="width: {% widthratio track.total_protein 50 100 %}%">
+                                            {{ track.total_protein }}g / 50g
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="progress-item">
+                                    <label>Water Intake</label>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-info" style="width: {% widthratio track.water_intake 2 100 %}%">
+                                            {{ track.water_intake }}L / 2L
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weekly Meal Plan -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h3>Weekly Meal Plan</h3>
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="addWeeklyMealDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-plus"></i> Add Meal
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="addWeeklyMealDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'add_meal_plan' %}?type=weekly">
+                                            <i class="bi bi-calendar-week"></i> Add to Weekly Plan
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p class="text-muted">{{ week_start|date:"M j" }} - {{ week_end|date:"M j, Y" }}</p>
+                    </div>
+                    <div class="card-body">
+                        {% regroup weekly_meals by plan_date as meals_by_date %}
+                        {% for date in meals_by_date %}
+                        <div class="day-plan">
+                            <h4>{{ date.grouper|date:"l, M j" }}</h4>
+                            {% for meal in date.list %}
+                            <div class="meal-item">
+                                <h5>{{ meal.meal_type|title }}</h5>
+                                <div class="recipe-details">
+                                    <p>{{ meal.recipe_details.recipe_name }}</p>
+                                    <small class="text-muted">
+                                        {{ meal.recipe_details.calories }} cal
+                                    </small>
+                                </div>
+                            </div>
+                            {% endfor %}
                         </div>
                         {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<style>
-    .meal-item {
-        border-bottom: 1px solid #eee;
-        padding: 15px 0;
-    }
-    .nutrition-info {
-        display: flex;
-        gap: 15px;
-        margin: 10px 0;
-    }
-    .progress-item {
-        margin-bottom: 15px;
-    }
-    .water-tracking {
-        margin-top: 20px;
-    }
-    .day-plan {
-        margin-bottom: 20px;
-    }
-    .notes {
-        font-style: italic;
-        color: #666;
-    }
-</style>
-{% endblock %} 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function confirmDelete(mealId) {
+            if (confirm('Are you sure you want to delete this meal?')) {
+                fetch(`/meal-planner/delete/${mealId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert('Error deleting meal');
+                    }
+                });
+            }
+        }
+
+        // Initialize dropdowns
+        document.addEventListener('DOMContentLoaded', function() {
+            var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+            var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+                return new bootstrap.Dropdown(dropdownToggleEl)
+            });
+        });
+    </script>
+</body>
+</html> 

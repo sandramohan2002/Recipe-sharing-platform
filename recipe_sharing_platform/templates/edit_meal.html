@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Meal - Flavornaut</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+        }
+        .card {
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        .nutrition-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h3>Edit Meal</h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="plan_date" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="plan_date" name="plan_date" 
+                               value="{{ meal.plan_date|date:'Y-m-d' }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="meal_type" class="form-label">Meal Type</label>
+                        <select class="form-control" id="meal_type" name="meal_type" required>
+                            <option value="breakfast" {% if meal.meal_type == 'breakfast' %}selected{% endif %}>Breakfast</option>
+                            <option value="lunch" {% if meal.meal_type == 'lunch' %}selected{% endif %}>Lunch</option>
+                            <option value="dinner" {% if meal.meal_type == 'dinner' %}selected{% endif %}>Dinner</option>
+                            <option value="snack" {% if meal.meal_type == 'snack' %}selected{% endif %}>Snack</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="recipe_id" class="form-label">Recipe</label>
+                        <select class="form-control" id="recipe_id" name="recipe_id" required>
+                            {% for recipe in recipes %}
+                                <option value="{{ recipe.recipe_id }}"
+                                        data-calories="{{ recipe.nutritional_info.calories }}"
+                                        data-protein="{{ recipe.nutritional_info.protein }}"
+                                        data-carbs="{{ recipe.nutritional_info.carbs }}"
+                                        data-fat="{{ recipe.nutritional_info.fat }}"
+                                        {% if recipe.recipe_id|stringformat:"s" == meal.recipe_details.recipe_id %}selected{% endif %}>
+                                    {{ recipe.recipename }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="servings" class="form-label">Servings</label>
+                        <input type="number" class="form-control" id="servings" name="servings"
+                               value="{{ meal.recipe_details.servings }}" min="1" required>
+                    </div>
+
+                    <div class="nutrition-info">
+                        <h4>Nutritional Information</h4>
+                        <input type="hidden" id="calories" name="calories" value="{{ meal.recipe_details.calories }}">
+                        <input type="hidden" id="protein" name="protein" value="{{ meal.recipe_details.protein }}">
+                        <input type="hidden" id="carbs" name="carbs" value="{{ meal.recipe_details.carbs }}">
+                        <input type="hidden" id="fat" name="fat" value="{{ meal.recipe_details.fat }}">
+                        
+                        <p>Calories: <span id="calories-display">{{ meal.recipe_details.calories }}</span></p>
+                        <p>Protein: <span id="protein-display">{{ meal.recipe_details.protein }}</span>g</p>
+                        <p>Carbs: <span id="carbs-display">{{ meal.recipe_details.carbs }}</span>g</p>
+                        <p>Fat: <span id="fat-display">{{ meal.recipe_details.fat }}</span>g</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Notes</label>
+                        <textarea class="form-control" id="notes" name="notes" rows="3">{{ meal.notes }}</textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary">Update Meal</button>
+                        <a href="{% url 'meal_planner' %}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const recipeSelect = document.getElementById('recipe_id');
+            const servingsInput = document.getElementById('servings');
+            
+            function updateNutritionInfo() {
+                const selectedOption = recipeSelect.options[recipeSelect.selectedIndex];
+                const servings = parseInt(servingsInput.value) || 1;
+                
+                if (selectedOption.value) {
+                    const calories = parseFloat(selectedOption.dataset.calories) * servings;
+                    const protein = parseFloat(selectedOption.dataset.protein) * servings;
+                    const carbs = parseFloat(selectedOption.dataset.carbs) * servings;
+                    const fat = parseFloat(selectedOption.dataset.fat) * servings;
+                    
+                    document.getElementById('calories').value = calories.toFixed(1);
+                    document.getElementById('protein').value = protein.toFixed(1);
+                    document.getElementById('carbs').value = carbs.toFixed(1);
+                    document.getElementById('fat').value = fat.toFixed(1);
+                    
+                    document.getElementById('calories-display').textContent = calories.toFixed(1);
+                    document.getElementById('protein-display').textContent = protein.toFixed(1);
+                    document.getElementById('carbs-display').textContent = carbs.toFixed(1);
+                    document.getElementById('fat-display').textContent = fat.toFixed(1);
+                }
+            }
+            
+            recipeSelect.addEventListener('change', updateNutritionInfo);
+            servingsInput.addEventListener('input', updateNutritionInfo);
+            
+            // Initialize on page load
+            updateNutritionInfo();
+        });
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

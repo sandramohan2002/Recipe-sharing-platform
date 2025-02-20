@@ -1717,3 +1717,76 @@ def add_meal_plan(request):
     recipes = Recipe.objects.select_related('nutritional_info').all()
     
     return render(request, 'add_meal.html', {'recipes': recipes})
+
+def edit_meal(request, meal_id):
+    if not request.session.get('id'):
+        return redirect('login')
+    
+    meal = get_object_or_404(MealPlan, id=meal_id, user_id=request.session.get('id'))
+    recipes = Recipe.objects.select_related('nutritional_info').all()
+    
+    if request.method == 'POST':
+        try:
+            # Get the old values for dietary tracking adjustment
+            old_calories = float(meal.recipe_details.get('calories', 0))
+            old_protein = float(meal.recipe_details.get('protein', 0))
+            old_carbs = float(meal.recipe_details.get('carbs', 0))
+            old_fat = float(meal.recipe_details.get('fat', 0))
+            
+            # Update meal plan
+            recipe_id = request.POST.get('recipe_id')
+            recipe = Recipe.objects.get(recipe_id=recipe_id)
+            
+            meal.plan_date = request.POST.get('plan_date')
+            meal.meal_type = request.POST.get('meal_type')
+            meal.recipe_details = {
+                'recipe_id': recipe_id,
+                'recipe_name': recipe.recipename,
+                'servings': request.POST.get('servings'),
+                'calories': request.POST.get('calories'),
+                'protein': request.POST.get('protein'),
+                'carbs': request.POST.get('carbs'),
+                'fat': request.POST.get('fat')
+            }
+            meal.notes = request.POST.get('notes')
+            meal.save()
+            
+            # Update dietary tracking
+            tracking = DietaryTracking.objects.get(
+                user_id=request.session.get('id'),
+                tracking_date=request.POST.get('plan_date')
+            )
+            
+            # Adjust nutritional totals
+            tracking.total_calories = tracking.total_calories - old_calories + float(request.POST.get('calories', 0))
+            tracking.total_protein = tracking.total_protein - old_protein + float(request.POST.get('protein', 0))
+            tracking.total_carbs = tracking.total_carbs - old_carbs + float(request.POST.get('carbs', 0))
+            tracking.total_fat = tracking.total_fat - old_fat + float(request.POST.get('fat', 0))
+            tracking.save()
+            
+            messages.success(request, 'Meal updated successfully!')
+            return redirect('meal_planner')
+            
+        except Exception as e:
+            messages.error(request, f'Error updating meal: {str(e)}')
+    
+    context = {
+        'meal': meal,
+        'recipes': recipes
+    }
+    return render(request, 'edit_meal.html', context)
+
+@require_http_methods(["POST"])
+def delete_meal_plan(request, meal_id):
+    try:
+        meal = get_object_or_404(MealPlan, id=meal_id)
+        meal.delete()
+        return JsonResponse({
+            'success': True,
+            'message': 'Meal deleted successfully'
+        })
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'message': str(e)
+        }, status=400)

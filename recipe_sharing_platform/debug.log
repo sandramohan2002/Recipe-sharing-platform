@@ -30129,3 +30129,1090 @@ Creating converter from 7 to 5
 Creating converter from 5 to 7
 Creating converter from 7 to 5
 Creating converter from 5 to 7
+Internal Server Error: /events/view/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\contrib\sessions\backends\base.py", line 233, in _get_session
+    return self._session_cache
+AttributeError: 'SessionStore' object has no attribute '_session_cache'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 614, in connect
+    (self.host, self.port), self.connect_timeout, **kwargs
+  File "c:\users\sandr\appdata\local\programs\python\python36\lib\socket.py", line 722, in create_connection
+    raise err
+  File "c:\users\sandr\appdata\local\programs\python\python36\lib\socket.py", line 713, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [WinError 10061] No connection could be made because the target machine actively refused it
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\base\base.py", line 219, in ensure_connection
+    self.connect()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\utils\asyncio.py", line 33, in inner
+    return func(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\base\base.py", line 200, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\utils\asyncio.py", line 33, in inner
+    return func(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\mysql\base.py", line 234, in get_new_connection
+    connection = Database.connect(**conn_params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 353, in __init__
+    self.connect()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 664, in connect
+    raise exc
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on 'localhost' ([WinError 10061] No connection could be made because the target machine actively refused it)")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\middleware.py", line 9, in __call__
+    user_id = request.session.get('user_id')
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\contrib\sessions\backends\base.py", line 80, in get
+    return self._session.get(key, default)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\contrib\sessions\backends\base.py", line 238, in _get_session
+    self._session_cache = self.load()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\contrib\sessions\backends\db.py", line 43, in load
+    s = self._get_session_from_db()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\contrib\sessions\backends\db.py", line 34, in _get_session_from_db
+    expire_date__gt=timezone.now()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 431, in get
+    num = len(clone)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 262, in __len__
+    self._fetch_all()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 1324, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 51, in __iter__
+    results = compiler.execute_sql(chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 1173, in execute_sql
+    cursor = self.connection.cursor()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\utils\asyncio.py", line 33, in inner
+    return func(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\base\base.py", line 259, in cursor
+    return self._cursor()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\base\base.py", line 235, in _cursor
+    self.ensure_connection()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\utils\asyncio.py", line 33, in inner
+    return func(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\base\base.py", line 219, in ensure_connection
+    self.connect()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\base\base.py", line 219, in ensure_connection
+    self.connect()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\utils\asyncio.py", line 33, in inner
+    return func(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\base\base.py", line 200, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\utils\asyncio.py", line 33, in inner
+    return func(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\mysql\base.py", line 234, in get_new_connection
+    connection = Database.connect(**conn_params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 353, in __init__
+    self.connect()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 664, in connect
+    raise exc
+django.db.utils.OperationalError: (2003, "Can't connect to MySQL server on 'localhost' ([WinError 10061] No connection could be made because the target machine actively refused it)")
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Total recipes: 1
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Not Found: /favicon.ico
+Total recipes: 1
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Total recipes: 1
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Total recipes: 0
+Show my recipes: True
+Current user ID: 2
+Total recipes: 1
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Total recipes: 1
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Total recipes: 1
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Total recipes: 1
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Total recipes: 1
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Total recipes: 1
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Total recipes: 0
+Show my recipes: True
+Current user ID: 2
+Total recipes: 1
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Total recipes: 1
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Total recipes: 1
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Internal Server Error: /add-meal/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 1712, in add_meal_plan
+    tracking.save()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\base.py", line 740, in save
+    force_update=force_update, update_fields=update_fields)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\base.py", line 778, in save_base
+    force_update, using, update_fields,
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\base.py", line 859, in _save_table
+    forced_update)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\base.py", line 912, in _do_update
+    return filtered._update(values) > 0
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 802, in _update
+    return query.get_compiler(self.db).execute_sql(CURSOR)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 1559, in execute_sql
+    cursor = super().execute_sql(result_type)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 1175, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 146, in execute
+    query = self.mogrify(query, args)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 125, in mogrify
+    query = query % self._escape_args(args, conn)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 107, in _escape_args
+    return tuple(conn.literal(arg) for arg in args)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 107, in <genexpr>
+    return tuple(conn.literal(arg) for arg in args)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 517, in literal
+    return self.escape(obj, self.encoders)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 510, in escape
+    return converters.escape_item(obj, self.charset, mapping=mapping)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\converters.py", line 25, in escape_item
+    val = encoder(val, mapping)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\converters.py", line 60, in escape_float
+    raise ProgrammingError("%s can not be used with MySQL" % s)
+MySQLdb.err.ProgrammingError: nan can not be used with MySQL
+Internal Server Error: /add-meal/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 1708, in add_meal_plan
+    tracking.total_calories += float(request.POST.get('calories', 0))
+ValueError: could not convert string to float: 
+Internal Server Error: /add-meal/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 1708, in add_meal_plan
+    tracking.total_calories += float(request.POST.get('calories', 0))
+ValueError: could not convert string to float: 
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1/models/gemini-pro:generateContent HTTP/1.1" 200 None
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Total recipes: 1
+Show my recipes: True
+Current user ID: 2
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1/models/gemini-pro:generateContent HTTP/1.1" 200 None
+https://generativelanguage.googleapis.com:443 "POST /v1/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\ai_utils.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 0
+Show my recipes: False
+Current user ID: 2
+Total recipes: 1
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 1
+Show my recipes: True
+Current user ID: 2
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Internal Server Error: /meal-planner/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 1672, in meal_planner
+    return render(request, 'meal_planner.html', context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 214, in render
+    nodelist.append(node.render_annotated(context))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'edit_meal' not found. 'edit_meal' is not a valid view function or pattern name.
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Internal Server Error: /meal-planner/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 1672, in meal_planner
+    return render(request, 'meal_planner.html', context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 214, in render
+    nodelist.append(node.render_annotated(context))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'edit_meal' not found. 'edit_meal' is not a valid view function or pattern name.
+Internal Server Error: /meal-planner/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 1672, in meal_planner
+    return render(request, 'meal_planner.html', context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 214, in render
+    nodelist.append(node.render_annotated(context))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'edit_meal' not found. 'edit_meal' is not a valid view function or pattern name.
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Not Found: /favicon.ico
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1/models/gemini-pro:generateContent HTTP/1.1" 200 None
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Not Found: /favicon.ico
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Internal Server Error: /recipe/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 268, in recipe
+    return render(request, 'recipe.html', context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'community' not found. 'community' is not a valid view function or pattern name.
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Internal Server Error: /recipe/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 268, in recipe
+    return render(request, 'recipe.html', context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 315, in render
+    return nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'favorites' not found. 'favorites' is not a valid view function or pattern name.
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 1
+Show my recipes: True
+Current user ID: 2
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Internal Server Error: /add-meal/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 1712, in add_meal_plan
+    tracking.save()
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\base.py", line 740, in save
+    force_update=force_update, update_fields=update_fields)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\base.py", line 778, in save_base
+    force_update, using, update_fields,
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\base.py", line 859, in _save_table
+    forced_update)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\base.py", line 912, in _do_update
+    return filtered._update(values) > 0
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 802, in _update
+    return query.get_compiler(self.db).execute_sql(CURSOR)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 1559, in execute_sql
+    cursor = super().execute_sql(result_type)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\compiler.py", line 1175, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 98, in execute
+    return super().execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 146, in execute
+    query = self.mogrify(query, args)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 125, in mogrify
+    query = query % self._escape_args(args, conn)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 107, in _escape_args
+    return tuple(conn.literal(arg) for arg in args)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\cursors.py", line 107, in <genexpr>
+    return tuple(conn.literal(arg) for arg in args)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 517, in literal
+    return self.escape(obj, self.encoders)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\connections.py", line 510, in escape
+    return converters.escape_item(obj, self.charset, mapping=mapping)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\converters.py", line 25, in escape_item
+    val = encoder(val, mapping)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\pymysql\converters.py", line 60, in escape_float
+    raise ProgrammingError("%s can not be used with MySQL" % s)
+MySQLdb.err.ProgrammingError: nan can not be used with MySQL
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1/models/gemini-pro:generateContent HTTP/1.1" 200 None
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Not Found: /meal-planner/delete/4/
+Not Found: /meal-planner/delete/4/
+Not Found: /meal-planner/delete/4/
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Total recipes: 2
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediant 
+Not Found: /meal-planner/delete-meal/4/
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Internal Server Error: /meal-planner/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 1672, in meal_planner
+    return render(request, 'meal_planner.html', context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'delete_meal' not found. 'delete_meal' is not a valid view function or pattern name.
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
