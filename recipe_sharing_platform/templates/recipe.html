@@ -377,7 +377,7 @@
     </style>
 </head>
 <body>
-    <!-- {% include 'navbar.html' %} -->
+ {% include 'navbar.html' %} 
      
 
     {% if messages %}
@@ -445,8 +445,8 @@
                     </div>
                     <div class="card-body">
                         <h3 class="card-title">{{ recipe.recipename }}</h3>
-                        <p class="card-text">{{ recipe.description|truncatewords:20 }}</p>
-                        <p class="card-text"><small class="text-muted">Tags: {{ recipe.tags }}</small></p>
+                        <!-- <p class="card-text">{{ recipe.description|truncatewords:20 }}</p> -->
+                        <p class="card-text"><small class="text-muted">{{ recipe.tags }}</small></p>
                         <div class="card-actions">
                             <a href="{% url 'recipe_detail' recipe.recipe_id %}" class="btn btn-view-recipe">View Recipe</a>
                         </div>

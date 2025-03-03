@@ -218,7 +218,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SUPPORT_EMAIL = 'karthikasandra123@gmail.com'
 
 
-GEMINI_API_KEY = 'AIzaSyB1yFGPrDkwKTZ2u2h4TQzOlJbMNXcJ530'  # Your actual API key
+GEMINI_API_KEY = 'AIzaSyAysIRQcjCirxJpy0UAk9GllCLSO2kQ684'  # Your actual API key
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

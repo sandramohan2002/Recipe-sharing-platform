@@ -232,26 +232,24 @@
     <div class="form-container">
         <h1>Add New Recipe</h1>
 
-        <form method="post" action="{% url 'addrecipe' %}" enctype="multipart/form-data">
+        <form method="POST" action="{% url 'addrecipe' %}" enctype="multipart/form-data" onsubmit="return validateForm()">
             {% csrf_token %}
 
             <!-- Recipe Name -->
             <div class="form-group">
-                <label for="recipename">Recipe Name:</label>
-                <input type="text" id="recipename" name="recipename" required>
-                <p class="error">{{ form.recipename.errors }}</p>
+                <label for="recipename">Recipe Name *</label>
+                <input type="text" class="form-control" id="recipename" name="recipename" required>
             </div>
 
             <!-- Category -->
             <div class="form-group">
-                <label for="category">Category:</label>
-                <select id="category" name="category" required onchange="loadSubcategories()">
+                <label for="category">Category *</label>
+                <select class="form-control" id="category" name="category" required onchange="loadSubcategories()">
                     <option value="">Select a category</option>
                     {% for category in categories %}
                         <option value="{{ category.category_id }}">{{ category.name }}</option>
                     {% endfor %}
                 </select>
-                <p class="error">{{ form.category.errors }}</p>
             </div>
 
             <!-- Subcategory -->
@@ -317,13 +315,15 @@
 
             <!-- Instructions -->
             <div class="form-group">
-                <label for="instructions" class="step-label">Step 1:</label>
+                <label for="instructions">Instructions:</label>
                 <div id="instructionsContainer">
-                    <textarea name="instructions_1" id="instructions" rows="3" placeholder="Step 1" required></textarea>
+                    <textarea name="instructions" id="instructions" rows="3" required></textarea>
                 </div>
                 <div class="add-step-btn" onclick="addStep()">Add Step</div>
-                <p class="error">{{ form.instructions.errors }}</p>
             </div>
+
+            <!-- Add this hidden input for collecting all instructions -->
+            <input type="hidden" name="all_instructions" id="all_instructions">
 
             <!-- Tags -->
             <div class="form-group">
@@ -389,8 +389,12 @@
                 <button type="button" class="btn btn-secondary" id="add-allergen">Add Another Allergen</button>
             </div>
 
+            <!-- Add hidden field for ingredient count -->
+            <input type="hidden" id="ingredient_count" name="ingredient_count" value="0">
+            <input type="hidden" id="step_count" name="step_count" value="1">
+
             <!-- Submit Button -->
-            <button type="submit">Add Recipe</button>
+            <button type="submit" class="btn btn-primary">Add Recipe</button>
         </form>
     </div>
 
@@ -439,16 +443,12 @@
 
         function addStep() {
             stepCount++;
+            const container = document.getElementById('instructionsContainer');
             const newStep = document.createElement('textarea');
-            newStep.name = 'instructions_' + stepCount;
+            newStep.name = 'instruction_step_' + stepCount;
             newStep.rows = 3;
             newStep.placeholder = 'Step ' + stepCount;
             newStep.required = true;
-            const newLabel = document.createElement('label');
-            newLabel.className = 'step-label';
-            newLabel.textContent = 'Step ' + stepCount + ':';
-            const container = document.getElementById('instructionsContainer');
-            container.appendChild(newLabel);
             container.appendChild(newStep);
         }
 
@@ -527,7 +527,7 @@
             const newRow = document.createElement('tr');
             newRow.innerHTML = `
                 <td>
-                    <input type="hidden" name="ingredient_${rowCount}" value="${ingredientId}">
+                    <input type="hidden" name="ingredient_id_${rowCount}" value="${ingredientId}">
                     <input type="hidden" name="ingredient_name_${rowCount}" value="${ingredientName}">
                     ${ingredientName}
                 </td>
@@ -548,6 +548,9 @@
                 <td><button type="button" onclick="removeIngredientRow(this)">Remove</button></td>
             `;
             ingredientRows.appendChild(newRow);
+            
+            // Update ingredient count
+            document.getElementById('ingredient_count').value = rowCount;
         }
 
         function createNewIngredient(name) {
@@ -623,7 +626,7 @@
                 body: formData,
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRFToken': this.querySelector('[name=csrfmiddlewaretoken]').value,
+                    'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
                 },
             })
             .then(response => response.json())
@@ -639,12 +642,17 @@
                     // Select the newly added ingredient
                     ingredientsDropdown.value = data.id;
                     
-                    // Clear the new ingredient input
-                    document.getElementById('newIngredient').value = '';
+                    // Clear the form
+                    this.reset();
                     
-                    // Close the modal
+                    // Close the modal properly
                     const modal = bootstrap.Modal.getInstance(document.getElementById('addIngredientModal'));
-                    modal.hide();
+                    if (modal) {
+                        modal.hide();
+                    }
+                    
+                    // Clean up modal effects
+                    cleanupModalEffects();
                     
                     // Show success message
                     alert('Ingredient added successfully!');
@@ -658,15 +666,29 @@
             });
         });
 
-        // Add modal cleanup on close
-        document.getElementById('addIngredientModal').addEventListener('hidden.bs.modal', function () {
-            document.body.classList.remove('modal-open');
+        // Function to clean up modal effects
+        function cleanupModalEffects() {
+            // Remove modal backdrop
             const backdrop = document.querySelector('.modal-backdrop');
             if (backdrop) {
                 backdrop.remove();
             }
-            document.body.style.overflow = '';
-            document.body.style.paddingRight = '';
+            
+            // Remove modal-open class and inline styles from body
+            document.body.classList.remove('modal-open');
+            document.body.style.removeProperty('overflow');
+            document.body.style.removeProperty('padding-right');
+        }
+
+        // Add event listener for modal hidden event
+        document.getElementById('addIngredientModal').addEventListener('hidden.bs.modal', function () {
+            cleanupModalEffects();
+        });
+
+        // Add event listener for modal show event
+        document.getElementById('addIngredientModal').addEventListener('show.bs.modal', function () {
+            // Clear the form when opening the modal
+            document.getElementById('addIngredientForm').reset();
         });
 
         function logFormData(formData) {
@@ -729,6 +751,34 @@
                 }
             }
         });
+
+        function validateForm() {
+            const recipeName = document.getElementById('recipename').value.trim();
+            if (!recipeName) {
+                alert('Please enter a recipe name');
+                return false;
+            }
+
+            const category = document.getElementById('category').value;
+            if (!category) {
+                alert('Please select a category');
+                return false;
+            }
+
+            // Collect all instructions
+            const instructionSteps = document.querySelectorAll('#instructionsContainer textarea');
+            const allInstructions = Array.from(instructionSteps)
+                .map(textarea => textarea.value.trim())
+                .filter(text => text)
+                .join('\n');
+            
+            document.getElementById('all_instructions').value = allInstructions;
+
+            // Update ingredient count
+            document.getElementById('ingredient_count').value = document.querySelectorAll('#ingredientRows tr').length;
+
+            return true;
+        }
     </script>
 </body>
 

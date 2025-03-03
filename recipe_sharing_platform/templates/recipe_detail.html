@@ -860,9 +860,6 @@
                                 <span class="value">{{ nutritional_info.sugar|floatformat:1 }}g</span>
                             </div>
                         </div>
-                        {% if is_ai_generated %}
-                            <small class="text-muted">* Nutritional information is AI-generated and approximate</small>
-                        {% endif %}
                     {% else %}
                         <p class="text-muted">Nutritional information not available</p>
                     {% endif %}
