@@ -755,7 +755,7 @@
                 {% if recipe.image %}
                     <img src="{{ recipe.image.url }}" alt="{{ recipe.recipename }}" class="recipe-image">
                 {% endif %}
-                <button class="nutrition-btn" onclick="showNutritionalInfo()">
+                <button class="nutrition-btn" onclick="showNutritionalInfo('{{ recipe.recipename }}')">
                     <i class="fas fa-chart-pie"></i>
                     View Nutritional Information
                 </button>
@@ -828,11 +828,11 @@
         <div id="nutritionalModal" class="modal-overlay">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2><i class="fas fa-chart-pie"></i> Nutritional Information</h2>
+                    <!-- <h2><i class="fas fa-chart-pie"></i> Nutritional Information for {{ recipe.recipename }}</h2> -->
                     <span class="close-modal" onclick="closeNutritionalModal()">&times;</span>
                 </div>
                 <div class="nutritional-info-section">
-                    <h4>Nutritional Information</h4>
+                    <h4>Nutritional Information for {{ recipe.recipename }}</h4>
                     {% if nutritional_info %}
                         <div class="nutrition-grid">
                             <div class="nutrition-item">
@@ -1027,8 +1027,10 @@
     </div>
 
     <script>
-    function showNutritionalInfo() {
+    function showNutritionalInfo(recipeName) {
         document.getElementById('nutritionalModal').classList.add('active');
+        // Set the recipe name in the modal header
+        document.querySelector('.modal-header h2').innerText = `Nutritional Information for ${recipeName}`;
     }
 
     function closeNutritionalModal() {
