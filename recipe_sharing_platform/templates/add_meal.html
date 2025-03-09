@@ -427,23 +427,33 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('mealPlanForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Add your form submission logic here
-        // You can use fetch API to submit the form data
-        
         const formData = new FormData(this);
+        
+        // Add nutritional values to formData
+        formData.append('calories', document.getElementById('calories').value);
+        formData.append('protein', document.getElementById('protein').value);
+        formData.append('carbs', document.getElementById('carbs').value);
+        formData.append('fat', document.getElementById('fat').value);
+        
         fetch('/add-meal/', {
             method: 'POST',
             body: formData,
             headers: {
-                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-            }
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            credentials: 'same-origin'  // This is important for CSRF token
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
             if (data.success) {
-                window.location.href = '{% url "meal_planner" %}';
+                window.location.href = '/meal-planner/';  // Redirect to meal planner page
             } else {
-                alert('Error adding meal to plan. Please try again.');
+                throw new Error(data.message || 'Error adding meal to plan');
             }
         })
         .catch(error => {

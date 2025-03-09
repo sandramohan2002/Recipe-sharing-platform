@@ -1673,49 +1673,64 @@ def meal_planner(request):
 
 def add_meal_plan(request):
     if not request.session.get('id'):
-        return redirect('login')
+        return JsonResponse({'success': False, 'message': 'Please login to continue'}, status=401)
         
     if request.method == 'POST':
-        user_id = request.session.get('id')
-        recipe_id = request.POST.get('recipe_id')
-        recipe = Recipe.objects.get(recipe_id=recipe_id)
-        
-        meal_plan = MealPlan(
-            user_id=user_id,
-            plan_date=request.POST.get('plan_date'),
-            meal_type=request.POST.get('meal_type'),
-            recipe_details={
-                'recipe_id': recipe_id,
-                'recipe_name': recipe.recipename,
-                'servings': request.POST.get('servings'),
-                'calories': request.POST.get('calories'),
-                'protein': request.POST.get('protein'),
-                'carbs': request.POST.get('carbs'),
-                'fat': request.POST.get('fat')
-            },
-            notes=request.POST.get('notes')
-        )
-        meal_plan.save()
-        
-        # Update dietary tracking
-        tracking_date = request.POST.get('plan_date')
-        tracking, created = DietaryTracking.objects.get_or_create(
-            user_id=user_id,
-            tracking_date=tracking_date
-        )
-        
-        # Update totals
-        tracking.total_calories += float(request.POST.get('calories', 0))
-        tracking.total_protein += float(request.POST.get('protein', 0))
-        tracking.total_carbs += float(request.POST.get('carbs', 0))
-        tracking.total_fat += float(request.POST.get('fat', 0))
-        tracking.save()
-        
-        return redirect('meal_planner')
+        try:
+            user_id = request.session.get('id')
+            recipe_id = request.POST.get('recipe_id')
+            
+            if not recipe_id:
+                return JsonResponse({'success': False, 'message': 'Recipe is required'}, status=400)
+                
+            recipe = Recipe.objects.get(recipe_id=recipe_id)
+            
+            meal_plan = MealPlan(
+                user_id=user_id,
+                plan_date=request.POST.get('plan_date'),
+                meal_type=request.POST.get('meal_type'),
+                recipe_details={
+                    'recipe_id': recipe_id,
+                    'recipe_name': recipe.recipename,
+                    'servings': request.POST.get('servings'),
+                    'calories': request.POST.get('calories'),
+                    'protein': request.POST.get('protein'),
+                    'carbs': request.POST.get('carbs'),
+                    'fat': request.POST.get('fat')
+                },
+                notes=request.POST.get('notes', '')
+            )
+            meal_plan.save()
+            
+            # Update dietary tracking
+            tracking_date = request.POST.get('plan_date')
+            tracking, created = DietaryTracking.objects.get_or_create(
+                user_id=user_id,
+                tracking_date=tracking_date,
+                defaults={
+                    'total_calories': 0,
+                    'total_protein': 0,
+                    'total_carbs': 0,
+                    'total_fat': 0
+                }
+            )
+            
+            # Update totals
+            tracking.total_calories += float(request.POST.get('calories', 0))
+            tracking.total_protein += float(request.POST.get('protein', 0))
+            tracking.total_carbs += float(request.POST.get('carbs', 0))
+            tracking.total_fat += float(request.POST.get('fat', 0))
+            tracking.save()
+            
+            return JsonResponse({'success': True, 'message': 'Meal added successfully'})
+            
+        except Recipe.DoesNotExist:
+            return JsonResponse({'success': False, 'message': 'Recipe not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': str(e)}, status=500)
     
-    # Get all recipes with their nutritional info for the form
+    # GET request - render the form
     recipes = Recipe.objects.select_related('nutritional_info').all()
-    
     return render(request, 'add_meal.html', {'recipes': recipes})
 
 def edit_meal(request, meal_id):
