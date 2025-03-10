@@ -368,6 +368,30 @@ class DietaryTracking(models.Model):
     class Meta:
         db_table = 'dietary_tracking'
 
+class DietaryGuideline(models.Model):
+    CONDITION_CHOICES = [
+        ('diabetic', 'Diabetic'),
+        ('cholesterol', 'High Cholesterol'),
+        ('blood_pressure', 'High Blood Pressure'),
+        ('heart_disease', 'Heart Disease'),
+        ('kidney_disease', 'Kidney Disease'),
+        ('celiac', 'Celiac Disease'),
+    ]
+
+    condition = models.CharField(max_length=50, choices=CONDITION_CHOICES)
+    nutrient = models.CharField(max_length=50)  # e.g., carbohydrates, fat, sugar, sodium
+    min_value = models.FloatField()
+    max_value = models.FloatField()
+    unit = models.CharField(max_length=10)  # e.g., g, mg
+    description = models.TextField()
+    recommendations = models.TextField()
+
+    class Meta:
+        unique_together = ['condition', 'nutrient']
+
+    def __str__(self):
+        return f"{self.get_condition_display()} - {self.nutrient}"
+
 
     
 

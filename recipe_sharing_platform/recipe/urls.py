@@ -116,7 +116,7 @@ urlpatterns = [
     path('meal-planner/edit/<int:meal_id>/', views.edit_meal, name='edit_meal'),
     path('meal-planner/delete/<int:meal_id>/', views.delete_meal_plan, name='delete_meal'),
     
-    
+    path('recipe/<int:recipe_id>/analyze-diet/', views.analyze_recipe_diet, name='analyze_recipe_diet'),
     
 ]
 

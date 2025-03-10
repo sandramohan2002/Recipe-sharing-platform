@@ -108,22 +108,61 @@
 
                         <!-- Recipe Selection -->
                         <div class="mb-4">
-                            <label for="recipe_id" class="form-label">Select Recipe</label>
-                            <select class="form-select" id="recipe_id" name="recipe_id" required>
-                                <option value="">Select recipe</option>
-                                {% for recipe in recipes %}
-                                    <option value="{{ recipe.recipe_id }}" 
-                                            data-calories="{{ recipe.nutritional_info.calories|default:0 }}"
-                                            data-protein="{{ recipe.nutritional_info.protein|default:0 }}"
-                                            data-carbs="{{ recipe.nutritional_info.carbohydrates|default:0 }}"
-                                            data-fat="{{ recipe.nutritional_info.fat|default:0 }}">
-                                        {{ recipe.recipename }}
-                                        {% if not recipe.nutritional_info %}
-                                            (No nutritional info)
-                                        {% endif %}
-                                    </option>
-                                {% endfor %}
-                            </select>
+                            <label class="form-label">Select Recipes</label>
+                            <div class="selected-recipes mb-3">
+                                <div class="recipe-list" id="selectedRecipesList">
+                                    <!-- Selected recipes will be displayed here -->
+                                </div>
+                                <button type="button" class="btn btn-outline-primary mt-2" id="openRecipeModal">
+                                    <i class="bi bi-plus-circle"></i> Add Recipe
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Recipe Selection Modal -->
+                        <div class="recipe-modal" id="recipeModal">
+                            <div class="recipe-modal-dialog">
+                                <div class="recipe-modal-content">
+                                    <div class="recipe-modal-header">
+                                        <h5>Select Recipes</h5>
+                                        <button type="button" class="close-modal">&times;</button>
+                                    </div>
+                                    <div class="recipe-modal-body">
+                                        <div class="search-box mb-3">
+                                            <input type="text" class="form-control" id="recipeSearch" placeholder="Search recipes...">
+                                        </div>
+                                        <div class="recipe-list-container">
+                                            {% for recipe in recipes %}
+                                            <div class="recipe-list-item" 
+                                                 data-recipe-id="{{ recipe.recipe_id }}"
+                                                 data-recipe-name="{{ recipe.recipename }}"
+                                                 data-calories="{{ recipe.nutritional_info.calories|default:0 }}"
+                                                 data-protein="{{ recipe.nutritional_info.protein|default:0 }}"
+                                                 data-carbs="{{ recipe.nutritional_info.carbohydrates|default:0 }}"
+                                                 data-fat="{{ recipe.nutritional_info.fat|default:0 }}">
+                                                <div class="recipe-list-content">
+                                                    {% if recipe.image %}
+                                                    <div class="recipe-img">
+                                                        <img src="{{ recipe.image.url }}" alt="{{ recipe.recipename }}">
+                                                    </div>
+                                                    {% endif %}
+                                                    <div class="recipe-info">
+                                                        <h6>{{ recipe.recipename }}</h6>
+                                                        <div class="recipe-controls">
+                                                            <div class="servings-control">
+                                                                <label>Servings:</label>
+                                                                <input type="number" class="form-control servings" value="1" min="1">
+                                                            </div>
+                                                            <button class="btn btn-primary btn-sm select-btn">Select</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Servings and Nutrition -->
@@ -284,181 +323,287 @@
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+.recipe-container {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.recipe-card {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.recipe-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.img-wrapper {
+    position: relative;
+    padding-top: 75%; /* 4:3 Aspect Ratio */
+    overflow: hidden;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+
+.recipe-thumbnail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.selected-recipes {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    contain: content;
+}
+
+.recipe-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    contain: content;
+}
+
+.recipe-item .remove-recipe {
+    color: #dc3545;
+    cursor: pointer;
+}
+
+.servings-input {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.servings-input input {
+    width: 60px;
+}
+
+.recipe-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+}
+
+.recipe-modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.recipe-modal-dialog {
+    background: white;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 8px;
+    position: relative;
+    margin: 1.75rem auto;
+}
+
+.recipe-modal-content {
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.recipe-modal-header {
+    padding: 1rem;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+}
+
+.recipe-modal-header h5 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.close-modal {
+    padding: 0;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: #000;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    opacity: 1;
+}
+
+.recipe-modal-body {
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.recipe-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.recipe-list-item {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.recipe-list-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.recipe-list-content {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.recipe-img {
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.recipe-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.recipe-info {
+    flex: 1;
+}
+
+.recipe-info h6 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.recipe-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.servings-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.servings-control input {
+    width: 70px;
+}
+
+.search-box {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    padding: 0.5rem 0;
+    z-index: 2;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const recipeSelect = document.getElementById('recipe_id');
-    const servingsInput = document.getElementById('servings');
-    const planningModeInputs = document.querySelectorAll('input[name="planningMode"]');
-    const singleDaySelect = document.getElementById('singleDaySelect');
-    const weeklyPlanSelect = document.getElementById('weeklyPlanSelect');
-    const weeklySummary = document.querySelector('.weekly-summary');
+    const modal = document.getElementById('recipeModal');
+    const openModalBtn = document.getElementById('openRecipeModal');
+    const closeModalBtn = modal.querySelector('.close-modal');
+    const searchInput = document.getElementById('recipeSearch');
+    const recipeItems = document.querySelectorAll('.recipe-list-item');
     
-    // Initialize date picker with today's date
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('plan_date').value = today;
+    function openModal(e) {
+        e.preventDefault();
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        searchInput.value = '';
+        recipeItems.forEach(item => item.style.display = 'block');
+    }
     
-    // Planning mode toggle
-    planningModeInputs.forEach(input => {
-        input.addEventListener('change', function() {
-            if (this.value === 'single') {
-                singleDaySelect.style.display = 'block';
-                weeklyPlanSelect.style.display = 'none';
-                weeklySummary.style.display = 'none';
-            } else {
-                singleDaySelect.style.display = 'none';
-                weeklyPlanSelect.style.display = 'block';
-                weeklySummary.style.display = 'block';
-                generateWeekGrid(new Date());
-            }
+    function closeModal() {
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+    
+    openModalBtn.addEventListener('click', openModal);
+    closeModalBtn.addEventListener('click', closeModal);
+    
+    window.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('show')) {
+            closeModal();
+        }
+    });
+    
+    searchInput.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase().trim();
+        recipeItems.forEach(item => {
+            const recipeName = item.dataset.recipeName.toLowerCase();
+            item.style.display = recipeName.includes(searchTerm) ? 'block' : 'none';
         });
     });
-
-    // Update nutrition information with validation
-    function updateNutritionInfo() {
-        const selectedOption = recipeSelect.options[recipeSelect.selectedIndex];
-        const servings = parseInt(servingsInput.value) || 1;
-        
-        if (selectedOption.value) {
-            // Get nutritional values with default of 0 if undefined
-            const calories = parseFloat(selectedOption.dataset.calories || 0) * servings;
-            const protein = parseFloat(selectedOption.dataset.protein || 0) * servings;
-            const carbs = parseFloat(selectedOption.dataset.carbs || 0) * servings;
-            const fat = parseFloat(selectedOption.dataset.fat || 0) * servings;
-            
-            // Validate values before updating
-            const validateNumber = (num) => isNaN(num) ? 0 : num;
-            
-            const validCalories = validateNumber(calories);
-            const validProtein = validateNumber(protein);
-            const validCarbs = validateNumber(carbs);
-            const validFat = validateNumber(fat);
-            
-            // Update hidden inputs
-            document.getElementById('calories').value = validCalories;
-            document.getElementById('protein').value = validProtein;
-            document.getElementById('carbs').value = validCarbs;
-            document.getElementById('fat').value = validFat;
-            
-            // Update display values
-            document.getElementById('calories-display').textContent = validCalories.toFixed(1);
-            document.getElementById('protein-display').textContent = validProtein.toFixed(1);
-            document.getElementById('carbs-display').textContent = validCarbs.toFixed(1);
-            document.getElementById('fat-display').textContent = validFat.toFixed(1);
-            
-            // Update progress bars based on daily goals
-            const caloriesGoal = parseFloat(document.getElementById('caloriesGoal').value) || 2000;
-            const proteinGoal = parseFloat(document.getElementById('proteinGoal').value) || 60;
-            const carbsGoal = parseFloat(document.getElementById('carbsGoal').value) || 250;
-            const fatGoal = parseFloat(document.getElementById('fatGoal').value) || 70;
-            
-            // Calculate percentages with validation
-            const calculatePercentage = (value, goal) => {
-                const percentage = (value/goal) * 100;
-                return isNaN(percentage) ? 0 : Math.min(percentage, 100);
-            };
-            
-            document.getElementById('calories-progress').style.width = `${calculatePercentage(validCalories, caloriesGoal)}%`;
-            document.getElementById('protein-progress').style.width = `${calculatePercentage(validProtein, proteinGoal)}%`;
-            document.getElementById('carbs-progress').style.width = `${calculatePercentage(validCarbs, carbsGoal)}%`;
-            document.getElementById('fat-progress').style.width = `${calculatePercentage(validFat, fatGoal)}%`;
-            
-            // Add warning if no nutritional information
-            if (validCalories === 0 && validProtein === 0 && validCarbs === 0 && validFat === 0) {
-                document.querySelector('.nutrition-info').classList.add('no-nutrition');
-                const warningDiv = document.createElement('div');
-                warningDiv.className = 'alert alert-warning mt-2';
-                warningDiv.textContent = 'No nutritional information available for this recipe';
-                document.querySelector('.nutrition-info').appendChild(warningDiv);
-            } else {
-                document.querySelector('.nutrition-info').classList.remove('no-nutrition');
-                const existingWarning = document.querySelector('.nutrition-info .alert-warning');
-                if (existingWarning) {
-                    existingWarning.remove();
-                }
-            }
-        }
-    }
     
-    // Generate week grid for weekly planning
-    function generateWeekGrid(startDate) {
-        const weekGrid = document.querySelector('.week-grid');
-        weekGrid.innerHTML = '';
-        
-        for (let i = 0; i < 7; i++) {
-            const date = new Date(startDate);
-            date.setDate(date.getDate() + i);
+    document.querySelectorAll('.select-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const item = this.closest('.recipe-list-item');
+            const recipeId = item.dataset.recipeId;
+            const recipeName = item.dataset.recipeName;
+            const servings = item.querySelector('.servings').value;
             
-            const dayCard = document.createElement('div');
-            dayCard.className = 'day-card';
-            dayCard.innerHTML = `
-                <div class="date">${date.getDate()}</div>
-                <div class="day-name">${date.toLocaleDateString('en-US', { weekday: 'short' })}</div>
-            `;
-            
-            dayCard.addEventListener('click', function() {
-                document.querySelectorAll('.day-card').forEach(card => card.classList.remove('selected'));
-                this.classList.add('selected');
-                document.getElementById('plan_date').value = date.toISOString().split('T')[0];
-            });
-            
-            weekGrid.appendChild(dayCard);
-        }
-    }
-    
-    // Event listeners
-    recipeSelect.addEventListener('change', updateNutritionInfo);
-    servingsInput.addEventListener('input', updateNutritionInfo);
-    
-    document.getElementById('previousWeek').addEventListener('click', function() {
-        const currentDate = new Date(document.getElementById('plan_date').value);
-        currentDate.setDate(currentDate.getDate() - 7);
-        generateWeekGrid(currentDate);
-    });
-    
-    document.getElementById('nextWeek').addEventListener('click', function() {
-        const currentDate = new Date(document.getElementById('plan_date').value);
-        currentDate.setDate(currentDate.getDate() + 7);
-        generateWeekGrid(currentDate);
-    });
-    
-    // Form submission
-    document.getElementById('mealPlanForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(this);
-        
-        // Add nutritional values to formData
-        formData.append('calories', document.getElementById('calories').value);
-        formData.append('protein', document.getElementById('protein').value);
-        formData.append('carbs', document.getElementById('carbs').value);
-        formData.append('fat', document.getElementById('fat').value);
-        
-        fetch('/add-meal/', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            },
-            credentials: 'same-origin'  // This is important for CSRF token
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                window.location.href = '/meal-planner/';  // Redirect to meal planner page
-            } else {
-                throw new Error(data.message || 'Error adding meal to plan');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error adding meal to plan. Please try again.');
+            addRecipeToSelection(recipeId, recipeName, servings, item.dataset);
+            updateNutritionTotals();
+            closeModal();
         });
     });
 });
