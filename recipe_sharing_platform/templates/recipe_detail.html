@@ -925,36 +925,36 @@
                 </div>
                 <div class="nutritional-info-section">
                     <h4>Nutritional Information for {{ recipe.recipename }}</h4>
-                    {% if nutritional_info %}
-                        <div class="nutrition-grid">
-                            <div class="nutrition-item">
+                {% if nutritional_info %}
+                    <div class="nutrition-grid">
+                        <div class="nutrition-item">
                                 <span class="label">Calories:</span>
                                 <span class="value">{{ nutritional_info.calories|floatformat:1 }}</span>
-                            </div>
-                            <div class="nutrition-item">
+                        </div>
+                        <div class="nutrition-item">
                                 <span class="label">Protein:</span>
                                 <span class="value">{{ nutritional_info.protein|floatformat:1 }}g</span>
-                            </div>
-                            <div class="nutrition-item">
+                        </div>
+                        <div class="nutrition-item">
                                 <span class="label">Carbohydrates:</span>
                                 <span class="value">{{ nutritional_info.carbohydrates|floatformat:1 }}g</span>
-                            </div>
-                            <div class="nutrition-item">
+                        </div>
+                        <div class="nutrition-item">
                                 <span class="label">Fat:</span>
                                 <span class="value">{{ nutritional_info.fat|floatformat:1 }}g</span>
-                            </div>
-                            <div class="nutrition-item">
+                        </div>
+                        <div class="nutrition-item">
                                 <span class="label">Fiber:</span>
                                 <span class="value">{{ nutritional_info.fiber|floatformat:1 }}g</span>
-                            </div>
-                            <div class="nutrition-item">
+                        </div>
+                        <div class="nutrition-item">
                                 <span class="label">Sugar:</span>
                                 <span class="value">{{ nutritional_info.sugar|floatformat:1 }}g</span>
-                            </div>
                         </div>
-                    {% else %}
+                    </div>
+                {% else %}
                         <p class="text-muted">Nutritional information not available</p>
-                    {% endif %}
+                {% endif %}
                 </div>
             </div>
         </div>
@@ -986,8 +986,8 @@
         <!-- Add this where you want to display allergens -->
         {% if has_allergens %}
         <div class="allergen-warnings">
-            <h4><i class="fas fa-exclamation-triangle"></i> Allergen Information</h4>
-            {% if allergens.contains %}
+                <h4><i class="fas fa-exclamation-triangle"></i> Allergen Information</h4>
+                {% if allergens.contains %}
                 <div class="allergen-group">
                     <h5>Contains:</h5>
                     <div class="allergen-tags">
@@ -999,9 +999,9 @@
                         {% endfor %}
                     </div>
                 </div>
-            {% endif %}
-            
-            {% if allergens.may_contain %}
+                {% endif %}
+                
+                {% if allergens.may_contain %}
                 <div class="allergen-group">
                     <h5>May Contain:</h5>
                     <div class="allergen-tags">
@@ -1013,9 +1013,9 @@
                         {% endfor %}
                     </div>
                 </div>
-            {% endif %}
-            
-            {% if allergens.traces %}
+                {% endif %}
+                
+                {% if allergens.traces %}
                 <div class="allergen-group">
                     <h5>Traces:</h5>
                     <div class="allergen-tags">
@@ -1027,7 +1027,7 @@
                         {% endfor %}
                     </div>
                 </div>
-            {% endif %}
+                {% endif %}
         </div>
         {% endif %}
         <!-- Instructions Section -->

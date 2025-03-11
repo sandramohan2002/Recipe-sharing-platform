@@ -364,130 +364,128 @@ def addrecipe(request):
     })
 
 
+
 def recipe_detail(request, recipe_id):
+    recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
+    
+    # Get nutritional info
     try:
-        recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
+        nutritional_info = NutritionalInformation.objects.get(recipe_id=recipe_id)
+        is_ai_generated = nutritional_info.is_ai_generated
+    except NutritionalInformation.DoesNotExist:
+        nutritional_info = None
+        is_ai_generated = False
         
-        # Get author information
+        # Try to generate nutritional info if it doesn't exist
         try:
-            author = CustomUser.objects.get(id=recipe.user_id)
-            author_name = author.name
-            author_profile_image = author.profile_image
-        except CustomUser.DoesNotExist:
-            author_name = "Unknown Author"
-            author_profile_image = None
-
-        # Get category and subcategory names
-        try:
-            category = Category.objects.get(category_id=recipe.category_id)
-            category_name = category.name
-        except Category.DoesNotExist:
-            category_name = "Uncategorized"
-
-        try:
-            if recipe.subcategory_id:
-                subcategory = SubCategory.objects.get(subcategory_id=recipe.subcategory_id)
-                subcategory_name = subcategory.name
+            api_key = getattr(settings, 'GEMINI_API_KEY', None)
+            if api_key:
+                ai_nutritional_info = get_nutritional_info_from_ai(recipe.recipename, api_key)
+                if ai_nutritional_info:
+                    nutritional_info = NutritionalInformation.objects.create(
+                        recipe=recipe,
+                        calories=ai_nutritional_info['calories'],
+                        protein=ai_nutritional_info['protein'],
+                        carbohydrates=ai_nutritional_info['carbohydrates'],
+                        fat=ai_nutritional_info['fat'],
+                        fiber=ai_nutritional_info['fiber'],
+                        sugar=ai_nutritional_info['sugar'],
+                        is_ai_generated=True
+                    )
+                    is_ai_generated = True
             else:
-                subcategory_name = None
-        except SubCategory.DoesNotExist:
-            subcategory_name = None
+                print("No Gemini API key found in settings")
+        except Exception as e:
+            print(f"Error generating nutritional info: {str(e)}")
+            pass  # Handle error silently
 
-        # Get nutritional information
-        try:
-            nutritional_info = recipe.nutritional_info
-            is_ai_generated = nutritional_info.is_ai_generated if nutritional_info else False
-        except NutritionalInformation.DoesNotExist:
-            nutritional_info = None
-            is_ai_generated = False
-
-        # Get ingredients
-        ingredients = recipe.ingredients.all()
-
-        # Format instructions
-        instructions = recipe.instructions.split('\n') if recipe.instructions else []
-
-        # Get allergen information
-        allergens = {
-            'contains': [],
-            'may_contain': [],
-            'traces': []
-        }
+    # Get the recipe author details
+    try:
+        recipe_author = CustomUser.objects.get(id=recipe.user_id)
+        author_name = recipe_author.name
+        author_profile_image = recipe_author.profile_image
+    except CustomUser.DoesNotExist:
+        author_name = "Unknown User"
+        author_profile_image = None
+    
+    # Get the user_id from request.session
+    user_id = request.session.get('id')
+    is_logged_in = user_id is not None
+    
+    # Get reviews
+    try:
+        reviews = Review.objects.filter(recipe_id=recipe_id).values(
+            'review_id', 'user_id', 'review_text', 'created_at'
+        ).order_by('-created_at')
         
-        recipe_allergens = RecipeAllergen.objects.filter(recipe_id=recipe_id)
-        for allergen in recipe_allergens:
-            if allergen.severity == 'contains':
-                allergens['contains'].append({
-                    'name': allergen.get_allergen_name_display(),
-                    'notes': allergen.notes
-                })
-            elif allergen.severity == 'may_contain':
-                allergens['may_contain'].append({
-                    'name': allergen.get_allergen_name_display(),
-                    'notes': allergen.notes
-                })
-            elif allergen.severity == 'traces':
-                allergens['traces'].append({
-                    'name': allergen.get_allergen_name_display(),
-                    'notes': allergen.notes
-                })
-
-        # Get reviews
+        # Fetch user names for reviews
+        for review in reviews:
+            try:
+                user = CustomUser.objects.get(id=review['user_id'])
+                review['user_name'] = user.name
+            except CustomUser.DoesNotExist:
+                review['user_name'] = "Unknown User"
+    except:
         reviews = []
-        review_objects = Review.objects.filter(recipe_id=recipe_id).order_by('-created_at')
-        for review in review_objects:
-            try:
-                user = CustomUser.objects.get(id=review.user_id)
-                reviews.append({
-                    'user_name': user.name,
-                    'user': user,
-                    'review_text': review.review_text,
-                    'created_at': review.created_at
-                })
-            except CustomUser.DoesNotExist:
-                continue
 
-        # Check if user is admin
-        is_admin = False
-        is_logged_in = False
-        user_id = None
-        
-        if 'user_id' in request.session:
-            user_id = request.session['user_id']
-            try:
-                user = CustomUser.objects.get(id=user_id)
-                is_admin = user.is_admin
-                is_logged_in = True
-            except CustomUser.DoesNotExist:
-                pass
+    # Get category and subcategory
+    try:
+        category = Category.objects.get(category_id=recipe.category_id)
+        category_name = category.name
+    except Category.DoesNotExist:
+        category_name = "Unknown Category"
+    
+    try:
+        subcategory = SubCategory.objects.get(subcategory_id=recipe.subcategory_id)
+        subcategory_name = subcategory.name
+    except SubCategory.DoesNotExist:
+        subcategory_name = "Unknown Subcategory"
 
-        context = {
-            'recipe': recipe,
-            'author_name': author_name,
-            'author_profile_image': author_profile_image,
-            'category_name': category_name,
-            'subcategory_name': subcategory_name,
-            'instructions': instructions,
-            'nutritional_info': nutritional_info,
-            'ingredients': ingredients,
-            'allergens': allergens,
-            'has_allergens': any(allergens.values()),
-            'reviews': reviews,
-            'reviews_display': True,
-            'is_admin': is_admin,
-            'is_logged_in': is_logged_in,
-            'user_id': user_id,
-            'messages': messages.get_messages(request),
-            'is_ai_generated': is_ai_generated,
-            'recipe_id': recipe_id,  # Ensure recipe_id is passed to template
+    # Get ingredients
+    ingredients = recipe.recipe_ingredients.all().select_related('ingredient')
+
+    # Split instructions into a list
+    instructions = [inst.strip() for inst in recipe.instructions.split('\n') if inst.strip()]
+
+    # Fetch allergens and organize them by severity
+    allergens = {
+        'contains': [],
+        'may_contain': [],
+        'traces': []
+    }
+    
+    recipe_allergens = RecipeAllergen.objects.filter(recipe_id=recipe_id)
+    for allergen in recipe_allergens:
+        allergen_info = {
+            'name': allergen.get_allergen_name_display(),
+            'notes': allergen.notes
         }
-        
-        return render(request, 'recipe_detail.html', context)
-        
-    except Exception as e:
-        logger.error(f"Error in recipe_detail view: {str(e)}")
-        messages.error(request, "An error occurred while loading the recipe.")
-        return redirect('recipe')
+        allergens[allergen.severity].append(allergen_info)
+
+    # Check if user is admin
+    is_admin = request.user.is_admin if hasattr(request.user, 'is_admin') else False
+
+    context = {
+        'recipe': recipe,
+        'author_name': author_name,
+        'author_profile_image': author_profile_image,
+        'category_name': category_name,
+        'subcategory_name': subcategory_name,
+        'instructions': instructions,
+        'nutritional_info': nutritional_info,
+        'ingredients': ingredients,
+        'allergens': allergens,
+        'has_allergens': any(allergens.values()),
+        'reviews': reviews,
+        'reviews_display': True,
+        'is_admin': is_admin,
+        'is_logged_in': is_logged_in,
+        'user_id': user_id,
+        'messages': messages.get_messages(request),
+        'is_ai_generated': is_ai_generated,
+    }
+    
+    return render(request, 'recipe_detail.html', context)
 
 #for edting recipes on recipe page for user
 from django.shortcuts import render, redirect, get_object_or_404
@@ -1612,7 +1610,7 @@ def meal_planner(request):
     week_start = today - timedelta(days=today.weekday())
     week_end = week_start + timedelta(days=6)
     
-    # Get meal plans for the week
+    # Get meal plans for the week with proper ordering
     weekly_meals = MealPlan.objects.filter(
         user_id=user_id,
         plan_date__range=[week_start, week_end]
@@ -1630,30 +1628,97 @@ def meal_planner(request):
         tracking_date__range=[week_start, week_end]
     ).order_by('tracking_date')
     
+    # Define meal types and their display order
+    meal_types = [
+        ('breakfast', 'Breakfast'),
+        ('morning_snack', 'Morning Snack'),
+        ('lunch', 'Lunch'),
+        ('afternoon_snack', 'Afternoon Snack'),
+        ('dinner', 'Dinner'),
+        ('evening_snack', 'Evening Snack')
+    ]
+    
+    # Create a structured weekly plan
+    weekly_plan = []
+    current_date = week_start
+    while current_date <= week_end:
+        day_meals = []
+        day_total = {
+            'calories': 0,
+            'protein': 0,
+            'carbs': 0,
+            'fat': 0
+        }
+        
+        for meal_type, _ in meal_types:
+            meals = [meal for meal in weekly_meals if meal.plan_date == current_date and meal.meal_type == meal_type]
+            if meals:
+                for meal in meals:
+                    # Add meal totals to day totals
+                    if 'total_nutrition' in meal.recipe_details:
+                        day_total['calories'] += meal.recipe_details['total_nutrition']['calories']
+                        day_total['protein'] += meal.recipe_details['total_nutrition']['protein']
+                        day_total['carbs'] += meal.recipe_details['total_nutrition']['carbs']
+                        day_total['fat'] += meal.recipe_details['total_nutrition']['fat']
+            
+            day_meals.append({
+                'type': meal_type,
+                'type_display': dict(meal_types)[meal_type],
+                'meals': meals
+            })
+        
+        weekly_plan.append({
+            'date': current_date,
+            'meals': day_meals,
+            'totals': day_total
+        })
+        current_date += timedelta(days=1)
+    
+    # Get available recipes for the recipe list
+    available_recipes = Recipe.objects.select_related('nutritional_info').all()
+    
     context = {
-        'weekly_meals': weekly_meals,
+        'weekly_plan': weekly_plan,
         'daily_meals': daily_meals,
         'weekly_tracking': weekly_tracking,
         'week_start': week_start,
         'week_end': week_end,
-        'today': today
+        'today': today,
+        'meal_types': meal_types,
+        'available_recipes': available_recipes
     }
     
     return render(request, 'meal_planner.html', context)
 
+@require_http_methods(["GET", "POST"])
 def add_meal_plan(request):
     if not request.session.get('id'):
         return JsonResponse({'success': False, 'message': 'Please login to continue'}, status=401)
         
     if request.method == 'POST':
         try:
-            user_id = request.session.get('id')
-            recipes_data = json.loads(request.POST.get('recipes', '[]'))
+            # Parse JSON data from request body
+            data = json.loads(request.body.decode('utf-8'))
+            print("Received data:", data)  # Debug log
             
+            # Validate required fields
+            if not all(key in data for key in ['plan_date', 'meal_type', 'recipes']):
+                return JsonResponse({
+                    'success': False,
+                    'message': 'Missing required fields'
+                }, status=400)
+            
+            # Validate recipes data
+            recipes_data = data.get('recipes', [])
             if not recipes_data:
-                return JsonResponse({'success': False, 'message': 'At least one recipe is required'}, status=400)
+                return JsonResponse({
+                    'success': False,
+                    'message': 'At least one recipe is required'
+                }, status=400)
             
-            # Create the meal plan with multiple recipes
+            print("Processing recipes:", recipes_data)  # Debug log
+            
+            # Create recipe details list
             recipe_details = []
             total_nutrition = {
                 'calories': 0,
@@ -1662,42 +1727,49 @@ def add_meal_plan(request):
                 'fat': 0
             }
             
-            for recipe_id, recipe_info in recipes_data:
-                recipe = Recipe.objects.get(recipe_id=recipe_id)
-                recipe_detail = {
-                    'recipe_id': recipe_id,
-                    'recipe_name': recipe.recipename,
-                    'servings': recipe_info['servings'],
-                    'calories': recipe_info['calories'],
-                    'protein': recipe_info['protein'],
-                    'carbs': recipe_info['carbs'],
-                    'fat': recipe_info['fat']
-                }
-                recipe_details.append(recipe_detail)
-                
-                # Accumulate nutritional totals
-                total_nutrition['calories'] += float(recipe_info['calories'])
-                total_nutrition['protein'] += float(recipe_info['protein'])
-                total_nutrition['carbs'] += float(recipe_info['carbs'])
-                total_nutrition['fat'] += float(recipe_info['fat'])
+            for recipe_info in recipes_data:
+                recipe_id = recipe_info['recipe_id']
+                try:
+                    recipe = Recipe.objects.get(recipe_id=recipe_id)
+                    recipe_detail = {
+                        'recipe_id': recipe_id,
+                        'recipe_name': recipe.recipename,
+                        'servings': recipe_info['servings'],
+                        'calories': recipe_info['calories'],
+                        'protein': recipe_info['protein'],
+                        'carbs': recipe_info['carbs'],
+                        'fat': recipe_info['fat']
+                    }
+                    recipe_details.append(recipe_detail)
+                    
+                    # Accumulate nutritional totals
+                    total_nutrition['calories'] += float(recipe_info['calories'])
+                    total_nutrition['protein'] += float(recipe_info['protein'])
+                    total_nutrition['carbs'] += float(recipe_info['carbs'])
+                    total_nutrition['fat'] += float(recipe_info['fat'])
+                except Recipe.DoesNotExist:
+                    return JsonResponse({
+                        'success': False,
+                        'message': f'Recipe with ID {recipe_id} not found'
+                    }, status=404)
             
-            # Create meal plan with all recipes
+            # Create meal plan
             meal_plan = MealPlan(
-                user_id=user_id,
-                plan_date=request.POST.get('plan_date'),
-                meal_type=request.POST.get('meal_type'),
+                user_id=request.session.get('id'),
+                plan_date=data['plan_date'],
+                meal_type=data['meal_type'],
                 recipe_details={
                     'recipes': recipe_details,
                     'total_nutrition': total_nutrition
                 },
-                notes=request.POST.get('notes', '')
+                notes=data.get('notes', '')
             )
             meal_plan.save()
             
             # Update dietary tracking
-            tracking_date = request.POST.get('plan_date')
+            tracking_date = data['plan_date']
             tracking, created = DietaryTracking.objects.get_or_create(
-                user_id=user_id,
+                user_id=request.session.get('id'),
                 tracking_date=tracking_date,
                 defaults={
                     'total_calories': 0,
@@ -1707,19 +1779,30 @@ def add_meal_plan(request):
                 }
             )
             
-            # Update totals with combined nutritional values
+            # Update totals
             tracking.total_calories += total_nutrition['calories']
             tracking.total_protein += total_nutrition['protein']
             tracking.total_carbs += total_nutrition['carbs']
             tracking.total_fat += total_nutrition['fat']
             tracking.save()
             
-            return JsonResponse({'success': True, 'message': 'Meal added successfully'})
+            return JsonResponse({
+                'success': True,
+                'message': 'Meal plan added successfully'
+            })
             
-        except Recipe.DoesNotExist:
-            return JsonResponse({'success': False, 'message': 'One or more recipes not found'}, status=404)
+        except json.JSONDecodeError as e:
+            print("JSON Decode Error:", str(e))  # Debug log
+            return JsonResponse({
+                'success': False,
+                'message': 'Invalid JSON data'
+            }, status=400)
         except Exception as e:
-            return JsonResponse({'success': False, 'message': str(e)}, status=500)
+            print("Error in add_meal_plan:", str(e))  # Debug log
+            return JsonResponse({
+                'success': False,
+                'message': str(e)
+            }, status=500)
     
     # GET request - render the form
     recipes = Recipe.objects.select_related('nutritional_info').all()
@@ -1799,53 +1882,44 @@ def delete_meal_plan(request, meal_id):
         }, status=400)
 
 def analyze_recipe_diet(request, recipe_id):
+    print("analyze_recipe_diet", recipe_id)
     if request.method == 'GET':
-        try:
-            condition = request.GET.get('condition')
-            if not condition:
-                return JsonResponse({'error': 'Condition parameter is required'}, status=400)
+        condition = request.GET.get('condition')
+        if not condition:
+            return JsonResponse({'error': 'Condition parameter is required'}, status=400)
 
-            recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
-            nutritional_info = recipe.nutritional_info
+        recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
+        nutritional_info = recipe.nutritional_info
 
-            if not nutritional_info:
-                return JsonResponse({'error': 'No nutritional information available'}, status=404)
+        if not nutritional_info:
+            return JsonResponse({'error': 'No nutritional information available'}, status=404)
 
-            # Get dietary guidelines for the condition
-            guidelines = DietaryGuideline.objects.filter(condition=condition)
-            
-            if not guidelines.exists():
-                return JsonResponse({'error': f'No guidelines available for {condition}'}, status=404)
+        # Get dietary guidelines for the condition
+        guidelines = DietaryGuideline.objects.filter(condition=condition)
+        
+        analysis = {
+            'condition': dict(DietaryGuideline.CONDITION_CHOICES)[condition],
+            'recipe_name': recipe.recipename,
+            'nutrients': []
+        }
 
-            analysis = {
-                'condition': dict(DietaryGuideline.CONDITION_CHOICES)[condition],
-                'recipe_name': recipe.recipename,
-                'nutrients': []
-            }
+        for guideline in guidelines:
+            nutrient_value = getattr(nutritional_info, guideline.nutrient.lower(), 0)
+            status = 'normal'
+            if nutrient_value < guideline.min_value:
+                status = 'low'
+            elif nutrient_value > guideline.max_value:
+                status = 'high'
 
-            for guideline in guidelines:
-                nutrient_value = getattr(nutritional_info, guideline.nutrient.lower(), 0)
-                status = 'normal'
-                if nutrient_value < guideline.min_value:
-                    status = 'low'
-                elif nutrient_value > guideline.max_value:
-                    status = 'high'
+            analysis['nutrients'].append({
+                'nutrient': guideline.nutrient,
+                'current_value': nutrient_value,
+                'min_value': guideline.min_value,
+                'max_value': guideline.max_value,
+                'unit': guideline.unit,
+                'status': status,
+                'description': guideline.description,
+                'recommendations': guideline.recommendations
+            })
 
-                analysis['nutrients'].append({
-                    'nutrient': guideline.nutrient,
-                    'current_value': nutrient_value,
-                    'min_value': guideline.min_value,
-                    'max_value': guideline.max_value,
-                    'unit': guideline.unit,
-                    'status': status,
-                    'description': guideline.description,
-                    'recommendations': guideline.recommendations
-                })
-
-            return JsonResponse(analysis)
-            
-        except Exception as e:
-            logger.error(f"Error in analyze_recipe_diet: {str(e)}")
-            return JsonResponse({'error': 'An error occurred while analyzing the recipe'}, status=500)
-
-    return JsonResponse({'error': 'Method not allowed'}, status=405)
+        return JsonResponse(analysis)

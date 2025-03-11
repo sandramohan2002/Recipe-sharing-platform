@@ -556,6 +556,108 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeModalBtn = modal.querySelector('.close-modal');
     const searchInput = document.getElementById('recipeSearch');
     const recipeItems = document.querySelectorAll('.recipe-list-item');
+    const selectedRecipesList = document.getElementById('selectedRecipesList');
+    
+    // Track selected recipes
+    let selectedRecipes = new Map();
+    
+    function addRecipeToSelection(recipeId, recipeName, servings, recipeData) {
+        // Create recipe item element
+        const recipeItem = document.createElement('div');
+        recipeItem.className = 'recipe-item';
+        recipeItem.dataset.recipeId = recipeId;
+        
+        // Create recipe content
+        recipeItem.innerHTML = `
+            <div class="recipe-info">
+                <strong>${recipeName}</strong>
+                <div class="servings-input">
+                    <label>Servings:</label>
+                    <input type="number" class="form-control recipe-servings" value="${servings}" min="1">
+                </div>
+            </div>
+            <button type="button" class="btn btn-link text-danger remove-recipe">
+                <i class="bi bi-trash"></i>
+            </button>
+        `;
+        
+        // Store recipe data
+        selectedRecipes.set(recipeId, {
+            id: recipeId,
+            name: recipeName,
+            servings: parseInt(servings),
+            calories: parseFloat(recipeData.calories) || 0,
+            protein: parseFloat(recipeData.protein) || 0,
+            carbs: parseFloat(recipeData.carbs) || 0,
+            fat: parseFloat(recipeData.fat) || 0
+        });
+        
+        // Add event listeners
+        const servingsInput = recipeItem.querySelector('.recipe-servings');
+        servingsInput.addEventListener('change', function() {
+            updateRecipeServings(recipeId, this.value);
+        });
+        
+        const removeButton = recipeItem.querySelector('.remove-recipe');
+        removeButton.addEventListener('click', function() {
+            selectedRecipes.delete(recipeId);
+            recipeItem.remove();
+            updateNutritionTotals();
+        });
+        
+        // Add to selected recipes list
+        selectedRecipesList.appendChild(recipeItem);
+    }
+    
+    function updateRecipeServings(recipeId, newServings) {
+        const recipe = selectedRecipes.get(recipeId);
+        if (recipe) {
+            recipe.servings = parseInt(newServings);
+            updateNutritionTotals();
+        }
+    }
+    
+    function updateNutritionTotals() {
+        let totals = {
+            calories: 0,
+            protein: 0,
+            carbs: 0,
+            fat: 0
+        };
+        
+        // Calculate totals
+        for (const recipe of selectedRecipes.values()) {
+            totals.calories += recipe.calories * recipe.servings;
+            totals.protein += recipe.protein * recipe.servings;
+            totals.carbs += recipe.carbs * recipe.servings;
+            totals.fat += recipe.fat * recipe.servings;
+        }
+        
+        // Update display
+        document.getElementById('calories-display').textContent = Math.round(totals.calories);
+        document.getElementById('protein-display').textContent = Math.round(totals.protein);
+        document.getElementById('carbs-display').textContent = Math.round(totals.carbs);
+        document.getElementById('fat-display').textContent = Math.round(totals.fat);
+        
+        // Update hidden inputs
+        document.getElementById('calories').value = totals.calories;
+        document.getElementById('protein').value = totals.protein;
+        document.getElementById('carbs').value = totals.carbs;
+        document.getElementById('fat').value = totals.fat;
+        
+        // Update progress bars
+        const goals = {
+            calories: parseFloat(document.getElementById('caloriesGoal').value) || 2000,
+            protein: parseFloat(document.getElementById('proteinGoal').value) || 60,
+            carbs: parseFloat(document.getElementById('carbsGoal').value) || 250,
+            fat: parseFloat(document.getElementById('fatGoal').value) || 70
+        };
+        
+        document.getElementById('calories-progress').style.width = `${Math.min(100, (totals.calories / goals.calories) * 100)}%`;
+        document.getElementById('protein-progress').style.width = `${Math.min(100, (totals.protein / goals.protein) * 100)}%`;
+        document.getElementById('carbs-progress').style.width = `${Math.min(100, (totals.carbs / goals.carbs) * 100)}%`;
+        document.getElementById('fat-progress').style.width = `${Math.min(100, (totals.fat / goals.fat) * 100)}%`;
+    }
     
     function openModal(e) {
         e.preventDefault();
@@ -606,6 +708,106 @@ document.addEventListener('DOMContentLoaded', function() {
             closeModal();
         });
     });
+    
+    // Update nutrition totals when goals change
+    ['caloriesGoal', 'proteinGoal', 'carbsGoal', 'fatGoal'].forEach(id => {
+        document.getElementById(id).addEventListener('change', updateNutritionTotals);
+    });
+
+    // Add form submission handling
+    const mealPlanForm = document.getElementById('mealPlanForm');
+    
+    mealPlanForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Debug log the selected recipes
+        console.log('Selected recipes before submission:', selectedRecipes);
+        
+        // Validate form
+        if (!validateForm()) {
+            return;
+        }
+
+        // Create FormData object
+        const formData = new FormData(mealPlanForm);
+        
+        // Get selected recipes data and ensure it's properly formatted
+        const recipesData = Array.from(selectedRecipes.values()).map(recipe => ({
+            recipe_id: parseInt(recipe.id),
+            servings: parseInt(recipe.servings),
+            calories: parseFloat(recipe.calories) * recipe.servings,
+            protein: parseFloat(recipe.protein) * recipe.servings,
+            carbs: parseFloat(recipe.carbs) * recipe.servings,
+            fat: parseFloat(recipe.fat) * recipe.servings
+        }));
+
+        console.log('Formatted recipes data:', recipesData);
+
+        if (recipesData.length === 0) {
+            alert('Please select at least one recipe for the meal plan.');
+            return;
+        }
+
+        // Create the complete meal plan data
+        const mealPlanData = {
+            plan_date: document.getElementById('plan_date').value,
+            meal_type: document.getElementById('meal_type').value,
+            notes: document.getElementById('notes').value || '',
+            recipes: recipesData
+        };
+
+        console.log('Submitting data:', mealPlanData);
+
+        try {
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            const response = await fetch('{% url "add_meal_plan" %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,
+                },
+                body: JSON.stringify(mealPlanData)
+            });
+
+            const data = await response.json();
+            console.log('Server response:', data);
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Failed to add meal plan');
+            }
+
+            if (data.success) {
+                window.location.href = '{% url "meal_planner" %}';
+            } else {
+                throw new Error(data.message || 'Failed to add meal plan');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert(error.message || 'An error occurred while saving the meal plan. Please try again.');
+        }
+    });
+
+    function validateForm() {
+        const date = document.getElementById('plan_date').value;
+        const mealType = document.getElementById('meal_type').value;
+        
+        if (!date) {
+            alert('Please select a date for the meal plan.');
+            return false;
+        }
+        
+        if (!mealType) {
+            alert('Please select a meal type.');
+            return false;
+        }
+        
+        if (selectedRecipes.size === 0) {
+            alert('Please select at least one recipe for the meal plan.');
+            return false;
+        }
+
+        return true;
+    }
 });
 </script>
 {% endblock %} 
