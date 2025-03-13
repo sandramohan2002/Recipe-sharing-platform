@@ -818,6 +818,97 @@
             font-size: 0.9em;
             color: #2c5282;
         }
+        .diabetes-verdict {
+            text-align: center;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+        .verdict-safe {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border: 2px solid #059669;
+        }
+        .verdict-unsafe {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border: 2px solid #dc2626;
+        }
+        .verdict-moderate {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px solid #d97706;
+        }
+        .verdict-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: inherit;
+        }
+        .verdict-text {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .risk-level {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+        .risk-High {
+            background-color: #fee2e2;
+            color: #dc2626;
+        }
+        .risk-Moderate {
+            background-color: #fef3c7;
+            color: #d97706;
+        }
+        .risk-Low {
+            background-color: #d1fae5;
+            color: #059669;
+        }
+        .nutrient-analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .nutrient-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        .recommendations-section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .meal-timing {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #3b82f6;
+        }
+        .concerns-list, .benefits-list {
+            margin-top: 15px;
+        }
+        .concern-item, .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .concern-item i {
+            color: #dc2626;
+        }
+        .benefit-item i {
+            color: #059669;
+        }
     </style>
 </head>
 <body>
@@ -1058,7 +1149,7 @@
             
             <div class="condition-selector">
                 <button class="condition-btn" data-condition="diabetic">
-                    <i class="fas fa-cookie-bite"></i> Diabetic
+                    <i class="fas fa-cookie-bite"></i> Diabetes Analysis
                 </button>
                 <button class="condition-btn" data-condition="cholesterol">
                     <i class="fas fa-heart"></i> Cholesterol
@@ -1078,7 +1169,7 @@
             </div>
 
             <div id="nutrientAnalysis" class="nutrient-analysis">
-                <!-- Analysis content will be dynamically populated -->
+                <!-- Analysis content will be populated dynamically -->
             </div>
         </div>
         <!-- Reviews Section -->
@@ -1175,16 +1266,13 @@
 
         conditionButtons.forEach(button => {
             button.addEventListener('click', async function() {
-                // Show loading state
-                analysisContainer.innerHTML = '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Analyzing recipe...</div>';
-                analysisContainer.style.display = 'block';
-
-                // Remove active class from all buttons
                 conditionButtons.forEach(btn => btn.classList.remove('active'));
-                // Add active class to clicked button
                 this.classList.add('active');
 
                 const condition = this.dataset.condition;
+                analysisContainer.innerHTML = '<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Analyzing recipe for diabetes management...</div>';
+                analysisContainer.style.display = 'block';
+
                 try {
                     const response = await fetch(`/recipe/${recipe_id}/analyze-diet/?condition=${condition}`);
                     const data = await response.json();
@@ -1193,41 +1281,79 @@
                         throw new Error(data.error || 'Failed to analyze recipe');
                     }
 
-                    // Generate analysis HTML
                     let analysisHTML = `
-                        <h3 class="mb-4">Analysis for ${data.condition}</h3>
-                        <div class="nutrient-grid">
+                        <div class="diabetes-verdict ${data.can_eat ? (data.risk_level === 'Low' ? 'verdict-safe' : 'verdict-moderate') : 'verdict-unsafe'}">
+                            <div class="verdict-icon">
+                                <i class="fas ${data.can_eat ? (data.risk_level === 'Low' ? 'fa-check-circle' : 'fa-exclamation-circle') : 'fa-times-circle'}"></i>
+                            </div>
+                            <div class="verdict-text">
+                                ${data.can_eat ? 'Can Eat' : 'Should Not Eat'}
+                            </div>
+                            <div class="risk-level risk-${data.risk_level}">
+                                ${data.risk_level} Risk Level
+                            </div>
+                        </div>
+
+                        <div class="nutrient-analysis-grid">
+                            ${data.nutrients.map(nutrient => `
+                                <div class="nutrient-card">
+                                    <h4>${nutrient.name}</h4>
+                                    <div class="nutrient-value value-${nutrient.status}">
+                                        ${nutrient.value.toFixed(1)} ${nutrient.unit}
+                                    </div>
+                                    <div class="progress-container">
+                                        <div class="progress-bar" 
+                                             style="width: ${Math.min((nutrient.value / (nutrient.max || nutrient.value * 2)) * 100, 100)}%; 
+                                                    background-color: ${nutrient.status === 'high' ? '#dc2626' : 
+                                                                       nutrient.status === 'normal' ? '#059669' : 
+                                                                       '#0284c7'}">
+                                        </div>
+                                    </div>
+                                    <div class="nutrient-range">
+                                        Recommended: ${nutrient.min} - ${nutrient.max || '∞'} ${nutrient.unit}
+                                    </div>
+                                    <div class="nutrient-message">
+                                        ${nutrient.message}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <div class="recommendations-section">
+                            <h4><i class="fas fa-clipboard-check"></i> Recommendations</h4>
+                            <p>${data.overall_recommendation}</p>
+                            <p>${data.serving_recommendation}</p>
+                            
+                            <div class="meal-timing">
+                                <i class="fas fa-clock"></i> ${data.meal_timing_advice}
+                            </div>
+
+                            ${data.concerns.length > 0 ? `
+                                <div class="concerns-list">
+                                    <h5><i class="fas fa-exclamation-triangle"></i> Concerns</h5>
+                                    ${data.concerns.map(concern => `
+                                        <div class="concern-item">
+                                            <i class="fas fa-times-circle"></i>
+                                            ${concern}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+
+                            ${data.benefits.length > 0 ? `
+                                <div class="benefits-list">
+                                    <h5><i class="fas fa-check-circle"></i> Benefits</h5>
+                                    ${data.benefits.map(benefit => `
+                                        <div class="benefit-item">
+                                            <i class="fas fa-check-circle"></i>
+                                            ${benefit}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                        </div>
                     `;
 
-                    data.nutrients.forEach(nutrient => {
-                        const percentage = (nutrient.current_value / nutrient.max_value) * 100;
-                        const statusClass = `value-${nutrient.status}`;
-                        const statusColor = nutrient.status === 'high' ? '#e53e3e' : 
-                                          nutrient.status === 'low' ? '#3182ce' : '#38a169';
-
-                        analysisHTML += `
-                            <div class="nutrient-card">
-                                <div class="nutrient-header">
-                                    <span class="nutrient-name">${nutrient.nutrient}</span>
-                                    <span class="nutrient-value ${statusClass}">
-                                        ${nutrient.current_value.toFixed(1)} ${nutrient.unit}
-                                    </span>
-                                </div>
-                                <div class="progress-container">
-                                    <div class="progress-bar" 
-                                         style="width: ${Math.min(percentage, 100)}%; background-color: ${statusColor}"></div>
-                                </div>
-                                <div class="range-info">
-                                    Recommended range: ${nutrient.min_value} - ${nutrient.max_value} ${nutrient.unit}
-                                </div>
-                                <div class="recommendations">
-                                    <strong>Recommendation:</strong> ${nutrient.recommendations}
-                                </div>
-                            </div>
-                        `;
-                    });
-
-                    analysisHTML += '</div>';
                     analysisContainer.innerHTML = analysisHTML;
 
                 } catch (error) {

@@ -796,23 +796,6 @@ def manage_events(request):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #############################################################
 #RECIPE MANAGER DASHBOARD VIEW
 def admin_dashboard(request):
@@ -1882,44 +1865,143 @@ def delete_meal_plan(request, meal_id):
         }, status=400)
 
 def analyze_recipe_diet(request, recipe_id):
-    print("analyze_recipe_diet", recipe_id)
-    if request.method == 'GET':
-        condition = request.GET.get('condition')
-        if not condition:
-            return JsonResponse({'error': 'Condition parameter is required'}, status=400)
-
-        recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
+    try:
+        recipe = Recipe.objects.get(recipe_id=recipe_id)
         nutritional_info = recipe.nutritional_info
+        condition = request.GET.get('condition', '')
 
-        if not nutritional_info:
-            return JsonResponse({'error': 'No nutritional information available'}, status=404)
+        if condition == 'diabetic':
+            # Calculate per serving values
+            servings = float(recipe.servings) if recipe.servings else 1
+            carbs_per_serving = nutritional_info.carbohydrates / servings
+            fiber_per_serving = nutritional_info.fiber / servings
+            sugar_per_serving = nutritional_info.sugar / servings
+            fat_per_serving = nutritional_info.fat / servings
+            
+            # Define diabetic-friendly ranges
+            DIABETIC_RANGES = {
+                'carbs': {'min': 15, 'max': 45, 'unit': 'g'},
+                'sugar': {'min': 0, 'max': 10, 'unit': 'g'},
+                'fiber': {'min': 3, 'max': None, 'unit': 'g'},
+                'fat': {'min': 0, 'max': 20, 'unit': 'g'}
+            }
+            
+            # Initialize analysis
+            analysis = {
+                'condition': 'Diabetes Management',
+                'can_eat': True,
+                'risk_level': 'Low',
+                'nutrients': [],
+                'concerns': [],
+                'benefits': [],
+                'serving_recommendation': '',
+                'overall_recommendation': '',
+                'meal_timing_advice': ''
+            }
+            
+            # Analyze carbohydrates
+            carbs_status = analyze_nutrient_for_diabetic(
+                'Carbohydrates', 
+                carbs_per_serving, 
+                DIABETIC_RANGES['carbs']
+            )
+            analysis['nutrients'].append(carbs_status)
+            
+            # Analyze sugar
+            sugar_status = analyze_nutrient_for_diabetic(
+                'Sugar', 
+                sugar_per_serving, 
+                DIABETIC_RANGES['sugar']
+            )
+            analysis['nutrients'].append(sugar_status)
+            
+            # Analyze fiber
+            fiber_status = analyze_nutrient_for_diabetic(
+                'Fiber', 
+                fiber_per_serving, 
+                DIABETIC_RANGES['fiber']
+            )
+            analysis['nutrients'].append(fiber_status)
+            
+            # Analyze fat
+            fat_status = analyze_nutrient_for_diabetic(
+                'Fat', 
+                fat_per_serving, 
+                DIABETIC_RANGES['fat']
+            )
+            analysis['nutrients'].append(fat_status)
+            
+            # Determine if recipe is safe for diabetics
+            risk_points = 0
+            for nutrient in analysis['nutrients']:
+                if nutrient['status'] == 'high':
+                    risk_points += 2
+                    analysis['concerns'].append(f"High {nutrient['name'].lower()} content")
+                elif nutrient['status'] == 'low' and nutrient['name'] == 'Fiber':
+                    risk_points += 1
+                    analysis['concerns'].append("Low fiber content")
+                elif nutrient['status'] == 'normal':
+                    analysis['benefits'].append(f"Appropriate {nutrient['name'].lower()} content")
 
-        # Get dietary guidelines for the condition
-        guidelines = DietaryGuideline.objects.filter(condition=condition)
+            # Set risk level and can_eat status
+            if risk_points >= 3:
+                analysis['risk_level'] = 'High'
+                analysis['can_eat'] = False
+            elif risk_points == 2:
+                analysis['risk_level'] = 'Moderate'
+                analysis['can_eat'] = True
+            else:
+                analysis['risk_level'] = 'Low'
+                analysis['can_eat'] = True
+
+            # Generate recommendations
+            if analysis['can_eat']:
+                if analysis['risk_level'] == 'Low':
+                    analysis['overall_recommendation'] = "This recipe is suitable for people with diabetes. You can include it in your meal plan."
+                    analysis['serving_recommendation'] = "Follow the recommended serving size."
+                else:
+                    analysis['overall_recommendation'] = "This recipe can be eaten in moderation by people with diabetes, but monitor your blood sugar response."
+                    analysis['serving_recommendation'] = "Consider reducing the portion size."
+
+            # Add meal timing advice
+            if carbs_per_serving > 30:
+                analysis['meal_timing_advice'] = "Best consumed for lunch when activity levels are higher."
+            elif carbs_per_serving > 15:
+                analysis['meal_timing_advice'] = "Can be eaten for any main meal."
+            else:
+                analysis['meal_timing_advice'] = "Suitable for a light meal or snack."
+
+            return JsonResponse(analysis)
+            
+        return JsonResponse({'error': 'Invalid condition specified'}, status=400)
         
-        analysis = {
-            'condition': dict(DietaryGuideline.CONDITION_CHOICES)[condition],
-            'recipe_name': recipe.recipename,
-            'nutrients': []
-        }
+    except Recipe.DoesNotExist:
+        return JsonResponse({'error': 'Recipe not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
 
-        for guideline in guidelines:
-            nutrient_value = getattr(nutritional_info, guideline.nutrient.lower(), 0)
-            status = 'normal'
-            if nutrient_value < guideline.min_value:
-                status = 'low'
-            elif nutrient_value > guideline.max_value:
-                status = 'high'
-
-            analysis['nutrients'].append({
-                'nutrient': guideline.nutrient,
-                'current_value': nutrient_value,
-                'min_value': guideline.min_value,
-                'max_value': guideline.max_value,
-                'unit': guideline.unit,
-                'status': status,
-                'description': guideline.description,
-                'recommendations': guideline.recommendations
-            })
-
-        return JsonResponse(analysis)
+def analyze_nutrient_for_diabetic(name, value, range_info):
+    """Analyze a nutrient value against diabetic-friendly ranges."""
+    min_val = range_info['min']
+    max_val = range_info['max']
+    unit = range_info['unit']
+    
+    if max_val and value > max_val:
+        status = 'high'
+        message = f"Reduce {name.lower()} intake - current value exceeds recommended maximum"
+    elif value < min_val:
+        status = 'low'
+        message = f"Increase {name.lower()} content to meet minimum requirements"
+    else:
+        status = 'normal'
+        message = f"{name} content is within acceptable range"
+    
+    return {
+        'name': name,
+        'value': value,
+        'min': min_val,
+        'max': max_val,
+        'unit': unit,
+        'status': status,
+        'message': message
+    }
