@@ -1866,376 +1866,301 @@ def delete_meal_plan(request, meal_id):
 
 def analyze_recipe_diet(request, recipe_id):
     try:
-        recipe = Recipe.objects.get(recipe_id=recipe_id)
-        nutritional_info = recipe.nutritional_info
-        condition = request.GET.get('condition', '')
+        recipe = Recipe.objects.get(pk=recipe_id)
+        nutritional_info = NutritionalInformation.objects.filter(recipe=recipe).first()
+        
+        if not nutritional_info:
+            return JsonResponse({
+                'error': 'Nutritional information not available for this recipe'
+            }, status=404)
 
-        # Calculate per serving values
-        servings = float(recipe.servings) if recipe.servings else 1
-        carbs_per_serving = nutritional_info.carbohydrates / servings
-        fiber_per_serving = nutritional_info.fiber / servings
-        sugar_per_serving = nutritional_info.sugar / servings
-        fat_per_serving = nutritional_info.fat / servings
-        protein_per_serving = nutritional_info.protein / servings
-        calories_per_serving = nutritional_info.calories / servings
+        condition = request.GET.get('condition', 'diabetic')
+        
+        # Safely convert servings to float
+        try:
+            servings = float(recipe.servings) if recipe.servings else 1.0
+        except (ValueError, TypeError):
+            servings = 1.0
+
+        # Safely convert nutritional values to float
+        try:
+            calories_per_serving = float(nutritional_info.calories or 0) / servings
+            protein_per_serving = float(nutritional_info.protein or 0) / servings
+            carbs_per_serving = float(nutritional_info.carbohydrates or 0) / servings
+            fat_per_serving = float(nutritional_info.fat or 0) / servings
+            fiber_per_serving = float(nutritional_info.fiber or 0) / servings
+            sugar_per_serving = float(nutritional_info.sugar or 0) / servings
+        except (ValueError, TypeError) as e:
+            return JsonResponse({
+                'error': 'Invalid nutritional values in database'
+            }, status=400)
+
+        # Round values to 1 decimal place for display
+        calories_per_serving = round(calories_per_serving, 1)
+        protein_per_serving = round(protein_per_serving, 1)
+        carbs_per_serving = round(carbs_per_serving, 1)
+        fat_per_serving = round(fat_per_serving, 1)
+        fiber_per_serving = round(fiber_per_serving, 1)
+        sugar_per_serving = round(sugar_per_serving, 1)
 
         if condition == 'diabetic':
-            # Define diabetic-friendly ranges
-            DIABETIC_RANGES = {
-                'carbs': {'min': 15, 'max': 45, 'unit': 'g'},
-                'sugar': {'min': 0, 'max': 10, 'unit': 'g'},
-                'fiber': {'min': 3, 'max': None, 'unit': 'g'},
-                'fat': {'min': 0, 'max': 20, 'unit': 'g'}
-            }
-            
-            analysis = {
-                'condition': 'Diabetes Management',
-                'can_eat': True,
-                'risk_level': 'Low',
-                'nutrients': [],
-                'concerns': [],
-                'benefits': [],
-                'serving_recommendation': '',
-                'overall_recommendation': '',
-                'meal_timing_advice': ''
-            }
-            
+            risk_points = 0
+            nutrients = []
+            concerns = []
+            benefits = []
+
             # Analyze carbohydrates
-            carbs_status = analyze_nutrient_for_condition(
-                'Carbohydrates', 
-                carbs_per_serving, 
-                DIABETIC_RANGES['carbs']
-            )
-            analysis['nutrients'].append(carbs_status)
-            
-            # Analyze sugar
-            sugar_status = analyze_nutrient_for_condition(
-                'Sugar', 
-                sugar_per_serving, 
-                DIABETIC_RANGES['sugar']
-            )
-            analysis['nutrients'].append(sugar_status)
-            
-            # Analyze fiber
-            fiber_status = analyze_nutrient_for_condition(
-                'Fiber', 
-                fiber_per_serving, 
-                DIABETIC_RANGES['fiber']
-            )
-            analysis['nutrients'].append(fiber_status)
-            
-            # Analyze fat
-            fat_status = analyze_nutrient_for_condition(
-                'Fat', 
-                fat_per_serving, 
-                DIABETIC_RANGES['fat']
-            )
-            analysis['nutrients'].append(fat_status)
-            
-            # Determine if recipe is safe for diabetics
-            risk_points = 0
-            for nutrient in analysis['nutrients']:
-                if nutrient['status'] == 'high':
-                    risk_points += 2
-                    analysis['concerns'].append(f"High {nutrient['name'].lower()} content")
-                elif nutrient['status'] == 'low' and nutrient['name'] == 'Fiber':
-                    risk_points += 1
-                    analysis['concerns'].append("Low fiber content")
-                elif nutrient['status'] == 'normal':
-                    analysis['benefits'].append(f"Appropriate {nutrient['name'].lower()} content")
-
-            # Set risk level and can_eat status
-            if risk_points >= 3:
-                analysis['risk_level'] = 'High'
-                analysis['can_eat'] = False
-            elif risk_points == 2:
-                analysis['risk_level'] = 'Moderate'
-                analysis['can_eat'] = True
-            else:
-                analysis['risk_level'] = 'Low'
-                analysis['can_eat'] = True
-
-            # Generate recommendations
-            if analysis['can_eat']:
-                if analysis['risk_level'] == 'Low':
-                    analysis['overall_recommendation'] = "This recipe is suitable for people with diabetes. You can include it in your meal plan."
-                    analysis['serving_recommendation'] = "Follow the recommended serving size."
-                else:
-                    analysis['overall_recommendation'] = "This recipe can be eaten in moderation by people with diabetes, but monitor your blood sugar response."
-                    analysis['serving_recommendation'] = "Consider reducing the portion size."
-
-            # Add meal timing advice
-            if carbs_per_serving > 30:
-                analysis['meal_timing_advice'] = "Best consumed for lunch when activity levels are higher."
-            elif carbs_per_serving > 15:
-                analysis['meal_timing_advice'] = "Can be eaten for any main meal."
-            else:
-                analysis['meal_timing_advice'] = "Suitable for a light meal or snack."
-
-            return JsonResponse(analysis)
-            
-        elif condition == 'cholesterol':
-            # Define cholesterol-conscious ranges
-            CHOLESTEROL_RANGES = {
-                'fat': {'min': 0, 'max': 20, 'unit': 'g'},
-                'fiber': {'min': 5, 'max': None, 'unit': 'g'}
-            }
-            
-            analysis = {
-                'condition': 'Cholesterol Management',
-                'can_eat': True,
-                'risk_level': 'Low',
-                'nutrients': [],
-                'concerns': [],
-                'benefits': [],
-                'serving_recommendation': '',
-                'overall_recommendation': '',
-                'meal_timing_advice': ''
-            }
-
-            # Analyze total fat
-            fat_status = analyze_nutrient_for_condition(
-                'Total Fat', 
-                fat_per_serving,
-                CHOLESTEROL_RANGES['fat']
-            )
-            analysis['nutrients'].append(fat_status)
-
-            # Estimate saturated fat (typically 30% of total fat)
-            sat_fat = fat_per_serving * 0.3
-            if sat_fat > 5:  # Max recommended saturated fat per meal
-                analysis['concerns'].append("High saturated fat content")
-                analysis['risk_level'] = 'High'
-
-            # Analyze fiber
-            fiber_status = analyze_nutrient_for_condition(
-                'Fiber',
-                fiber_per_serving,
-                CHOLESTEROL_RANGES['fiber']
-            )
-            analysis['nutrients'].append(fiber_status)
-
-            # Determine safety and recommendations
-            risk_points = 0
-            if fat_status['status'] == 'high':
+            if carbs_per_serving > 45:
                 risk_points += 2
-            if sat_fat > 5:
-                risk_points += 2
-            if fiber_status['status'] == 'low':
+                concerns.append(f'High carbohydrate content ({carbs_per_serving}g per serving)')
+            elif carbs_per_serving > 30:
                 risk_points += 1
-
-            if risk_points >= 3:
-                analysis['risk_level'] = 'High'
-                analysis['can_eat'] = False
-                analysis['overall_recommendation'] = "This recipe is not recommended for people managing cholesterol levels."
-            elif risk_points == 2:
-                analysis['risk_level'] = 'Moderate'
-                analysis['overall_recommendation'] = "This recipe can be eaten occasionally with portion control."
             else:
-                analysis['overall_recommendation'] = "This recipe is suitable for a cholesterol-conscious diet."
+                benefits.append('Moderate carbohydrate content')
 
-            return JsonResponse(analysis)
+            nutrients.append({
+                'name': 'Carbohydrates',
+                'value': carbs_per_serving,
+                'unit': 'g',
+                'status': 'high' if carbs_per_serving > 45 else 'normal',
+                'min': 15,
+                'max': 45,
+                'message': 'Keep portions controlled'
+            })
+
+            # Analyze sugar
+            if sugar_per_serving > 10:
+                risk_points += 2
+                concerns.append(f'High sugar content ({sugar_per_serving}g per serving)')
+            elif sugar_per_serving > 5:
+                risk_points += 1
+            else:
+                benefits.append('Low sugar content')
+
+            nutrients.append({
+                'name': 'Sugar',
+                'value': sugar_per_serving,
+                'unit': 'g',
+                'status': 'high' if sugar_per_serving > 10 else 'normal',
+                'min': 0,
+                'max': 10,
+                'message': 'Monitor blood sugar after eating'
+            })
+
+            # Analyze fiber
+            if fiber_per_serving < 3:
+                risk_points += 1
+                concerns.append('Low fiber content')
+            else:
+                benefits.append('Good fiber content')
+
+            nutrients.append({
+                'name': 'Fiber',
+                'value': fiber_per_serving,
+                'unit': 'g',
+                'status': 'low' if fiber_per_serving < 3 else 'normal',
+                'min': 3,
+                'max': None,
+                'message': 'Helps regulate blood sugar'
+            })
+
+            # Calculate risk level
+            if risk_points >= 3:
+                risk_level = 'High'
+                can_eat = False
+            elif risk_points >= 2:
+                risk_level = 'Moderate'
+                can_eat = True
+            else:
+                risk_level = 'Low'
+                can_eat = True
+
+            return JsonResponse({
+                'can_eat': can_eat,
+                'risk_level': risk_level,
+                'nutrients': nutrients,
+                'concerns': concerns,
+                'benefits': benefits,
+                'overall_recommendation': f"This recipe is {'not ' if not can_eat else ''}suitable for diabetics.",
+                'serving_recommendation': f"Stick to {recipe.servings} serving(s) or less.",
+                'meal_timing_advice': "Best consumed as part of a balanced meal with protein and healthy fats."
+            })
+
+        elif condition == 'cholesterol':
+            risk_points = 0
+            nutrients = []
+            concerns = []
+            benefits = []
+
+            # Analyze fat
+            if fat_per_serving > 20:
+                risk_points += 2
+                concerns.append(f'High fat content ({fat_per_serving}g per serving)')
+            elif fat_per_serving > 15:
+                risk_points += 1
+            else:
+                benefits.append('Moderate fat content')
+
+            nutrients.append({
+                'name': 'Total Fat',
+                'value': fat_per_serving,
+                'unit': 'g',
+                'status': 'high' if fat_per_serving > 20 else 'normal',
+                'min': 0,
+                'max': 20,
+                'message': 'Keep fat intake moderate'
+            })
+
+            # Analyze fiber
+            if fiber_per_serving < 5:
+                risk_points += 1
+                concerns.append('Low fiber content')
+            else:
+                benefits.append('Good fiber content for cholesterol management')
+
+            nutrients.append({
+                'name': 'Fiber',
+                'value': fiber_per_serving,
+                'unit': 'g',
+                'status': 'low' if fiber_per_serving < 5 else 'normal',
+                'min': 5,
+                'max': None,
+                'message': 'Helps lower cholesterol'
+            })
+
+            # Calculate risk level
+            if risk_points >= 2:
+                risk_level = 'High'
+                can_eat = False
+            elif risk_points == 1:
+                risk_level = 'Moderate'
+                can_eat = True
+            else:
+                risk_level = 'Low'
+                can_eat = True
+
+            return JsonResponse({
+                'can_eat': can_eat,
+                'risk_level': risk_level,
+                'nutrients': nutrients,
+                'concerns': concerns,
+                'benefits': benefits,
+                'overall_recommendation': f"This recipe is {'not ' if not can_eat else ''}suitable for those managing cholesterol.",
+                'serving_recommendation': f"Stick to {recipe.servings} serving(s) or less.",
+                'meal_timing_advice': "Best consumed as part of a balanced meal rich in fiber."
+            })
 
         elif condition == 'blood_pressure':
-            # Define blood pressure-friendly ranges
-            BP_RANGES = {
-                'fat': {'min': 0, 'max': 20, 'unit': 'g'},
-                'fiber': {'min': 5, 'max': None, 'unit': 'g'}
-            }
-            
-            analysis = {
-                'condition': 'Blood Pressure Management',
-                'can_eat': True,
-                'risk_level': 'Low',
-                'nutrients': [],
-                'concerns': [],
-                'benefits': [],
-                'serving_recommendation': '',
-                'overall_recommendation': '',
-                'meal_timing_advice': ''
-            }
+            risk_points = 0
+            nutrients = []
+            concerns = []
+            benefits = []
 
             # Analyze fat content
-            fat_status = analyze_nutrient_for_condition(
-                'Total Fat',
-                fat_per_serving,
-                BP_RANGES['fat']
-            )
-            analysis['nutrients'].append(fat_status)
-
-            # Analyze fiber
-            fiber_status = analyze_nutrient_for_condition(
-                'Fiber',
-                fiber_per_serving,
-                BP_RANGES['fiber']
-            )
-            analysis['nutrients'].append(fiber_status)
-
-            # Determine safety and recommendations
-            risk_points = 0
-            if fat_status['status'] == 'high':
+            if fat_per_serving > 15:
                 risk_points += 2
-                analysis['concerns'].append("High fat content may affect blood pressure")
-            if fiber_status['status'] == 'low':
+                concerns.append(f'High fat content ({fat_per_serving}g per serving)')
+            elif fat_per_serving > 10:
                 risk_points += 1
-                analysis['concerns'].append("Low fiber content")
-
-            if risk_points >= 2:
-                analysis['risk_level'] = 'High'
-                analysis['can_eat'] = False
-                analysis['overall_recommendation'] = "This recipe may not be suitable for people with high blood pressure."
             else:
-                analysis['overall_recommendation'] = "This recipe is generally safe for people with blood pressure concerns."
+                benefits.append('Moderate fat content')
 
-            return JsonResponse(analysis)
+            nutrients.append({
+                'name': 'Total Fat',
+                'value': fat_per_serving,
+                'unit': 'g',
+                'status': 'high' if fat_per_serving > 15 else 'normal',
+                'min': 0,
+                'max': 15,
+                'message': 'Keep fat intake moderate'
+            })
+
+            # Analyze calories
+            if calories_per_serving > 500:
+                risk_points += 1
+                concerns.append('High calorie content')
+            else:
+                benefits.append('Moderate calorie content')
+
+            nutrients.append({
+                'name': 'Calories',
+                'value': calories_per_serving,
+                'unit': 'kcal',
+                'status': 'high' if calories_per_serving > 500 else 'normal',
+                'min': 0,
+                'max': 500,
+                'message': 'Monitor portion sizes'
+            })
+
+            # Calculate risk level
+            if risk_points >= 2:
+                risk_level = 'High'
+                can_eat = False
+            elif risk_points == 1:
+                risk_level = 'Moderate'
+                can_eat = True
+            else:
+                risk_level = 'Low'
+                can_eat = True
+
+            return JsonResponse({
+                'can_eat': can_eat,
+                'risk_level': risk_level,
+                'nutrients': nutrients,
+                'concerns': concerns,
+                'benefits': benefits,
+                'overall_recommendation': f"This recipe is {'not ' if not can_eat else ''}suitable for those with blood pressure concerns.",
+                'serving_recommendation': f"Stick to {recipe.servings} serving(s) or less.",
+                'meal_timing_advice': "Best consumed as part of a balanced meal with plenty of vegetables."
+            })
 
         elif condition == 'kidney_disease':
-            # Define kidney-friendly ranges
-            KIDNEY_RANGES = {
-                'protein': {'min': 0, 'max': 15, 'unit': 'g'},  # Lower protein for kidney disease
-                'phosphorus': {'min': 0, 'max': 200, 'unit': 'mg'},  # Estimated phosphorus content
-                'potassium': {'min': 0, 'max': 200, 'unit': 'mg'},  # Estimated potassium content
-                'sodium': {'min': 0, 'max': 400, 'unit': 'mg'}  # Sodium limit per serving
-            }
-            
-            analysis = {
-                'condition': 'Kidney Disease Management',
-                'can_eat': True,
-                'risk_level': 'Low',
-                'nutrients': [],
-                'concerns': [],
-                'benefits': [],
-                'serving_recommendation': '',
-                'overall_recommendation': '',
-                'meal_timing_advice': ''
-            }
-
-            # Analyze protein content
-            protein_status = analyze_nutrient_for_condition(
-                'Protein',
-                protein_per_serving,
-                KIDNEY_RANGES['protein']
-            )
-            analysis['nutrients'].append(protein_status)
-
-            # Determine safety and recommendations
             risk_points = 0
-            if protein_status['status'] == 'high':
+            nutrients = []
+            concerns = []
+            benefits = []
+
+            # Analyze protein
+            if protein_per_serving > 15:
                 risk_points += 2
-                analysis['concerns'].append("High protein content may stress kidneys")
-
-            # Analyze carbohydrates for blood sugar management
-            if carbs_per_serving > 45:
+                concerns.append(f'High protein content ({protein_per_serving}g per serving)')
+            elif protein_per_serving > 10:
                 risk_points += 1
-                analysis['concerns'].append("High carbohydrate content")
-
-            # Analyze fat content
-            if fat_per_serving > 20:
-                risk_points += 1
-                analysis['concerns'].append("High fat content")
-
-            # Set risk level and recommendations
-            if risk_points >= 3:
-                analysis['risk_level'] = 'High'
-                analysis['can_eat'] = False
-                analysis['overall_recommendation'] = "This recipe is not recommended for people with kidney disease."
-                analysis['serving_recommendation'] = "Consider choosing a different recipe with lower protein content."
-            elif risk_points == 2:
-                analysis['risk_level'] = 'Moderate'
-                analysis['overall_recommendation'] = "This recipe can be eaten occasionally with portion control."
-                analysis['serving_recommendation'] = "Reduce portion size to lower protein intake."
             else:
-                analysis['overall_recommendation'] = "This recipe is generally safe for people with kidney disease."
-                analysis['serving_recommendation'] = "Follow the recommended serving size."
+                benefits.append('Moderate protein content')
 
-            analysis['meal_timing_advice'] = "Space protein intake throughout the day."
+            nutrients.append({
+                'name': 'Protein',
+                'value': protein_per_serving,
+                'unit': 'g',
+                'status': 'high' if protein_per_serving > 15 else 'normal',
+                'min': 0,
+                'max': 15,
+                'message': 'Keep protein intake moderate'
+            })
 
-            return JsonResponse(analysis)
-
-        elif condition == 'heart_disease':
-            # Define heart-healthy ranges
-            HEART_RANGES = {
-                'fat': {'min': 0, 'max': 15, 'unit': 'g'},  # Lower fat for heart disease
-                'saturated_fat': {'min': 0, 'max': 5, 'unit': 'g'},  # Limit saturated fat
-                'fiber': {'min': 5, 'max': None, 'unit': 'g'},  # Good fiber content
-                'sodium': {'min': 0, 'max': 400, 'unit': 'mg'}  # Sodium limit per serving
-            }
-            
-            analysis = {
-                'condition': 'Heart Disease Management',
-                'can_eat': True,
-                'risk_level': 'Low',
-                'nutrients': [],
-                'concerns': [],
-                'benefits': [],
-                'serving_recommendation': '',
-                'overall_recommendation': '',
-                'meal_timing_advice': ''
-            }
-
-            # Analyze total fat
-            fat_status = analyze_nutrient_for_condition(
-                'Total Fat',
-                fat_per_serving,
-                HEART_RANGES['fat']
-            )
-            analysis['nutrients'].append(fat_status)
-
-            # Estimate saturated fat (typically 30% of total fat)
-            sat_fat = fat_per_serving * 0.3
-            sat_fat_status = analyze_nutrient_for_condition(
-                'Saturated Fat',
-                sat_fat,
-                HEART_RANGES['saturated_fat']
-            )
-            analysis['nutrients'].append(sat_fat_status)
-
-            # Analyze fiber
-            fiber_status = analyze_nutrient_for_condition(
-                'Fiber',
-                fiber_per_serving,
-                HEART_RANGES['fiber']
-            )
-            analysis['nutrients'].append(fiber_status)
-
-            # Determine safety and recommendations
-            risk_points = 0
-            if fat_status['status'] == 'high':
-                risk_points += 2
-                analysis['concerns'].append("High total fat content")
-            if sat_fat > 5:
-                risk_points += 2
-                analysis['concerns'].append("High saturated fat content")
-            if fiber_status['status'] == 'low':
-                risk_points += 1
-                analysis['concerns'].append("Low fiber content")
-
-            # Add benefits
-            if fiber_status['status'] == 'normal':
-                analysis['benefits'].append("Good fiber content helps heart health")
-            if fat_status['status'] == 'normal':
-                analysis['benefits'].append("Moderate fat content")
-
-            # Set risk level and recommendations
-            if risk_points >= 3:
-                analysis['risk_level'] = 'High'
-                analysis['can_eat'] = False
-                analysis['overall_recommendation'] = "This recipe is not recommended for people with heart disease."
-                analysis['serving_recommendation'] = "Consider choosing a heart-healthier recipe."
-            elif risk_points == 2:
-                analysis['risk_level'] = 'Moderate'
-                analysis['overall_recommendation'] = "This recipe can be eaten occasionally with modifications."
-                analysis['serving_recommendation'] = "Reduce portion size and modify preparation to reduce fat content."
+            # Calculate risk level
+            if risk_points >= 2:
+                risk_level = 'High'
+                can_eat = False
+            elif risk_points == 1:
+                risk_level = 'Moderate'
+                can_eat = True
             else:
-                analysis['overall_recommendation'] = "This recipe is heart-healthy and safe to eat."
-                analysis['serving_recommendation'] = "Follow the recommended serving size."
+                risk_level = 'Low'
+                can_eat = True
 
-            analysis['meal_timing_advice'] = "Best consumed for lunch or early dinner."
+            return JsonResponse({
+                'can_eat': can_eat,
+                'risk_level': risk_level,
+                'nutrients': nutrients,
+                'concerns': concerns,
+                'benefits': benefits,
+                'overall_recommendation': f"This recipe is {'not ' if not can_eat else ''}suitable for those with kidney disease.",
+                'serving_recommendation': f"Stick to {recipe.servings} serving(s) or less.",
+                'meal_timing_advice': "Space protein intake throughout the day."
+            })
 
-            return JsonResponse(analysis)
-
-        return JsonResponse({'error': 'Invalid condition specified'}, status=400)
-        
     except Recipe.DoesNotExist:
         return JsonResponse({'error': 'Recipe not found'}, status=404)
     except Exception as e:
