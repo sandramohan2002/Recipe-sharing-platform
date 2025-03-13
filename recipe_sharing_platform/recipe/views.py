@@ -1973,6 +1973,105 @@ def analyze_recipe_diet(request, recipe_id):
 
             return JsonResponse(analysis)
             
+        elif condition == 'cholesterol':
+            # Calculate per serving values
+            servings = float(recipe.servings) if recipe.servings else 1
+            total_fat_per_serving = nutritional_info.fat / servings
+            # Estimate saturated fat as 30% of total fat if not available
+            saturated_fat_per_serving = (nutritional_info.saturated_fat if hasattr(nutritional_info, 'saturated_fat') else total_fat_per_serving * 0.3) / servings
+            fiber_per_serving = nutritional_info.fiber / servings
+            
+            # Define cholesterol-conscious ranges
+            CHOLESTEROL_RANGES = {
+                'total_fat': {'min': 0, 'max': 20, 'unit': 'g'},
+                'saturated_fat': {'min': 0, 'max': 5, 'unit': 'g'},
+                'fiber': {'min': 5, 'max': None, 'unit': 'g'}
+            }
+            
+            # Initialize analysis
+            analysis = {
+                'condition': 'Cholesterol Management',
+                'can_eat': True,
+                'risk_level': 'Low',
+                'nutrients': [],
+                'concerns': [],
+                'benefits': [],
+                'serving_recommendation': '',
+                'overall_recommendation': '',
+                'meal_timing_advice': ''
+            }
+            
+            # Analyze total fat
+            total_fat_status = analyze_nutrient_for_condition(
+                'Total Fat',
+                total_fat_per_serving,
+                CHOLESTEROL_RANGES['total_fat']
+            )
+            analysis['nutrients'].append(total_fat_status)
+            
+            # Analyze saturated fat
+            saturated_fat_status = analyze_nutrient_for_condition(
+                'Saturated Fat',
+                saturated_fat_per_serving,
+                CHOLESTEROL_RANGES['saturated_fat']
+            )
+            analysis['nutrients'].append(saturated_fat_status)
+            
+            # Analyze fiber
+            fiber_status = analyze_nutrient_for_condition(
+                'Fiber',
+                fiber_per_serving,
+                CHOLESTEROL_RANGES['fiber']
+            )
+            analysis['nutrients'].append(fiber_status)
+            
+            # Calculate risk points
+            risk_points = 0
+            if total_fat_status['status'] == 'high':
+                risk_points += 1
+                analysis['concerns'].append("High total fat content may increase cholesterol levels")
+            if saturated_fat_status['status'] == 'high':
+                risk_points += 2
+                analysis['concerns'].append("High saturated fat content - significant risk for cholesterol")
+            if fiber_status['status'] == 'low':
+                risk_points += 1
+                analysis['concerns'].append("Low fiber content - fiber helps reduce cholesterol")
+            
+            # Add benefits
+            if total_fat_status['status'] == 'normal':
+                analysis['benefits'].append("Moderate total fat content")
+            if saturated_fat_status['status'] == 'normal':
+                analysis['benefits'].append("Acceptable saturated fat levels")
+            if fiber_status['status'] == 'normal':
+                analysis['benefits'].append("Good fiber content helps manage cholesterol")
+            
+            # Set risk level and can_eat status
+            if risk_points >= 3:
+                analysis['risk_level'] = 'High'
+                analysis['can_eat'] = False
+                analysis['overall_recommendation'] = "This recipe is not recommended for people managing cholesterol levels due to its high fat content."
+                analysis['serving_recommendation'] = "Consider choosing an alternative recipe with lower fat content."
+            elif risk_points == 2:
+                analysis['risk_level'] = 'Moderate'
+                analysis['can_eat'] = True
+                analysis['overall_recommendation'] = "This recipe can be consumed occasionally, but should not be a regular part of your diet."
+                analysis['serving_recommendation'] = "Limit portion size and frequency of consumption."
+            else:
+                analysis['risk_level'] = 'Low'
+                analysis['can_eat'] = True
+                analysis['overall_recommendation'] = "This recipe is suitable for a cholesterol-conscious diet."
+                analysis['serving_recommendation'] = "Can be enjoyed as part of a balanced meal plan."
+            
+            # Add meal timing advice
+            if total_fat_per_serving > 15:
+                analysis['meal_timing_advice'] = "Best consumed for lunch when you have more time for physical activity."
+            elif total_fat_per_serving > 10:
+                analysis['meal_timing_advice'] = "Suitable for any main meal, but avoid late dinner."
+            else:
+                analysis['meal_timing_advice'] = "Can be consumed at any time of day."
+            
+            return JsonResponse(analysis)
+            
         return JsonResponse({'error': 'Invalid condition specified'}, status=400)
         
     except Recipe.DoesNotExist:
@@ -1980,8 +2079,8 @@ def analyze_recipe_diet(request, recipe_id):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
-def analyze_nutrient_for_diabetic(name, value, range_info):
-    """Analyze a nutrient value against diabetic-friendly ranges."""
+def analyze_nutrient_for_condition(name, value, range_info):
+    """Analyze a nutrient value against condition-specific ranges."""
     min_val = range_info['min']
     max_val = range_info['max']
     unit = range_info['unit']
