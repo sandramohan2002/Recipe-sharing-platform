@@ -347,7 +347,7 @@ def addrecipe(request):
                         )
 
                 messages.success(request, 'Recipe added successfully!')
-                return redirect('recipe_detail', recipe_id=recipe.recipe_id)
+                return redirect('recipe_detail', recipe.recipe_id)
 
         except Exception as e:
             print(f"Error in addrecipe: {str(e)}")
@@ -2093,7 +2093,9 @@ def analyze_recipe_diet(request, recipe_id):
             # Define kidney-friendly ranges
             KIDNEY_RANGES = {
                 'protein': {'min': 0, 'max': 15, 'unit': 'g'},  # Lower protein for kidney disease
-                'fat': {'min': 0, 'max': 20, 'unit': 'g'}
+                'phosphorus': {'min': 0, 'max': 200, 'unit': 'mg'},  # Estimated phosphorus content
+                'potassium': {'min': 0, 'max': 200, 'unit': 'mg'},  # Estimated potassium content
+                'sodium': {'min': 0, 'max': 400, 'unit': 'mg'}  # Sodium limit per serving
             }
             
             analysis = {
@@ -2116,29 +2118,119 @@ def analyze_recipe_diet(request, recipe_id):
             )
             analysis['nutrients'].append(protein_status)
 
-            # Analyze fat content
-            fat_status = analyze_nutrient_for_condition(
-                'Total Fat',
-                fat_per_serving,
-                KIDNEY_RANGES['fat']
-            )
-            analysis['nutrients'].append(fat_status)
-
             # Determine safety and recommendations
             risk_points = 0
             if protein_status['status'] == 'high':
                 risk_points += 2
                 analysis['concerns'].append("High protein content may stress kidneys")
-            if fat_status['status'] == 'high':
+
+            # Analyze carbohydrates for blood sugar management
+            if carbs_per_serving > 45:
+                risk_points += 1
+                analysis['concerns'].append("High carbohydrate content")
+
+            # Analyze fat content
+            if fat_per_serving > 20:
                 risk_points += 1
                 analysis['concerns'].append("High fat content")
 
-            if risk_points >= 2:
+            # Set risk level and recommendations
+            if risk_points >= 3:
                 analysis['risk_level'] = 'High'
                 analysis['can_eat'] = False
-                analysis['overall_recommendation'] = "This recipe may not be suitable for people with kidney disease."
+                analysis['overall_recommendation'] = "This recipe is not recommended for people with kidney disease."
+                analysis['serving_recommendation'] = "Consider choosing a different recipe with lower protein content."
+            elif risk_points == 2:
+                analysis['risk_level'] = 'Moderate'
+                analysis['overall_recommendation'] = "This recipe can be eaten occasionally with portion control."
+                analysis['serving_recommendation'] = "Reduce portion size to lower protein intake."
             else:
                 analysis['overall_recommendation'] = "This recipe is generally safe for people with kidney disease."
+                analysis['serving_recommendation'] = "Follow the recommended serving size."
+
+            analysis['meal_timing_advice'] = "Space protein intake throughout the day."
+
+            return JsonResponse(analysis)
+
+        elif condition == 'heart_disease':
+            # Define heart-healthy ranges
+            HEART_RANGES = {
+                'fat': {'min': 0, 'max': 15, 'unit': 'g'},  # Lower fat for heart disease
+                'saturated_fat': {'min': 0, 'max': 5, 'unit': 'g'},  # Limit saturated fat
+                'fiber': {'min': 5, 'max': None, 'unit': 'g'},  # Good fiber content
+                'sodium': {'min': 0, 'max': 400, 'unit': 'mg'}  # Sodium limit per serving
+            }
+            
+            analysis = {
+                'condition': 'Heart Disease Management',
+                'can_eat': True,
+                'risk_level': 'Low',
+                'nutrients': [],
+                'concerns': [],
+                'benefits': [],
+                'serving_recommendation': '',
+                'overall_recommendation': '',
+                'meal_timing_advice': ''
+            }
+
+            # Analyze total fat
+            fat_status = analyze_nutrient_for_condition(
+                'Total Fat',
+                fat_per_serving,
+                HEART_RANGES['fat']
+            )
+            analysis['nutrients'].append(fat_status)
+
+            # Estimate saturated fat (typically 30% of total fat)
+            sat_fat = fat_per_serving * 0.3
+            sat_fat_status = analyze_nutrient_for_condition(
+                'Saturated Fat',
+                sat_fat,
+                HEART_RANGES['saturated_fat']
+            )
+            analysis['nutrients'].append(sat_fat_status)
+
+            # Analyze fiber
+            fiber_status = analyze_nutrient_for_condition(
+                'Fiber',
+                fiber_per_serving,
+                HEART_RANGES['fiber']
+            )
+            analysis['nutrients'].append(fiber_status)
+
+            # Determine safety and recommendations
+            risk_points = 0
+            if fat_status['status'] == 'high':
+                risk_points += 2
+                analysis['concerns'].append("High total fat content")
+            if sat_fat > 5:
+                risk_points += 2
+                analysis['concerns'].append("High saturated fat content")
+            if fiber_status['status'] == 'low':
+                risk_points += 1
+                analysis['concerns'].append("Low fiber content")
+
+            # Add benefits
+            if fiber_status['status'] == 'normal':
+                analysis['benefits'].append("Good fiber content helps heart health")
+            if fat_status['status'] == 'normal':
+                analysis['benefits'].append("Moderate fat content")
+
+            # Set risk level and recommendations
+            if risk_points >= 3:
+                analysis['risk_level'] = 'High'
+                analysis['can_eat'] = False
+                analysis['overall_recommendation'] = "This recipe is not recommended for people with heart disease."
+                analysis['serving_recommendation'] = "Consider choosing a heart-healthier recipe."
+            elif risk_points == 2:
+                analysis['risk_level'] = 'Moderate'
+                analysis['overall_recommendation'] = "This recipe can be eaten occasionally with modifications."
+                analysis['serving_recommendation'] = "Reduce portion size and modify preparation to reduce fat content."
+            else:
+                analysis['overall_recommendation'] = "This recipe is heart-healthy and safe to eat."
+                analysis['serving_recommendation'] = "Follow the recommended serving size."
+
+            analysis['meal_timing_advice'] = "Best consumed for lunch or early dinner."
 
             return JsonResponse(analysis)
 
