@@ -36993,3 +36993,55 @@ Creating converter from 7 to 5
 Creating converter from 5 to 7
 Creating converter from 7 to 5
 Creating converter from 5 to 7
+Total recipes: 12
+Show my recipes: False
+Current user ID: 3
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Chapathi
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Butter Chicken
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: jj
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Tomato Rice
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Internal Server Error: /recipe/19/analyze-diet/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 188, in _get_response
+    self.check_response(response, callback)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 311, in check_response
+    "instead." % name
+ValueError: The view recipe.views.analyze_recipe_diet didn't return an HttpResponse object. It returned None instead.
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Internal Server Error: /recipe/19/analyze-diet/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 188, in _get_response
+    self.check_response(response, callback)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 311, in check_response
+    "instead." % name
+ValueError: The view recipe.views.analyze_recipe_diet didn't return an HttpResponse object. It returned None instead.
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
