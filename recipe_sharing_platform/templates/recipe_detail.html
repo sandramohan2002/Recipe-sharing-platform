@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
     <title>{{ recipe.recipename }} - Recipe Details</title>
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -908,6 +909,15 @@
         }
         .benefit-item i {
             color: #059669;
+        }
+        .print-btn {
+            display: none;  /* Hide the print button styles */
+        }
+        .print-btn:hover {
+            display: none;  /* Hide the hover styles */
+        }
+        .print-btn i {
+            display: none;  /* Hide the icon styles */
         }
     </style>
 </head>

@@ -5,358 +5,421 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meal Planner - Flavornaut</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <style>
-        /* Copy navbar styles from homepage.html */
-        .navbar {
-            background-color: #fff;
-            border-bottom: 1px solid #ddd;
-            padding: 15px 0;
-        }
-        .navbar-brand {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ff6f00 !important;
-        }
-        .navbar-brand:hover {
-            color: #ff6f00 !important;
-        }
-        .navbar-nav .nav-link {
-            font-weight: bold;
-            color: #555;
-            margin-right: 20px;
-            transition: color 0.3s ease;
-        }
-        .navbar-nav .nav-link:hover,
-        .navbar-nav .nav-item.active .nav-link {
-            color: #ff6f00 !important;
-        }
-        .navbar-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .navbar-user {
-            font-size: 16px;
-            color: #343a40;
-            font-weight: bold;
-        }
-        .search-form {
-            display: flex;
-            justify-content: center;
-            margin: 0 20px;
-        }
-        .search-form input[type="search"] {
-            width: 300px;
-            border-radius: 20px;
-            padding: 8px 15px;
-        }
-        .search-icon {
-            background-color: #ff6f00;
-            color: white;
-            border: none;
-            border-radius: 20px;
-            padding: 8px 20px;
-            margin-left: 10px;
-        }
-        .search-icon:hover {
-            background-color: #e65100;
-        }
-        .dropdown-item:hover {
-            background-color: #ff6f00;
-            color: white;
+        :root {
+            --primary-color: #ff6f00;
+            --primary-hover: #e65100;
+            --secondary-color: #2c3e50;
+            --light-bg: #f8f9fa;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
         }
 
-        /* Meal Planner specific styles */
-        .meal-item {
-            border: 1px solid #ddd;
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--secondary-color);
+            line-height: 1.6;
+        }
+
+        .weekly-calendar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
             padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 8px;
+        }
+
+        .day-column {
             background: white;
-            transition: box-shadow 0.3s ease;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            height: fit-content;
         }
-        .meal-item:hover {
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+
+        .day-column.today {
+            border: 2px solid var(--primary-color);
         }
-        .meal-header {
+
+        .day-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .day-header h5 {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .meal-slots {
+            padding: 15px;
+        }
+
+        .meal-slot {
+            background: var(--light-bg);
+            border-radius: var(--radius-sm);
+            padding: 15px;
+            margin-bottom: 15px;
+            min-height: 100px;
+            transition: all 0.3s ease;
+        }
+
+        .meal-slot:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .meal-type-label {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .meal-card {
+            background: white;
+            border-radius: var(--radius-sm);
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease;
+        }
+
+        .meal-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .meal-card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
-        .meal-actions {
-            display: flex;
-            gap: 10px;
-        }
-        .nutrition-info {
-            display: flex;
-            gap: 15px;
-            margin: 15px 0;
+
+        .recipe-item {
             padding: 10px;
-            background: #f8f9fa;
-            border-radius: 6px;
+            background: var(--light-bg);
+            border-radius: var(--radius-sm);
+            margin-bottom: 10px;
         }
-        .nutrition-item {
+
+        .recipe-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--secondary-color);
+        }
+
+        .recipe-servings {
+            font-size: 0.9rem;
+            color: #666;
             display: flex;
             align-items: center;
             gap: 5px;
-        }
-        .nutrition-item i {
-            color: #ff6f00;
-        }
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Arial', sans-serif;
-        }
-        .progress-item {
-            margin-bottom: 15px;
-        }
-        .progress {
-            height: 20px;
-            border-radius: 10px;
-        }
-        .progress-bar {
-            line-height: 20px;
-            font-size: 0.8rem;
-        }
-        .notes {
-            font-style: italic;
-            color: #666;
-            margin-top: 10px;
-        }
-        .day-plan {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .draggable-recipe {
-            padding: 10px;
-            margin: 5px;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            cursor: move;
-        }
-        
-        .meal-slot {
-            min-height: 50px;
-            border: 2px dashed #ccc;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 4px;
+            margin-bottom: 8px;
         }
 
-        .meal-slot.hover {
-            background-color: #f0f8ff;
-            border-color: #3498db;
+        .nutrition-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .badge {
+            padding: 6px 10px;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .meal-notes {
+            margin-top: 10px;
+            padding: 10px;
+            background: var(--light-bg);
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .day-totals {
+            background: var(--light-bg);
+            padding: 15px;
+            border-top: 2px solid var(--border-color);
+        }
+
+        .total-label {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+        .total-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .draggable-recipe {
+            background: white;
+            padding: 12px;
+            border-radius: var(--radius-sm);
+            margin: 8px;
+            box-shadow: var(--shadow-sm);
+            cursor: move;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .draggable-recipe:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .draggable-recipe h6 {
+            margin: 0 0 5px 0;
+            color: var(--secondary-color);
+        }
+
+        .draggable-recipe small {
+            color: #666;
         }
 
         #recipe-list {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        #recipe-list h4 {
+            color: var(--primary-color);
             margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .meal-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .meal-actions .btn {
+            padding: 4px 8px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .weekly-calendar {
+                grid-template-columns: 1fr;
+                padding: 10px;
+            }
+
+            .meal-card {
+                padding: 12px;
+            }
+
+            .nutrition-badges {
+                gap: 5px;
+            }
+
+            .badge {
+                padding: 4px 8px;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Enhanced Drag and Drop Styles */
+        .meal-slot.hover {
+            background: #e8f4ff;
+            border: 2px dashed #3498db;
+        }
+
+        .ui-draggable-dragging {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+            z-index: 1000;
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <!-- Copy navbar from homepage.html -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'homepage' %}">Flavornaut</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'homepage' %}">Home</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="recipesDropdown" role="button" data-bs-toggle="dropdown">
-                            Recipes
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="recipesDropdown">
-                            <li><a class="dropdown-item" href="{% url 'recipe' %}">View Recipes</a></li>
-                            <li><a class="dropdown-item" href="{% url 'recipe' %}">My Recipes</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">About</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="eventsDropdown" role="button" data-bs-toggle="dropdown">
-                            Events
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="eventsDropdown">
-                            <li><a class="dropdown-item" href="{% url 'create_event' %}">My Events</a></li>
-                            <li><a class="dropdown-item" href="{% url 'view_events' %}">View Events</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                            Profile
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'profile' %}">
-                                <i class="bi bi-person"></i> My Account
-                            </a></li>
-                            <li><a class="dropdown-item" href="{% url 'meal_planner' %}">
-                                <i class="bi bi-calendar-check"></i> Meal Planner
-                            </a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{% url 'logout' %}">
-                                <i class="bi bi-box-arrow-right"></i> Logout
-                            </a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <form class="d-flex search-form" method="GET" action="{% url 'search_recipe' %}">
-                    <input class="form-control me-2" type="search" placeholder="Search recipes..." name="query">
-                    <button class="btn search-icon" type="submit">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </form>
-                <div class="navbar-right">
-                    <div class="navbar-user">
-                        Hello, {{ request.session.username }}
-                    </div>
+    {% include 'navbar.html' %}
+
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="mb-0">My Meal Planner</h2>
+                    <a href="{% url 'add_meal_plan' %}" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i> Add New Meal
+                    </a>
                 </div>
             </div>
         </div>
-    </nav>
 
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-md-12">
-                <div id="recipe-list">
-                    <h4>Available Recipes</h4>
-                    <div class="d-flex flex-wrap">
-                        {% for recipe in available_recipes %}
-                            <div class="draggable-recipe" data-recipe-id="{{ recipe.recipe_id }}">
-                                <h6>{{ recipe.recipename }}</h6>
-                                <small>{{ recipe.nutritional_info.calories }} cal</small>
+        <div id="recipe-list" class="mb-4">
+            <h4><i class="bi bi-collection"></i> Available Recipes</h4>
+            <div class="d-flex flex-wrap">
+                {% for recipe in available_recipes %}
+                    <div class="draggable-recipe" data-recipe-id="{{ recipe.recipe_id }}">
+                        <h6>{{ recipe.recipename }}</h6>
+                        <small><i class="bi bi-fire"></i> {{ recipe.nutritional_info.calories|default:"N/A" }} cal</small>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="weekly-calendar">
+            {% for day in weekly_plan %}
+                <div class="day-column {% if day.date == today %}today{% endif %}">
+                    <div class="day-header">
+                        <h5>{{ day.date|date:"l" }}</h5>
+                        <small>{{ day.date|date:"M j" }}</small>
+                    </div>
+                    
+                    <div class="meal-slots">
+                        {% for meal_slot in day.meals %}
+                            <div class="meal-slot" data-meal-type="{{ meal_slot.type }}" data-date="{{ day.date|date:'Y-m-d' }}">
+                                <div class="meal-type-label">
+                                    <i class="bi bi-clock"></i> {{ meal_slot.type_display }}
+                                </div>
+                                
+                                {% for meal in meal_slot.meals %}
+                                    <div class="meal-card">
+                                        <div class="meal-card-header">
+                                            <div class="meal-actions">
+                                                <a href="{% url 'edit_meal' meal.id %}" class="btn btn-sm btn-outline-primary">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                <button class="btn btn-sm btn-outline-danger" onclick="confirmDelete('{{ meal.id }}')">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="recipes-list">
+                                            {% for recipe in meal.recipe_details.recipes %}
+                                                <div class="recipe-item">
+                                                    <h6 class="recipe-name">{{ recipe.recipe_name }}</h6>
+                                                    <div class="recipe-servings">
+                                                        <i class="bi bi-people"></i>
+                                                        <span>{{ recipe.servings }} serving(s)</span>
+                                                    </div>
+                                                    <div class="nutrition-badges">
+                                                        <span class="badge bg-primary">
+                                                            <i class="bi bi-fire"></i> {{ recipe.calories|floatformat:0 }} cal
+                                                        </span>
+                                                        <span class="badge bg-success">
+                                                            <i class="bi bi-egg"></i> {{ recipe.protein|floatformat:0 }}g
+                                                        </span>
+                                                        <span class="badge bg-warning">
+                                                            <i class="bi bi-circle"></i> {{ recipe.carbs|floatformat:0 }}g
+                                                        </span>
+                                                        <span class="badge bg-danger">
+                                                            <i class="bi bi-droplet"></i> {{ recipe.fat|floatformat:0 }}g
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        
+                                        {% if meal.notes %}
+                                            <div class="meal-notes">
+                                                <i class="bi bi-journal-text"></i>
+                                                <span>{{ meal.notes }}</span>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
                             </div>
                         {% endfor %}
                     </div>
+                    
+                    <div class="day-totals">
+                        <div class="total-label">Daily Totals</div>
+                        <div class="total-badges">
+                            <span class="badge bg-primary">
+                                <i class="bi bi-fire"></i> {{ day.totals.calories|floatformat:0 }} cal
+                            </span>
+                            <span class="badge bg-success">
+                                <i class="bi bi-egg"></i> {{ day.totals.protein|floatformat:0 }}g
+                            </span>
+                            <span class="badge bg-warning">
+                                <i class="bi bi-circle"></i> {{ day.totals.carbs|floatformat:0 }}g
+                            </span>
+                            <span class="badge bg-danger">
+                                <i class="bi bi-droplet"></i> {{ day.totals.fat|floatformat:0 }}g
+                            </span>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
+    </div>
 
-        <!-- Weekly Overview -->
-        <div class="row mb-4">
-            <div class="col-12">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                        <h3 class="mb-0">Weekly Meal Plan</h3>
-                        <div>
-                            <a href="{% url 'add_meal_plan' %}" class="btn btn-light">
-                                <i class="bi bi-plus-circle"></i> Add Meal
-                            </a>
-                        </div>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="weekly-calendar">
-                            {% for day in weekly_plan %}
-                                <div class="day-column {% if day.date == today %}today{% endif %}">
-                                    <div class="day-header">
-                                        <h5>{{ day.date|date:"l" }}</h5>
-                                        <small class="text-muted">{{ day.date|date:"M j" }}</small>
-                                    </div>
-                                    
-                                    <div class="meal-slots">
-                                        {% for meal_slot in day.meals %}
-                                            <div class="meal-slot" data-meal-type="{{ meal_slot.type }}" data-date="{{ day.date|date:'Y-m-d' }}">
-                                                <div class="meal-type-label">{{ meal_slot.type_display }}</div>
-                                                
-                                                {% for meal in meal_slot.meals %}
-                                                    <div class="meal-card">
-                                                        <div class="meal-card-header">
-                                                            <div class="meal-actions">
-                                                                <a href="{% url 'edit_meal' meal.id %}" class="btn btn-sm btn-outline-primary">
-                                                                    <i class="bi bi-pencil"></i>
-                                                                </a>
-                                                                <button class="btn btn-sm btn-outline-danger" onclick="confirmDelete('{{ meal.id }}')">
-                                                                    <i class="bi bi-trash"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                        
-                                                        <div class="recipes-list">
-                                                            {% for recipe in meal.recipe_details.recipes %}
-                                                                <div class="recipe-item">
-                                                                    <h6 class="recipe-name">{{ recipe.recipe_name }}</h6>
-                                                                    <div class="recipe-servings">
-                                                                        <i class="bi bi-people"></i>
-                                                                        <span>{{ recipe.servings }} serving(s)</span>
-                                                                    </div>
-                                                                    <div class="nutrition-badges">
-                                                                        <span class="badge bg-primary">
-                                                                            <i class="bi bi-fire"></i> {{ recipe.calories|floatformat:0 }} cal
-                                                                        </span>
-                                                                        <span class="badge bg-success">
-                                                                            <i class="bi bi-egg"></i> {{ recipe.protein|floatformat:0 }}g
-                                                                        </span>
-                                                                        <span class="badge bg-warning">
-                                                                            <i class="bi bi-circle"></i> {{ recipe.carbs|floatformat:0 }}g
-                                                                        </span>
-                                                                        <span class="badge bg-danger">
-                                                                            <i class="bi bi-droplet"></i> {{ recipe.fat|floatformat:0 }}g
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            {% endfor %}
-                                                        </div>
-                                                        
-                                                        {% if meal.notes %}
-                                                            <div class="meal-notes">
-                                                                <i class="bi bi-journal-text"></i>
-                                                                <span>{{ meal.notes }}</span>
-                                                            </div>
-                                                        {% endif %}
-                                                    </div>
-                                                {% endfor %}
-                                            </div>
-                                        {% endfor %}
-                                    </div>
-                                    
-                                    <div class="day-totals">
-                                        <div class="total-label">Daily Totals</div>
-                                        <div class="total-badges">
-                                            <span class="badge bg-primary">
-                                                {{ day.totals.calories|floatformat:0 }} cal
-                                            </span>
-                                            <span class="badge bg-success">
-                                                {{ day.totals.protein|floatformat:0 }}g protein
-                                            </span>
-                                            <span class="badge bg-warning">
-                                                {{ day.totals.carbs|floatformat:0 }}g carbs
-                                            </span>
-                                            <span class="badge bg-danger">
-                                                {{ day.totals.fat|floatformat:0 }}g fat
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Loading Overlay -->
+    <div class="loading" style="display: none;">
+        <div class="loading-spinner"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        function showLoading() {
+            document.querySelector('.loading').style.display = 'flex';
+        }
+
+        function hideLoading() {
+            document.querySelector('.loading').style.display = 'none';
+        }
+
         function confirmDelete(mealId) {
             if (confirm('Are you sure you want to delete this meal?')) {
+                showLoading();
                 fetch(`/meal-planner/delete/${mealId}/`, {
                     method: 'POST',
                     headers: {
@@ -370,27 +433,25 @@
                     } else {
                         alert('Error deleting meal');
                     }
+                })
+                .finally(() => {
+                    hideLoading();
                 });
             }
         }
 
-        // Initialize dropdowns
-        document.addEventListener('DOMContentLoaded', function() {
-            var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
-            var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
-                return new bootstrap.Dropdown(dropdownToggleEl)
-            });
-        });
-
         $(document).ready(function() {
-            // Make recipes draggable
             $('.draggable-recipe').draggable({
                 helper: 'clone',
                 revert: 'invalid',
-                cursor: 'move'
+                cursor: 'move',
+                opacity: 0.75,
+                zIndex: 100,
+                start: function(event, ui) {
+                    $(ui.helper).addClass('ui-draggable-dragging');
+                }
             });
 
-            // Make meal slots droppable
             $('.meal-slot').droppable({
                 accept: '.draggable-recipe',
                 hoverClass: 'hover',
@@ -399,7 +460,8 @@
                     const mealType = $(this).data('meal-type');
                     const date = $(this).data('date');
                     
-                    // Send AJAX request to add meal
+                    showLoading();
+                    
                     $.ajax({
                         url: '{% url "add_meal_plan" %}',
                         method: 'POST',
@@ -411,13 +473,16 @@
                         },
                         success: function(response) {
                             if (response.success) {
-                                location.reload(); // Refresh to show new meal
+                                location.reload();
                             } else {
                                 alert('Error adding meal: ' + response.message);
                             }
                         },
                         error: function() {
                             alert('Error adding meal');
+                        },
+                        complete: function() {
+                            hideLoading();
                         }
                     });
                 }

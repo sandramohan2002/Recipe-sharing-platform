@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{ recipe.recipename }} - Recipe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .recipe-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 20px;
+        }
+        .recipe-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .recipe-meta {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .meta-item {
+            margin-bottom: 10px;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            color: #333;
+        }
+        .ingredients-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .ingredients-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .ingredients-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+        }
+        .instructions {
+            margin-top: 20px;
+        }
+        .instruction-step {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+        .step-number {
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        .nutritional-info {
+            margin-top: 30px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .nutrition-item {
+            padding: 8px;
+            background: white;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="recipe-header">
+        <div class="recipe-title">{{ recipe.recipename }}</div>
+        <div>By {{ author_name }}</div>
+    </div>
+
+    <div class="recipe-meta">
+        <div class="meta-item">
+            <strong>Difficulty:</strong> {{ recipe.difficulty|default:'Medium' }}
+        </div>
+        <div class="meta-item">
+            <strong>Servings:</strong> {{ recipe.servings }}
+        </div>
+        <div class="meta-item">
+            <strong>Prep Time:</strong> {{ recipe.prep_time }} mins
+            <strong>Cook Time:</strong> {{ recipe.cook_time }} mins
+        </div>
+        <div class="meta-item">
+            <strong>Category:</strong> {{ category_name }}
+            {% if subcategory_name %} / {{ subcategory_name }}{% endif %}
+        </div>
+    </div>
+
+    <div class="ingredients">
+        <div class="section-title">Ingredients</div>
+        <ul class="ingredients-list">
+            {% for recipe_ingredient in recipe.recipe_ingredients.all %}
+                <li>{{ recipe_ingredient.quantity }} {{ recipe_ingredient.measurement }} {{ recipe_ingredient.ingredient.name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="instructions">
+        <div class="section-title">Instructions</div>
+        {% for step in recipe.instructions.splitlines %}
+            {% if step %}
+                <div class="instruction-step">
+                    <span class="step-number">{{ forloop.counter }}.</span>
+                    {{ step|safe }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    {% if nutritional_info %}
+    <div class="nutritional-info">
+        <div class="section-title">Nutritional Information</div>
+        <div class="nutrition-grid">
+            <div class="nutrition-item">
+                <strong>Calories:</strong><br>
+                {{ nutritional_info.calories|floatformat:1 }}
+            </div>
+            <div class="nutrition-item">
+                <strong>Protein:</strong><br>
+                {{ nutritional_info.protein|floatformat:1 }}g
+            </div>
+            <div class="nutrition-item">
+                <strong>Carbohydrates:</strong><br>
+                {{ nutritional_info.carbohydrates|floatformat:1 }}g
+            </div>
+            <div class="nutrition-item">
+                <strong>Fat:</strong><br>
+                {{ nutritional_info.fat|floatformat:1 }}g
+            </div>
+            <div class="nutrition-item">
+                <strong>Fiber:</strong><br>
+                {{ nutritional_info.fiber|floatformat:1 }}g
+            </div>
+            <div class="nutrition-item">
+                <strong>Sugar:</strong><br>
+                {{ nutritional_info.sugar|floatformat:1 }}g
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="footer">
+        <p>Downloaded from Flavornaut Recipe Platform</p>
+        <p>Download Date: {% now "F j, Y" %}</p>
+    </div>
+</body>
+</html> 

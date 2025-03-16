@@ -241,52 +241,42 @@
             display: block;
         }
 
-        /* Back Button Styles */
-        .back-button {
+        /* Back Icon Button Styles */
+        .back-icon {
             position: fixed;
-            top: 100px;
-            left: 30px;
+            top: 90px;
+            left: 20px;
             z-index: 1000;
-        }
-
-        .btn-back {
-            display: inline-flex;
+            background: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            background: linear-gradient(45deg, #ff6f00, #ff9100);
-            border-radius: 50px;
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 111, 0, 0.2);
+            color: var(--primary-color);
+            text-decoration: none;
         }
 
-        .btn-back:hover {
+        .back-icon:hover {
             transform: translateX(-5px);
-            box-shadow: 0 6px 20px rgba(255, 111, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            background: var(--primary-color);
             color: white;
         }
 
-        .btn-back i {
+        .back-icon i {
+            font-size: 1.5rem;
             transition: transform 0.3s ease;
         }
 
-        .btn-back:hover i {
-            transform: translateX(-3px);
-        }
-
         @media (max-width: 768px) {
-            .back-button {
-                position: fixed;
+            .back-icon {
                 top: auto;
                 bottom: 20px;
                 left: 20px;
-            }
-
-            .btn-back {
-                padding: 10px 20px;
             }
         }
     </style>
@@ -625,11 +615,8 @@
     </script>
 
     <!-- Add this right after the navbar -->
-    <div class="back-button">
-        <a href="{% url 'homepage' %}" class="btn-back">
-            <i class="bi bi-arrow-left"></i>
-            <span>Back to Home</span>
-        </a>
-    </div>
+    <a href="{% url 'homepage' %}" class="back-icon" title="Back to Home">
+        <i class="bi bi-arrow-left"></i>
+    </a>
 </body>
 </html>

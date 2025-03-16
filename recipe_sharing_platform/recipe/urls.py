@@ -6,6 +6,9 @@ from . import views
 # from .forms import CreateUserForm
 #from .views import pending_recipes, approve_recipe, reject_recipe
 
+# Remove the app_name to resolve the namespace issue
+# app_name = 'recipe'
+
 urlpatterns = [
     # Authentication paths
     path('', views.login, name='login'),
@@ -118,6 +121,7 @@ urlpatterns = [
     
     path('recipe/<int:recipe_id>/analyze-diet/', views.analyze_recipe_diet, name='analyze_recipe_diet'),
     
+    path('recipe/<int:recipe_id>/delete/', views.delete_user_recipe, name='delete_recipe'),
 ]
 
 

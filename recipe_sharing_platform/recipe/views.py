@@ -26,6 +26,7 @@ from .ai_utils import get_nutritional_info_from_ai
 from django.db.models import Count
 from django.views.decorators.http import require_http_methods
 import json
+import os
 
 
 logger = logging.getLogger(__name__)
@@ -362,7 +363,6 @@ def addrecipe(request):
         'categories': Category.objects.all(),
         'ingredients': Ingredient.objects.all()
     })
-
 
 
 def recipe_detail(request, recipe_id):
@@ -2191,3 +2191,58 @@ def analyze_nutrient_for_condition(name, value, range_info):
         'status': status,
         'message': message
     }
+
+@require_http_methods(["POST"])
+def delete_user_recipe(request, recipe_id):
+    try:
+        print("delete_user_recipe called")
+        print("user_id:", request.session.get('id'))
+        # First check if user is logged in
+        if not request.session.get('id'):
+            messages.error(request, 'Please log in to delete recipes')
+            return JsonResponse({'error': 'Please log in to delete recipes'}, status=401)
+
+        recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
+        current_user_id = request.session.get('id')
+        
+        # Debug logging
+        print(f"Recipe user_id: {recipe.user_id}, Current user_id: {current_user_id}")
+        
+        # Check if the user owns the recipe
+        if str(recipe.user_id) != str(current_user_id):
+            messages.error(request, 'You are not authorized to delete this recipe')
+            return JsonResponse({'error': 'You are not authorized to delete this recipe'}, status=403)
+        
+        # Use transaction to ensure all related data is deleted or nothing is deleted
+        with transaction.atomic():
+            # Delete associated records first
+            RecipeIngredient.objects.filter(recipe=recipe).delete()
+            RecipeAllergen.objects.filter(recipe_id=recipe_id).delete()
+            NutritionalInformation.objects.filter(recipe=recipe).delete()
+            Rating.objects.filter(recipe_id=recipe_id).delete()
+            Review.objects.filter(recipe_id=recipe_id).delete()
+            Favorite.objects.filter(recipe_id=recipe_id).delete()
+            
+            # Delete the recipe image if it exists
+            if recipe.image:
+                try:
+                    if os.path.exists(recipe.image.path):
+                        os.remove(recipe.image.path)
+                except Exception as e:
+                    logger.warning(f"Failed to delete recipe image: {str(e)}")
+            
+            # Finally delete the recipe
+            recipe.delete()
+            messages.success(request, 'Recipe deleted successfully')
+        
+        return JsonResponse({
+            'message': 'Recipe deleted successfully',
+            'recipe_id': recipe_id
+        })
+    except Recipe.DoesNotExist:
+        messages.error(request, 'Recipe not found')
+        return JsonResponse({'error': 'Recipe not found'}, status=404)
+    except Exception as e:
+        logger.error(f"Error deleting recipe {recipe_id}: {str(e)}")
+        messages.error(request, f'An error occurred while deleting the recipe: {str(e)}')
+        return JsonResponse({'error': str(e)}, status=500)
