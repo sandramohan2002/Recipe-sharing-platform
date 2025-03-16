@@ -1,0 +1,68 @@
+<!-- Footer -->
+<footer class="bg-dark text-light py-4 mt-5">
+    <div class="container">
+        <div class="row">
+            <!-- About Section -->
+            <div class="col-md-4 mb-3">
+                <h5 class="mb-3">About Recipe Share</h5>
+                <p class="text-muted">Your ultimate destination for sharing and discovering delicious recipes from around the world. Join our community of food lovers today!</p>
+            </div>
+            
+            <!-- Quick Links -->
+            <div class="col-md-4 mb-3">
+                <h5 class="mb-3">Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="{% url 'homepage' %}" class="text-muted text-decoration-none">Home</a></li>
+                    <li class="mb-2"><a href="{% url 'recipe' %}" class="text-muted text-decoration-none">Recipes</a></li>
+                    <li class="mb-2"><a href="{% url 'subscription_plans' %}" class="text-muted text-decoration-none">Premium Plans</a></li>
+                    <li class="mb-2"><a href="{% url 'about' %}" class="text-muted text-decoration-none">About Us</a></li>
+                </ul>
+            </div>
+            
+            <!-- Connect Section -->
+            <div class="col-md-4 mb-3">
+                <h5 class="mb-3">Connect With Us</h5>
+                <div class="d-flex gap-3 mb-3">
+                    <a href="#" class="text-light"><i class="fab fa-facebook fa-lg"></i></a>
+                    <a href="#" class="text-light"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="#" class="text-light"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#" class="text-light"><i class="fab fa-pinterest fa-lg"></i></a>
+                </div>
+                <p class="text-muted mb-1">Subscribe to our newsletter</p>
+                <div class="input-group">
+                    <input type="email" class="form-control" placeholder="Enter your email">
+                    <button class="btn btn-primary" type="button">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Copyright -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <hr class="bg-secondary">
+                <p class="text-center text-muted mb-0">
+                    © {% now "Y" %} Recipe Share. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+footer {
+    margin-top: auto;
+}
+
+footer a:hover {
+    color: #fff !important;
+    transition: color 0.3s ease;
+}
+
+footer .social-links a {
+    margin-right: 15px;
+}
+
+footer .input-group {
+    max-width: 300px;
+}
+</style> 

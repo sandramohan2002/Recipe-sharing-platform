@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Checkout - {{ plan.name }}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h5>Plan Details:</h5>
+                        <p><strong>Name:</strong> {{ plan.name }}</p>
+                        <p><strong>Price:</strong> ₹{{ plan.price }}</p>
+                        <p><strong>Duration:</strong> {{ plan.duration }}</p>
+                        <div class="features-list">
+                            <h6>Features:</h6>
+                            <ul>
+                                {% for feature in plan.features %}
+                                <li><i class="fas fa-check text-success"></i> {{ feature }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <button id="rzp-button" class="btn btn-primary btn-lg w-100">Pay Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+document.getElementById('rzp-button').onclick = function(e) {
+    var options = {
+        "key": "{{ razorpay_key }}",
+        "amount": "{{ amount }}",
+        "currency": "{{ currency }}",
+        "name": "Recipe Share Premium",
+        "description": "{{ plan.name }} Subscription",
+        "order_id": "{{ order_id }}",
+        "handler": function (response) {
+            // Create a form to submit payment details
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = "{{ callback_url }}";
+
+            // Add CSRF token
+            var csrfToken = document.createElement('input');
+            csrfToken.type = 'hidden';
+            csrfToken.name = 'csrfmiddlewaretoken';
+            csrfToken.value = '{{ csrf_token }}';
+            form.appendChild(csrfToken);
+
+            // Add payment response fields
+            var fields = {
+                'razorpay_payment_id': response.razorpay_payment_id,
+                'razorpay_order_id': response.razorpay_order_id,
+                'razorpay_signature': response.razorpay_signature
+            };
+
+            for (var key in fields) {
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = fields[key];
+                form.appendChild(input);
+            }
+
+            document.body.appendChild(form);
+            form.submit();
+        },
+        "prefill": {
+            "email": "{{ request.session.email }}"
+        },
+        "theme": {
+            "color": "#ff6f00"
+        },
+        "modal": {
+            "ondismiss": function() {
+                window.location.href = "{{ cancel_url }}";
+            }
+        }
+    };
+    var rzp = new Razorpay(options);
+    rzp.open();
+    e.preventDefault();
+}
+</script>
+
+<style>
+.features-list ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.features-list li {
+    margin-bottom: 10px;
+}
+
+.features-list i {
+    margin-right: 10px;
+}
+
+.btn-primary {
+    background-color: #ff6f00;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #e65100;
+    transform: translateY(-2px);
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: #ff6f00 !important;
+    padding: 20px;
+}
+
+.card-body {
+    padding: 30px;
+}
+</style>
+{% endblock %} 

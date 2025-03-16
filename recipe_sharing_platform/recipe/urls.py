@@ -122,6 +122,15 @@ urlpatterns = [
     path('recipe/<int:recipe_id>/analyze-diet/', views.analyze_recipe_diet, name='analyze_recipe_diet'),
     
     path('recipe/<int:recipe_id>/delete/', views.delete_user_recipe, name='delete_recipe'),
+
+    # Add these new URL patterns
+    path('subscription/plans/', views.subscription_plans, name='subscription_plans'),
+    path('subscription/checkout/<int:plan_id>/', views.subscription_checkout, name='subscription_checkout'),
+    path('subscription/process/<int:plan_id>/', views.process_subscription, name='process_subscription'),
+    path('subscription/success/', views.subscription_success, name='subscription_success'),
+    path('subscription/cancel/', views.subscription_cancel, name='subscription_cancel'),
+    path('subscription/webhook/', views.razorpay_webhook, name='razorpay_webhook'),
+    path('subscription/status/', views.subscription_status, name='subscription_status'),
 ]
 
 

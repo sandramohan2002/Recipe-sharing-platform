@@ -27,9 +27,22 @@ from django.db.models import Count
 from django.views.decorators.http import require_http_methods
 import json
 import os
+import razorpay
+from django.conf import settings
+from django.utils import timezone
+from datetime import timedelta
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from .models import SubscriptionPlan, UserSubscription, PaymentHistory
+from django.urls import reverse
 
 
 logger = logging.getLogger(__name__)
+
+# Initialize Razorpay client
+razorpay_client = razorpay.Client(
+    auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET)
+)
 
 #USER DASHBOARD
 def signup(request):
@@ -368,6 +381,17 @@ def addrecipe(request):
 def recipe_detail(request, recipe_id):
     recipe = get_object_or_404(Recipe, recipe_id=recipe_id)
     
+    # Check subscription status
+    is_subscribed = False
+    print("recipe_detail called")
+    print("request.session.get('id'):", request.session.get('id'))
+    if request.session.get('id'):
+        is_subscribed = UserSubscription.objects.filter(
+            user_id=request.session['id'],
+            status='active',
+            end_date__gt=timezone.now()
+        ).exists()
+    print("is_subscribed:", is_subscribed)
     # Get nutritional info
     try:
         nutritional_info = NutritionalInformation.objects.get(recipe_id=recipe_id)
@@ -376,29 +400,6 @@ def recipe_detail(request, recipe_id):
         nutritional_info = None
         is_ai_generated = False
         
-        # Try to generate nutritional info if it doesn't exist
-        try:
-            api_key = getattr(settings, 'GEMINI_API_KEY', None)
-            if api_key:
-                ai_nutritional_info = get_nutritional_info_from_ai(recipe.recipename, api_key)
-                if ai_nutritional_info:
-                    nutritional_info = NutritionalInformation.objects.create(
-                        recipe=recipe,
-                        calories=ai_nutritional_info['calories'],
-                        protein=ai_nutritional_info['protein'],
-                        carbohydrates=ai_nutritional_info['carbohydrates'],
-                        fat=ai_nutritional_info['fat'],
-                        fiber=ai_nutritional_info['fiber'],
-                        sugar=ai_nutritional_info['sugar'],
-                        is_ai_generated=True
-                    )
-                    is_ai_generated = True
-            else:
-                print("No Gemini API key found in settings")
-        except Exception as e:
-            print(f"Error generating nutritional info: {str(e)}")
-            pass  # Handle error silently
-
     # Get the recipe author details
     try:
         recipe_author = CustomUser.objects.get(id=recipe.user_id)
@@ -413,20 +414,17 @@ def recipe_detail(request, recipe_id):
     is_logged_in = user_id is not None
     
     # Get reviews
-    try:
-        reviews = Review.objects.filter(recipe_id=recipe_id).values(
-            'review_id', 'user_id', 'review_text', 'created_at'
-        ).order_by('-created_at')
-        
-        # Fetch user names for reviews
-        for review in reviews:
-            try:
-                user = CustomUser.objects.get(id=review['user_id'])
-                review['user_name'] = user.name
-            except CustomUser.DoesNotExist:
-                review['user_name'] = "Unknown User"
-    except:
-        reviews = []
+    reviews = Review.objects.filter(recipe_id=recipe_id).values(
+        'review_id', 'user_id', 'review_text', 'created_at'
+    ).order_by('-created_at')
+    
+    # Fetch user names for reviews
+    for review in reviews:
+        try:
+            user = CustomUser.objects.get(id=review['user_id'])
+            review['user_name'] = user.name
+        except CustomUser.DoesNotExist:
+            review['user_name'] = "Unknown User"
 
     # Get category and subcategory
     try:
@@ -447,7 +445,7 @@ def recipe_detail(request, recipe_id):
     # Split instructions into a list
     instructions = [inst.strip() for inst in recipe.instructions.split('\n') if inst.strip()]
 
-    # Fetch allergens and organize them by severity
+    # Fetch allergens
     allergens = {
         'contains': [],
         'may_contain': [],
@@ -462,9 +460,6 @@ def recipe_detail(request, recipe_id):
         }
         allergens[allergen.severity].append(allergen_info)
 
-    # Check if user is admin
-    is_admin = request.user.is_admin if hasattr(request.user, 'is_admin') else False
-
     context = {
         'recipe': recipe,
         'author_name': author_name,
@@ -478,11 +473,12 @@ def recipe_detail(request, recipe_id):
         'has_allergens': any(allergens.values()),
         'reviews': reviews,
         'reviews_display': True,
-        'is_admin': is_admin,
+        'is_admin': request.user.is_admin if hasattr(request.user, 'is_admin') else False,
         'is_logged_in': is_logged_in,
         'user_id': user_id,
         'messages': messages.get_messages(request),
         'is_ai_generated': is_ai_generated,
+        'is_subscribed': is_subscribed
     }
     
     return render(request, 'recipe_detail.html', context)
@@ -2246,3 +2242,262 @@ def delete_user_recipe(request, recipe_id):
         logger.error(f"Error deleting recipe {recipe_id}: {str(e)}")
         messages.error(request, f'An error occurred while deleting the recipe: {str(e)}')
         return JsonResponse({'error': str(e)}, status=500)
+
+def subscription_plans(request):
+    """Display the premium subscription plan"""
+    user_subscription = None
+    if request.session.get('id'):
+        user_subscription = UserSubscription.objects.filter(
+            user_id=request.session['id'],
+            status='active',
+            end_date__gt=timezone.now()
+        ).first()
+    
+    # Define the single premium plan
+    premium_plan = {
+        'id': 1,
+        'name': 'Premium Plan',
+        'price': 999,
+        'duration': 'monthly',
+        'features': [
+            'Access to Nutritional Information',
+            'Dietary Recommendations',
+            'Personalized Meal Planning',
+            'Health Analytics',
+            'Recipe Analysis for Health Conditions',
+            'Premium Recipe Access'
+        ]
+    }
+    
+    return render(request, 'subscription/plans.html', {
+        'plan': premium_plan,
+        'user_subscription': user_subscription,
+        'razorpay_key': settings.RAZORPAY_KEY_ID
+    })
+
+def subscription_checkout(request, plan_id=1):
+    try:
+        # Check if user is logged in
+        if not request.session.get('id'):
+            messages.error(request, 'Please log in to subscribe to premium')
+            return redirect('login')
+
+        # Define premium plan details
+        plan = {
+            'id': 1,
+            'name': 'Premium Plan',
+            'price': 999,
+            'duration': 'monthly',
+            'features': [
+                'Access to Nutritional Information',
+                'Dietary Recommendations',
+                'Personalized Meal Planning',
+                'Health Analytics',
+                'Recipe Analysis for Health Conditions',
+                'Premium Recipe Access'
+            ]
+        }
+        
+        # Initialize Razorpay client
+        client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+        
+        # Convert amount to paise (Razorpay expects amount in smallest currency unit)
+        amount_in_paise = int(float(plan['price']) * 100)
+        
+        # Create Razorpay order
+        order_data = {
+            'amount': amount_in_paise,
+            'currency': 'INR',
+            'receipt': f'order_rcptid_premium_{request.session["id"]}',
+            'payment_capture': 1
+        }
+        order = client.order.create(data=order_data)
+
+        # Create a pending subscription
+        user = CustomUser.objects.get(id=request.session['id'])
+        start_date = timezone.now()
+        end_date = start_date + timezone.timedelta(days=30)  # 30 days subscription
+
+        subscription = UserSubscription.objects.create(
+            user=user,
+            start_date=start_date,
+            end_date=end_date,
+            status='pending',
+            razorpay_order_id=order['id']
+        )
+
+        # Prepare context for the template
+        context = {
+            'plan': plan,
+            'order_id': order['id'],
+            'amount': amount_in_paise,
+            'currency': 'INR',
+            'razorpay_key': settings.RAZORPAY_KEY_ID,
+            'callback_url': request.build_absolute_uri(reverse('process_subscription', args=[1])),
+            'cancel_url': request.build_absolute_uri(reverse('subscription_cancel'))
+        }
+
+        return render(request, 'subscription/checkout.html', context)
+
+    except CustomUser.DoesNotExist:
+        messages.error(request, 'User account not found')
+        return redirect('login')
+    except Exception as e:
+        messages.error(request, f'An error occurred: {str(e)}')
+        return redirect('subscription_plans')
+
+@csrf_exempt
+def process_subscription(request, plan_id):
+    """Process the Razorpay payment response"""
+    if request.method != "POST":
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    
+    try:
+        # Get payment details from POST data
+        payment_id = request.POST.get('razorpay_payment_id')
+        order_id = request.POST.get('razorpay_order_id')
+        signature = request.POST.get('razorpay_signature')
+
+        # Verify all required parameters are present
+        if not all([payment_id, order_id, signature]):
+            logger.error("Missing required payment parameters")
+            return redirect('subscription_cancel')
+
+        # Initialize Razorpay client
+        client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+        
+        try:
+            # Verify payment signature
+            params_dict = {
+                'razorpay_payment_id': payment_id,
+                'razorpay_order_id': order_id,
+                'razorpay_signature': signature
+            }
+            client.utility.verify_payment_signature(params_dict)
+            
+            # Fetch payment details from Razorpay
+            payment = client.payment.fetch(payment_id)
+            
+            if payment['status'] == 'captured':
+                # Payment successful - update subscription
+                subscription = UserSubscription.objects.get(razorpay_order_id=order_id)
+                subscription.status = 'active'
+                subscription.razorpay_payment_id = payment_id
+                subscription.razorpay_signature = signature
+                subscription.save()
+                
+                # Create payment history record
+                PaymentHistory.objects.create(
+                    user_id=subscription.user_id,
+                    subscription=subscription,
+                    amount=payment['amount'] / 100,  # Convert from paise to rupees
+                    status='success',
+                    payment_method='razorpay',
+                    transaction_id=payment_id
+                )
+                
+                messages.success(request, 'Payment successful! Your premium subscription is now active.')
+                return redirect('subscription_success')
+            else:
+                logger.error(f"Payment not captured. Status: {payment['status']}")
+                raise Exception("Payment not captured")
+                
+        except razorpay.errors.SignatureVerificationError:
+            logger.error("Payment signature verification failed")
+            raise Exception("Invalid payment signature")
+            
+    except UserSubscription.DoesNotExist:
+        logger.error(f"Subscription not found for order_id: {order_id}")
+        messages.error(request, 'Subscription record not found.')
+        return redirect('subscription_cancel')
+        
+    except Exception as e:
+        logger.error(f"Error processing subscription: {str(e)}")
+        messages.error(request, 'Payment processing failed. Please try again.')
+        return redirect('subscription_cancel')
+
+def subscription_success(request):
+    """Handle successful subscription"""
+    return render(request, 'subscription/success.html')
+
+def subscription_cancel(request):
+    """Handle cancelled subscription"""
+    return render(request, 'subscription/cancel.html')
+
+@csrf_exempt
+def razorpay_webhook(request):
+    """Handle Razorpay webhooks"""
+    if request.method != "POST":
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    
+    try:
+        # Verify webhook signature
+        webhook_signature = request.headers.get('X-Razorpay-Signature')
+        razorpay_client.utility.verify_webhook_signature(
+            request.body.decode(),
+            webhook_signature,
+            settings.RAZORPAY_WEBHOOK_SECRET
+        )
+        
+        # Process webhook data
+        webhook_data = json.loads(request.body)
+        event = webhook_data.get('event')
+        
+        if event == 'payment.failed':
+            # Handle failed payment
+            order_id = webhook_data['payload']['payment']['entity']['order_id']
+            subscription = UserSubscription.objects.get(razorpay_order_id=order_id)
+            subscription.status = 'cancelled'
+            subscription.save()
+            
+            PaymentHistory.objects.create(
+                user_id=subscription.user_id,
+                subscription=subscription,
+                amount=subscription.plan.price,
+                status='failed',
+                payment_method='razorpay',
+                transaction_id=webhook_data['payload']['payment']['entity']['id'],
+                metadata=webhook_data
+            )
+        
+        return JsonResponse({'status': 'success'})
+        
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)
+
+def subscription_status(request):
+    """Check subscription status"""
+    if not request.session.get('id'):
+        return JsonResponse({'error': 'Not authenticated'}, status=401)
+    
+    subscription = UserSubscription.objects.filter(
+        user_id=request.session['id'],
+        status='active',
+        end_date__gt=timezone.now()
+    ).first()
+    
+    return JsonResponse({
+        'is_premium': bool(subscription),
+        'subscription': {
+            'plan': subscription.plan.name,
+            'end_date': subscription.end_date.isoformat(),
+            'days_remaining': (subscription.end_date - timezone.now()).days
+        } if subscription else None
+    })
+
+# Add this to your context processor or middleware
+def subscription_middleware(get_response):
+    def middleware(request):
+        if request.session.get('id'):
+            request.user_subscription = UserSubscription.objects.filter(
+                user_id=request.session['id'],
+                status='active',
+                end_date__gt=timezone.now()
+            ).first()
+        else:
+            request.user_subscription = None
+        
+        response = get_response(request)
+        return response
+    
+    return middleware

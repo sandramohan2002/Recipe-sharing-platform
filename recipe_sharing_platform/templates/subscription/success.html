@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <div class="card shadow-lg">
+                <div class="card-body p-5">
+                    <div class="success-icon mb-4">
+                        <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+                    </div>
+                    <h2 class="mb-4">Payment Successful!</h2>
+                    <p class="lead mb-4">Thank you for subscribing to our Premium Plan. Your subscription is now active.</p>
+                    
+                    <div class="alert alert-success mb-4">
+                        <h5 class="mb-3">You now have access to:</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check me-2"></i> Nutritional Information</li>
+                            <li><i class="fas fa-check me-2"></i> Dietary Recommendations</li>
+                            <li><i class="fas fa-check me-2"></i> Personalized Meal Planning</li>
+                            <li><i class="fas fa-check me-2"></i> Health Analytics</li>
+                            <li><i class="fas fa-check me-2"></i> Recipe Analysis</li>
+                            <li><i class="fas fa-check me-2"></i> Premium Recipes</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <a href="{% url 'recipe' %}" class="btn btn-primary btn-lg me-3">
+                            Explore Recipes
+                        </a>
+                        <a href="{% url 'meal_planner' %}" class="btn btn-outline-primary btn-lg">
+                            Start Meal Planning
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card {
+    border: none;
+    border-radius: 15px;
+}
+
+.success-icon {
+    animation: scale-in 0.5s ease-out;
+}
+
+@keyframes scale-in {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.btn-primary {
+    background-color: #ff6f00;
+    border: none;
+}
+
+.btn-outline-primary {
+    border-color: #ff6f00;
+    color: #ff6f00;
+}
+
+.btn-outline-primary:hover {
+    background-color: #ff6f00;
+    border-color: #ff6f00;
+}
+
+.alert-success {
+    background-color: #e8f5e9;
+    border-color: #c8e6c9;
+}
+
+.alert-success i {
+    color: #43a047;
+}
+
+.list-unstyled li {
+    margin-bottom: 10px;
+}
+</style>
+{% endblock %} 

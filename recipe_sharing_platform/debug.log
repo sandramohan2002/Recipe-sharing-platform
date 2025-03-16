@@ -38418,3 +38418,1502 @@ Creating converter from 7 to 5
 Creating converter from 5 to 7
 Creating converter from 7 to 5
 Creating converter from 5 to 7
+Total recipes: 3
+Show my recipes: True
+Current user ID: 3
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 36, Recipe ID type: <class 'int'>, Name: Clio Martinez
+Recipe ID: 37, Recipe ID type: <class 'int'>, Name: Fulton Duke
+Total recipes: 2
+Show my recipes: True
+Current user ID: 3
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 37, Recipe ID type: <class 'int'>, Name: Fulton Duke
+Total recipes: 1
+Show my recipes: True
+Current user ID: 3
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Total recipes: 15
+Show my recipes: False
+Current user ID: 3
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Chapathi
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Butter Chicken
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: jj
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Tomato Rice
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name: Jamalia Garner
+Recipe ID: 32, Recipe ID type: <class 'int'>, Name: Christopher Boyer
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+Total recipes: 15
+Show my recipes: False
+Current user ID: 3
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Chapathi
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Butter Chicken
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: jj
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Tomato Rice
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name: Jamalia Garner
+Recipe ID: 32, Recipe ID type: <class 'int'>, Name: Christopher Boyer
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+Total recipes: 15
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Chapathi
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Butter Chicken
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: jj
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Tomato Rice
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name: Jamalia Garner
+Recipe ID: 32, Recipe ID type: <class 'int'>, Name: Christopher Boyer
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+Total recipes: 9
+Show my recipes: True
+Current user ID: 2
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 25, Recipe ID type: <class 'int'>, Name: Jamalia Garner
+Recipe ID: 32, Recipe ID type: <class 'int'>, Name: Christopher Boyer
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+Total recipes: 7
+Show my recipes: True
+Current user ID: 2
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+Total recipes: 7
+Show my recipes: True
+Current user ID: 2
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+Starting new HTTPS connection (1): generativelanguage.googleapis.com:443
+https://generativelanguage.googleapis.com:443 "POST /v1/models/gemini-1.5-pro:generateContent HTTP/1.1" 200 None
+Total recipes: 14
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Chapathi
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Butter Chicken
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: jj
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Tomato Rice
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+Recipe ID: 38, Recipe ID type: <class 'int'>, Name: Bevis Snow
+Total recipes: 8
+Show my recipes: True
+Current user ID: 2
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+Recipe ID: 38, Recipe ID type: <class 'int'>, Name: Bevis Snow
+Total recipes: 13
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Chapathi
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Butter Chicken
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: jj
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Tomato Rice
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+Total recipes: 13
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Chapathi
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Butter Chicken
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: jj
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Tomato Rice
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+Total recipes: 7
+Show my recipes: True
+Current user ID: 2
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+Total recipes: 13
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Chapathi
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Butter Chicken
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: jj
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Tomato Rice
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+Total recipes: 7
+Show my recipes: True
+Current user ID: 2
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\models.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe_sharing_platform\settings.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Total recipes: 13
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Chapathi
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Butter Chicken
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: jj
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Tomato Rice
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+Internal Server Error: /subscription/plans/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 2276, in subscription_plans
+    'razorpay_key': settings.RAZORPAY_KEY_ID
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: subscription/plans.html
+Not Found: /favicon.ico
+Using selector: SelectSelector
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Total recipes: 13
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Chapathi
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Butter Chicken
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: jj
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Tomato Rice
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+Internal Server Error: /subscription/plans/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader_tags.py", line 183, in render
+    template = context.template.engine.select_template(template_name)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\engine.py", line 180, in select_template
+    raise TemplateDoesNotExist(', '.join(not_found))
+django.template.exceptions.TemplateDoesNotExist: footer.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 2276, in subscription_plans
+    'razorpay_key': settings.RAZORPAY_KEY_ID
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 63, in render
+    reraise(exc, self.backend)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 84, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: footer.html
+Internal Server Error: /subscription/plans/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader_tags.py", line 183, in render
+    template = context.template.engine.select_template(template_name)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\engine.py", line 180, in select_template
+    raise TemplateDoesNotExist(', '.join(not_found))
+django.template.exceptions.TemplateDoesNotExist: footer.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 2276, in subscription_plans
+    'razorpay_key': settings.RAZORPAY_KEY_ID
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 63, in render
+    reraise(exc, self.backend)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 84, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: footer.html
+Total recipes: 13
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Chapathi
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Butter Chicken
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: jj
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Tomato Rice
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+Internal Server Error: /subscription/plans/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader_tags.py", line 183, in render
+    template = context.template.engine.select_template(template_name)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\engine.py", line 180, in select_template
+    raise TemplateDoesNotExist(', '.join(not_found))
+django.template.exceptions.TemplateDoesNotExist: footer.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 2276, in subscription_plans
+    'razorpay_key': settings.RAZORPAY_KEY_ID
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 63, in render
+    reraise(exc, self.backend)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 84, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: footer.html
+Total recipes: 13
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Chapathi
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Butter Chicken
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: jj
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Tomato Rice
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+Internal Server Error: /subscription/plans/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 2276, in subscription_plans
+    'razorpay_key': settings.RAZORPAY_KEY_ID
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader_tags.py", line 195, in render
+    return template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'home' not found. 'home' is not a valid view function or pattern name.
+Total recipes: 13
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Chapathi
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Butter Chicken
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: jj
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Tomato Rice
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+Internal Server Error: /subscription/plans/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 2276, in subscription_plans
+    'razorpay_key': settings.RAZORPAY_KEY_ID
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\shortcuts.py", line 19, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 170, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\loader_tags.py", line 195, in render
+    return template.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\base.py", line 905, in render_annotated
+    return self.render(context)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\template\defaulttags.py", line 449, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\base.py", line 86, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\urls\resolvers.py", line 698, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'recipe_list' not found. 'recipe_list' is not a valid view function or pattern name.
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Starting new HTTPS connection (1): api.razorpay.com:443
+https://api.razorpay.com:443 "POST /v1/orders HTTP/1.1" 200 213
+Internal Server Error: /subscription/checkout/2/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 2315, in subscription_checkout
+    reverse('process_subscription', args=[plan.id])
+NameError: name 'reverse' is not defined
+https://api.razorpay.com:443 "POST /v1/orders HTTP/1.1" 200 211
+Internal Server Error: /subscription/checkout/1/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 2315, in subscription_checkout
+    reverse('process_subscription', args=[plan.id])
+NameError: name 'reverse' is not defined
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Starting new HTTPS connection (1): api.razorpay.com:443
+https://api.razorpay.com:443 "POST /v1/orders HTTP/1.1" 200 211
+Internal Server Error: /subscription/checkout/1/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 2315, in subscription_checkout
+NameError: name 'reverse' is not defined
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Starting new HTTPS connection (1): api.razorpay.com:443
+https://api.razorpay.com:443 "POST /v1/orders HTTP/1.1" 200 220
+Starting new HTTPS connection (1): api.razorpay.com:443
+https://api.razorpay.com:443 "POST /v1/orders HTTP/1.1" 200 218
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Starting new HTTPS connection (1): api.razorpay.com:443
+https://api.razorpay.com:443 "POST /v1/orders HTTP/1.1" 200 218
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Starting new HTTPS connection (1): api.razorpay.com:443
+https://api.razorpay.com:443 "POST /v1/orders HTTP/1.1" 200 225
+Total recipes: 13
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Chapathi
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Butter Chicken
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: jj
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Tomato Rice
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+Total recipes: 13
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Chapathi
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Butter Chicken
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: jj
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Tomato Rice
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\models.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Starting new HTTPS connection (1): api.razorpay.com:443
+https://api.razorpay.com:443 "POST /v1/orders HTTP/1.1" 200 231
+Starting new HTTPS connection (1): api.razorpay.com:443
+https://api.razorpay.com:443 "POST /v1/orders HTTP/1.1" 200 231
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Starting new HTTPS connection (1): api.razorpay.com:443
+https://api.razorpay.com:443 "POST /v1/orders HTTP/1.1" 200 231
+Error processing subscription: 'UserSubscription' object has no attribute 'plan'
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Total recipes: 13
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Chapathi
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Butter Chicken
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: jj
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Tomato Rice
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+Total recipes: 13
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Chapathi
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Butter Chicken
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: jj
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Tomato Rice
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\urls.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\models.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\models.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe_sharing_platform\settings.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe_sharing_platform\settings.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe_sharing_platform\settings.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe_sharing_platform\settings.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Total recipes: 13
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Chapathi
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Butter Chicken
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: jj
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Tomato Rice
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Internal Server Error: /recipe/1/analyze-diet/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 188, in _get_response
+    self.check_response(response, callback)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 311, in check_response
+    "instead." % name
+ValueError: The view recipe.views.analyze_recipe_diet didn't return an HttpResponse object. It returned None instead.
+Internal Server Error: /recipe/1/analyze-diet/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 188, in _get_response
+    self.check_response(response, callback)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 311, in check_response
+    "instead." % name
+ValueError: The view recipe.views.analyze_recipe_diet didn't return an HttpResponse object. It returned None instead.
+Internal Server Error: /recipe/1/analyze-diet/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 188, in _get_response
+    self.check_response(response, callback)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 311, in check_response
+    "instead." % name
+ValueError: The view recipe.views.analyze_recipe_diet didn't return an HttpResponse object. It returned None instead.
+Internal Server Error: /recipe/1/analyze-diet/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 188, in _get_response
+    self.check_response(response, callback)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 311, in check_response
+    "instead." % name
+ValueError: The view recipe.views.analyze_recipe_diet didn't return an HttpResponse object. It returned None instead.
+Internal Server Error: /recipe/1/analyze-diet/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 188, in _get_response
+    self.check_response(response, callback)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 311, in check_response
+    "instead." % name
+ValueError: The view recipe.views.analyze_recipe_diet didn't return an HttpResponse object. It returned None instead.
+Internal Server Error: /recipe/1/analyze-diet/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 188, in _get_response
+    self.check_response(response, callback)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 311, in check_response
+    "instead." % name
+ValueError: The view recipe.views.analyze_recipe_diet didn't return an HttpResponse object. It returned None instead.
+Internal Server Error: /recipe/1/analyze-diet/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 188, in _get_response
+    self.check_response(response, callback)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 311, in check_response
+    "instead." % name
+ValueError: The view recipe.views.analyze_recipe_diet didn't return an HttpResponse object. It returned None instead.
+Internal Server Error: /recipe/1/analyze-diet/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 188, in _get_response
+    self.check_response(response, callback)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 311, in check_response
+    "instead." % name
+ValueError: The view recipe.views.analyze_recipe_diet didn't return an HttpResponse object. It returned None instead.
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Internal Server Error: /recipe/1/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 386, in recipe_detail
+    if request.user.is_authenticated:
+AttributeError: 'NoneType' object has no attribute 'is_authenticated'
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Internal Server Error: /recipe/1/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 386, in recipe_detail
+    if request.session.get('id'):
+AttributeError: 'NoneType' object has no attribute 'is_authenticated'
+Internal Server Error: /recipe/1/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 386, in recipe_detail
+    if request.session.get('id'):
+AttributeError: 'NoneType' object has no attribute 'is_authenticated'
+Internal Server Error: /recipe/1/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 386, in recipe_detail
+    if request.session.get('id'):
+AttributeError: 'NoneType' object has no attribute 'is_authenticated'
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Internal Server Error: /recipe/1/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 398, in recipe_detail
+    reviews = Review.objects.filter(recipe=recipe).order_by('-created_at')
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 941, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 961, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 968, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1416, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1438, in _add_q
+    split_subq=split_subq, check_filterable=check_filterable,
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1309, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1135, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1563, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'recipe' into field. Choices are: created_at, recipe_id, review_id, review_text, user_id
+Internal Server Error: /recipe/1/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 398, in recipe_detail
+    reviews = Review.objects.filter(recipe=recipe).order_by('-created_at')
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 941, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 961, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 968, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1416, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1438, in _add_q
+    split_subq=split_subq, check_filterable=check_filterable,
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1309, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1135, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1563, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'recipe' into field. Choices are: created_at, recipe_id, review_id, review_text, user_id
+Internal Server Error: /recipe/1/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 398, in recipe_detail
+    reviews = Review.objects.filter(recipe=recipe).order_by('-created_at')
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 941, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 961, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 968, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1416, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1438, in _add_q
+    split_subq=split_subq, check_filterable=check_filterable,
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1309, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1135, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1563, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'recipe' into field. Choices are: created_at, recipe_id, review_id, review_text, user_id
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Internal Server Error: /recipe/1/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 398, in recipe_detail
+    reviews = Review.objects.filter(recipe_id=recipe_id).order_by('-created_at')
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 941, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 961, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 968, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1416, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1438, in _add_q
+    split_subq=split_subq, check_filterable=check_filterable,
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1309, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1135, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1563, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'recipe' into field. Choices are: created_at, recipe_id, review_id, review_text, user_id
+Internal Server Error: /recipe/1/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 398, in recipe_detail
+    reviews = Review.objects.filter(recipe_id=recipe_id).order_by('-created_at')
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 941, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 961, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 968, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1416, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1438, in _add_q
+    split_subq=split_subq, check_filterable=check_filterable,
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1309, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1135, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1563, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'recipe' into field. Choices are: created_at, recipe_id, review_id, review_text, user_id
+Internal Server Error: /recipe/1/
+Traceback (most recent call last):
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py", line 398, in recipe_detail
+    reviews = Review.objects.filter(recipe_id=recipe_id).order_by('-created_at')
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 941, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 961, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\query.py", line 968, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1416, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1438, in _add_q
+    split_subq=split_subq, check_filterable=check_filterable,
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1309, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg)
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1135, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+  File "D:\MINI_PROJECT\projectenv\lib\site-packages\django\db\models\sql\query.py", line 1563, in names_to_path
+    "Choices are: %s" % (name, ", ".join(available)))
+django.core.exceptions.FieldError: Cannot resolve keyword 'recipe' into field. Choices are: created_at, recipe_id, review_id, review_text, user_id
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Using selector: SelectSelector
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe_sharing_platform\settings.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\models.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\models.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Total recipes: 13
+Show my recipes: False
+Current user ID: 2
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Chapathi
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Butter Chicken
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: jj
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Tomato Rice
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Total recipes: 13
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Chapathi
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Butter Chicken
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: jj
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Tomato Rice
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Starting new HTTPS connection (1): api.razorpay.com:443
+https://api.razorpay.com:443 "POST /v1/orders HTTP/1.1" 200 231
+Starting new HTTPS connection (1): api.razorpay.com:443
+https://api.razorpay.com:443 "GET /v1/payments/pay_Q7MkhMpiehbhIO HTTP/1.1" 200 None
+Total recipes: 13
+Show my recipes: False
+Current user ID: 1
+Recipe ID: 1, Recipe ID type: <class 'int'>, Name: Ladoo
+Recipe ID: 3, Recipe ID type: <class 'int'>, Name: Chocolate Mediants 
+Recipe ID: 6, Recipe ID type: <class 'int'>, Name: Chapathi
+Recipe ID: 12, Recipe ID type: <class 'int'>, Name: Butter Chicken
+Recipe ID: 13, Recipe ID type: <class 'int'>, Name: jj
+Recipe ID: 14, Recipe ID type: <class 'int'>, Name: Tomato Rice
+Recipe ID: 15, Recipe ID type: <class 'int'>, Name: Aloo Tikki
+Recipe ID: 16, Recipe ID type: <class 'int'>, Name: Vegetable Stew
+Recipe ID: 17, Recipe ID type: <class 'int'>, Name: Chocolate Oats
+Recipe ID: 18, Recipe ID type: <class 'int'>, Name: Banana Pancake
+Recipe ID: 19, Recipe ID type: <class 'int'>, Name: Pongal
+Recipe ID: 20, Recipe ID type: <class 'int'>, Name: Fried Rice
+Recipe ID: 33, Recipe ID type: <class 'int'>, Name: Classic Caramel Cake
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+D:\MINI_PROJECT\recipe_sharing_platform\recipe\views.py changed, reloading.
+Using selector: SelectSelector
+Watching for file changes with StatReloader
+Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+Creating converter from 7 to 5
+Creating converter from 5 to 7
+Creating converter from 7 to 5
+Creating converter from 5 to 7

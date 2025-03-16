@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 
 #class User(AbstractUser):
    # ROLE_CHOICES = [
@@ -392,6 +393,67 @@ class DietaryGuideline(models.Model):
     def __str__(self):
         return f"{self.get_condition_display()} - {self.nutrient}"
 
+class SubscriptionPlan(models.Model):
+    DURATION_CHOICES = [
+        ('monthly', 'Monthly'),
+        ('yearly', 'Yearly'),
+    ]
+    
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    duration = models.CharField(max_length=20, choices=DURATION_CHOICES)
+    features = models.JSONField()  # Store features as JSON
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.get_duration_display()}"
+
+class UserSubscription(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    status = models.CharField(max_length=20, choices=[
+        ('pending', 'Pending'),
+        ('active', 'Active'),
+        ('cancelled', 'Cancelled'),
+        ('expired', 'Expired')
+    ])
+    razorpay_order_id = models.CharField(max_length=100, null=True, blank=True)
+    razorpay_payment_id = models.CharField(max_length=100, null=True, blank=True)
+    razorpay_signature = models.CharField(max_length=200, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'user_subscriptions'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.user.name}'s subscription - {self.status}"
+
+class PaymentHistory(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    subscription = models.ForeignKey(UserSubscription, on_delete=models.SET_NULL, null=True)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=20, choices=[
+        ('pending', 'Pending'),
+        ('success', 'Success'),
+        ('failed', 'Failed')
+    ])
+    payment_method = models.CharField(max_length=50)
+    transaction_id = models.CharField(max_length=100)
+    metadata = models.JSONField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'payment_history'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Payment {self.transaction_id} - {self.status}"
 
     
 

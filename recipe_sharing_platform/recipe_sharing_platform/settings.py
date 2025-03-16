@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google', 
     'social_django',
+    'razorpay',
     #'allauth.socialaccount.providers.github',
     #'allauth.socialaccount.providers.facebook',
 ]
@@ -237,3 +238,8 @@ LOGGING = {
         },
     },
 }
+
+# Razorpay Settings
+RAZORPAY_KEY_ID = 'rzp_test_EYA3vypm9ZHRuN'  # Replace with your actual key
+RAZORPAY_KEY_SECRET = 'WTszVCcZyUijmNTdZH1kwWkw'  # Replace with your actual secret
+RAZORPAY_CURRENCY = 'INR'
