@@ -35,6 +35,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .models import SubscriptionPlan, UserSubscription, PaymentHistory
 from django.urls import reverse
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 
 
 logger = logging.getLogger(__name__)
@@ -352,12 +354,12 @@ def addrecipe(request):
                 notes = request.POST.getlist('allergen_notes[]')
 
                 for name, severity, note in zip(allergen_names, severities, notes):
-                    if name and severity:
+                    if name:  # Only create if allergen name is provided
                         RecipeAllergen.objects.create(
-                            recipe=recipe,
+                            recipe_id=recipe.recipe_id,  # Use recipe_id instead of recipe
                             allergen_name=name,
                             severity=severity,
-                            notes=note or ''
+                            notes=note if note else None
                         )
 
                 messages.success(request, 'Recipe added successfully!')
@@ -1340,66 +1342,92 @@ def food_photography_view(request):
     return render(request, 'food_photography.html', photography_classes)
 
 def event_registration(request, event_id):
-    # Get the event details
-    event = get_object_or_404(Event, event_id=event_id)
-    
-    if request.method == 'POST':
-        name = request.POST.get('name', '').strip()
-        email = request.POST.get('email', '').strip()
-        phone = request.POST.get('phone', '').strip()
-        
-        # Validation
-        errors = []
-        
-        # Name validation
-        if not name or not name.replace(' ', '').isalpha():
-            errors.append('Name should contain only letters')
-        
-        # Email validation
-        email_regex = r'^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-        if not re.match(email_regex, email):
-            errors.append('Please enter a valid email address')
-        
-        # Phone validation
-        if not phone.isdigit() or len(phone) != 10:
-            errors.append('Phone number should be 10 digits')
-        
-        if errors:
-            for error in errors:
-                messages.error(request, error)
+    try:
+        # Get the event and user_id
+        event = Event.objects.get(event_id=event_id)
+        user_id = request.session.get('id')
+
+        if not user_id:
+            messages.error(request, "Please log in to register for events.")
+            return redirect('login')
+
+        # For GET request, just render the form
+        if request.method == 'GET':
             return render(request, 'event_registration.html', {
                 'event': event,
-                'values': request.POST
+                'user_id': user_id
             })
-        
-        try:
-            # Check for duplicate registration
-            if EventRegistration.objects.filter(email=email, event_id=event_id).exists():
-                messages.error(request, 'You have already registered for this event!')
+
+        # Handle POST request
+        if request.method == 'POST':
+            # Get form data
+            name = request.POST.get('name', '').strip()
+            email = request.POST.get('email', '').strip()
+            phone = request.POST.get('phone', '').strip()
+
+            # Validate required fields
+            if not all([name, email, phone]):
+                messages.error(request, "All fields are required.")
                 return render(request, 'event_registration.html', {
                     'event': event,
-                    'values': request.POST
+                    'user_id': user_id
                 })
 
-            # Save registration
-            EventRegistration.objects.create(
-                name=name,
-                email=email,
-                phone=phone,
-                event_id=event_id
-            )
-            
-            messages.success(request, 'Registration successful!')
-            return redirect('view_events')
-            
-        except Exception as e:
-            messages.error(request, 'Registration failed. Please try again.')
-            return render(request, 'event_registration.html', {
-                'event': event,
-                'values': request.POST
-            })
-    
-    return render(request, 'event_registration.html', {'event': event})
+            # Validate phone number
+            if not phone.isdigit() or len(phone) != 10:
+                messages.error(request, "Please enter a valid 10-digit phone number.")
+                return render(request, 'event_registration.html', {
+                    'event': event,
+                    'user_id': user_id
+                })
+
+            try:
+                with transaction.atomic():
+                    # Check for existing registration using correct field name
+                    if EventRegistration.objects.filter(event=event_id, user_id=user_id).exists():
+                        messages.error(request, "You have already registered for this event.")
+                        return redirect('view_events')
+
+                    # Check event capacity
+                    if event.current_participants >= event.max_participants:
+                        messages.error(request, "Sorry, this event is already full.")
+                        return redirect('view_events')
+
+                    # Create the registration with correct field name
+                    EventRegistration.objects.create(
+                        event=event_id,  # Changed from event_id to event
+                        user_id=user_id,
+                        name=name,
+                        email=email,
+                        phone=phone,
+                        status='registered'
+                    )
+
+                    # Update event participants count
+                    event.current_participants += 1
+                    event.save()
+
+                    messages.success(request, "Registration successful! You have been registered for the event.")
+                    return redirect('view_events')
+
+            except Exception as e:
+                print(f"Registration error: {str(e)}")
+                messages.error(request, "Registration failed. Please try again.")
+                return render(request, 'event_registration.html', {
+                    'event': event,
+                    'user_id': user_id
+                })
+
+    except Event.DoesNotExist:
+        messages.error(request, "Event not found.")
+        return redirect('view_events')
+    except Exception as e:
+        print(f"Unexpected error in event registration: {str(e)}")
+        messages.error(request, "An unexpected error occurred. Please try again.")
+        return render(request, 'event_registration.html', {
+            'event': event if 'event' in locals() else None,
+            'user_id': user_id
+        })
 
 def toggle_favorite(request):
     if request.method == 'POST':

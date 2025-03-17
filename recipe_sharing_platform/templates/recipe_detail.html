@@ -919,6 +919,230 @@
         .print-btn i {
             display: none;  /* Hide the icon styles */
         }
+        /* Enhanced Ingredients Section Styles */
+        .ingredients-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .ingredients-section h2 {
+            font-size: 1.8rem;
+            color: #2d3748;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .ingredients-section h2 i {
+            color: #3498db;
+        }
+
+        .ingredients-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .ingredients-list li {
+            background: #f8fafc;
+            padding: 16px 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .ingredients-list li:before {
+            content: '•';
+            color: #3498db;
+            font-size: 1.5em;
+            line-height: 0;
+        }
+
+        .ingredients-list li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-color: #3498db;
+        }
+
+        /* Updated Instructions Section Styles */
+        .instructions-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .instructions-section h2 {
+            font-size: 1.8rem;
+            color: #2d3748;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .instructions-section h2 i {
+            color: #3498db;
+        }
+
+        .instructions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .instruction-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 12px 15px;
+            background: #f8fafc;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .instruction-step:hover {
+            border-color: #3498db;
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .step-number {
+            min-width: 28px;
+            height: 28px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9em;
+            margin-top: 2px;
+        }
+
+        .step-content {
+            flex: 1;
+            color: #2d3748;
+            line-height: 1.6;
+            font-size: 1em;
+        }
+
+        .step-text {
+            margin: 0;
+            padding: 0;
+        }
+
+        .no-instructions {
+            text-align: center;
+            color: #64748b;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 8px;
+            font-style: italic;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .instructions-section {
+                padding: 20px;
+            }
+
+            .instruction-step {
+                padding: 10px 12px;
+            }
+
+            .step-number {
+                min-width: 24px;
+                height: 24px;
+                font-size: 0.85em;
+            }
+
+            .step-content {
+                font-size: 0.95em;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .instructions-section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+
+            .instruction-step:hover {
+                transform: none;
+                box-shadow: none;
+            }
+        }
+        .recipe-info-header {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+        }
+        
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .nutrition-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s ease;
+        }
+        
+        .nutrition-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .nutrition-item .label {
+            color: #495057;
+            font-weight: 500;
+        }
+        
+        .nutrition-item .value {
+            color: #ff6f00;
+            font-weight: 600;
+        }
+        
+        .ai-badge {
+            text-align: center;
+            padding: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        
+        .no-data {
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body>
@@ -1022,12 +1246,20 @@
         <div id="nutritionalModal" class="modal-overlay">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2><i class="fas fa-chart-pie"></i> Nutritional Information</h2>
+                    <!-- <h2><i class="fas fa-chart-pie"></i> Nutritional Information</h2> -->
                     <span class="close-modal" onclick="closeNutritionalModal()">&times;</span>
                 </div>
                 {% if is_subscribed %}
                     <div class="nutritional-info-section">
                         {% if nutritional_info %}
+                            <div class="recipe-info-header mb-4">
+                                <h3 class="text-center" style="color: #ff6f00; margin-bottom: 20px;">
+                                    {{ recipe.recipename }}
+                                </h3>
+                                <p class="text-center text-muted">
+                                    <i class="fas fa-utensils"></i> Per Serving
+                                </p>
+                            </div>
                             <div class="nutrition-grid">
                                 <div class="nutrition-item">
                                     <span class="label">Calories:</span>
@@ -1055,12 +1287,16 @@
                                 </div>
                             </div>
                             {% if is_ai_generated %}
-                                <div class="ai-badge">
+                                <div class="ai-badge mt-4">
                                     <i class="fas fa-robot"></i> AI-Generated Nutritional Information
                                 </div>
                             {% endif %}
                         {% else %}
-                            <p class="no-data">Nutritional information not available for this recipe.</p>
+                            <div class="no-data text-center">
+                                <i class="fas fa-exclamation-circle" style="font-size: 2em; color: #ff6f00; margin-bottom: 15px;"></i>
+                                <h4>No Nutritional Information Available</h4>
+                                <p class="text-muted">Nutritional information for "{{ recipe.recipename }}" is not available at this time.</p>
+                            </div>
                         {% endif %}
                     </div>
                 {% else %}
@@ -1093,7 +1329,8 @@
                 <ul class="ingredients-list">
                     {% for recipe_ingredient in recipe.recipe_ingredients.all %}
                         <li>
-                            {{ recipe_ingredient.quantity }} {{ recipe_ingredient.measurement }} {{ recipe_ingredient.ingredient.name }}
+                            <span class="ingredient-amount">{{ recipe_ingredient.quantity }} {{ recipe_ingredient.measurement }}</span>
+                            <span class="ingredient-name">{{ recipe_ingredient.ingredient.name }}</span>
                         </li>
                     {% endfor %}
                 </ul>
@@ -1156,8 +1393,8 @@
                     {% for step in recipe.instructions.splitlines %}
                         {% if step %}
                             <div class="instruction-step">
+                                <div class="step-number">{{ forloop.counter }}</div>
                                 <div class="step-content">
-                                    <div class="step-number">{{ forloop.counter }}</div>
                                     <div class="step-text">{{ step|safe }}</div>
                                 </div>
                             </div>
@@ -1284,8 +1521,8 @@
     </div>
 
     <script>
-    var recipe_id = "{{ recipe.recipe_id }}";
-    var is_subscribed = {% if is_subscribed %}true{% else %}false{% endif %};
+    const recipe_id = "{{ recipe.recipe_id }}";
+    const is_subscribed = {% if is_subscribed %}true{% else %}false{% endif %};
 
     function showNutritionalInfo(recipeName) {
         document.getElementById('nutritionalModal').classList.add('active');

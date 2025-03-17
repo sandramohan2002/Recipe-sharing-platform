@@ -230,16 +230,16 @@ class RecipeIngredient(models.Model):
         return f"{self.quantity} {self.measurement} of {self.ingredient.name} for {self.recipe.recipename}"
 
 class EventRegistration(models.Model):
-    EVENT_CHOICES = [
-        ('italian', 'Italian Cuisine Workshop'),
-        ('bread', 'Bread Making Masterclass'),
-        ('photography', 'Food Photography Session'),
-    ]
+    # EVENT_CHOICES = [
+    #     ('italian', 'Italian Cuisine Workshop'),
+    #     ('bread', 'Bread Making Masterclass'),
+    #     ('photography', 'Food Photography Session'),
+    # ]
 
     name = models.CharField(max_length=100)
     email = models.EmailField()
     phone = models.CharField(max_length=10)
-    event = models.CharField(max_length=20, choices=EVENT_CHOICES)
+    event = models.CharField(max_length=20)
     registration_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -263,7 +263,7 @@ class Favorite(models.Model):
             return f"Favorite {self.id}"
 
 class RecipeAllergen(models.Model):
-    recipe_id = models.IntegerField()
+    recipe_id = models.IntegerField()  # This is the field we need to use
     allergen_name = models.CharField(max_length=50, choices=[
         ('dairy', 'Dairy'),
         ('eggs', 'Eggs'),

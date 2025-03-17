@@ -81,7 +81,7 @@
             width: 100%;
             padding: 12px;
             background: linear-gradient(45deg, #ff6f00, #ff9100);
-            color: white;
+            color: black;
             border: none;
             border-radius: 8px;
             font-weight: 500;
@@ -279,7 +279,8 @@
                                             onclick="confirmDelete('{{ event.event_id }}')">
                                         <i class="bi bi-trash"></i> Delete Event
                                     </button>
-                                    {% else %}
+                                    {% endif %}
+                                    {% if event.user_id != request.session.id %}
                                     <a href="{% url 'event_registration' event.event_id %}" class="register-btn btn mt-3">
                                         Register Now
                                     </a>

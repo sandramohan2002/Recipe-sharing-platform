@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-&t6ep%lw-^ndhggffo90=ouq&v2_0e^!4d#*l^(9orpy29n^p(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '91fa-117-206-201-197.ngrok-free.app']
 #name changed to localhost 
 
 
@@ -243,3 +243,5 @@ LOGGING = {
 RAZORPAY_KEY_ID = 'rzp_test_EYA3vypm9ZHRuN'  # Replace with your actual key
 RAZORPAY_KEY_SECRET = 'WTszVCcZyUijmNTdZH1kwWkw'  # Replace with your actual secret
 RAZORPAY_CURRENCY = 'INR'
+
+CSRF_TRUSTED_ORIGINS = ['https://91fa-117-206-201-197.ngrok-free.app']
